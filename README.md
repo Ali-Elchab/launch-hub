@@ -1,5 +1,3 @@
-# launch-hub
-Final Project for SEF, this app serves startups, guiding them through the way, helping in Hiring procces, marketing, legal, and finance. It also benefits job seekers as they would sign up to browse  startup jobs.
 ![title1](https://github.com/Ali-Elchab/launch-hub/assets/106644215/a8fa2df9-2cf3-4814-9de3-e0b9c7eb6ac7)
 
 ![title6](https://github.com/Ali-Elchab/launch-hub/assets/106644215/778d302c-33e6-4827-adbf-b820d462e2e8)
