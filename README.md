@@ -12,9 +12,13 @@
 ### User Stories
 - As a startup, I want to post job openings, so that I can attract talent and build a skilled team.
 - As a startup, I want recommendations for potential hires based on my startup's needs, so that I can find the best-fit candidates.
+- As a startup, I want to recieve notification when a candidate apply to a job opening I posted.
+- As a startup, I want to half direct access to a AI based chatbot for assistance throughout my journey.
 - As a startup, I want access to legal resources and templates, so that I can ensure legal compliance and protect my business.
+- As a startup, I want to access to legal professionals who can guide me with legal matters, ensuring that I handle legal affairs with precision and care.
 - As a startup, I want access to financial planning tools, so that I can manage my startup's finances effectively.
-- As a founder, I want marketing strategy guides and tools, so that I can develop effective marketing plans to promote my startup's products/services.
+- As a startup, I want access to financial advisors who can provide valuable insights and guidance to help me make informed financial decisions and effectively manage my company's finances.
+- As a startup, I want marketing strategy guides and tools, so that I can develop effective marketing plans to promote my startup's products/services.
 
 - As a job seeker, I want to browse job listings, so that I can find opportunities that match my skills and career aspirations.
 - As a job seeker, I want to receive notifications about new job openings, so that I can stay updated on relevant opportunities.
