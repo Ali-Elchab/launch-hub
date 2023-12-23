@@ -5,21 +5,32 @@
 <!-- project philosophy -->
 <img src="./readme/title2.svg"/>
 
-> A mobile app for ordering coffee on-the-go, making it easier for coffee lovers to get their favorite beverages without waiting in line.
+> A mobile app that fuels startup success by offering essential tools and guidance at every stage.
 >
-> Coffee Express aims to streamline the coffee-ordering process by providing a user-friendly platform for customers to place orders and pick up their coffee at their convenience. We believe in enhancing the coffee experience by saving time and ensuring customer satisfaction.
+> LaunchHub serves as a centralized hub offering tools and resources for hiring top talent, accessing legal guidance, crafting effective marketing strategies, managing finances, and leveraging AI technologies. Our mission is to support startups by providing a user-friendly platform that simplifies and enhances their business operations.
 
 ### User Stories
-- As a user, I want to browse the menu, so I can find my favorite coffee drinks.
-- As a user, I want to customize my order, so I can add or remove ingredients according to my preferences.
-- As a user, I want to pay for my order through the app, so I can avoid waiting in line at the store.
+####  Startup
+- As a startup, I want to post job openings, so that I can attract talent and build a skilled team.
+- As a startup, I want recommendations for potential hires based on my startup's needs, so that I can find the best-fit candidates.
+- As a startup, I want to recieve notification when a candidate apply to a job opening I posted.
+- As a startup, I want to half direct access to a AI based chatbot for assistance throughout my journey.
+- As a startup, I want access to legal resources and templates, so that I can ensure legal compliance and protect my business.
+- As a startup, I want to access to legal professionals who can guide me with legal matters, ensuring that I handle legal affairs with precision and care.
+- As a startup, I want access to financial planning tools, so that I can manage my startup's finances effectively.
+- As a startup, I want access to financial advisors who can provide valuable insights and guidance to help me make informed financial decisions and effectively manage my company's finances.
+- As a startup, I want marketing strategy guides and tools, so that I can develop effective marketing plans to promote my startup's products/services. <br/>
+#### Job seeker
+- As a job seeker, I want to browse job listings, so that I can find opportunities that match my skills and career aspirations.
+- As a job seeker, I want to receive notifications about new job openings, so that I can stay updated on relevant opportunities.
+- As a  job seeker, I want to schedule interviews and track application statuses, so that I can efficiently manage my job application process.
 
 <br><br>
 
 <!-- Prototyping -->
 <img src="./readme/title3.svg"/>
 
-> We designed Coffee Express using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
+> We designed LaunchHub using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
 ### Wireframes
 | Login screen  | Register screen |  Landing screen |
@@ -36,7 +47,7 @@
 <!-- Implementation -->
 <img src="./readme/title4.svg"/>
 
-> Using the wireframes and mockups as a guide, we implemented the Coffee Express app with the following features:
+> Using the wireframes and mockups as a guide, we implemented the LaunchHub app with the following features:
 
 ### User Screens (Mobile)
 | Login screen  | Register screen | Landing screen | Loading screen |
@@ -57,12 +68,11 @@
 <!-- Tech stack -->
 <img src="./readme/title5.svg"/>
 
-###  Coffee Express is built using the following technologies:
+###  LaunchHub is built using the following technologies:
 
 - This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
-- For persistent storage (database), the app uses the [Hive](https://hivedb.dev/) package which allows the app to create a custom storage schema and save it to a local database.
+- For persistent storage (database), the app uses the MySQL, a database for storing and manipulating data.
 - To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-  - 🚨 Currently, notifications aren't working on macOS. This is a known issue that we are working to resolve!
 - The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
 
 <br><br>
@@ -70,7 +80,7 @@
 <!-- How to run -->
 <img src="./readme/title6.svg"/>
 
-> To set up Coffee Express locally, follow these steps:
+> To set up LaunchHub locally, follow these steps:
 
 ### Prerequisites
 
@@ -98,4 +108,4 @@ _Below is an example of how you can instruct your audience on installing and set
    const API_KEY = 'ENTER YOUR API';
    ```
 
-Now, you should be able to run Coffee Express locally and explore its features.
+Now, you should be able to run LaunchHub locally and explore its features.
