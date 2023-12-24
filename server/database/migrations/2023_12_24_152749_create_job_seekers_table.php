@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('resume');
             $table->string('cover_letter');
             $table->boolean('is_available');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
