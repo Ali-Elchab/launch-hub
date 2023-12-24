@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('industry');
             $table->string('job_location');
             $table->string('job_type');
-            $table->int('job_salary');
+            $table->integer('job_salary');
             $table->string('job_qualification');
             $table->string('experience_level');
             $table->string('education_level');
