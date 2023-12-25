@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('image_url');
             $table->string('description');
+            $table->timestamps();
             $table->foreignId('startup_id')->constrained()->onDelete('cascade');
         });
     }

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('preferred_gender');
             $table->date('deadline');
             $table->string('job_status');
+            $table->timestamps();
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
             $table->foreignId('startup_id')->constrained()->onDelete('cascade');
         });

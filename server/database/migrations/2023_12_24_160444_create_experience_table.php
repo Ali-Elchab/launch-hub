@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('description');
             $table->string('location');
+            $table->timestamps();
             $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
         });
     }

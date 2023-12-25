@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('founders');
             $table->string('ceos');
             $table->string('key_executives');
+            $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
