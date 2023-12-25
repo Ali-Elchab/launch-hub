@@ -51,6 +51,12 @@ class AuthController extends Controller
 
     public function register_jobseeker(Request $request)
     {
+        if ($request->user_type_id != 2) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'wrong user type',
+            ], 401);
+        }
         try {
 
             $request->validate([
