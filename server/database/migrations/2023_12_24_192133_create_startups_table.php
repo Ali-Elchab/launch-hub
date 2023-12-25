@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('ceos');
             $table->string('key_executives');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('industry_id')->constrained()->onDelete('cascade');
         });
     }
 
