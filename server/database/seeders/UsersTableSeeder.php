@@ -18,28 +18,28 @@ class UsersTableSeeder extends Seeder
             [
                 'email' => 'admin@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 1 // Assuming 1 is the ID for 'Job Seeker'
+                'user_type_id' => 3
             ],
 
             [
                 'email' => 'jobseeker@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 1 // Assuming 1 is the ID for 'Job Seeker'
+                'user_type_id' => 1
             ],
             [
                 'email' => 'jobseeker2@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 1 // Assuming 1 is the ID for 'Job Seeker'
+                'user_type_id' => 1
             ],
             [
                 'email' => 'employer@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 2 // Assuming 2 is the ID for 'Employer'
+                'user_type_id' => 2
             ],
             [
                 'email' => 'employer2@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 2 // Assuming 2 is the ID for 'Employer'
+                'user_type_id' => 2
             ],
 
         ]);

@@ -12,11 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
         DB::table('user_types')->insert([
             ['name' => 'startup'],
             ['name' => 'job seeker'],
             ['name' => 'admin'],
+        ]);
+
+        $this->call([
+            UsersTableSeeder::class,
+            SocialMediaLinksSeeder::class,
         ]);
     }
 }
