@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Education extends Model
 {
     use HasFactory;
+    protected $table = 'education';
 
 
     protected $fillable = [
@@ -19,6 +20,7 @@ class Education extends Model
         'description',
         'location',
         'job_seeker_id',
+        'location',
     ];
 
     public function jobSeeker()

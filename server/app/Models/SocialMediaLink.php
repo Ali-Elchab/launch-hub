@@ -13,6 +13,7 @@ class SocialMediaLink extends Model
         'user_id',
         'name',
         'link',
+        "platform",
     ];
 
     public function user()

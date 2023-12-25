@@ -12,7 +12,7 @@ class JobSeeker extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'profile_picture',
+        'profile_pic',
         'dob',
         'phone',
         'bio',
@@ -21,6 +21,7 @@ class JobSeeker extends Model
         'resume',
         'industry_id',
         'user_id',
+        'is_available',
     ];
 
     public function user()
@@ -35,12 +36,13 @@ class JobSeeker extends Model
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class, 'job_seekers_has_skills', 'job_seeker_id', 'skill_id');
     }
+
 
     public function hobbies()
     {
-        return $this->belongsToMany(Hobby::class);
+        return $this->belongsToMany(Hobby::class, 'job_seeker_has_hobbies', 'job_seeker_id', 'hobby_id');
     }
 
     public function educations()
