@@ -60,7 +60,7 @@ class JobSeeker extends Model
 
     public function courses()
     {
-        return $this->hasMany(EnhaceSkillsCourse::class);
+        return $this->hasMany(JobSeekerEnhaceSkillsCourse::class);
     }
 
     public function applications()
