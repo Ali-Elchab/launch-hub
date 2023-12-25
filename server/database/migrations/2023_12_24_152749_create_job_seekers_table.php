@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('bio');
             $table->string('resume');
             $table->string('industry');
-            $table->string('cover_letter');
             $table->boolean('is_available');
+            $table->foreignId('industry_id')->constrained();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }

@@ -17,10 +17,14 @@ return new class extends Migration
             $table->string('company_email')->unique();
             $table->string('company_phone');
             $table->string('profile_pic');
+            $table->string('company_description');
             $table->string('registeration_number');
             $table->date('founding_date');
             $table->string('company_address');
             $table->string('website_url');
+            $table->string('founders');
+            $table->string('ceos');
+            $table->string('key_executives');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
         });
