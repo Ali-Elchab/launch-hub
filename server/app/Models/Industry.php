@@ -12,4 +12,24 @@ class Industry extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function jobSeekers()
+    {
+        return $this->hasMany(JobSeeker::class);
+    }
+
+    public function jobPosts()
+    {
+        return $this->hasMany(JobPost::class);
+    }
+
+    public function startups()
+    {
+        return $this->hasMany(Startup::class);
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
+    }
 }

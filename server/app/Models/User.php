@@ -38,6 +38,15 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function jobSeeker()
+    {
+        return $this->hasOne(JobSeeker::class);
+    }
+
+    public function startup()
+    {
+        return $this->hasOne(Startup::class);
+    }
 
 
 
