@@ -240,4 +240,25 @@ class AuthController extends Controller
             ], 500);
         }
     }
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'logged out successfully',
+        ]);
+    }
+
+
+    public function refresh()
+    {
+        $token = Auth::refresh();
+        return response()->json([
+            'status' => 'success',
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
+    }
 }
