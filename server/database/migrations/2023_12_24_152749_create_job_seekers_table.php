@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('profile_pic');
+            $table->string('profile_pic')->nullable();
             $table->date('dob');
             $table->string('phone');
             $table->string('address');
             $table->string('city');
             $table->string('bio');
-            $table->string('resume');
-            $table->boolean('is_available');
+            $table->string('resume')->nullable();
+            $table->boolean('is_available')->default(true);
             $table->foreignId('industry_id')->constrained();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();

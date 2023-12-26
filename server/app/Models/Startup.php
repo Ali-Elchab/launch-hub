@@ -8,12 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Startup extends Model
 {
     use HasFactory;
-
+    protected $casts = [
+        'founders' => 'array',
+        'ceos' => 'array',
+        'key_executives' => 'array',
+    ];
     protected $fillable = [
         'company_name',
         'company_email',
         'company_phone',
         'company_address',
+        'company_description',
+        'logo_url',
         'registeration_number',
         'founding_date',
         'website_url',

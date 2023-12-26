@@ -7,17 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\JobSeeker;
+use App\Models\Startup;
 use App\Models\User;
 use function uploadImage;
 use function uploadFile;
-
+use function uploadLogo;
 
 class AuthController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register_jobseeker']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register_jobseeker', 'register_startup']]);
     }
 
     public function login(Request $request)
@@ -60,13 +61,14 @@ class AuthController extends Controller
                 'email' => 'required|string|email|unique:users,email',
                 'password' => 'required|string',
                 'user_type_id' => 'required|integer|exists:user_types,id',
+                'industry_id' => 'required|integer|exists:industries,id',
+                'bio' => 'nullable|string',
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
                 'phone' => 'required|string',
                 'dob' => 'required|date',
                 'address' => 'required|string',
                 'city' => 'required|string',
-                'is_available' => 'nullable|boolean',
                 'experience' => 'nullable|array',
                 'experience.*.position' => 'required|string|max:255',
                 'experience.*.company' => 'required|string|max:255',
@@ -107,7 +109,7 @@ class AuthController extends Controller
                 'message' => $e->errors(),
             ], 422);
         }
-        print_r($request->all());
+
         DB::beginTransaction();
         try {
             $profile = uploadImage($request);
@@ -131,7 +133,7 @@ class AuthController extends Controller
                 'address' => $request->address,
                 'city' => $request->city,
                 'resume' => $resume ?? null,
-                'is_available' => $request->is_available,
+
             ]);
             $jobseeker->save();
 
@@ -147,8 +149,6 @@ class AuthController extends Controller
                 $jobseeker->hobbies()->attach($request->hobbies);
             if (!empty($request->social_media_links))
                 $user->socialMediaLinks()->createMany($request->social_media_links);
-            if (!empty($request->courses))
-                $jobseeker->courses()->createMany($request->courses);
 
             DB::commit();
 
@@ -159,13 +159,85 @@ class AuthController extends Controller
             ]);
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'The email address has already been taken.'
-                ], 409);
-            }
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function register_startup(Request $request)
+    {
+        if ($request->user_type_id != 1) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'wrong user type',
+            ], 401);
+        }
+        try {
+            $request->validate([
+                'email' => 'required|string|email|unique:users,email',
+                'password' => 'required|string',
+                'user_type_id' => 'required|integer|exists:user_types,id',
+                'industry_id' => 'required|integer|exists:industries,id',
+                'company_name' => 'required|string',
+                'company_email' => 'required|string|email',
+                'company_phone' => 'required|string',
+                'company_description' => 'required|string',
+                'registeration_number' => 'required|string',
+                'founding_date' => 'required|date',
+                'company_address' => 'required|string',
+                'website_url' => 'nullable|url',
+
+            ],);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors(),
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $user = new User([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type_id' => $request->user_type_id,
+            ]);
+            $user->save();
+
+            $logo = uploadLogo($request);
+            $startup = new Startup([
+                'user_id' => $user->id,
+                'industry_id' => $request->industry_id,
+                'company_name' => $request->company_name,
+                'company_email' => $request->company_email,
+                'company_phone' => $request->company_phone,
+                'logo_url' => $logo ?? null,
+                'company_description' => $request->company_description,
+                'registeration_number' => $request->registeration_number,
+                'founding_date' => $request->founding_date,
+                'company_address' => $request->company_address,
+                'website_url' => $request->website_url,
+                'founders' => $request->founders,
+                'ceos' => $request->ceos,
+                'key_executives' => $request->key_executives,
+            ]);
+            $startup->save();
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'startup created successfully',
+                'user' => User::with('startup')->find($user->id),
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
 }
