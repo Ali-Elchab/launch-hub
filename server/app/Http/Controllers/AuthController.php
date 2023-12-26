@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobSeeker;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\JobSeeker;
+use App\Models\User;
+use function uploadImage;
+use function uploadFile;
+
 
 class AuthController extends Controller
 {
@@ -58,7 +56,6 @@ class AuthController extends Controller
             ], 401);
         }
         try {
-
             $request->validate([
                 'email' => 'required|string|email|unique:users,email',
                 'password' => 'required|string',
@@ -69,8 +66,6 @@ class AuthController extends Controller
                 'dob' => 'required|date',
                 'address' => 'required|string',
                 'city' => 'required|string',
-                'profile_pic' => 'nullable|string',
-                'resume' => 'nullable|string',
                 'is_available' => 'nullable|boolean',
                 'experience' => 'nullable|array',
                 'experience.*.position' => 'required|string|max:255',
@@ -112,19 +107,11 @@ class AuthController extends Controller
                 'message' => $e->errors(),
             ], 422);
         }
-        if ($request->hasFile('post_image')) {
-            $request->validate([
-                "post_image" => 'image|max:6000'
-            ]);
-            $file = $request->file('post_image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('images/posts'), $filename);
-        }
+        print_r($request->all());
         DB::beginTransaction();
         try {
-
-
+            $profile = uploadImage($request);
+            $resume = uploadFile($request);
             $user = new User([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -137,14 +124,13 @@ class AuthController extends Controller
                 'industry_id' => $request->industry_id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'profile_pic' => $filename,
+                'profile_pic' => $profile ?? null,
                 'phone' => $request->phone,
                 'dob' => $request->dob,
-                'profile_pic' => $request->profile_pic,
                 'bio' => $request->bio,
                 'address' => $request->address,
                 'city' => $request->city,
-                'resume' => $request->resume,
+                'resume' => $resume ?? null,
                 'is_available' => $request->is_available,
             ]);
             $jobseeker->save();
