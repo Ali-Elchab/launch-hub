@@ -240,6 +240,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
     public function logout()
     {
         Auth::logout();
@@ -248,7 +249,6 @@ class AuthController extends Controller
             'message' => 'logged out successfully',
         ]);
     }
-
 
     public function refresh()
     {

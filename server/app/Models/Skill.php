@@ -14,6 +14,7 @@ class Skill extends Model
 
     protected $fillable = [
         'name',
+        'industry_id',
     ];
 
     public function jobSeekers()

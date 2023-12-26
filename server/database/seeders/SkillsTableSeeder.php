@@ -12,6 +12,23 @@ class SkillsTableSeeder extends Seeder
     public function run()
     {
         $skills = [
+            "General" => [
+                "Communication",
+                "Teamwork",
+                "Problem Solving",
+                "Time Management",
+                "Leadership",
+                "Creativity",
+                "Interpersonal Skills",
+                "Adaptability",
+                "Collaboration",
+                "Critical Thinking",
+                "Decision Making",
+                "Negotiation",
+                "Persuasion",
+                "Stress Management",
+                "Emotional Intelligence",
+            ],
             "Technology" => [
                 "Software Development",
                 "Web Development",
@@ -362,10 +379,16 @@ class SkillsTableSeeder extends Seeder
                 foreach ($skills[$industryName] as $skillName) {
                     Skill::create([
                         'name' => $skillName,
-                        'industry_id' => $industry->id
+                        'industry_id' => $industry?->id
                     ]);
                 }
             }
+        }
+        foreach ($skills['General'] as $generalSkill) {
+            Skill::create([
+                'name' => $generalSkill,
+
+            ]);
         }
     }
 }

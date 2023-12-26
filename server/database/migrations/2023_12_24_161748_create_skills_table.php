@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('industry_id')->constrained();
+            $table->foreignId('industry_id')->nullable()->default(null)->constrained()->onDelete('cascade');
         });
     }
 
