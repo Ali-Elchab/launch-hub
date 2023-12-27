@@ -32,12 +32,12 @@ class UsersTableSeeder extends Seeder
                 'user_type_id' => 1
             ],
             [
-                'email' => 'employer@example.com',
+                'email' => 'startup@example.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 2
             ],
             [
-                'email' => 'employer2@example.com',
+                'email' => 'startup2@example.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 2
             ],

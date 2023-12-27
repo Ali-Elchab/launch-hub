@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Startup;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,9 @@ class DatabaseSeeder extends Seeder
             SocialMediaLinksSeeder::class,
             IndustriesTableSeeder::class,
             SkillsTableSeeder::class,
+            StartupsTableSeeder::class,
+            JobSeekersTableSeeder::class,
+            JobPostsTableSeeder::class,
         ]);
     }
 }
