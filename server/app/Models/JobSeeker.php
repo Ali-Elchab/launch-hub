@@ -34,6 +34,16 @@ class JobSeeker extends Model
         return $this->belongsTo(Industry::class);
     }
 
+    public function specialization()
+    {
+        return $this->belongsTo(Specialization::class);
+    }
+
+    public function jobPosts()
+    {
+        return $this->belongsToMany(JobPost::class, 'applications');
+    }
+
     public function skills()
     {
         return $this->belongsToMany(Skill::class, 'job_seekers_has_skills', 'job_seeker_id', 'skill_id');
@@ -63,10 +73,5 @@ class JobSeeker extends Model
     public function courses()
     {
         return $this->hasMany(JobSeekerEnhaceSkillsCourse::class);
-    }
-
-    public function applications()
-    {
-        return $this->hasMany(Application::class);
     }
 }

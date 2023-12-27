@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class Specialization extends Model
 {
     use HasFactory;
-    public $timestamps = false;
-    protected $fillable = [
-        'name',
-    ];
+
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class);
+    }
 
     public function jobSeekers()
     {
@@ -28,8 +29,8 @@ class Industry extends Model
         return $this->hasMany(Startup::class);
     }
 
-    public function specialization()
+    public function skills()
     {
-        return $this->hasMany(Specialization::class);
+        return $this->hasMany(Skill::class);
     }
 }

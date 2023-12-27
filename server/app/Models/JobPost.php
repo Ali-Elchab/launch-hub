@@ -30,14 +30,19 @@ class JobPost extends Model
         return $this->belongsTo(Industry::class);
     }
 
+    public function specialization()
+    {
+        return $this->belongsTo(Specialization::class);
+    }
+
     public function startup()
     {
         return $this->belongsTo(Startup::class);
     }
 
-    public function applications()
+    public function jobSeekers()
     {
-        return $this->hasMany(Application::class);
+        return $this->belongsToMany(JobSeeker::class, 'applications');
     }
 
     public function requiredSkills()

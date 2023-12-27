@@ -44,6 +44,11 @@ class Startup extends Model
         return $this->belongsTo(Industry::class);
     }
 
+    public function specialization()
+    {
+        return $this->belongsTo(Specialization::class);
+    }
+
     public function startupFeaturedTemplates()
     {
         return $this->hasMany(StartupFeaturedTemplate::class);

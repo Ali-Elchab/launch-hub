@@ -27,8 +27,8 @@ class Skill extends Model
         return $this->belongsToMany(JobPost::class);
     }
 
-    public function industry()
+    public function specializations()
     {
-        return $this->belongsTo(Industry::class);
+        return $this->belongsTo(Specialization::class);
     }
 }
