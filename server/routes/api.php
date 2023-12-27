@@ -24,6 +24,9 @@ Route::controller(SkillsController::class)->group(function () {
 });
 
 Route::controller(JobSeekerController::class)->group(function () {
-    Route::get('jobseeker_skills', 'getJobSeekerskills');
-    Route::get('jobseeker_profile', 'getJobSeekerProfile');
+    Route::get('skills', 'getJobSeekerskills');
+    Route::get('profile', 'getJobSeekerProfile');
+    Route::post('update_profile', 'updateJobSeekerProfile');
+    Route::get('related_job_posts', 'getRelatedJobPosts');
+    Route::post('apply', 'applyForJob');
 });
