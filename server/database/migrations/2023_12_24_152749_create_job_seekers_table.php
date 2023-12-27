@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('is_available')->default(true);
             $table->foreignId('industry_id')->constrained();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

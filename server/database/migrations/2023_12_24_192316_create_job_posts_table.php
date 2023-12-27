@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('job_title');
             $table->string('job_description');
-            $table->string('industry');
             $table->string('job_location');
             $table->string('job_type');
             $table->integer('job_salary');
@@ -27,6 +26,7 @@ return new class extends Migration
             $table->string('job_status');
             $table->timestamps();
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
+            $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('startup_id')->constrained()->onDelete('cascade');
         });
     }
