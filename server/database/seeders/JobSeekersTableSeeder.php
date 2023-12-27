@@ -22,6 +22,7 @@ class JobSeekersTableSeeder extends Seeder
             'resume' => null,
             'is_available' => true,
             'industry_id' => 1,
+            'specialization_id' => 1,
             'user_id' => 2,
             'created_at' => now(),
             'updated_at' => now(),

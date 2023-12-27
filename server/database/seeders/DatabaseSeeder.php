@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             SocialMediaLinksSeeder::class,
             IndustriesTableSeeder::class,
+            SpecializationsTableSeeder::class,
             SkillsTableSeeder::class,
             StartupsTableSeeder::class,
             JobSeekersTableSeeder::class,

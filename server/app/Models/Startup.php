@@ -26,6 +26,8 @@ class Startup extends Model
         'founders',
         'key_executives',
         'ceos',
+        'industry_id',
+        'specialization_id',
         'user_id',
     ];
 

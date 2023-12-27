@@ -25,6 +25,8 @@ class StartupsTableSeeder extends Seeder
             'key_executives' => json_encode(['John Doe', 'Jane Doe']),
             'created_at' => now(),
             'updated_at' => now(),
+            'industry_id' => 1,
+            'specialization_id' => 1,
             'user_id' => 4,
         ]);
     }

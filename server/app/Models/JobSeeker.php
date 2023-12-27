@@ -20,6 +20,7 @@ class JobSeeker extends Model
         'city',
         'resume',
         'industry_id',
+        'specialization_id',
         'user_id',
         'is_available',
     ];

@@ -62,6 +62,7 @@ class AuthController extends Controller
                 'password' => 'required|string',
                 'user_type_id' => 'required|integer|exists:user_types,id',
                 'industry_id' => 'required|integer|exists:industries,id',
+                'specialization_id' => 'required|integer|exists:specializations,id',
                 'bio' => 'nullable|string',
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
@@ -124,6 +125,7 @@ class AuthController extends Controller
             $jobseeker = new JobSeeker([
                 'user_id' => $user->id,
                 'industry_id' => $request->industry_id,
+                'specialization_id' => $request->specialization_id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'profile_pic' => $profile ?? null,
@@ -180,6 +182,7 @@ class AuthController extends Controller
                 'password' => 'required|string',
                 'user_type_id' => 'required|integer|exists:user_types,id',
                 'industry_id' => 'required|integer|exists:industries,id',
+                'specialization_id' => 'required|integer|exists:specializations,id',
                 'company_name' => 'required|string',
                 'company_email' => 'required|string|email',
                 'company_phone' => 'required|string',
@@ -210,6 +213,7 @@ class AuthController extends Controller
             $startup = new Startup([
                 'user_id' => $user->id,
                 'industry_id' => $request->industry_id,
+                'specialization_id' => $request->specialization_id,
                 'company_name' => $request->company_name,
                 'company_email' => $request->company_email,
                 'company_phone' => $request->company_phone,

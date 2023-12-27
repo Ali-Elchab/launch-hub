@@ -11,7 +11,6 @@ class JobPostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('job_posts')->insert([
-            // Existing job posts
             [
                 'job_title' => 'Software Developer',
                 'job_description' => 'Develop and maintain software applications.',
@@ -25,6 +24,7 @@ class JobPostsTableSeeder extends Seeder
                 'deadline' => now()->addWeeks(2),
                 'job_status' => 'Open',
                 'industry_id' => 1,
+                'specialization_id' => 1,
                 'startup_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -41,12 +41,12 @@ class JobPostsTableSeeder extends Seeder
                 'preferred_gender' => 'Any',
                 'deadline' => now()->addWeeks(2),
                 'job_status' => 'Open',
-                'industry_id' => 2,
+                'specialization_id' => 2,
+                'industry_id' => 4,
                 'startup_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // New job posts
             [
                 'job_title' => 'Graphic Designer',
                 'job_description' => 'Create visual concepts to communicate ideas.',
@@ -59,7 +59,8 @@ class JobPostsTableSeeder extends Seeder
                 'preferred_gender' => 'Any',
                 'deadline' => now()->addWeeks(3),
                 'job_status' => 'Open',
-                'industry_id' => 13,
+                'industry_id' => 1,
+                'specialization_id' => 8,
                 'startup_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -76,6 +77,8 @@ class JobPostsTableSeeder extends Seeder
                 'preferred_gender' => 'Any',
                 'deadline' => now()->addWeeks(1),
                 'job_status' => 'Open',
+                'industry_id' => 1,
+                'specialization_id' => 4,
                 'industry_id' => 1,
                 'startup_id' => 1,
                 'created_at' => now(),

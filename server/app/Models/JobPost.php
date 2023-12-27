@@ -22,6 +22,7 @@ class JobPost extends Model
         'deadline',
         'job_status',
         'industry_id',
+        'specialization_id',
         'startup_id',
     ];
 
