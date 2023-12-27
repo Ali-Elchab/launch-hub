@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->string('description');
             $table->timestamps();
-            $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
+            $table->foreignId('specialization_id')->constrained()->onDelete('cascade');
         });
     }
 

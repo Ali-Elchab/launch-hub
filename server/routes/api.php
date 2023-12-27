@@ -29,4 +29,5 @@ Route::controller(JobSeekerController::class)->group(function () {
     Route::post('update_profile', 'updateJobSeekerProfile');
     Route::get('related_job_posts', 'getRelatedJobPosts');
     Route::post('apply', 'applyForJob');
+    Route::get('related_courses', 'getRelatedCourses');
 });

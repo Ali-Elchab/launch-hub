@@ -18,8 +18,8 @@ class JobSeekerEnhaceSkillsCourse extends Model
         'job_seeker_id',
     ];
 
-    public function jobSeeker()
+    public function specialization()
     {
-        return $this->belongsTo(JobSeeker::class);
+        return $this->belongsTo(Specialization::class);
     }
 }

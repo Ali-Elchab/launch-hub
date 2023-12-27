@@ -33,4 +33,9 @@ class Specialization extends Model
     {
         return $this->hasMany(Skill::class);
     }
+
+    public function courses()
+    {
+        return $this->hasMany(JobSeekerEnhaceSkillsCourse::class);
+    }
 }

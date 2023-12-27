@@ -70,9 +70,4 @@ class JobSeeker extends Model
     {
         return $this->hasMany(Certification::class);
     }
-
-    public function courses()
-    {
-        return $this->hasMany(JobSeekerEnhaceSkillsCourse::class);
-    }
 }

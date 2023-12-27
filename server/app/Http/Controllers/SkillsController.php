@@ -7,16 +7,16 @@ use Illuminate\Http\Request;
 
 class SkillsController extends Controller
 {
-    public function getSkillsByIndustry(Request $request)
+    public function getSkillsBySpecialization(Request $request)
     {
-        $industry = $request->industry_id;
-        $skills = Skill::where('industry_id', $industry)->get();
+        $specialization = $request->specialization_id;
+        $skills = Skill::where('specialization_id', $specialization)->get();
         return response()->json(['status' => 'success', 'skills' => $skills]);
     }
 
     public function getGeneralSkills()
     {
-        $skills = Skill::where('industry_id', null)->get();
+        $skills = Skill::where('specialization_id', null)->get();
         return response()->json(['status' => 'success', 'skills' => $skills]);
     }
 }

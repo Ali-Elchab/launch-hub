@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobPost;
+use App\Models\JobSeekerEnhaceSkillsCourse;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class JobSeekerController extends Controller
         $user = $request->user();
 
         if ($user && $user->jobSeeker) {
-            $jobSeeker = $user->jobSeeker->load(['courses', 'educations', 'experiences', 'certifications', 'hobbies', 'industry', 'skills', 'jobPosts']);
+            $jobSeeker = $user->jobSeeker->load(['courses', 'educations', 'experiences', 'certifications', 'hobbies', 'skills', 'jobPosts']);
             $jobSeeker->socialMediaLinks = $user->socialMediaLinks;
 
             return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
@@ -82,5 +83,27 @@ class JobSeekerController extends Controller
             $jobPost->jobSeekers()->attach($jobSeeker);
             return response()->json(['status' => 'success', 'message' => 'Applied successfully']);
         }
+    }
+
+    public function getAppliedJobs(Request $request)
+    {
+        $jobSeeker = $request->user()->jobSeeker;
+        if ($jobSeeker) {
+            $jobPosts = $jobSeeker->jobPosts;
+            return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
+    }
+
+    public function getRelatedCourses(Request $request)
+    {
+        $jobSeeker = $request->user()->jobSeeker;
+        if ($jobSeeker) {
+            $courses = JobSeekerEnhaceSkillsCourse::where('specialization_id', $jobSeeker->specialization_id)->get();
+            return response()->json(['status' => 'success', 'courses' => $courses]);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 }
