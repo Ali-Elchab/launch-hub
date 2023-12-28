@@ -69,5 +69,5 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(ApplicationController::class)->group(function () {
     Route::get('applications', 'getJobSeekerApplications');
-    Route::get('applicants', 'getStartupApplicants');
+    Route::get('applicants', 'getPendingStartupApplicants');
 });
