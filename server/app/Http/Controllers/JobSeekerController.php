@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobPost;
+use App\Models\JobSeeker;
 use App\Models\JobSeekerEnhaceSkillsCourse;
 use App\Models\Skill;
 use Illuminate\Http\Request;
@@ -28,9 +29,10 @@ class JobSeekerController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 
-    public function getDetailedProfile(Request $request)
+    public function getJobSeeker($id)
     {
-        $user = $request->user();
+        $jobSeeker = JobSeeker::find($id);
+        $user = $jobSeeker->user;
 
         if ($user && $user->jobSeeker) {
             $jobSeeker = $user->jobSeeker->load(['educations', 'experiences', 'certifications', 'hobbies', 'skills', 'jobPosts']);
@@ -40,6 +42,24 @@ class JobSeekerController extends Controller
         }
 
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
+    }
+
+    public function getJobSeekers($specialization_id)
+    {
+        $jobseekers = JobSeeker::where('specialization_id', $specialization_id)->get();
+        if (!$jobseekers) {
+            return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
+        }
+        return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
+    }
+
+    public function getAllJobSeekers()
+    {
+        $jobseekers = JobSeeker::all();
+        if (!$jobseekers) {
+            return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
+        }
+        return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
     }
 
     public function updateJobSeekerProfile(Request $request)
@@ -55,19 +75,6 @@ class JobSeekerController extends Controller
 
             $jobSeeker->update($updateData);
             return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
-        }
-
-        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
-    }
-
-    public function getRelatedJobPosts(Request $request)
-    {
-
-        $jobSeeker = $request->user()->jobSeeker;
-        if ($jobSeeker) {
-            $industry = $jobSeeker->industry_id;
-            $jobPosts = JobPost::where('industry_id', $industry)->get();
-            return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
         }
 
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);

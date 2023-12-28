@@ -34,7 +34,7 @@ class UserController extends Controller
             if ($resume && Storage::disk('public')->exists($resumePath)) {
                 Storage::disk('public')->delete($resumePath);
             }
-            $jobSeeker->delete();
+            $user->delete();
 
             return response()->json(['status' => 'success', 'message' => 'Job seeker and resume deleted successfully']);
         }

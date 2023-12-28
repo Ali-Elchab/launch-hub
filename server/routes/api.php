@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\StartupController;
@@ -27,21 +28,33 @@ Route::controller(SkillsController::class)->group(function () {
 Route::prefix('jobseeker/')->group((function () {
     Route::controller(JobSeekerController::class)->group(function () {
         Route::get('profile', 'getBasicProfile');
-        Route::get('detailed_profile', 'getDetailedProfile');
-        Route::post('update_profile', 'updateJobSeekerProfile');
-        Route::get('related_job_posts', 'getRelatedJobPosts');
-        Route::post('apply', 'applyForJob');
+        Route::get('profile/{id}', 'getJobSeeker');
+        Route::get('all', 'getAllJobSeekers');
         Route::get('related_courses', 'getRelatedCourses');
+        Route::get('/{specialization_id}', 'getJobSeekers');
+        Route::post('apply', 'applyForJob');
+        Route::post('update_profile', 'updateJobSeekerProfile');
     });
 }));
 
 Route::prefix('startup/')->group((function () {
     Route::controller(StartupController::class)->group(function () {
-        Route::get('profile', 'getStartup');
+        Route::get('{id?}', 'getStartup');
         Route::post('update_profile', 'updateStartupProfile');
-        Route::get('related_job_seekers', 'getRelatedJobSeekers');
+        Route::get('profile', 'getStartupProfile');
         // Route::post('post_job', 'postJob');
         // Route::get('related_courses', 'getRelatedCourses');
         // Route::post('post_course', 'postCourse');
+    });
+}));
+
+Route::prefix('jobpost/')->group((function () {
+    Route::controller(JobPostController::class)->group(function () {
+        Route::get('job_posts', 'getAllJobPosts');
+        Route::get('job_post/{id}', 'getJobPost');
+        Route::get('startup_job_posts', 'getStartupJobPosts');
+        Route::get('related_job_posts/{$specialization_id}', 'getRelatedJobPosts');
+        Route::post('update_job_post', 'updateJobPost');
+        Route::post('post_job', 'postJob');
     });
 }));
