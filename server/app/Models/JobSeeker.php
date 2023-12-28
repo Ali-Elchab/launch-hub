@@ -42,7 +42,8 @@ class JobSeeker extends Model
 
     public function jobPosts()
     {
-        return $this->belongsToMany(JobPost::class, 'applications');
+        return $this->belongsToMany(JobPost::class, 'applications')
+            ->withPivot('status');
     }
 
     public function skills()

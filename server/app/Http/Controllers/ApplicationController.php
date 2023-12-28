@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobSeeker;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -25,12 +26,20 @@ class ApplicationController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 
-    public function getStartupApplicants(Request $request)
+    public function getPendingStartupApplicants(Request $request)
     {
         $startup = $request->user()->startup;
         if ($startup) {
-            $applicants = $startup->jobPosts->jobSeekers();
-            return response()->json(['status' => 'success', 'jobPosts' => $applicants]);
+            $jobPostsIds = $startup->jobPosts()->pluck('id');
+            $pendingApplicants = JobSeeker::whereHas('jobPosts', function ($query) use ($jobPostsIds) {
+                $query->whereIn('job_posts.id', $jobPostsIds)
+                    ->where('applications.status', 'pending');
+            })->with(['jobPosts' => function ($query) use ($jobPostsIds) {
+                $query->whereIn('job_posts.id', $jobPostsIds)
+                    ->where('applications.status', 'pending');
+            }])->get();
+
+            return response()->json(['status' => 'success', 'pendingApplicants' => $pendingApplicants]);
         }
 
         return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
