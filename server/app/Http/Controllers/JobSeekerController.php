@@ -91,17 +91,6 @@ class JobSeekerController extends Controller
         }
     }
 
-    public function getAppliedJobs(Request $request)
-    {
-        $jobSeeker = $request->user()->jobSeeker;
-        if ($jobSeeker) {
-            $jobPosts = $jobSeeker->jobPosts;
-            return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
-        }
-
-        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
-    }
-
     public function getRelatedCourses(Request $request)
     {
         $jobSeeker = $request->user()->jobSeeker;

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobSeeker;
 use App\Models\Startup;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class StartupController extends Controller
