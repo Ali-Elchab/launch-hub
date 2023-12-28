@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('job_post_id')->constrained()->onDelete('cascade');
             $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
