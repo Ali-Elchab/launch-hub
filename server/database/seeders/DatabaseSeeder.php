@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advisor;
 use App\Models\Startup;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            AdvisorsTableSeeder::class,
             UsersTableSeeder::class,
             SocialMediaLinksSeeder::class,
             IndustriesTableSeeder::class,
