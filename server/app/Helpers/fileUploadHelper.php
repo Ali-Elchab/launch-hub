@@ -11,7 +11,7 @@ function uploadImage($request)
             $file = $request->file('profile_pic');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-            $file->move(public_path('assets/profile_pics'), $filename);
+            $file->move(public_path('assets/images/profile_pics'), $filename);
             return $filename;
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
