@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\SkillsController;
+use App\Http\Controllers\StartupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,24 @@ Route::controller(SkillsController::class)->group(function () {
     Route::get('general_skills', 'getGeneralSkills');
 });
 
-Route::controller(JobSeekerController::class)->group(function () {
-    Route::get('skills', 'getJobSeekerskills');
-    Route::get('profile', 'getJobSeekerProfile');
-    Route::post('update_profile', 'updateJobSeekerProfile');
-    Route::get('related_job_posts', 'getRelatedJobPosts');
-    Route::post('apply', 'applyForJob');
-    Route::get('related_courses', 'getRelatedCourses');
-});
+Route::prefix('jobseeker/')->group((function () {
+    Route::controller(JobSeekerController::class)->group(function () {
+        Route::get('profile', 'getBasicProfile');
+        Route::get('detailed_profile', 'getDetailedProfile');
+        Route::post('update_profile', 'updateJobSeekerProfile');
+        Route::get('related_job_posts', 'getRelatedJobPosts');
+        Route::post('apply', 'applyForJob');
+        Route::get('related_courses', 'getRelatedCourses');
+    });
+}));
+
+Route::prefix('startup/')->group((function () {
+    Route::controller(StartupController::class)->group(function () {
+        Route::get('profile', 'getStartup');
+        Route::post('update_profile', 'updateStartupProfile');
+        Route::get('related_job_seekers', 'getRelatedJobSeekers');
+        // Route::post('post_job', 'postJob');
+        // Route::get('related_courses', 'getRelatedCourses');
+        // Route::post('post_course', 'postCourse');
+    });
+}));

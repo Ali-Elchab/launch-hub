@@ -17,27 +17,26 @@ class JobSeekerController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function getJobSeekerProfile(Request $request)
+    public function getBasicProfile(Request $request)
     {
         $user = $request->user();
-
         if ($user && $user->jobSeeker) {
-            $jobSeeker = $user->jobSeeker->load(['courses', 'educations', 'experiences', 'certifications', 'hobbies', 'skills', 'jobPosts']);
-            $jobSeeker->socialMediaLinks = $user->socialMediaLinks;
-
+            $jobSeeker = $user->jobSeeker;
             return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
         }
 
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 
-    public function getJobSeekerskills(Request $request)
+    public function getDetailedProfile(Request $request)
     {
         $user = $request->user();
-        $jobSeeker = $user->jobSeeker;
-        if ($jobSeeker) {
-            $skills = $jobSeeker->skills;
-            return response()->json(['status' => 'success', 'skills' => $skills]);
+
+        if ($user && $user->jobSeeker) {
+            $jobSeeker = $user->jobSeeker->load(['educations', 'experiences', 'certifications', 'hobbies', 'skills', 'jobPosts']);
+            $jobSeeker->socialMediaLinks = $user->socialMediaLinks;
+
+            return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
         }
 
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);

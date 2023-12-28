@@ -24,22 +24,22 @@ class UsersTableSeeder extends Seeder
             [
                 'email' => 'jobseeker@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 1
+                'user_type_id' => 2
             ],
             [
                 'email' => 'jobseeker2@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 1
+                'user_type_id' => 2
             ],
             [
                 'email' => 'startup@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 2
+                'user_type_id' => 1
             ],
             [
                 'email' => 'startup2@example.com',
                 'password' => Hash::make('password'),
-                'user_type_id' => 2
+                'user_type_id' => 1
             ],
 
         ]);
