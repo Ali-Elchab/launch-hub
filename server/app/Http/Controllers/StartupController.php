@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advisor;
 use App\Models\Startup;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -62,5 +63,12 @@ class StartupController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Startup deleted successfully']);
         }
         return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
+    }
+
+    public function getAdvisors(Request $request)
+    {
+        $category = $request->query('category');
+        $advisors = Advisor::where('category', $category)->get();
+        return response()->json($advisors);
     }
 }
