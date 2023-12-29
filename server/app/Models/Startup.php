@@ -20,7 +20,7 @@ class Startup extends Model
         'company_address',
         'company_description',
         'logo_url',
-        'registeration_number',
+        'registration_number',
         'founding_date',
         'website_url',
         'founders',
