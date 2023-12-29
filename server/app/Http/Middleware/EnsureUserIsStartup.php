@@ -15,7 +15,7 @@ class EnsureUserIsStartup
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->user_type === 1) {
+        if (auth()->check() && auth()->user()->user_type_id === 1) {
             return $next($request);
         }
 

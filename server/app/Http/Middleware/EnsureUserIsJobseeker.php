@@ -15,7 +15,7 @@ class EnsureUserIsJobseeker
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->user_type === 2) {
+        if (auth()->check() && auth()->user()->user_type_id === 2) {
             return $next($request);
         }
 
