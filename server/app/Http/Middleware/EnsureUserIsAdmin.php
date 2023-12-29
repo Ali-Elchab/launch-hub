@@ -15,7 +15,7 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->user_type === 'admin') {
+        if (auth()->check() && auth()->user()->user_type === 3) {
             return $next($request);
         }
         return response()->json(['status' => 'error', 'message' => 'Access denied'], 403);
