@@ -69,4 +69,14 @@ class JobPostController extends Controller
         }
         return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
     }
+
+    public function deleteJobPost($id)
+    {
+        $jobPost = JobPost::find($id);
+        if (!$jobPost) {
+            return response()->json(['status' => 'error', 'message' => 'Job post not found'], 404);
+        }
+        $jobPost->delete();
+        return response()->json(['status' => 'success', 'message' => 'Job post deleted successfully']);
+    }
 }

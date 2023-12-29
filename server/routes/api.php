@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobPostController;
@@ -30,44 +31,69 @@ Route::controller(SkillsController::class)->group(function () {
     Route::get('general_skills', 'getGeneralSkills');
 });
 
-Route::prefix('jobseeker/')->group((function () {
-    Route::controller(JobSeekerController::class)->group(function () {
+Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(function () {
+    Route::middleware('jobseeker')->group(function () {
         Route::get('profile', 'getBasicProfile');
-        Route::get('profile/{id}', 'getJobSeeker');
-        Route::get('', 'getAllJobSeekers');
         Route::get('related_courses', 'getRelatedCourses');
-        Route::get('job_seekers/{specialization_id}', 'getJobSeekers');
+        Route::delete('delete', 'deleteJobSeekerProfile');
         Route::post('apply', 'applyForJob');
         Route::post('update_profile', 'updateJobSeekerProfile');
-        // Route::get('applications', 'getApplications');
     });
-}));
+    Route::get('profile/{id}', 'getJobSeeker');
+    Route::get('', 'getAllJobSeekers');
+    Route::get('job_seekers/{specialization_id}', 'getJobSeekers');
+});
 
-Route::prefix('startup/')->group((function () {
-    Route::controller(StartupController::class)->group(function () {
-        Route::get('{id?}', 'getStartup');
+Route::prefix('startup/')->controller(StartupController::class)->group(function () {
+    Route::get('profile/{id?}', 'getStartup');
+    Route::middleware('startup')->group(function () {
         Route::post('update_profile', 'updateStartupProfile');
-        Route::get('profile', 'getStartupProfile');
+        Route::delete('delete', 'deleteStartupProfile');
     });
-}));
+});
 
-Route::prefix('jobposts/')->group((function () {
-    Route::controller(JobPostController::class)->group(function () {
-        Route::get('', 'getAllJobPosts');
-        Route::get('/job_post/{id}', 'getJobPost');
+
+Route::prefix('jobposts')->controller(JobPostController::class)->group(function () {
+    Route::get('/', 'getAllJobPosts');
+    Route::get('/post/{id}', 'getJobPost');
+    Route::middleware('jobseeker')->get('/related/{specialization_id}', 'getRelatedJobPosts');
+    Route::middleware('startup')->group(function () {
         Route::get('/startup', 'getStartupJobPosts');
-        Route::get('/related/{$specialization_id}', 'getRelatedJobPosts');
-        Route::post('update', 'updateJobPost');
-        Route::post('post', 'postJob');
+        Route::post('/update', 'updateJobPost');
+        Route::post('/post', 'postJob');
     });
-}));
-
-Route::controller(UserController::class)->group(function () {
-    Route::delete('jobseeker/{userID}', 'deleteJobSeekerProfile');
-    Route::delete('startup/{userID}', 'deleteStartupProfile');
 });
 
 Route::controller(ApplicationController::class)->group(function () {
-    Route::get('applications', 'getJobSeekerApplications');
-    Route::get('applicants', 'getPendingStartupApplicants');
+    Route::middleware('jobseeker')->group(function () {
+        Route::get('applications', 'getJobSeekerApplications');
+    });
+
+    Route::middleware('startup')->group(function () {
+        Route::get('applicants', 'getStartupApplicants');
+        Route::get('application_response', 'applicationResponse');
+        Route::delete('delete_application', 'deleteApplication');
+    });
 });
+
+Route::prefix('admin/')->middleware(['admin'])->group((function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('startups', 'getAllStartups');
+        Route::get('applications', 'getAllApplications');
+        Route::get('active_jobposts', 'activeJobPosts');
+        Route::get('recent_signups', 'recentSignups');
+        Route::get('recent_jobposts', 'recentJobPosts');
+        Route::post('add_advisor', 'addAdvisor');
+        Route::post('edit_profile', 'editAdminProfile');
+        Route::delete('delete_profile', 'deleteAdminProfile');
+    });
+    Route::get('jobseekers', 'JobSeekerController@getAllJobSeekers');
+    Route::get('jobseeker/{id}', 'JobSeekerController@getJobSeeker');
+    Route::get('startup/{id}', 'StartupController@getStartup');
+    Route::get('jobpost/{id}', 'JobPostController@getJobPost');
+    Route::get('jobposts', 'JobPostController@getAllJobPosts');
+    Route::delete('jobseeker/{id}', 'UserController@deleteJobSeeker');
+    Route::delete('startup/{id}', 'UserController@deleteStartup');
+    Route::delete('jobpost/{id}', 'JobPostController@deleteJobPost');
+    Route::delete('delete_application/{id}', 'ApplicationController@deleteApplication');
+}));;

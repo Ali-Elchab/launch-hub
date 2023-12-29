@@ -6,6 +6,7 @@ use App\Models\JobPost;
 use App\Models\JobSeeker;
 use App\Models\JobSeekerEnhaceSkillsCourse;
 use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,23 +63,6 @@ class JobSeekerController extends Controller
         return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
     }
 
-    public function updateJobSeekerProfile(Request $request)
-    {
-        $profileImagePath = uploadImage($request);
-
-        $jobSeeker = $request->user()->jobSeeker;
-        if ($jobSeeker) {
-            $updateData = $request->only('first_name', 'last_name', 'phone', 'address', 'city', 'bio');
-            if ($profileImagePath) {
-                $updateData['profile_pic'] = $profileImagePath;
-            }
-
-            $jobSeeker->update($updateData);
-            return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
-        }
-
-        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
-    }
 
     public function applyForJob(Request $request)
     {
@@ -99,6 +83,52 @@ class JobSeekerController extends Controller
             return response()->json(['status' => 'success', 'courses' => $courses]);
         }
 
+        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
+    }
+
+    public function updateJobSeekerProfile(Request $request)
+    {
+        $profileImagePath = uploadImage($request);
+
+        $jobSeeker = $request->user()->jobSeeker;
+        if ($jobSeeker) {
+            $updateData = $request->only('first_name', 'last_name', 'phone', 'address', 'city', 'bio');
+            if ($profileImagePath) {
+                $updateData['profile_pic'] = $profileImagePath;
+            }
+
+            $jobSeeker->update($updateData);
+            return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
+    }
+
+    public function deleteJobSeekerProfile(Request $request, $id = null)
+    {
+        if ($id) {
+            $user = User::find($id);
+        } else {
+            $user = $request->user();
+        }
+        $jobSeeker = $user->jobSeeker;
+        if ($jobSeeker) {
+
+            $resume = $jobSeeker->resume;
+            $resumePath = 'assets/resumes/' . $resume;
+            if ($resume && Storage::disk('public')->exists($resumePath)) {
+                Storage::disk('public')->delete($resumePath);
+            }
+
+            $profilePicture = $jobSeeker->profile_pic;
+            $profilePicturePath = 'assets/images/profile_pics' . $profilePicture;
+            if ($profilePicture && Storage::disk('public')->exists($profilePicturePath)) {
+                Storage::disk('public')->delete($profilePicturePath);
+            }
+
+            $user->delete();
+            return response()->json(['status' => 'success', 'message' => 'Job seeker deleted successfully']);
+        }
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 }

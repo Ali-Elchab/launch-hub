@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Startup;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StartupController extends Controller
 {
     //
-    public function getAllStartups()
-    {
-        $startups = Startup::all();
-        return response()->json($startups);
-    }
+
 
     public function getStartup($id = null)
     {
@@ -41,5 +39,28 @@ class StartupController extends Controller
         }
         $startup->update($request->all());
         return response()->json(['status' => 'success', 'message' => 'Startup profile updated successfully']);
+    }
+
+
+    public function deleteStartupProfile(Request $request, $id = null)
+    {
+        if ($id) {
+            $user = User::find($id);
+        } else {
+            $user = $request->user();
+        }
+        $startup = $user->startup;
+        if ($startup) {
+
+            $logo = $startup->logo_url;
+            $logoPath = 'assets/resumes/' . $logo;
+
+            if ($logo && Storage::disk('public')->exists($logoPath)) {
+                Storage::disk('public')->delete($logoPath);
+            }
+            $user->delete();
+            return response()->json(['status' => 'success', 'message' => 'Startup deleted successfully']);
+        }
+        return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
     }
 }
