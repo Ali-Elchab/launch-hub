@@ -22,36 +22,36 @@ class SignIn extends StatelessWidget {
           // Centered content with fixed width
           Center(
             child: SizedBox(
-              width: 280, // Set the width to 280 pixels
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top +
-                      kToolbarHeight, // Adjust top padding for AppBar
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const HeaderSection(),
-                    const SignInTextField(label: 'Email'),
-                    const SizedBox(height: 16),
-                    const SignInTextField(label: 'Password', isPassword: true),
-                    const SizedBox(height: 8),
-                    const Text('Forgot Password?'),
-                    const SizedBox(height: 16),
-                    SubmitButton('Sign In', () {}),
-                    const SizedBox(height: 16),
-                    const DividerWithText(text: 'or continue with'),
-                    const SizedBox(height: 16),
-                    SocialSignInButton(
-                      text: 'Google',
-                      imagePath: 'assets/images/google_logo.png',
-                      onPressed: () {},
+              width: 280,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const HeaderSection(),
+                  const Text(
+                    'Welcome Back to LaunchHub!\nYour Startup Oasis',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
                     ),
-                    const SizedBox(height: 16),
-                    const Text('Don\'t have an account? SIGN UP!'),
-                  ],
-                ),
+                  ),
+                  const SignInTextField(label: 'Email'),
+                  const SizedBox(height: 16),
+                  const SignInTextField(label: 'Password', isPassword: true),
+                  const SizedBox(height: 8),
+                  const Text('Forgot Password?'),
+                  const SizedBox(height: 16),
+                  SubmitButton('Sign In', () {}),
+                  const SizedBox(height: 16),
+                  const DividerWithText(text: 'or continue with'),
+                  const SizedBox(height: 16),
+                  SocialSignInButton(
+                    text: 'Google',
+                    imagePath: 'assets/images/google_logo.png',
+                    onPressed: () {},
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Don\'t have an account? SIGN UP!'),
+                ],
               ),
             ),
           ),
@@ -67,9 +67,12 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: FractionallySizedBox(
-        heightFactor: 0.2,
-        child: Image.asset('assets/logos/logo-nobg.ico'),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 22),
+        child: FractionallySizedBox(
+          heightFactor: 0.3,
+          child: Image.asset('assets/logos/logo-nobg.ico'),
+        ),
       ),
     );
   }
