@@ -9,24 +9,17 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 260,
-      child: TextButton(
+      child: ElevatedButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
           backgroundColor: const Color(0xFF326789),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-          ),
-          foregroundColor: Colors.white,
         ),
         child: Text(
           text,
           style: const TextStyle(
               color: Colors.white,
               fontFamily: 'inter',
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.bold),
         ),
       ),
