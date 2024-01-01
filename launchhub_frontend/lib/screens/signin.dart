@@ -1,9 +1,18 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/start_screen.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
+
+  void _forgotPassword(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const StartScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +37,38 @@ class SignIn extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const HeaderSection(),
-                  const Text(
+                  Text(
                     'Welcome Back to LaunchHub!\nYour Startup Oasis',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
-                  const SignInTextField(label: 'Email'),
+                  const SizedBox(height: 35),
+                  const InputField(
+                    label: 'Email',
+                  ),
                   const SizedBox(height: 16),
-                  const SignInTextField(label: 'Password', isPassword: true),
+                  const InputField(label: 'Password', isPassword: true),
                   const SizedBox(height: 8),
-                  const Text('Forgot Password?'),
-                  const SizedBox(height: 16),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () {
+                          _forgotPassword(context);
+                        },
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFF326789),
+                          ),
+                        ),
+                      )),
+                  const SizedBox(height: 40),
                   SubmitButton('Sign In', () {}),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 30),
                   const DividerWithText(text: 'or continue with'),
                   const SizedBox(height: 16),
                   SocialSignInButton(
@@ -50,8 +76,35 @@ class SignIn extends StatelessWidget {
                     imagePath: 'assets/images/google_logo.png',
                     onPressed: () {},
                   ),
-                  const SizedBox(height: 16),
-                  const Text('Don\'t have an account? SIGN UP!'),
+                  const SizedBox(height: 10),
+                  RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: "Don't have an account? ",
+                            style: Theme.of(context).textTheme.bodySmall!),
+                        TextSpan(
+                          text: "Sign Up",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: const Color(0xFF326789)),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const StartScreen()),
+                              );
+                            },
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -71,52 +124,9 @@ class HeaderSection extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 22),
         child: FractionallySizedBox(
-          heightFactor: 0.3,
+          heightFactor: 0.37,
           child: Image.asset('assets/logos/logo-nobg.ico'),
         ),
-      ),
-    );
-  }
-}
-
-class SignInTextField extends StatelessWidget {
-  final String label;
-  final bool isPassword;
-
-  const SignInTextField(
-      {super.key, required this.label, this.isPassword = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      obscureText: isPassword,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-      ),
-    );
-  }
-}
-
-class SocialSignInButton extends StatelessWidget {
-  final String text;
-  final String imagePath;
-  final VoidCallback onPressed;
-
-  const SocialSignInButton({
-    super.key,
-    required this.text,
-    required this.imagePath,
-    required this.onPressed,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      onPressed: onPressed,
-      icon: Image.asset(imagePath, height: 24), // Social logo here
-      label: Text(text),
-      style: OutlinedButton.styleFrom(
-        side: const BorderSide(color: Colors.blue),
       ),
     );
   }
@@ -134,7 +144,7 @@ class DividerWithText extends StatelessWidget {
         const Expanded(child: Divider(thickness: 2)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(text),
+          child: Text(text, style: Theme.of(context).textTheme.labelSmall!),
         ),
         const Expanded(child: Divider(thickness: 2)),
       ],
