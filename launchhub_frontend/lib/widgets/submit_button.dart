@@ -8,7 +8,7 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 260,
+      width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
@@ -16,11 +16,10 @@ class SubmitButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'inter',
-              fontSize: 14,
-              fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: const Color.fromARGB(204, 255, 255, 255),
+              fontWeight: FontWeight.bold,
+              fontSize: 16),
         ),
       ),
     );
