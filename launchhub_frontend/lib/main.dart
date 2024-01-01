@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/signin.dart';
 import 'package:launchhub_frontend/screens/start_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const App());
@@ -26,7 +27,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        fontFamily: 'Inter',
+        fontFamily: GoogleFonts.inter().fontFamily,
         primaryColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       home: Scaffold(

@@ -15,7 +15,7 @@ class SignIn extends StatelessWidget {
           // Full-screen background image
           Positioned.fill(
             child: Image.asset(
-              'assets/images/auth_bg.png',
+              'assets/backgrounds/auth_bg.png',
               fit: BoxFit.cover,
             ),
           ),

@@ -11,7 +11,7 @@ class StartScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/splashscreen-bg.png'),
+          image: AssetImage('assets/backgrounds/splashscreen_bg.png'),
           fit: BoxFit.cover,
         ),
       ),

@@ -34,6 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +59,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/splashscreen-bg.png
+    - assets/backgrounds/splashscreen_bg.png
+    - assets/backgrounds/auth_bg.png
     - assets/images/splashscreen-img.png
     - assets/images/google_logo.png
     - assets/images/educationalbg_2_32.jpeg
@@ -67,7 +69,6 @@ flutter:
     - assets/images/job-req_1_32.jpeg
     - assets/images/job-resp.jpeg
     - assets/images/skillshobbies.jpeg
-    - assets/images/auth_bg.png
     - assets/logos/logo-nobg.ico
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -80,12 +81,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Inter
-      fonts:
-        - asset: fonts/Inter-Regular.ttf
-        - asset: fonts/Inter-Bold.ttf
-          weight: 700
+  # fonts:
+  #   - family: Inter
+  #     fonts:
+  #       - asset: fonts/Inter-Regular.ttf
+  #       - asset: fonts/Inter-Bold.ttf
+  #         weight: 700
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
