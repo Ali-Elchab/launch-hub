@@ -8,6 +8,7 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Sign In'),
       extendBodyBehindAppBar: true, // Extend the body behind the AppBar
       body: Stack(

@@ -17,26 +17,19 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   var activeScreen = 'splashScreen';
 
-  void changeScreen() {
-    setState(() {
-      activeScreen = 'signIn';
-    });
-  }
+  final theme = ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: const Color(0xFF326789),
+    ),
+    textTheme: GoogleFonts.interTextTheme(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: GoogleFonts.inter().fontFamily,
-        primaryColor: const Color.fromARGB(255, 0, 0, 0),
-      ),
-      home: Scaffold(
-        body: Container(
-          child: activeScreen == 'splashScreen'
-              ? StartScreen(changeScreen)
-              : const SignIn(),
-        ),
-      ),
+      theme: theme,
+      home: const Scaffold(body: StartScreen()),
     );
   }
 }
