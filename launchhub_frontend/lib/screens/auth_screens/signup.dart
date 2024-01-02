@@ -1,0 +1,155 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/auth_screens/radio_buttons.dart';
+import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/screens/start_screen.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
+import 'package:launchhub_frontend/widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/submit_button.dart';
+
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  UserType _selectedType = UserType.jobseeker;
+
+  void _onRadioSelectionChanged(UserType selectedType) {
+    setState(() {
+      _selectedType = selectedType;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBar(title: 'Sign In'),
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/backgrounds/auth_bg.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 280,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const HeaderSection(),
+                  Text(
+                    'Empowering Startups\nOne  Click at a Time',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  const SizedBox(height: 35),
+                  const InputField(label: 'Email'),
+                  const SizedBox(height: 16),
+                  const InputField(label: 'Password', isPassword: true),
+                  const SizedBox(height: 16),
+                  const InputField(label: 'Confirm Password'),
+                  const SizedBox(height: 16),
+                  RadioButtons(
+                    onSelectionChanged: _onRadioSelectionChanged,
+                  ),
+                  const SizedBox(height: 20),
+                  SubmitButton('Sign Up', () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignIn()));
+                  }),
+                  const SizedBox(height: 30),
+                  const DividerWithText(text: 'or sign up with'),
+                  const SizedBox(height: 16),
+                  SocialSignInButton(
+                    text: 'Google',
+                    imagePath: 'assets/images/google_logo.png',
+                    onPressed: () {},
+                  ),
+                  const SizedBox(height: 10),
+                  RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: "Already have an account? ",
+                            style: Theme.of(context).textTheme.bodySmall!),
+                        TextSpan(
+                          text: "Sign In",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: const Color(0xFF326789)),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignIn()),
+                              );
+                            },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HeaderSection extends StatelessWidget {
+  const HeaderSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 22),
+        child: FractionallySizedBox(
+          heightFactor: 0.37,
+          child: Image.asset('assets/logos/logo-nobg.ico'),
+        ),
+      ),
+    );
+  }
+}
+
+class DividerWithText extends StatelessWidget {
+  final String text;
+
+  const DividerWithText({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        const Expanded(child: Divider(thickness: 2)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(text, style: Theme.of(context).textTheme.labelSmall!),
+        ),
+        const Expanded(child: Divider(thickness: 2)),
+      ],
+    );
+  }
+}
