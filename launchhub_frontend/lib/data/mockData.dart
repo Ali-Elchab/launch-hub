@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 

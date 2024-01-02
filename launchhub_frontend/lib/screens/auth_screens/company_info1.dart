@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/niche_drop_down.dart';
@@ -119,15 +120,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
               const Spacer(),
               SmallButton('Next', () {}),
               const SizedBox(height: 15),
-              Text(
-                'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w100,
-                    fontSize: 11,
-                    color: Colors.grey),
-              ),
-              const SizedBox(height: 15),
+              const BottomText(),
             ],
           ),
         ),
