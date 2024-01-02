@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
 import 'package:launchhub_frontend/screens/auth_screens/radio_buttons.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
-import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -68,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SignIn()));
+                            builder: (context) => const CompanyInfo1()));
                   }),
                   const SizedBox(height: 30),
                   const DividerWithText(text: 'or sign up with'),
@@ -125,8 +125,8 @@ class HeaderSection extends StatelessWidget {
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 22),
-        child: FractionallySizedBox(
-          heightFactor: 0.37,
+        child: SizedBox(
+          width: 130,
           child: Image.asset('assets/logos/logo-nobg.ico'),
         ),
       ),

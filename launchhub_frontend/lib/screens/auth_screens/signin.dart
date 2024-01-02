@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
-import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -46,9 +45,7 @@ class SignIn extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   const SizedBox(height: 35),
-                  const InputField(
-                    label: 'Email',
-                  ),
+                  const InputField(label: 'Email'),
                   const SizedBox(height: 16),
                   const InputField(label: 'Password', isPassword: true),
                   const SizedBox(height: 8),
@@ -123,8 +120,8 @@ class HeaderSection extends StatelessWidget {
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 22),
-        child: FractionallySizedBox(
-          heightFactor: 0.37,
+        child: SizedBox(
+          width: 130,
           child: Image.asset('assets/logos/logo-nobg.ico'),
         ),
       ),
