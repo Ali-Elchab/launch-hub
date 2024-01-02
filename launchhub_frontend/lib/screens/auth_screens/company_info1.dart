@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/screens/auth_screens/company_info2.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/niche_drop_down.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CompanyInfo1 extends StatefulWidget {
   const CompanyInfo1({super.key});
@@ -23,6 +25,8 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
   DateTime? selectedDate;
   Industry? _selectedIndustry;
   Niche? _niche;
+  XFile? _image;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -30,7 +34,6 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
     // _selectedIndustry = _industries.isNotEmpty ? _industries.first : null;
   }
 
-  final TextEditingController _controller = TextEditingController();
   @override
   void dispose() {
     _controller.dispose();
@@ -57,6 +60,30 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
     setState(() {
       _selectedIndustry = newValue;
     });
+  }
+
+  Future<void> _pickImage() async {
+    print('herehrerehrehrehrehreh');
+    final ImagePicker picker = ImagePicker();
+    final XFile? selectedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (selectedImage != null) {
+      setState(() {
+        _image = selectedImage;
+      });
+    }
+  }
+
+  void onNext() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CompanyInfo2(
+          selectedImage: _image,
+        ),
+      ),
+    );
   }
 
   @override
@@ -87,8 +114,13 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 ),
               ),
               const SizedBox(height: 35),
-              const HeaderSection(),
-              const SizedBox(height: 16),
+              ProfileImagePicker(
+                  onImagePicked: () async {
+                    await _pickImage();
+                  },
+                  imageFile: _image,
+                  text: 'Upload Logo'),
+              const SizedBox(height: 32),
               const InputField(label: 'Company Name'),
               const SizedBox(height: 16),
               DatePickerField(
@@ -118,7 +150,9 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 },
               ),
               const Spacer(),
-              SmallButton('Next', () {}),
+              SmallButton('Next', () {
+                onNext();
+              }),
               const SizedBox(height: 15),
               const BottomText(),
             ],
