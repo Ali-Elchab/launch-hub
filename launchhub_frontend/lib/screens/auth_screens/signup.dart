@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
-import 'package:launchhub_frontend/screens/auth_screens/radio_buttons.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/radio_buttons.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
