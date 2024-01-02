@@ -36,7 +36,8 @@ class NicheDropDown extends StatelessWidget {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Niche>(
           borderRadius: BorderRadius.circular(10),
-          icon: const Icon(Icons.arrow_drop_down),
+          icon: const Icon(Icons.arrow_drop_down,
+              color: Color.fromARGB(255, 75, 75, 75)),
           value: value,
           isExpanded: true,
           onChanged: onChanged,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/industry.dart';
+import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/niche_drop_down.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:intl/intl.dart';
+import 'package:launchhub_frontend/data/mockData.dart';
 
 class CompanyInfo1 extends StatefulWidget {
   const CompanyInfo1({super.key});
@@ -18,29 +21,7 @@ class CompanyInfo1 extends StatefulWidget {
 class _CompanyInfo1State extends State<CompanyInfo1> {
   DateTime? selectedDate;
   Industry? _selectedIndustry;
-  final List<Industry> _industries = [
-    Industry(id: 1, name: 'Agriculture'),
-    Industry(id: 2, name: 'Automotive'),
-    Industry(id: 3, name: 'Banking'),
-    Industry(id: 4, name: 'Construction'),
-    Industry(id: 5, name: 'Education'),
-    Industry(id: 6, name: 'Energy'),
-    Industry(id: 7, name: 'Entertainment'),
-    Industry(id: 8, name: 'Food'),
-    Industry(id: 9, name: 'Healthcare'),
-    Industry(id: 10, name: 'Hospitality'),
-    Industry(id: 11, name: 'Insurance'),
-    Industry(id: 12, name: 'Manufacturing'),
-    Industry(id: 13, name: 'Media'),
-    Industry(id: 14, name: 'Mining'),
-    Industry(id: 15, name: 'Pharmaceutical'),
-    Industry(id: 16, name: 'Real Estate'),
-    Industry(id: 17, name: 'Retail'),
-    Industry(id: 18, name: 'Telecommunications'),
-    Industry(id: 19, name: 'Transportation'),
-    Industry(id: 20, name: 'Utilities'),
-    Industry(id: 21, name: 'Other'),
-  ];
+  Niche? _niche;
 
   @override
   void initState() {
@@ -117,7 +98,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
               const InputField(label: 'Registration Number'),
               const SizedBox(height: 16),
               IndustryDropDown(
-                list: _industries,
+                list: industries,
                 value: _selectedIndustry,
                 onChanged: (Industry? newValue) {
                   setState(() {
@@ -126,12 +107,12 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 },
               ),
               const SizedBox(height: 16),
-              IndustryDropDown(
-                list: _industries,
-                value: _selectedIndustry,
-                onChanged: (Industry? newValue) {
+              NicheDropDown(
+                list: niches,
+                value: _niche,
+                onChanged: (Niche? newValue) {
                   setState(() {
-                    _selectedIndustry = newValue;
+                    _niche = newValue;
                   });
                 },
               ),
