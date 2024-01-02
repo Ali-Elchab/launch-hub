@@ -23,6 +23,7 @@ class DatePickerField extends StatelessWidget {
         floatingLabelStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
               fontWeight: FontWeight.bold,
               fontSize: 16,
+              color: const Color(0xFF326789),
             ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
