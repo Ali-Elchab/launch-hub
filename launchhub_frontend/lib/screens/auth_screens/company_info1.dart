@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
@@ -15,6 +17,37 @@ class CompanyInfo1 extends StatefulWidget {
 
 class _CompanyInfo1State extends State<CompanyInfo1> {
   DateTime? selectedDate;
+  Industry? _selectedIndustry;
+  final List<Industry> _industries = [
+    Industry(id: 1, name: 'Agriculture'),
+    Industry(id: 2, name: 'Automotive'),
+    Industry(id: 3, name: 'Banking'),
+    Industry(id: 4, name: 'Construction'),
+    Industry(id: 5, name: 'Education'),
+    Industry(id: 6, name: 'Energy'),
+    Industry(id: 7, name: 'Entertainment'),
+    Industry(id: 8, name: 'Food'),
+    Industry(id: 9, name: 'Healthcare'),
+    Industry(id: 10, name: 'Hospitality'),
+    Industry(id: 11, name: 'Insurance'),
+    Industry(id: 12, name: 'Manufacturing'),
+    Industry(id: 13, name: 'Media'),
+    Industry(id: 14, name: 'Mining'),
+    Industry(id: 15, name: 'Pharmaceutical'),
+    Industry(id: 16, name: 'Real Estate'),
+    Industry(id: 17, name: 'Retail'),
+    Industry(id: 18, name: 'Telecommunications'),
+    Industry(id: 19, name: 'Transportation'),
+    Industry(id: 20, name: 'Utilities'),
+    Industry(id: 21, name: 'Other'),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // _selectedIndustry = _industries.isNotEmpty ? _industries.first : null;
+  }
+
   final TextEditingController _controller = TextEditingController();
   @override
   void dispose() {
@@ -23,7 +56,6 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    print('aaaaaaaaaaaaaaaaaaaaaaa');
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate ?? DateTime.now(),
@@ -37,6 +69,12 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
             DateFormat('yyyy-MM-dd').format(picked); // Format date as required
       });
     }
+  }
+
+  void onIndustryChange(Industry? newValue) {
+    setState(() {
+      _selectedIndustry = newValue;
+    });
   }
 
   @override
@@ -76,13 +114,27 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 onTap: () => _selectDate(context),
               ),
               const SizedBox(height: 16),
-              const InputField(label: 'Legal Structure'),
+              const InputField(label: 'Registration Number'),
               const SizedBox(height: 16),
-              const InputField(label: 'Email'),
+              IndustryDropDown(
+                list: _industries,
+                value: _selectedIndustry,
+                onChanged: (Industry? newValue) {
+                  setState(() {
+                    _selectedIndustry = newValue;
+                  });
+                },
+              ),
               const SizedBox(height: 16),
-              const InputField(label: 'Email'),
-              const SizedBox(height: 16),
-              const InputField(label: 'Email'),
+              IndustryDropDown(
+                list: _industries,
+                value: _selectedIndustry,
+                onChanged: (Industry? newValue) {
+                  setState(() {
+                    _selectedIndustry = newValue;
+                  });
+                },
+              ),
               const SizedBox(height: 80),
               SmallButton('Next', () {}),
               const SizedBox(height: 16),
