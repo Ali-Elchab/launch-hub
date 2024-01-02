@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/screens/signin.dart';
+import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class StartScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class StartScreen extends StatelessWidget {
 
   void _getStarted(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SignIn()));
+        context, MaterialPageRoute(builder: (context) => const SignUp()));
   }
 
   @override
