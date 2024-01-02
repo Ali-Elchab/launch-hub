@@ -135,9 +135,9 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                   });
                 },
               ),
-              const SizedBox(height: 80),
+              const Spacer(),
               SmallButton('Next', () {}),
-              const SizedBox(height: 16),
+              const SizedBox(height: 15),
               Text(
                 'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
                 textAlign: TextAlign.left,
@@ -146,6 +146,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                     fontSize: 11,
                     color: Colors.grey),
               ),
+              const SizedBox(height: 15),
             ],
           ),
         ),
