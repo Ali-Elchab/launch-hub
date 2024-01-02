@@ -11,8 +11,7 @@ class InputField extends StatelessWidget {
     return TextField(
       obscureText: isPassword,
       decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           filled: true,
           fillColor: const Color(0xFFF5F5F5),
           labelText: label,
