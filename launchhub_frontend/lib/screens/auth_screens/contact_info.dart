@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/auth_screens/founders.dart';
+import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
@@ -104,12 +105,8 @@ class _ContactInfoState extends State<ContactInfo> {
                 ),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Founders(
-                                  selectedImage: widget.selectedImage,
-                                )));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Skills()));
                   }
                 }),
                 const SizedBox(height: 15),

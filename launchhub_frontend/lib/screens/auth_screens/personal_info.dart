@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/screens/auth_screens/company_info2.dart';
 import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
@@ -125,7 +124,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 const SizedBox(height: 32),
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Column(
                       children: [
                         InputField(label: 'First Name', validator: validator),

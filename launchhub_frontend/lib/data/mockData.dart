@@ -48,3 +48,22 @@ List<Niche> niches = [
   Niche(id: 20, name: 'Water & Waste Utilities'),
   Niche(id: 21, name: 'Virtual Reality Technology'),
 ];
+
+final List<String> skills = [
+  'Critical Thinking',
+  'Data Analysis',
+  'Time management',
+  'Teamwork',
+  'Networking',
+  'Machine Learning',
+  'Programming Languages',
+  'Resilience',
+  'Risk Management',
+  'Mentoring',
+  'Delegation',
+  'Design Thinking',
+  'Accounting',
+  'Recruitment',
+  'Network Security',
+  // ... add other skills here ...
+];

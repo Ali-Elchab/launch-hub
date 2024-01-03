@@ -28,13 +28,15 @@ class ProfileImagePicker extends StatelessWidget {
                       Colors.black38, // Semi-transparent overlay when no image
                   shape: BoxShape.circle,
                 ),
-                child: const Center(
+                child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.add_a_photo, size: 40, color: Colors.white),
-                      Text("Upload Logo",
-                          style: TextStyle(color: Colors.white)),
+                      const Icon(Icons.add_a_photo,
+                          size: 40, color: Colors.white),
+                      Text(text,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
