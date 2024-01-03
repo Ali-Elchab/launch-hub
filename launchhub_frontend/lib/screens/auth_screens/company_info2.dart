@@ -82,13 +82,9 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                       text: 'Upload Logo'),
                 const SizedBox(height: 32),
                 const InputField(label: 'Business Address'),
-                const SizedBox(height: 16),
                 const InputField(label: 'Phone Number'),
-                const SizedBox(height: 16),
                 const InputField(label: 'Email Address'),
-                const SizedBox(height: 16),
                 const InputField(label: 'Website URL'),
-                const SizedBox(height: 16),
                 const SocialMediaLinksDropdown(),
                 const SizedBox(height: 150),
                 SmallButton('Next', () {

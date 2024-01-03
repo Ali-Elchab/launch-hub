@@ -55,11 +55,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 35),
                   const InputField(label: 'Email'),
-                  const SizedBox(height: 16),
                   const InputField(label: 'Password', isPassword: true),
-                  const SizedBox(height: 16),
                   const InputField(label: 'Confirm Password'),
-                  const SizedBox(height: 16),
                   RadioButtons(
                     onSelectionChanged: _onRadioSelectionChanged,
                   ),

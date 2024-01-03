@@ -121,14 +121,12 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                   text: 'Upload Logo'),
               const SizedBox(height: 32),
               const InputField(label: 'Company Name'),
-              const SizedBox(height: 16),
               DatePickerField(
                 controller: _controller,
                 onTap: () => _selectDate(context),
               ),
               const SizedBox(height: 16),
               const InputField(label: 'Registration Number'),
-              const SizedBox(height: 16),
               IndustryDropDown(
                 list: industries,
                 value: _selectedIndustry,

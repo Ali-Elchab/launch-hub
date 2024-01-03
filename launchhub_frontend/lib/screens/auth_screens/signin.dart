@@ -46,9 +46,7 @@ class SignIn extends StatelessWidget {
                   ),
                   const SizedBox(height: 35),
                   const InputField(label: 'Email'),
-                  const SizedBox(height: 16),
                   const InputField(label: 'Password', isPassword: true),
-                  const SizedBox(height: 8),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: InkWell(
