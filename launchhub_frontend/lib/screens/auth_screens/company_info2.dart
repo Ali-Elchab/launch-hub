@@ -20,6 +20,8 @@ class CompanyInfo2 extends StatefulWidget {
 }
 
 class _CompanyInfo2State extends State<CompanyInfo2> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   XFile? _image;
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -31,6 +33,13 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
         _image = selectedImage;
       });
     }
+  }
+
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field cannot be empty';
+    }
+    return null;
   }
 
   @override
@@ -45,59 +54,65 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
         child: Center(
           child: SizedBox(
             width: 280,
-            child: Column(
-              // Use Column without Expanded
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'Company Information',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                // Use Column without Expanded
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        'Company Information',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontWeight: FontWeight.w700, fontSize: 22),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 35),
-                if (widget.selectedImage != null)
-                  ClipOval(
-                    child: Image.file(
-                      File(widget.selectedImage!.path),
-                      width: 120, // Diameter of the circle
-                      height: 120, // Diameter of the circle
-                      fit: BoxFit
-                          .cover, // This ensures the image covers the circle crop
+                  const SizedBox(height: 35),
+                  if (widget.selectedImage != null)
+                    ClipOval(
+                      child: Image.file(
+                        File(widget.selectedImage!.path),
+                        width: 120, // Diameter of the circle
+                        height: 120, // Diameter of the circle
+                        fit: BoxFit
+                            .cover, // This ensures the image covers the circle crop
+                      ),
                     ),
-                  ),
-                if (widget.selectedImage == null)
-                  ProfileImagePicker(
-                      onImagePicked: () async {
-                        await _pickImage();
-                      },
-                      imageFile: _image,
-                      text: 'Upload Logo'),
-                const SizedBox(height: 32),
-                const InputField(label: 'Business Address'),
-                const InputField(label: 'Phone Number'),
-                const InputField(label: 'Email Address'),
-                const InputField(label: 'Website URL'),
-                const SocialMediaLinksDropdown(),
-                const SizedBox(height: 150),
-                SmallButton('Next', () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Founders(
-                                selectedImage: _image,
-                              )));
-                }),
-                const SizedBox(height: 15),
-                const BottomText(),
-              ],
+                  if (widget.selectedImage == null)
+                    ProfileImagePicker(
+                        onImagePicked: () async {
+                          await _pickImage();
+                        },
+                        imageFile: _image,
+                        text: 'Upload Logo'),
+                  const SizedBox(height: 32),
+                  InputField(label: 'Business Address', validator: validator),
+                  InputField(label: 'Phone Number', validator: validator),
+                  InputField(label: 'Email Address', validator: validator),
+                  const InputField(label: 'Website URL'),
+                  const SocialMediaLinksDropdown(),
+                  const SizedBox(height: 150),
+                  SmallButton('Next', () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Founders(
+                                    selectedImage: _image,
+                                  )));
+                    }
+                  }),
+                  const SizedBox(height: 15),
+                  const BottomText(),
+                ],
+              ),
             ),
           ),
         ),
