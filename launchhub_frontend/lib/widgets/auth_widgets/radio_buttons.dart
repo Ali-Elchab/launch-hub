@@ -4,21 +4,20 @@ enum UserType { jobseeker, startup }
 
 class RadioButtons extends StatefulWidget {
   const RadioButtons({super.key, required this.onSelectionChanged});
-  final Function onSelectionChanged;
+  final Function(UserType) onSelectionChanged;
+
   @override
   State<RadioButtons> createState() => _RadioButtonsState();
 }
 
 class _RadioButtonsState extends State<RadioButtons> {
-  UserType? _type = UserType.jobseeker;
+  UserType? _type = UserType.startup;
 
-  void _handleRadioValueChanged(UserType? value) {
-    if (value != null) {
-      widget.onSelectionChanged(value);
-    }
+  void _handleRadioValueChange(UserType? value) {
     setState(() {
       _type = value;
     });
+    widget.onSelectionChanged(value!);
   }
 
   @override
@@ -31,7 +30,7 @@ class _RadioButtonsState extends State<RadioButtons> {
             activeColor: Theme.of(context).colorScheme.inversePrimary,
             value: UserType.startup,
             groupValue: _type,
-            onChanged: _handleRadioValueChanged,
+            onChanged: _handleRadioValueChange,
           ),
           const Text('Startup'),
         ]),
@@ -40,11 +39,7 @@ class _RadioButtonsState extends State<RadioButtons> {
             activeColor: Theme.of(context).colorScheme.inversePrimary,
             value: UserType.jobseeker,
             groupValue: _type,
-            onChanged: (UserType? value) {
-              setState(() {
-                _type = value;
-              });
-            },
+            onChanged: _handleRadioValueChange,
           ),
           const Text('Job Seeker'),
         ]),

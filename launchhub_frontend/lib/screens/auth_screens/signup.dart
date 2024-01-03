@@ -16,7 +16,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  UserType _selectedType = UserType.jobseeker;
+  UserType _selectedType = UserType.startup;
 
   void _onRadioSelectionChanged(UserType selectedType) {
     setState(() {
@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const CustomAppBar(title: 'Sign In'),
+      appBar: const CustomAppBar(title: 'Sign Up'),
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
@@ -68,7 +68,12 @@ class _SignUpState extends State<SignUp> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CompanyInfo1()));
+                            builder: (context) =>
+                                _selectedType == UserType.startup
+                                    ? const CompanyInfo1()
+                                    : _selectedType == UserType.jobseeker
+                                        ? const SignIn()
+                                        : const SignUp()));
                   }),
                   const SizedBox(height: 30),
                   const DividerWithText(text: 'or sign up with'),
