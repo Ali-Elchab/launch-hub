@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   final String label;
   final bool isPassword;
-
-  const InputField({super.key, required this.label, this.isPassword = false});
+  final String? Function(String?)? validator;
+  const InputField(
+      {super.key,
+      required this.label,
+      this.isPassword = false,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
-      child: TextField(
+      child: TextFormField(
         obscureText: isPassword,
+        validator: validator,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             filled: true,

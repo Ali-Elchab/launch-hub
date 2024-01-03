@@ -90,9 +90,9 @@ class _FoundersState extends State<Founders> {
               )),
 
               // Bottom part
-              SmallButton('Next', () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const SignIn()));
+              SmallButton('Submit', () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
               }),
               const SizedBox(height: 15),
               const BottomText(),

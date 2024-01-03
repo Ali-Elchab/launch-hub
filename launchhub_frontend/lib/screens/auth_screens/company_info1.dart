@@ -22,6 +22,7 @@ class CompanyInfo1 extends StatefulWidget {
 }
 
 class _CompanyInfo1State extends State<CompanyInfo1> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   Industry? _selectedIndustry;
   Niche? _niche;
@@ -94,65 +95,66 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
       body: Center(
         child: SizedBox(
           width: 280,
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    'Company Information',
-                    textAlign: TextAlign.left,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+          child: Form(
+            child: Column(
+              key: _formKey,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      'Company Information',
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 35),
-              ProfileImagePicker(
-                  onImagePicked: () async {
-                    await _pickImage();
+                const SizedBox(height: 35),
+                ProfileImagePicker(
+                    onImagePicked: () async {
+                      await _pickImage();
+                    },
+                    imageFile: _image,
+                    text: 'Upload Logo'),
+                const SizedBox(height: 32),
+                const InputField(label: 'Company Name'),
+                DatePickerField(
+                  controller: _controller,
+                  onTap: () => _selectDate(context),
+                ),
+                const SizedBox(height: 16),
+                const InputField(label: 'Registration Number'),
+                IndustryDropDown(
+                  list: industries,
+                  value: _selectedIndustry,
+                  onChanged: (Industry? newValue) {
+                    setState(() {
+                      _selectedIndustry = newValue;
+                    });
                   },
-                  imageFile: _image,
-                  text: 'Upload Logo'),
-              const SizedBox(height: 32),
-              const InputField(label: 'Company Name'),
-              DatePickerField(
-                controller: _controller,
-                onTap: () => _selectDate(context),
-              ),
-              const SizedBox(height: 16),
-              const InputField(label: 'Registration Number'),
-              IndustryDropDown(
-                list: industries,
-                value: _selectedIndustry,
-                onChanged: (Industry? newValue) {
-                  setState(() {
-                    _selectedIndustry = newValue;
-                  });
-                },
-              ),
-              const SizedBox(height: 16),
-              NicheDropDown(
-                list: niches,
-                value: _niche,
-                onChanged: (Niche? newValue) {
-                  setState(() {
-                    _niche = newValue;
-                  });
-                },
-              ),
-              const Spacer(),
-              SmallButton('Next', () {
-                onNext();
-              }),
-              const SizedBox(height: 15),
-              const BottomText(),
-            ],
+                ),
+                const SizedBox(height: 16),
+                NicheDropDown(
+                  list: niches,
+                  value: _niche,
+                  onChanged: (Niche? newValue) {
+                    setState(() {
+                      _niche = newValue;
+                    });
+                  },
+                ),
+                const Spacer(),
+                SmallButton('Next', () {
+                  onNext();
+                }),
+                const SizedBox(height: 15),
+                const BottomText(),
+              ],
+            ),
           ),
         ),
       ),

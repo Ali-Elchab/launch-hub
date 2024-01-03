@@ -6,8 +6,7 @@ class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
   void _getStarted(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SignIn()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
   }
 
   @override
