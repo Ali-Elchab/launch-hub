@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
+import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/radio_buttons.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
@@ -87,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                                     _selectedType == UserType.startup
                                         ? const CompanyInfo1()
                                         : _selectedType == UserType.jobseeker
-                                            ? SignIn()
+                                            ? const PersonalInfo()
                                             : const SignUp()));
                       }
                     }),

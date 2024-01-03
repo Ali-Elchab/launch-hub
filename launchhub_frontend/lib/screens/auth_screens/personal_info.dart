@@ -14,14 +14,14 @@ import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CompanyInfo1 extends StatefulWidget {
-  const CompanyInfo1({super.key});
+class PersonalInfo extends StatefulWidget {
+  const PersonalInfo({super.key});
 
   @override
-  State<CompanyInfo1> createState() => _CompanyInfo1State();
+  State<PersonalInfo> createState() => _PersonalInfoState();
 }
 
-class _CompanyInfo1State extends State<CompanyInfo1> {
+class _PersonalInfoState extends State<PersonalInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   Industry? _selectedIndustry;
@@ -91,7 +91,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const CustomAppBar(title: 'Startup Profile'),
+      appBar: const CustomAppBar(title: 'Job Seeker Profile'),
       backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
@@ -105,7 +105,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      'Company Information',
+                      'Personal Information',
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
@@ -122,15 +122,13 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                     imageFile: _image,
                     text: 'Upload Logo'),
                 const SizedBox(height: 32),
-                InputField(label: 'Company Name', validator: validator),
+                InputField(label: 'First Name', validator: validator),
                 DatePickerField(
                     controller: _controller,
                     onTap: () => _selectDate(context),
                     validator: validator),
                 const SizedBox(height: 16),
                 const InputField(label: 'Registration Number'),
-                const InputField(
-                    label: 'Company Description', isDescription: true),
                 IndustryDropDown(
                   list: industries,
                   value: _selectedIndustry,
