@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
-import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class StartScreen extends StatelessWidget {

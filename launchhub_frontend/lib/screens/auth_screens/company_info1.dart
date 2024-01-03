@@ -63,7 +63,6 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
   }
 
   Future<void> _pickImage() async {
-    print('herehrerehrehrehrehreh');
     final ImagePicker picker = ImagePicker();
     final XFile? selectedImage =
         await picker.pickImage(source: ImageSource.gallery);

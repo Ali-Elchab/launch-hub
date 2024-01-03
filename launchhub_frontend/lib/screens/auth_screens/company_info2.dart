@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/auth_screens/founders.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -18,6 +20,19 @@ class CompanyInfo2 extends StatefulWidget {
 }
 
 class _CompanyInfo2State extends State<CompanyInfo2> {
+  XFile? _image;
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? selectedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (selectedImage != null) {
+      setState(() {
+        _image = selectedImage;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +73,13 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                           .cover, // This ensures the image covers the circle crop
                     ),
                   ),
+                if (widget.selectedImage == null)
+                  ProfileImagePicker(
+                      onImagePicked: () async {
+                        await _pickImage();
+                      },
+                      imageFile: _image,
+                      text: 'Upload Logo'),
                 const SizedBox(height: 32),
                 const InputField(label: 'Business Address'),
                 const SizedBox(height: 16),
@@ -70,7 +92,10 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                 const SocialMediaLinksDropdown(),
                 const SizedBox(height: 150),
                 SmallButton('Next', () {
-                  // TODO: Implement the next button's onPressed function
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Founders()));
                 }),
                 const SizedBox(height: 15),
                 const BottomText(),
