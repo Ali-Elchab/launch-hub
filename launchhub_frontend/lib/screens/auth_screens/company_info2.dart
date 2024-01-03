@@ -95,7 +95,9 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Founders()));
+                          builder: (context) => Founders(
+                                selectedImage: _image,
+                              )));
                 }),
                 const SizedBox(height: 15),
                 const BottomText(),
