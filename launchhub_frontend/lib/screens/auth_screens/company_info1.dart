@@ -126,7 +126,8 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 DatePickerField(
                     controller: _controller,
                     onTap: () => _selectDate(context),
-                    validator: validator),
+                    validator: validator,
+                    text: 'Founding Date'),
                 const SizedBox(height: 16),
                 const InputField(label: 'Registration Number'),
                 const InputField(
@@ -169,7 +170,10 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                   }
                 }),
                 const SizedBox(height: 15),
-                const BottomText(),
+                const BottomText(
+                  text:
+                      'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
+                ),
               ],
             ),
           ),

@@ -126,9 +126,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 DatePickerField(
                     controller: _controller,
                     onTap: () => _selectDate(context),
-                    validator: validator),
+                    validator: validator,
+                    text: 'Date of Birth'),
                 const SizedBox(height: 16),
-                const InputField(label: 'Registration Number'),
+                InputField(label: 'Phone Number', validator: validator),
+                InputField(
+                    label: 'Professional Biography',
+                    isDescription: true,
+                    validator: validator),
                 IndustryDropDown(
                   list: industries,
                   value: _selectedIndustry,
@@ -148,6 +153,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 NicheDropDown(
                   list: niches,
                   value: _niche,
+                  text: 'Specialization',
                   validator: (value) {
                     if (value == null) {
                       return 'This field cannot be empty';
@@ -167,7 +173,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   }
                 }),
                 const SizedBox(height: 15),
-                const BottomText(),
+                const BottomText(
+                    text:
+                        'Your provided details will be utilized to shape a personalized resume, presenting your unique skills and experiences to startups seeking candidates like you.'),
               ],
             ),
           ),

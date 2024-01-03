@@ -5,13 +5,14 @@ class DatePickerField extends StatelessWidget {
   final VoidCallback onTap;
   final String? Function(String?)? validator;
   final AutovalidateMode autovalidateMode;
-
+  final String text;
   const DatePickerField({
     super.key,
     required this.controller,
     required this.onTap,
     this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    required this.text,
   });
 
   @override
@@ -21,7 +22,7 @@ class DatePickerField extends StatelessWidget {
       validator: validator,
       autovalidateMode: autovalidateMode,
       decoration: InputDecoration(
-        labelText: 'Founding Date',
+        labelText: text,
         suffixIcon: const Icon(Icons.calendar_today),
         filled: true,
         fillColor: const Color(0xFFF5F5F5),

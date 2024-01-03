@@ -7,6 +7,7 @@ class NicheDropDown extends StatelessWidget {
   final ValueChanged<Niche?> onChanged;
   final String? Function(Niche?)? validator;
   final AutovalidateMode autovalidateMode;
+  final String text;
   const NicheDropDown({
     super.key,
     required this.list,
@@ -14,6 +15,7 @@ class NicheDropDown extends StatelessWidget {
     required this.onChanged,
     this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.text = 'Select a niche',
   });
 
   @override
@@ -56,10 +58,10 @@ class NicheDropDown extends StatelessWidget {
               },
               value: state.value,
               hint: value == null
-                  ? const Text(
-                      "Select Sub niche / Niche",
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 172, 172, 172)),
+                  ? Text(
+                      text,
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 172, 172, 172)),
                     )
                   : null,
               items: list.map<DropdownMenuItem<Niche>>((Niche niche) {

@@ -110,7 +110,10 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                     }
                   }),
                   const SizedBox(height: 15),
-                  const BottomText(),
+                  const BottomText(
+                    text:
+                        'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
+                  ),
                 ],
               ),
             ),
