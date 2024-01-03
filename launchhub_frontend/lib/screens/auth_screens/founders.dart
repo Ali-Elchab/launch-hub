@@ -20,8 +20,7 @@ class Founders extends StatefulWidget {
 
 class _FoundersState extends State<Founders> {
   XFile? _image;
-  // Assuming dynamicFieldsCount is the number of dynamic fields
-  int dynamicFieldsCount = 10; // Initialize with a default value
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -35,68 +34,84 @@ class _FoundersState extends State<Founders> {
     }
   }
 
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field cannot be empty';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Startup Profile'),
       backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
           width: 280,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Founders & Key Members',
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 21,
-                        ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Founders & Key Members',
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 21,
+                              ),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 35),
-              if (widget.selectedImage != null)
-                ClipOval(
-                  child: Image.file(
-                    File(widget.selectedImage!.path),
-                    width: 120,
-                    height: 120,
-                    fit: BoxFit.cover,
+                const SizedBox(height: 35),
+                if (widget.selectedImage != null)
+                  ClipOval(
+                    child: Image.file(
+                      File(widget.selectedImage!.path),
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              if (widget.selectedImage == null)
-                ProfileImagePicker(
-                  onImagePicked: () async {
-                    await _pickImage();
-                  },
-                  imageFile: _image,
-                  text: 'Upload Logo',
-                ),
-              const SizedBox(height: 32),
+                if (widget.selectedImage == null)
+                  ProfileImagePicker(
+                    onImagePicked: () async {
+                      await _pickImage();
+                    },
+                    imageFile: _image,
+                    text: 'Upload Logo',
+                  ),
+                const SizedBox(height: 32),
 
-              // Scrollable part for dynamic input fields
-              const Expanded(
-                  child: Column(
-                children: [
-                  InputField(label: 'Founder Name'),
-                  InputField(label: 'CEO\'s Name'),
-                  InputField(label: 'Key Executive\`s Name'),
-                ],
-              )),
+                // Scrollable part for dynamic input fields
+                Expanded(
+                    child: Column(
+                  children: [
+                    InputField(
+                      label: 'Founder Name',
+                      validator: validator,
+                    ),
+                    const InputField(label: 'CEO\'s Name'),
+                    const InputField(label: 'Key Executive\`s Name'),
+                  ],
+                )),
 
-              // Bottom part
-              SmallButton('Submit', () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SignIn()));
-              }),
-              const SizedBox(height: 15),
-              const BottomText(),
-            ],
+                // Bottom part
+                SmallButton('Submit', () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignIn()));
+                  }
+                }),
+                const SizedBox(height: 15),
+                const BottomText(),
+              ],
+            ),
           ),
         ),
       ),
