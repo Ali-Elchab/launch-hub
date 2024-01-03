@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/auth_screens/hobbies.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
@@ -8,7 +9,7 @@ class StartScreen extends StatelessWidget {
 
   void _getStarted(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Skills()));
+        context, MaterialPageRoute(builder: (context) => const Hobbies()));
   }
 
   @override
