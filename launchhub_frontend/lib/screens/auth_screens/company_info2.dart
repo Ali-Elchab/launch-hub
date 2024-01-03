@@ -64,7 +64,7 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
-                        'Company Information',
+                        'Contact Information',
                         textAlign: TextAlign.left,
                         style: Theme.of(context)
                             .textTheme
@@ -93,11 +93,22 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                         imageFile: _image,
                         text: 'Upload Logo'),
                   const SizedBox(height: 32),
-                  InputField(label: 'Business Address', validator: validator),
-                  InputField(label: 'Phone Number', validator: validator),
-                  InputField(label: 'Email Address', validator: validator),
-                  const InputField(label: 'Website URL'),
-                  const SocialMediaLinksDropdown(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          InputField(
+                              label: 'Business Address', validator: validator),
+                          InputField(
+                              label: 'Phone Number', validator: validator),
+                          InputField(
+                              label: 'Email Address', validator: validator),
+                          const InputField(label: 'Website URL'),
+                          const SocialMediaLinksDropdown(),
+                        ],
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 150),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate()) {

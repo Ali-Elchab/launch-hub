@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info2.dart';
+import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
@@ -73,7 +74,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CompanyInfo2(
+        builder: (context) => ContactInfo(
           selectedImage: _image,
         ),
       ),
@@ -120,53 +121,62 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       await _pickImage();
                     },
                     imageFile: _image,
-                    text: 'Upload Logo'),
+                    text: 'Upload Profile Picture'),
                 const SizedBox(height: 32),
-                InputField(label: 'First Name', validator: validator),
-                DatePickerField(
-                    controller: _controller,
-                    onTap: () => _selectDate(context),
-                    validator: validator,
-                    text: 'Date of Birth'),
-                const SizedBox(height: 16),
-                InputField(label: 'Phone Number', validator: validator),
-                InputField(
-                    label: 'Professional Biography',
-                    isDescription: true,
-                    validator: validator),
-                IndustryDropDown(
-                  list: industries,
-                  value: _selectedIndustry,
-                  validator: (value) {
-                    if (value == null) {
-                      return 'This field cannot be empty';
-                    }
-                    return null;
-                  },
-                  onChanged: (Industry? newValue) {
-                    setState(() {
-                      _selectedIndustry = newValue;
-                    });
-                  },
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      children: [
+                        InputField(label: 'First Name', validator: validator),
+                        DatePickerField(
+                            controller: _controller,
+                            onTap: () => _selectDate(context),
+                            validator: validator,
+                            text: 'Date of Birth'),
+                        const SizedBox(height: 16),
+                        InputField(label: 'Phone Number', validator: validator),
+                        InputField(
+                            label: 'Professional Biography',
+                            isDescription: true,
+                            validator: validator),
+                        IndustryDropDown(
+                          list: industries,
+                          value: _selectedIndustry,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'This field cannot be empty';
+                            }
+                            return null;
+                          },
+                          onChanged: (Industry? newValue) {
+                            setState(() {
+                              _selectedIndustry = newValue;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        NicheDropDown(
+                          list: niches,
+                          value: _niche,
+                          text: 'Specialization',
+                          validator: (value) {
+                            if (value == null) {
+                              return 'This field cannot be empty';
+                            }
+                            return null;
+                          },
+                          onChanged: (Niche? newValue) {
+                            setState(() {
+                              _niche = newValue;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 16),
-                NicheDropDown(
-                  list: niches,
-                  value: _niche,
-                  text: 'Specialization',
-                  validator: (value) {
-                    if (value == null) {
-                      return 'This field cannot be empty';
-                    }
-                    return null;
-                  },
-                  onChanged: (Niche? newValue) {
-                    setState(() {
-                      _niche = newValue;
-                    });
-                  },
-                ),
-                const Spacer(),
+                const SizedBox(height: 24),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {
                     onNext();
