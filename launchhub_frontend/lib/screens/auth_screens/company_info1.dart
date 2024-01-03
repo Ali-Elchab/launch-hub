@@ -86,6 +86,13 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
     );
   }
 
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field cannot be empty';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,8 +103,8 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
         child: SizedBox(
           width: 280,
           child: Form(
+            key: _formKey,
             child: Column(
-              key: _formKey,
               children: <Widget>[
                 Align(
                   alignment: Alignment.topLeft,
@@ -121,16 +128,22 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                     imageFile: _image,
                     text: 'Upload Logo'),
                 const SizedBox(height: 32),
-                const InputField(label: 'Company Name'),
+                InputField(label: 'Company Name', validator: validator),
                 DatePickerField(
-                  controller: _controller,
-                  onTap: () => _selectDate(context),
-                ),
+                    controller: _controller,
+                    onTap: () => _selectDate(context),
+                    validator: validator),
                 const SizedBox(height: 16),
                 const InputField(label: 'Registration Number'),
                 IndustryDropDown(
                   list: industries,
                   value: _selectedIndustry,
+                  validator: (value) {
+                    if (value == null) {
+                      return 'This field cannot be empty';
+                    }
+                    return null;
+                  },
                   onChanged: (Industry? newValue) {
                     setState(() {
                       _selectedIndustry = newValue;
@@ -141,6 +154,12 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 NicheDropDown(
                   list: niches,
                   value: _niche,
+                  validator: (value) {
+                    if (value == null) {
+                      return 'This field cannot be empty';
+                    }
+                    return null;
+                  },
                   onChanged: (Niche? newValue) {
                     setState(() {
                       _niche = newValue;
@@ -149,7 +168,9 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 ),
                 const Spacer(),
                 SmallButton('Next', () {
-                  onNext();
+                  if (_formKey.currentState!.validate()) {
+                    onNext();
+                  }
                 }),
                 const SizedBox(height: 15),
                 const BottomText(),
