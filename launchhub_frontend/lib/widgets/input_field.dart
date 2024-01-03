@@ -4,11 +4,14 @@ class InputField extends StatelessWidget {
   final String label;
   final bool isPassword;
   final String? Function(String?)? validator;
-  const InputField(
-      {super.key,
-      required this.label,
-      this.isPassword = false,
-      this.validator});
+  final AutovalidateMode autovalidateMode;
+  const InputField({
+    super.key,
+    required this.label,
+    this.isPassword = false,
+    this.validator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,7 @@ class InputField extends StatelessWidget {
       child: TextFormField(
         obscureText: isPassword,
         validator: validator,
+        autovalidateMode: autovalidateMode,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             filled: true,
