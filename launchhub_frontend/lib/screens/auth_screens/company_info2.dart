@@ -105,7 +105,7 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Founders(
-                                    selectedImage: _image,
+                                    selectedImage: widget.selectedImage,
                                   )));
                     }
                   }),
