@@ -93,7 +93,7 @@ class AdminController extends Controller
         return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
 
-    public function getAdvisors(Request $request)
+    public function getAllAdvisors(Request $request)
     {
         $category = $request->query('category');
 

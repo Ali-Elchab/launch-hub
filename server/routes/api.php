@@ -89,6 +89,7 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
         Route::post('add_advisor', 'addAdvisor');
         Route::post('edit_profile', 'editAdminProfile');
         Route::delete('delete_profile', 'deleteAdminProfile');
+        Route::get('advisors,getAllAdvisors');
     });
     Route::get('jobseekers', 'JobSeekerController@getAllJobSeekers');
     Route::get('jobseeker/{id}', 'JobSeekerController@getJobSeeker');
