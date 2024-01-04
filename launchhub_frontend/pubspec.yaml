@@ -73,7 +73,9 @@ flutter:
     - assets/images/job-req_1_32.jpeg
     - assets/images/job-resp.jpeg
     - assets/images/skillshobbies.jpeg
+    - assets/images/start_home_main.png
     - assets/logos/logo-nobg.ico
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
