@@ -105,8 +105,10 @@ class _ContactInfoState extends State<ContactInfo> {
                 ),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Skills()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Skills()));
                   }
                 }),
                 const SizedBox(height: 15),

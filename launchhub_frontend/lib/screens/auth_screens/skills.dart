@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
@@ -88,7 +89,7 @@ class _SkillsState extends State<Skills> {
                         spacing: 9.0,
                         runSpacing: 4.0,
                         children: skills
-                            .map((skill) => SkillChip(
+                            .map((skill) => ChoiceTag(
                                   label: skill,
                                   isSelected: selectedSkills.contains(skill),
                                   onSelected: () => toggleSkill(skill),
@@ -111,46 +112,3 @@ class _SkillsState extends State<Skills> {
     );
   }
 }
-
-class SkillChip extends StatelessWidget {
-  final String label;
-  final bool isSelected;
-  final VoidCallback onSelected;
-
-  const SkillChip({
-    super.key,
-    required this.label,
-    required this.isSelected,
-    required this.onSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ChoiceChip(
-      label: Text(
-        label,
-        style: TextStyle(
-          fontSize: 12,
-          color: !isSelected
-              ? const Color.fromARGB(202, 146, 146, 146)
-              : const Color(0xFF326789), // Change text color based on selection
-        ),
-      ),
-      selected: isSelected,
-      showCheckmark: false,
-      onSelected: (bool selected) {
-        onSelected();
-      },
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      selectedColor: const Color.fromARGB(255, 255, 255, 255),
-      side: BorderSide(
-        color: !isSelected
-            ? Color.fromARGB(34, 171, 171, 171)
-            : const Color(0xFF326789), // Change text color based on selection
-        width: 1.6,
-      ),
-    );
-  }
-}
-
-// Placeholder for your BottomText widget
