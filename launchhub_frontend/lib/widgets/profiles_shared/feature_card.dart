@@ -4,45 +4,51 @@ class FeatureCard extends StatelessWidget {
   final String title;
   final String description;
   final String imagePath;
+  final Function()? onTap;
 
   const FeatureCard({
     super.key,
     required this.title,
     required this.description,
     required this.imagePath,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      margin: const EdgeInsets.all(8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return InkWell(
+      onTap: onTap,
+      child: Card(
+        color: Colors.transparent,
+        elevation: 0,
+
+        // margin: const EdgeInsets.all(8.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(imagePath, width: 80),
-            const SizedBox(
-                width: 16), // For spacing between the icon and the text
+            Container(
+                alignment: Alignment.center,
+                child: Image.asset(imagePath, width: 55)),
+            const SizedBox(width: 22),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18, // Adjust font size as needed
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 21),
                   ),
                   const SizedBox(
                       height: 8), // For spacing between title and description
                   Text(
                     description,
-                    style: const TextStyle(
-                      fontSize: 14, // Adjust font size as needed
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontWeight: FontWeight.normal, fontSize: 12),
                   ),
                 ],
               ),
