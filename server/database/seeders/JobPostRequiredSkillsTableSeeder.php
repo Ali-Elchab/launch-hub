@@ -17,58 +17,50 @@ class JobPostRequiredSkillsTableSeeder extends Seeder
             [
                 'job_post_id' => 1, // Replace with the appropriate job post ID
                 'skill_id' => 1, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 1, // Replace with the appropriate job post ID
                 'skill_id' => 2, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 2, // Replace with the appropriate job post ID
                 'skill_id' => 3, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 2, // Replace with the appropriate job post ID
                 'skill_id' => 4, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 3, // Replace with the appropriate job post ID
                 'skill_id' => 20, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 3, // Replace with the appropriate job post ID
                 'skill_id' => 21, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 4, // Replace with the appropriate job post ID
                 'skill_id' => 22, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
             [
                 'job_post_id' => 4, // Replace with the appropriate job post ID
                 'skill_id' => 23, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
+
+
             ],
         ];
         foreach ($skills as $skill) {
