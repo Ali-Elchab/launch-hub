@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
+import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 
 class Home extends StatefulWidget {
@@ -12,9 +13,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      appBar: const PreferredSize(
+    return const Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(180),
         child: Header(
           title: 'Vast',
@@ -22,22 +23,22 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        physics: ClampingScrollPhysics(),
         child: Center(
           child: SizedBox(
-            width: 280,
+            width: 300,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 25),
+                SizedBox(height: 25),
                 Column(
                   children: [
-                    for (var i = 0; i < 3; i++)
-                      const Text(
-                        ' Welcome to Vast, your premier app for turning visions into reality. We are a community of entrepreneurs, investors, and mentors who are here to help you launch your startup. We provide a platform for you to connect with other entrepreneurs, investors, and mentors to help you launch your startup. We also provide a platform for you to connect with other entrepreneurs, investors, and mentors to help you launch your startup. We also provide a platform for you to connect with other entrepreneurs, investors, and mentors to help you launch your startup. We also provide a platform for you to connect with other entrepreneurs, investors, and mentors to help you launch your startup. We also provide a platform for you to connect with other entrepreneurs, investors, and mentors to help you launch your startup. We also provide a platform for you to connect with other entrepreneurs, investors, and mentors to help you launch your startup',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                    FeatureCard(
+                      title: 'Job Board',
+                      description:
+                          'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
+                      imagePath: 'assets/images/job_board.png',
+                    ),
                   ],
                 )
               ],
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

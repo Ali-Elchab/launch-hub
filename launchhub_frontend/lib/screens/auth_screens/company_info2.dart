@@ -53,7 +53,7 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
         // Makes the body scrollable
         child: Center(
           child: SizedBox(
-            width: 280,
+            width: 300,
             child: Form(
               key: _formKey,
               child: Column(

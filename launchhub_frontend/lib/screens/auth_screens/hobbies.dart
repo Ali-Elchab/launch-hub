@@ -49,7 +49,7 @@ class _HobbiesState extends State<Hobbies> {
       backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
-          width: 280,
+          width: 300,
           child: Column(
             children: <Widget>[
               Align(

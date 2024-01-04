@@ -40,7 +40,7 @@ class Header extends StatelessWidget {
           ),
           Expanded(
             child: SizedBox(
-              width: 280,
+              width: 300,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: const ClampingScrollPhysics(),

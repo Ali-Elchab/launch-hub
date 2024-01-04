@@ -95,7 +95,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
       backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
-          width: 280,
+          width: 300,
           child: Form(
             key: _formKey,
             child: Column(
