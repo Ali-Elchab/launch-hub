@@ -84,7 +84,7 @@ class JobSeekersTableSeeder extends Seeder
         ];
 
         foreach ($jobseekers as $jobseeker) {
-            DB::table('jobseekers')->insert($jobseeker);
+            DB::table('job_seekers')->insert($jobseeker);
         }
     }
 }
