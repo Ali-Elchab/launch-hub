@@ -36,7 +36,6 @@ Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(funct
         Route::get('profile', 'getBasicProfile');
         Route::get('related_courses', 'getRelatedCourses');
         Route::delete('delete', 'deleteJobSeekerProfile');
-        Route::post('apply', 'applyForJob');
         Route::post('update_profile', 'updateJobSeekerProfile');
     });
     Route::get('profile/{id}', 'getJobSeeker');
@@ -49,6 +48,7 @@ Route::prefix('startup/')->controller(StartupController::class)->group(function 
     Route::middleware('startup')->group(function () {
         Route::post('update_profile', 'updateStartupProfile');
         Route::delete('delete', 'deleteStartupProfile');
+        Route::get('advisors', 'getAdvisors');
     });
 });
 
@@ -57,16 +57,19 @@ Route::prefix('jobposts')->controller(JobPostController::class)->group(function 
     Route::get('/', 'getAllJobPosts');
     Route::get('/post/{id}', 'getJobPost');
     Route::middleware('jobseeker')->get('/related/{specialization_id}', 'getRelatedJobPosts');
+    Route::middleware('jobseeker')->post('apply', 'applyForJob');
     Route::middleware('startup')->group(function () {
         Route::get('/startup', 'getStartupJobPosts');
         Route::post('/update', 'updateJobPost');
         Route::post('/post', 'postJob');
+        Route::delete('/delete/{id}', 'deleteJobPost');
     });
 });
 
 Route::controller(ApplicationController::class)->group(function () {
     Route::middleware('jobseeker')->group(function () {
         Route::get('applications', 'getJobSeekerApplications');
+        Route::get('pending_applications', 'getPendingStartupApplicants');
     });
 
     Route::middleware('startup')->group(function () {

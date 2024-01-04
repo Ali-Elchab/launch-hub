@@ -6,6 +6,7 @@ use App\Models\Advisor;
 use App\Models\Startup;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class StartupController extends Controller
@@ -68,7 +69,11 @@ class StartupController extends Controller
     public function getAdvisors(Request $request)
     {
         $category = $request->query('category');
-        $advisors = Advisor::where('category', $category)->get();
+
+        $advisors = DB::table('advisors')
+            ->where('category', $category)
+            ->get();
+
         return response()->json($advisors);
     }
 }

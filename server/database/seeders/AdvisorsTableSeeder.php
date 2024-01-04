@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Advisor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AdvisorsTableSeeder extends Seeder
 {
@@ -108,7 +109,7 @@ class AdvisorsTableSeeder extends Seeder
             ];
 
         foreach ($advisors as $advisor) {
-            Advisor::create($advisor);
+            DB::table('advisors')->insert($advisor);
         }
     }
 }
