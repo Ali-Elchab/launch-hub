@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class ExperienceTableSeeder extends Seeder
+class ExperiencesTableSeeder extends Seeder
 {
     public function run()
     {

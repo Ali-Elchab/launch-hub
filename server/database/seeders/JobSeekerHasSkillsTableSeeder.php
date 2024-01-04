@@ -14,13 +14,13 @@ class JobSeekerHasSkillsTableSeeder extends Seeder
     public function run(): void
     {
         for ($i = 1; $i <= 5; $i++) {
-            DB::table('job_seeker_has_skills')->insert([
+            DB::table('job_seekers_has_skills')->insert([
                 'job_seeker_id' => 1, // This should match existing job seeker IDs
                 'skill_id' => rand(1, 20), // Random hobby ID, assuming you have 20 skills
             ]);
         }
         for ($i = 1; $i <= 5; $i++) {
-            DB::table('job_seeker_has_skills')->insert([
+            DB::table('job_seekers_has_skills')->insert([
                 'job_seeker_id' => 2, // This should match existing job seeker IDs
                 'skill_id' => rand(1, 20), // Random hobby ID, assuming you have 20 skills
             ]);
