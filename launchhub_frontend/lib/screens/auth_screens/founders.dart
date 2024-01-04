@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
-import 'package:launchhub_frontend/widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 

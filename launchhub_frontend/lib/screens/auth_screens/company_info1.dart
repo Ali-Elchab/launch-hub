@@ -7,7 +7,7 @@ import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/niche_drop_down.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
-import 'package:launchhub_frontend/widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:intl/intl.dart';
