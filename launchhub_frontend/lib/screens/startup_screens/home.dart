@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
                       title: 'Job Board',
                       description:
                           'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
-                      imagePath: 'assets/images/job_board.png',
+                      imagePath: '',
                     ),
                   ],
                 )

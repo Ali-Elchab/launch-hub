@@ -22,7 +22,7 @@ class FeatureCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(imagePath, width: 30),
+            Image.asset(imagePath, width: 15),
             const SizedBox(
                 width: 16), // For spacing between the icon and the text
             Expanded(

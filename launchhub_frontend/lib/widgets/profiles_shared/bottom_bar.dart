@@ -68,12 +68,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.a),
-            label: 'Business',
+            icon: Icon(FontAwesomeIcons.robot),
+            label: 'AI Assistant',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'School',
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
           // Add more BottomNavigationBarItem entries as needed
         ],
