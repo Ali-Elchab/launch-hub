@@ -12,7 +12,9 @@ class BottomText extends StatelessWidget {
         text,
         textAlign: TextAlign.left,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontWeight: FontWeight.w100, fontSize: 11, color: Colors.grey),
+            color: const Color.fromARGB(255, 109, 109, 109),
+            fontFamily: 'inter',
+            fontSize: 12),
       ),
     );
   }

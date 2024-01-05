@@ -99,7 +99,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
           child: Form(
             key: _formKey,
             child: Column(
-              children: <Widget>[
+              children: [
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
@@ -121,49 +121,56 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                     },
                     imageFile: _image,
                     text: 'Upload Logo'),
-                const SizedBox(height: 32),
-                InputField(label: 'Company Name', validator: validator),
-                DatePickerField(
-                    controller: _controller,
-                    onTap: () => _selectDate(context),
-                    validator: validator,
-                    text: 'Founding Date'),
-                const SizedBox(height: 16),
-                const InputField(label: 'Registration Number'),
-                const InputField(
-                    label: 'Company Description', isDescription: true),
-                IndustryDropDown(
-                  list: industries,
-                  value: _selectedIndustry,
-                  validator: (value) {
-                    if (value == null) {
-                      return 'This field cannot be empty';
-                    }
-                    return null;
-                  },
-                  onChanged: (Industry? newValue) {
-                    setState(() {
-                      _selectedIndustry = newValue;
-                    });
-                  },
+                const SizedBox(height: 22),
+                Expanded(
+                  child: SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      const SizedBox(height: 16),
+                      InputField(label: 'Company Name', validator: validator),
+                      DatePickerField(
+                          controller: _controller,
+                          onTap: () => _selectDate(context),
+                          validator: validator,
+                          text: 'Founding Date'),
+                      const SizedBox(height: 16),
+                      const InputField(label: 'Registration Number'),
+                      const InputField(
+                          label: 'Company Description', isDescription: true),
+                      IndustryDropDown(
+                        list: industries,
+                        value: _selectedIndustry,
+                        validator: (value) {
+                          if (value == null) {
+                            return 'This field cannot be empty';
+                          }
+                          return null;
+                        },
+                        onChanged: (Industry? newValue) {
+                          setState(() {
+                            _selectedIndustry = newValue;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      NicheDropDown(
+                        list: niches,
+                        value: _niche,
+                        validator: (value) {
+                          if (value == null) {
+                            return 'This field cannot be empty';
+                          }
+                          return null;
+                        },
+                        onChanged: (Niche? newValue) {
+                          setState(() {
+                            _niche = newValue;
+                          });
+                        },
+                      ),
+                    ],
+                  )),
                 ),
-                const SizedBox(height: 16),
-                NicheDropDown(
-                  list: niches,
-                  value: _niche,
-                  validator: (value) {
-                    if (value == null) {
-                      return 'This field cannot be empty';
-                    }
-                    return null;
-                  },
-                  onChanged: (Niche? newValue) {
-                    setState(() {
-                      _niche = newValue;
-                    });
-                  },
-                ),
-                const Spacer(),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {
                     onNext();

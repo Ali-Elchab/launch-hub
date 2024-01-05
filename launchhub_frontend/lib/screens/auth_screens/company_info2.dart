@@ -49,84 +49,78 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
           true, // Set to true to resize when keyboard appears
       appBar: const CustomAppBar(title: 'Startup Profile'),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        // Makes the body scrollable
-        child: Center(
-          child: SizedBox(
-            width: 300,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                // Use Column without Expanded
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        'Contact Information',
-                        textAlign: TextAlign.left,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 22),
-                      ),
+      body: Center(
+        child: SizedBox(
+          width: 300,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              // Use Column without Expanded
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      'Contact Information',
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
                     ),
                   ),
-                  const SizedBox(height: 35),
-                  if (widget.selectedImage != null)
-                    ClipOval(
-                      child: Image.file(
-                        File(widget.selectedImage!.path),
-                        width: 120, // Diameter of the circle
-                        height: 120, // Diameter of the circle
-                        fit: BoxFit
-                            .cover, // This ensures the image covers the circle crop
-                      ),
-                    ),
-                  if (widget.selectedImage == null)
-                    ProfileImagePicker(
-                        onImagePicked: () async {
-                          await _pickImage();
-                        },
-                        imageFile: _image,
-                        text: 'Upload Logo'),
-                  const SizedBox(height: 32),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          InputField(
-                              label: 'Business Address', validator: validator),
-                          InputField(
-                              label: 'Phone Number', validator: validator),
-                          InputField(
-                              label: 'Email Address', validator: validator),
-                          const InputField(label: 'Website URL'),
-                          const SocialMediaLinksDropdown(),
-                        ],
-                      ),
+                ),
+                const SizedBox(height: 35),
+                if (widget.selectedImage != null)
+                  ClipOval(
+                    child: Image.file(
+                      File(widget.selectedImage!.path),
+                      width: 120, // Diameter of the circle
+                      height: 120, // Diameter of the circle
+                      fit: BoxFit
+                          .cover, // This ensures the image covers the circle crop
                     ),
                   ),
-                  const SizedBox(height: 150),
-                  SmallButton('Next', () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Founders(
-                                    selectedImage: widget.selectedImage,
-                                  )));
-                    }
-                  }),
-                  const SizedBox(height: 15),
-                  const BottomText(
-                    text:
-                        'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
+                if (widget.selectedImage == null)
+                  ProfileImagePicker(
+                      onImagePicked: () async {
+                        await _pickImage();
+                      },
+                      imageFile: _image,
+                      text: 'Upload Logo'),
+                const SizedBox(height: 32),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        InputField(
+                            label: 'Business Address', validator: validator),
+                        InputField(label: 'Phone Number', validator: validator),
+                        InputField(
+                            label: 'Email Address', validator: validator),
+                        const InputField(label: 'Website URL'),
+                        const SocialMediaLinksDropdown(),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                SmallButton('Next', () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Founders(
+                                  selectedImage: widget.selectedImage,
+                                )));
+                  }
+                }),
+                const SizedBox(height: 15),
+                const BottomText(
+                  text:
+                      'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
+                ),
+              ],
             ),
           ),
         ),

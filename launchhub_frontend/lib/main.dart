@@ -14,8 +14,8 @@ class App extends StatelessWidget {
       brightness: Brightness.dark,
       seedColor: const Color(0xFF326789),
     ),
-    textTheme: GoogleFonts.interTextTheme().copyWith(
-      titleLarge: GoogleFonts.inter(
+    textTheme: GoogleFonts.notoSansMonoTextTheme().copyWith(
+      titleLarge: GoogleFonts.notoSansMono(
           fontWeight: FontWeight.bold, fontSize: 23, color: Colors.black),
       titleMedium: GoogleFonts.inter(
         fontWeight: FontWeight.bold,
