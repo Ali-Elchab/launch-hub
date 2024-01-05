@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
+import 'package:launchhub_frontend/screens/startup_screens/home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -87,7 +88,7 @@ class SignIn extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SignUp()));
+                                builder: (context) => const Home()));
                       }
                     }),
                     const SizedBox(height: 30),

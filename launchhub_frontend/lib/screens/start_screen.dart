@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/screens/startup_screens/home.dart';
+import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
   void _getStarted(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
   }
 
   @override

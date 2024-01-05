@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:launchhub_frontend/screens/auth_screens/hobbies.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -100,7 +101,10 @@ class _SkillsState extends State<Skills> {
                   ),
                 ),
               ),
-              SmallButton('Next', () {}),
+              SmallButton('Next', () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Hobbies()));
+              }),
               const SizedBox(height: 15),
               const BottomText(
                   text:
