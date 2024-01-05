@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/screens/startup_screens/home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/custom_appbar.dart';
@@ -105,7 +106,7 @@ class _FoundersState extends State<Founders> {
                 SmallButton('Submit', () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignIn()));
+                        MaterialPageRoute(builder: (context) => const Home()));
                   }
                 }),
                 const SizedBox(height: 15),
