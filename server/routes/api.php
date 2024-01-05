@@ -27,7 +27,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(SkillsController::class)->group(function () {
-    Route::get('industry_skills', 'getSkillsByIndustry');
+    Route::get('specialization_skills', 'getSkillsBySpecialization');
     Route::get('general_skills', 'getGeneralSkills');
 });
 
@@ -53,16 +53,16 @@ Route::prefix('startup/')->controller(StartupController::class)->group(function 
 });
 
 
-Route::prefix('jobposts')->controller(JobPostController::class)->group(function () {
-    Route::get('/', 'getAllJobPosts');
-    Route::get('/post/{id}', 'getJobPost');
-    Route::middleware('jobseeker')->get('/related/{specialization_id}', 'getRelatedJobPosts');
-    Route::middleware('jobseeker')->post('apply', 'applyForJob');
+Route::prefix('jobposts/')->controller(JobPostController::class)->group(function () {
+    Route::get('', 'getAllJobPosts');
+    Route::get('/{id}', 'getJobPost')->where('id', '[0-9]+');
+    Route::middleware('jobseeker')->get('related/{specialization_id?}', 'getRelatedJobPosts');
+    Route::middleware('jobseeker')->post('apply/{jobPostID}', 'applyForJob');
     Route::middleware('startup')->group(function () {
-        Route::get('/startup', 'getStartupJobPosts');
-        Route::post('/update', 'updateJobPost');
-        Route::post('/post', 'postJob');
-        Route::delete('/delete/{id}', 'deleteJobPost');
+        Route::get('startup', 'getStartupJobPosts');
+        Route::post('update', 'updateJobPost');
+        Route::post('post', 'postJob');
+        Route::delete('delete/{id}', 'deleteJobPost');
     });
 });
 

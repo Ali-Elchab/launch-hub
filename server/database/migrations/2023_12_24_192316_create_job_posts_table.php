@@ -16,14 +16,14 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('job_description');
             $table->string('job_location');
-            $table->string('job_type');
+            $table->enum('job_type', ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship']);
             $table->integer('job_salary');
             $table->string('job_qualification');
             $table->string('experience_level');
             $table->string('education_level');
-            $table->string('preferred_gender');
+            $table->enum('preferred_gender', ['male', 'female', 'any']);
             $table->date('deadline');
-            $table->string('job_status');
+            $table->enum('job_status', ['open', 'closed']);
             $table->timestamps();
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
             $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');
