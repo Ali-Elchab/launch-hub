@@ -5,14 +5,14 @@ import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/welcome_card.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class StartupHome extends StatefulWidget {
+  const StartupHome({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<StartupHome> createState() => _StartupHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _StartupHomeState extends State<StartupHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 25),
+                const SizedBox(height: 45),
                 Column(
                   children: [
                     const WelcomeCard(
@@ -40,6 +40,13 @@ class _HomeState extends State<Home> {
                         text:
                             'Welcome to Startup Assistance Hub – your go-to resource for hiring, marketing, legal, and finance success. Explore tailored features to elevate your startup journey.'),
                     const SizedBox(height: 25),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Hiring',
+                        style: Theme.of(context).textTheme.!,
+                      ),
+                    ),
                     FeatureCard(
                       title: 'Job Board',
                       description:

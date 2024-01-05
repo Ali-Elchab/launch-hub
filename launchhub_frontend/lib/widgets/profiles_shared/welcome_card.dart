@@ -25,7 +25,10 @@ class WelcomeCard extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.titleSmall!,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  fontFamily: 'inter',
+                ),
           ),
         ),
       ],

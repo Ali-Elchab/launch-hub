@@ -19,10 +19,9 @@ class FeatureCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
+        margin: const EdgeInsets.only(bottom: 8.0),
         color: Colors.transparent,
         elevation: 0,
-
-        // margin: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -34,13 +33,12 @@ class FeatureCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(fontWeight: FontWeight.bold, fontSize: 21),
-                  ),
+                  Text(title,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            fontFamily: 'inter',
+                          )),
                   const SizedBox(
                       height: 8), // For spacing between title and description
                   Text(
@@ -48,7 +46,7 @@ class FeatureCard extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!
-                        .copyWith(fontWeight: FontWeight.normal, fontSize: 12),
+                        .copyWith(fontSize: 11),
                   ),
                 ],
               ),
