@@ -59,6 +59,66 @@ class _StartupHomeState extends State<StartupHome> {
                         }));
                       },
                     ),
+                    FeatureCard(
+                      title: 'Hire Talent',
+                      description:
+                          'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
+                      imagePath: 'assets/images/guides.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Guides And Templates',
+                      description:
+                          'Build Your Dream Team: Comprehensive Guides and Templates for Crafting Effective Job Descriptions and Conducting Successful Interviews.',
+                      imagePath: 'assets/images/guides.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Marketing Guides',
+                      description:
+                          'Craft and Elevate Your Brand: Resources for Creating and Maintaining a Strong Brand Identity for Your Startup.',
+                      imagePath: 'assets/images/marketing_guides.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Content Creators',
+                      description:
+                          'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
+                      imagePath: 'assets/images/content_creators.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Digital Marketing',
+                      description:
+                          'Unlock Content Success: Dive into Expert Guides for Crafting Valuable Content that Resonates with Your Online Audience.',
+                      imagePath: 'assets/images/digital_marketing.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
                   ],
                 )
               ],
