@@ -65,6 +65,7 @@ flutter:
   assets:
     - assets/backgrounds/splashscreen_bg.png
     - assets/backgrounds/auth_bg.png
+    - assets/backgrounds/header.png
     - assets/images/splashscreen-img.png
     - assets/images/google_logo.png
     - assets/images/educationalbg_2_32.jpeg

@@ -98,7 +98,7 @@ class _FoundersState extends State<Founders> {
                       validator: validator,
                     ),
                     const InputField(label: 'CEO\'s Name'),
-                    const InputField(label: 'Key Executive\`s Name'),
+                    const InputField(label: 'Key Executive`s Name'),
                   ],
                 )),
 

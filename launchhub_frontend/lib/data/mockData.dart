@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 

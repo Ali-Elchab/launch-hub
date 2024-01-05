@@ -18,34 +18,36 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Padding(
         padding: !showBackButton
-            ? const EdgeInsets.symmetric(horizontal: 48)
+            ? const EdgeInsets.symmetric(horizontal: 39)
             : EdgeInsets.zero,
-        child: Text(
-          title,
-          style: TextStyle(
-            color: textColor ??
-                Colors.black, // Fallback color if textColor is null
-            fontSize: showBackButton ? 30 : 42,
-            fontFamily: 'inter',
-            fontWeight: FontWeight.bold,
+        child: Transform.translate(
+          offset: Offset(showBackButton ? -16 : 0, 0),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: textColor ?? Colors.black,
+              fontSize: showBackButton ? 30 : 42,
+              fontFamily: 'inter',
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: showBackButton // Check if the back button should be shown
+      leading: showBackButton
           ? Padding(
-              padding: const EdgeInsets.only(left: 15, right: 2),
+              padding: const EdgeInsets.only(left: 6),
               child: IconButton(
                 icon: Icon(
                   Icons.arrow_circle_left_outlined,
-                  color: textColor ?? Colors.black, // Fallback color
+                  color: textColor ?? Colors.black,
                   size: 36,
                 ),
                 onPressed: () => Navigator.pop(context),
               ),
             )
-          : null, // Hide the back button by setting leading to null
+          : null,
     );
   }
 
