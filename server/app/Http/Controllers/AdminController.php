@@ -6,7 +6,6 @@ use App\Models\Advisor;
 use App\Models\JobPost;
 use App\Models\Startup;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -86,18 +85,16 @@ class AdminController extends Controller
                 'category' => 'required|string|max:255',
                 'expertise' => 'required|string|max:255',
             ]);
-            $advisor =  DB::table('advisors')->insert($request->only(['name', 'email', 'password', 'location', 'phone', 'bio', 'photo_url', 'category', 'expertise']));
+            $advisor =  Advisor::insert($request->only(['name', 'email', 'password', 'location', 'phone', 'bio', 'photo_url', 'category', 'expertise']));
 
             return response()->json(['status' => 'success', 'message' => 'Advisor added successfully', 'advisor' => $advisor]);
         }
         return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
 
-    public function getAllAdvisors(Request $request)
+    public function getAllAdvisors()
     {
-        $category = $request->query('category');
-
-        $advisors = DB::table('advisors')->get();
+        $advisors = Advisor::get();
 
         return response()->json($advisors);
     }

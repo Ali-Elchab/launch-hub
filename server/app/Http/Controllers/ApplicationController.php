@@ -47,6 +47,31 @@ class ApplicationController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
     }
 
+    public function applyForJob(Request $request, $jobPostID)
+    {
+        $jobSeeker = $request->user()->jobSeeker;
+        $jobPost = JobPost::find($jobPostID);
+        if (!$jobSeeker) {
+            return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
+        }
+        if (!$jobPost) {
+            return response()->json(['status' => 'error', 'message' => 'Job post not found'], 404);
+        }
+
+        $application = Application::where('job_post_id', $jobPostID)
+            ->where('job_seeker_id', $jobSeeker->id)
+            ->first();
+
+        if ($application) {
+            return response()->json(['status' => 'error', 'message' => 'Already applied'], 422);
+        }
+
+        if ($jobPost) {
+            $jobPost->jobSeekers()->attach($jobSeeker);
+            return response()->json(['status' => 'success', 'message' => 'Applied successfully']);
+        }
+    }
+
     public function applicationResponse(Request $request)
     {
         try {
@@ -68,33 +93,6 @@ class ApplicationController extends Controller
 
             $message = 'Application ' .  $request->status;
             return response()->json(['status' => 'success', 'message' => $message]);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()], 500);
-        }
-    }
-
-    public function deleteApplication(Request $request, $id)
-    {
-        $application = Application::with('job.startup')->find($id);
-
-
-        if (!$application) {
-            return response()->json(['status' => 'error', 'message' => 'Application not found'], 404);
-        }
-        print_r($application);
-        // Additional check to ensure that job and startup are not null
-        if (!$application->job || !$application->job->startup) {
-            return response()->json(['status' => 'error', 'message' => 'Related job post or startup not found'], 404);
-        }
-
-        // Now use $application->job->startup->id instead of $application->jobPost->startup->id
-        if ($application->job->startup->id != $request->user()->startup->id) {
-            return response()->json(['status' => 'error', 'message' => 'Not authorized to delete this application'], 403);
-        }
-
-        try {
-            $application->delete();
-            return response()->json(['status' => 'success', 'message' => 'Application deleted']);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()], 500);
         }

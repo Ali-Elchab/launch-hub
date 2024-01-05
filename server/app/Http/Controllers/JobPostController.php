@@ -104,15 +104,7 @@ class JobPostController extends Controller
     }
 
 
-    public function applyForJob(Request $request, $jobPostID)
-    {
-        $jobSeeker = $request->user()->jobSeeker;
-        $jobPost = JobPost::find($jobPostID);
-        if ($jobPost) {
-            $jobPost->jobSeekers()->attach($jobSeeker);
-            return response()->json(['status' => 'success', 'message' => 'Applied successfully']);
-        }
-    }
+
 
     public function getRelatedJobPosts(Request $request, $specialization_id = null)
     {

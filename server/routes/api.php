@@ -57,7 +57,7 @@ Route::prefix('jobposts/')->controller(JobPostController::class)->group(function
     Route::get('', 'getAllJobPosts');
     Route::get('/{id}', 'getJobPost')->where('id', '[0-9]+');
     Route::middleware('jobseeker')->get('related/{specialization_id?}', 'getRelatedJobPosts');
-    Route::middleware('jobseeker')->post('apply/{jobPostID}', 'applyForJob');
+
     Route::middleware('startup')->group(function () {
         Route::get('startup', 'getStartupJobPosts');
         Route::post('update', 'updateJobPost');
@@ -69,12 +69,12 @@ Route::prefix('jobposts/')->controller(JobPostController::class)->group(function
 Route::controller(ApplicationController::class)->group(function () {
     Route::middleware('jobseeker')->group(function () {
         Route::get('applications', 'getJobSeekerApplications');
+        Route::post('apply/{jobPostID}', 'applyForJob');
     });
 
     Route::middleware('startup')->group(function () {
         Route::get('pending_applications', 'getPendingStartupApplicants');
         Route::post('application_response', 'applicationResponse');
-        Route::delete('delete_application/{id}', 'deleteApplication');
     });
 });
 

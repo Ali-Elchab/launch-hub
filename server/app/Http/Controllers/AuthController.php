@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use App\Models\JobSeeker;
 use App\Models\Startup;
 use App\Models\User;
@@ -111,7 +110,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        DB::beginTransaction();
+
         try {
             $profile = uploadImage($request);
             $resume = uploadFile($request);
@@ -152,15 +151,12 @@ class AuthController extends Controller
             if (!empty($request->social_media_links))
                 $user->socialMediaLinks()->createMany($request->social_media_links);
 
-            DB::commit();
-
             return response()->json([
                 'status' => 'success',
                 'message' => 'job seeker created successfully',
                 'user' => User::with('jobSeeker')->find($user->id),
             ]);
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback();
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
@@ -200,7 +196,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        DB::beginTransaction();
+
         try {
             $user = new User([
                 'email' => $request->email,
@@ -229,15 +225,12 @@ class AuthController extends Controller
             ]);
             $startup->save();
 
-            DB::commit();
-
             return response()->json([
                 'status' => 'success',
                 'message' => 'startup created successfully',
                 'user' => User::with('startup')->find($user->id),
             ]);
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback();
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
