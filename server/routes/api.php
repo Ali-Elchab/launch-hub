@@ -69,13 +69,12 @@ Route::prefix('jobposts/')->controller(JobPostController::class)->group(function
 Route::controller(ApplicationController::class)->group(function () {
     Route::middleware('jobseeker')->group(function () {
         Route::get('applications', 'getJobSeekerApplications');
-        Route::get('pending_applications', 'getPendingStartupApplicants');
     });
 
     Route::middleware('startup')->group(function () {
-        Route::get('applicants', 'getStartupApplicants');
-        Route::get('application_response', 'applicationResponse');
-        Route::delete('delete_application', 'deleteApplication');
+        Route::get('pending_applications', 'getPendingStartupApplicants');
+        Route::post('application_response', 'applicationResponse');
+        Route::delete('delete_application/{id}', 'deleteApplication');
     });
 });
 
