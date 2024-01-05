@@ -3,6 +3,7 @@ import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
+import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/welcome_card.dart';
 
 class StartupHome extends StatefulWidget {
@@ -21,7 +22,6 @@ class _StartupHomeState extends State<StartupHome> {
         preferredSize: Size.fromHeight(180),
         child: Header(
           title: 'Vast',
-          showBackButton: false,
         ),
       ),
       body: SingleChildScrollView(
@@ -40,13 +40,7 @@ class _StartupHomeState extends State<StartupHome> {
                         text:
                             'Welcome to Startup Assistance Hub – your go-to resource for hiring, marketing, legal, and finance success. Explore tailored features to elevate your startup journey.'),
                     const SizedBox(height: 25),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Hiring',
-                        style: Theme.of(context).textTheme.!,
-                      ),
-                    ),
+                    const SectionTitle(title: 'Hiring'),
                     FeatureCard(
                       title: 'Job Board',
                       description:
@@ -63,7 +57,7 @@ class _StartupHomeState extends State<StartupHome> {
                       title: 'Hire Talent',
                       description:
                           'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
-                      imagePath: 'assets/images/guides.png',
+                      imagePath: 'assets/images/hire_talent.png',
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
@@ -83,6 +77,7 @@ class _StartupHomeState extends State<StartupHome> {
                         }));
                       },
                     ),
+                    const SectionTitle(title: 'Marketing'),
                     FeatureCard(
                       title: 'Marketing Guides',
                       description:
@@ -112,6 +107,68 @@ class _StartupHomeState extends State<StartupHome> {
                       description:
                           'Unlock Content Success: Dive into Expert Guides for Crafting Valuable Content that Resonates with Your Online Audience.',
                       imagePath: 'assets/images/digital_marketing.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    const SectionTitle(title: 'Finance'),
+                    FeatureCard(
+                      title: 'Financial Planning',
+                      description:
+                          'Financial Mastery Hub: Tools for Budgeting, Forecasting, and Financial Analysis to Empower Your Startup\'s Fiscal Planning.',
+                      imagePath: 'assets/images/financial_planning.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Financial Advisors',
+                      description:
+                          'Navigate Financial Success: Connect with Expert Financial Advisors Tailored for Startups to Drive Strategic Growth.',
+                      imagePath: 'assets/images/financial_advisors.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    const SectionTitle(title: 'Legal'),
+                    FeatureCard(
+                      title: 'Legal Guides',
+                      description:
+                          'Legal Wisdom Hub: Dive into Articles and Resources Covering Crucial Legal Issues Tailored for Startups.',
+                      imagePath: 'assets/images/legal_guides.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Legal Advisors',
+                      description:
+                          'Startup Legal Expertise: Connect with Specialized Legal Advisors to Safeguard and Propel Your Startup\'s Success.',
+                      imagePath: 'assets/images/legal_advisors.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const StartScreen();
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Contract Templates',
+                      description:
+                          'Seamless Contracting: Explore our Library of Ready-to-Use Templates for Common Business Contracts, Tailored for Your Convenience.',
+                      imagePath: 'assets/images/contract_templates.png',
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {

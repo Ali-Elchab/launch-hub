@@ -16,32 +16,36 @@ class App extends StatelessWidget {
     ),
     textTheme: GoogleFonts.interTextTheme().copyWith(
       titleLarge: GoogleFonts.inter(
-        fontWeight: FontWeight.bold,
-        fontSize: 23,
-      ),
+          fontWeight: FontWeight.bold, fontSize: 23, color: Colors.black),
       titleMedium: GoogleFonts.inter(
         fontWeight: FontWeight.bold,
         fontSize: 18,
+        color: Colors.black,
       ),
       titleSmall: GoogleFonts.inter(
         fontWeight: FontWeight.bold,
         fontSize: 16,
+        color: Colors.black,
       ),
       headlineLarge: GoogleFonts.inter(
         fontWeight: FontWeight.bold,
         fontSize: 42,
+        color: Colors.black,
       ),
       headlineMedium: GoogleFonts.inter(
         fontWeight: FontWeight.bold,
         fontSize: 30,
+        color: Colors.black,
       ),
       bodyLarge: GoogleFonts.inter(
         fontWeight: FontWeight.normal,
         fontSize: 16,
+        color: Colors.black,
       ),
       bodyMedium: GoogleFonts.inter(
         fontWeight: FontWeight.normal,
         fontSize: 14,
+        color: Colors.black,
       ),
     ),
   );

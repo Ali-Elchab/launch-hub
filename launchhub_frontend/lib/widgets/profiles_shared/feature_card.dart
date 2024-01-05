@@ -19,7 +19,7 @@ class FeatureCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.only(bottom: 8.0),
+        margin: const EdgeInsets.only(bottom: 25.0),
         color: Colors.transparent,
         elevation: 0,
         child: Row(

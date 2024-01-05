@@ -82,6 +82,11 @@ flutter:
     - assets/images/content_creators.png
     - assets/images/digital_marketing.png
     - assets/images/marketing_guides.png
+    - assets/images/financial_advisors.png
+    - assets/images/financial_planning.png
+    - assets/images/contract_templates.png
+    - assets/images/legal_advisors.png
+    - assets/images/legal_guides.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
