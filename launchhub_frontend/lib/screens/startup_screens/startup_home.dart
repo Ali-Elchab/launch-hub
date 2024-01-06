@@ -21,6 +21,7 @@ class _StartupHomeState extends State<StartupHome> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(180),
         child: Header(
+          text: 'Your Premier App for Turning Visions into Reality ',
           title: 'Vast',
           showBackButton: false,
         ),
