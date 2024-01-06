@@ -33,12 +33,38 @@ class StartupController extends Controller
 
     public function updateStartupProfile(Request $request)
     {
+        $request->validate([
+            'company_name' => 'string',
+            'company_email' => 'email',
+            'company_phone' => 'string',
+            'company_description' => 'string',
+            'registration_number' => 'string',
+            'founding_date' => 'date',
+            'company_address' => 'string',
+            'website_url' => 'string',
+            'founders' => 'array',
+            'ceos' => 'nullable|array',
+            'key_executives' => 'nullable|array',
+            'specialization_id' => 'nullable|exists:specializations,id',
+            'industry_id' => 'exists:industries,id',
+        ]);
+
         $user = auth()->user();
         $startup = $user->startup;
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        $startup->update($request->all());
+        $logo = uploadLogo($request);
+        if ($logo) {
+            $startup->logo_url = $logo;
+            $startup->save();
+        }
+        $startup->update(
+            $request->only([
+                'company_name', 'company_email', 'company_phone', 'company_description', 'registration_number', 'founding_date', 'company_address', 'website_url', 'founders', 'ceos', 'key_executives', 'specialization_id', 'industry_id',
+            ])
+        );
+        $startup->save();
         return response()->json(['status' => 'success', 'message' => 'Startup profile updated successfully']);
     }
 

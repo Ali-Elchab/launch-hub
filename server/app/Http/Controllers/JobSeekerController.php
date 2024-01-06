@@ -79,12 +79,15 @@ class JobSeekerController extends Controller
     public function updateJobSeekerProfile(Request $request)
     {
         $profileImagePath = uploadImage($request);
-
+        $resumePath = uploadFile($request);
         $jobSeeker = $request->user()->jobSeeker;
         if ($jobSeeker) {
             $updateData = $request->only('first_name', 'last_name', 'phone', 'address', 'city', 'bio');
             if ($profileImagePath) {
                 $updateData['profile_pic'] = $profileImagePath;
+            }
+            if ($resumePath) {
+                $updateData['resume'] = $resumePath;
             }
 
             $jobSeeker->update($updateData);
