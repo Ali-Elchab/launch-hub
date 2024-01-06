@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:launchhub_frontend/models/jobPost.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 
@@ -100,4 +101,43 @@ List<String> hobbies = [
   'Volunteering',
   'Meditation',
   'Watching Movies or Theater Performances',
+];
+
+List<JobPost> dummyJobPosts = [
+  const JobPost(
+    id: 1,
+    jobTitle: "Software Engineer",
+    jobDescription:
+        "Join as an IT Technician to deliver top-tier technical support, troubleshoot hardware and software challenges, and enhance the overall efficiency of our dynamic IT environment.",
+    jobLocation: "San Francisco, CA",
+    jobType: JobType.fullTime,
+    jobSalary: 80000,
+    jobQualification: "Bachelor's degree in Computer Science",
+    experienceLevel: "2-4 years",
+    educationLevel: "Bachelor's degree",
+    preferredGender: PreferredGender.any,
+    deadline: "2024-12-31",
+    jobStatus: JobStatus.open,
+    industryId: 1,
+    specializationId: 101,
+    startupId: 201,
+  ),
+  const JobPost(
+    id: 2,
+    jobTitle: "Graphic Designer",
+    jobDescription: "Create visually appealing graphics and designs.",
+    jobLocation: "New York, NY",
+    jobType: JobType.partTime,
+    jobSalary: 50000,
+    jobQualification: "Bachelor's degree in Graphic Design",
+    experienceLevel: "1-3 years",
+    educationLevel: "Bachelor's degree",
+    preferredGender: PreferredGender.any,
+    deadline: "2024-12-31",
+    jobStatus: JobStatus.open,
+    industryId: 2,
+    specializationId: 102,
+    startupId: 202,
+  ),
+  // Add more dummy job posts as needed
 ];
