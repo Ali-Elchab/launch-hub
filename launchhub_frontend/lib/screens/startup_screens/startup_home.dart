@@ -22,6 +22,7 @@ class _StartupHomeState extends State<StartupHome> {
         preferredSize: Size.fromHeight(180),
         child: Header(
           title: 'Vast',
+          showBackButton: false,
         ),
       ),
       body: SingleChildScrollView(

@@ -17,38 +17,36 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Stack(
-        // Use Stack to overlay the title and the back button
+        alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: 300,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: textColor ?? Colors.black,
-                    fontSize: showBackButton ? 30 : 42,
-                    fontFamily: 'inter',
-                    fontWeight: FontWeight.bold,
-                  ),
+          SizedBox(
+            width: 300,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: textColor ?? Colors.black,
+                  fontSize: showBackButton ? 30 : 42,
+                  fontFamily: 'inter',
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          if (showBackButton) // Conditionally display the back button
-            Align(
+          Align(
               alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_circle_left_outlined,
-                  color: textColor ?? Colors.black,
-                  size: 36,
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
+              child: showBackButton
+                  ? IconButton(
+                      padding: const EdgeInsets.only(right: 25),
+                      icon: Icon(
+                        Icons.arrow_circle_left_outlined,
+                        color: textColor ?? Colors.black,
+                        size: 36,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    )
+                  : SizedBox(width: 79)),
         ],
       ),
       backgroundColor: Colors.transparent,

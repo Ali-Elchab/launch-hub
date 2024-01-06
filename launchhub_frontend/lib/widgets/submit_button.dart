@@ -16,7 +16,7 @@ class SubmitButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
               color: const Color.fromARGB(204, 255, 255, 255),
               fontWeight: FontWeight.bold,
               fontSize: 16),

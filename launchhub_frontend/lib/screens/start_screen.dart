@@ -28,31 +28,27 @@ class StartScreen extends StatelessWidget {
               children: [
                 Image.asset('assets/images/splashscreen-img.png', width: 300),
                 const SizedBox(height: 15),
-                Text(
-                  'Welcome To LunchHub',
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
-                ),
+                Text('Welcome To LunchHub',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: Colors.white)),
                 const SizedBox(height: 15),
                 Text(
                   'Launch your startup journey with a fresh perspective',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      color: const Color.fromARGB(204, 204, 204, 204),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: const Color.fromARGB(204, 232, 232, 232),
+                      ),
                 ),
                 SizedBox(
                   width: 250,
                   child: Text(
                     'Join us on a dynamic startup journey,  where we empower your business.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                        color: const Color.fromARGB(204, 204, 204, 204),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: const Color.fromARGB(204, 204, 204, 204),
+                        ),
                   ),
                 ),
                 const SizedBox(height: 55),
