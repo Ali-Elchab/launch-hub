@@ -41,9 +41,9 @@ class JobPostCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.location_on_outlined,
-                          color: Color(0xFF326789),
+                          color: Theme.of(context).colorScheme.primary,
                           size: 10,
                         ),
                         const SizedBox(width: 3),
@@ -59,9 +59,9 @@ class JobPostCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.work_outline,
-                          color: Color(0xFF326789),
+                          color: Theme.of(context).colorScheme.primary,
                           size: 11,
                         ),
                         const SizedBox(width: 3),
@@ -77,9 +77,9 @@ class JobPostCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.hourglass_empty_rounded,
-                          color: Color(0xFF326789),
+                          color: Theme.of(context).colorScheme.primary,
                           size: 11,
                         ),
                         const SizedBox(width: 3),

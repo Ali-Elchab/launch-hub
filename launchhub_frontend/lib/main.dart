@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
 
@@ -13,7 +12,6 @@ class App extends StatelessWidget {
 
   final theme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      brightness: Brightness.dark,
       seedColor: const Color(0xFF326789),
     ),
     textTheme: GoogleFonts.interTextTheme().copyWith(
@@ -35,6 +33,18 @@ class App extends StatelessWidget {
           fontWeight: FontWeight.normal, fontSize: 14, color: Colors.black),
       bodySmall: GoogleFonts.inter(
           fontWeight: FontWeight.normal, fontSize: 10, color: Colors.black),
+      labelLarge: GoogleFonts.inter(
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
+          color: const Color.fromARGB(255, 48, 48, 48)),
+      labelMedium: GoogleFonts.inter(
+          fontWeight: FontWeight.normal,
+          fontSize: 16,
+          color: const Color.fromARGB(255, 48, 48, 48)),
+      labelSmall: GoogleFonts.inter(
+          fontWeight: FontWeight.normal,
+          fontSize: 14,
+          color: const Color.fromARGB(255, 48, 48, 48)),
     ),
   );
 

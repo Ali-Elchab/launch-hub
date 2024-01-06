@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
-import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/search_input.dart';
+import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 
 class JobBoard extends StatefulWidget {
   const JobBoard({super.key});
@@ -17,6 +16,7 @@ class _JobBoardState extends State<JobBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(180),
@@ -33,11 +33,7 @@ class _JobBoardState extends State<JobBoard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 45),
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [Expanded(child: SearchInput())],
-              ),
+              SearchFilter(onPressedFilter: () {}),
               Expanded(
                 child: ListView.builder(
                   itemCount: dummyJobPosts.length,
