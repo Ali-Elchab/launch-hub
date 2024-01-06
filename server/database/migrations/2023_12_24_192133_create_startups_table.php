@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('company_name');
             $table->string('company_email')->unique();
             $table->string('company_phone');
-            $table->string('logo_url')->nullable();
+            $table->string('logo_url')->nullable()->default('default-logo.png');
             $table->string('company_description');
             $table->string('registration_number');
             $table->date('founding_date');
