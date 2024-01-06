@@ -34,7 +34,7 @@ class App extends StatelessWidget {
       bodyMedium: GoogleFonts.inter(
           fontWeight: FontWeight.normal, fontSize: 14, color: Colors.black),
       bodySmall: GoogleFonts.inter(
-          fontWeight: FontWeight.normal, fontSize: 12, color: Colors.black),
+          fontWeight: FontWeight.normal, fontSize: 10, color: Colors.black),
     ),
   );
 
