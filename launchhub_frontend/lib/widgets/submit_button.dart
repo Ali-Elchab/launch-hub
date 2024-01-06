@@ -12,12 +12,12 @@ class SubmitButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: const Color(0xFF326789),
+          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         child: Text(
           text,
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-              color: const Color.fromARGB(204, 255, 255, 255),
+              color: const Color.fromARGB(255, 255, 255, 255),
               fontWeight: FontWeight.bold,
               fontSize: 16),
         ),

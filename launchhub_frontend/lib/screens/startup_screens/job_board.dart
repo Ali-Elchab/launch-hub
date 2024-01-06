@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
+import 'package:launchhub_frontend/widgets/profiles_shared/how_to_write_job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
+import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class JobBoard extends StatefulWidget {
   const JobBoard({super.key});
@@ -13,6 +15,13 @@ class JobBoard extends StatefulWidget {
 }
 
 class _JobBoardState extends State<JobBoard> {
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => const HowToWriteJobPost());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +39,6 @@ class _JobBoardState extends State<JobBoard> {
         child: SizedBox(
           width: 300,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 45),
               SearchFilter(onPressedFilter: () {}),
@@ -44,10 +52,28 @@ class _JobBoardState extends State<JobBoard> {
                         onTap: () {},
                       ),
                       const SizedBox(height: 20),
+                      JobPostCard(
+                        jobPost: dummyJobPosts[index],
+                        onTap: () {},
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
-              )
+              ),
+              SubmitButton('Post job', () {}),
+              const SizedBox(height: 3),
+              InkWell(
+                onTap: () {
+                  _openAddExpenseOverlay();
+                },
+                child: Text(
+                  'How To Write An Effective Job Posting',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+              const SizedBox(height: 25),
             ],
           ),
         ),

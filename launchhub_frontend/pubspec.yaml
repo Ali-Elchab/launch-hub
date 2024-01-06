@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.19.0
   image_picker: ^1.0.5
   font_awesome_flutter: ^10.6.0
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_test:
@@ -88,7 +89,7 @@ flutter:
     - assets/images/legal_advisors.png
     - assets/images/legal_guides.png
     - assets/logos/default-logo.png
-    - assets/logos/default-image.png
+    # - assets/logos/default-image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

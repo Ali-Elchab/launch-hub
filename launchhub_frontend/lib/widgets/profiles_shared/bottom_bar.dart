@@ -24,8 +24,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
     switch (index) {
       case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => StartupHome()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const StartupHome()));
         break;
       case 1:
         Navigator.push(
@@ -34,7 +34,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         break;
       case 2:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUp()));
+            context, MaterialPageRoute(builder: (context) => const SignUp()));
 
       // Add more cases as needed
     }
@@ -59,7 +59,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         currentIndex: _currentIndex,
         onTap: _onItemTapped,
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        selectedItemColor: Theme.of(context).colorScheme.primaryContainer,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: const Color.fromARGB(255, 77, 77, 77),
         showUnselectedLabels: true,
         items: const [
