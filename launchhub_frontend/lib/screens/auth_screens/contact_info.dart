@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/screens/auth_screens/founders.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';

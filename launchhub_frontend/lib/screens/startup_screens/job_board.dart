@@ -22,6 +22,13 @@ class _JobBoardState extends State<JobBoard> {
         builder: (ctx) => const HowToWriteJobPost());
   }
 
+  void _postAJob() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => const HowToWriteJobPost());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +47,7 @@ class _JobBoardState extends State<JobBoard> {
           width: 300,
           child: Column(
             children: [
-              const SizedBox(height: 45),
+              const SizedBox(height: 25),
               SearchFilter(onPressedFilter: () {}),
               Expanded(
                 child: ListView.builder(
@@ -61,11 +68,13 @@ class _JobBoardState extends State<JobBoard> {
                   ),
                 ),
               ),
-              SubmitButton('Post job', () {}),
+              SubmitButton('Post a job', () {
+                _openAddExpenseOverlay();
+              }),
               const SizedBox(height: 3),
               InkWell(
                 onTap: () {
-                  _openAddExpenseOverlay();
+                  _postAJob();
                 },
                 child: Text(
                   'How To Write An Effective Job Posting',
