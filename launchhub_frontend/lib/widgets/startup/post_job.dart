@@ -199,27 +199,23 @@ class _PostJobState extends State<PostJob> {
                         controller: _descriptionController,
                       ),
                       InputField(
-                        label: 'Responsibilities',
+                        label: 'Location',
+                        controller: _jobLocationController,
+                      ),
+                      InputField(
+                        label: 'Qualification',
+                        controller: _jobQualificationController,
+                      ),
+                      InputField(
+                        label: 'Experience Level dropdown',
                         controller: _responsibilitiesController,
                       ),
                       InputField(
-                        label: 'Responsibilities',
+                        label: 'Education Level Dropdown',
                         controller: _responsibilitiesController,
                       ),
                       InputField(
-                        label: 'Requirements',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'sstype',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'Job Location',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'ssjobtype',
+                        label: 'Job Type DropDown',
                         controller: _responsibilitiesController,
                       ),
                       InputField(
@@ -227,23 +223,11 @@ class _PostJobState extends State<PostJob> {
                         controller: _responsibilitiesController,
                       ),
                       InputField(
-                        label: 'Preffered Gender',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'Experience Level',
+                        label: 'Preffered Gender Dropdown',
                         controller: _responsibilitiesController,
                       ),
                       InputField(
                         label: 'Required Skills',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'Job Location',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'ُEducational Level',
                         controller: _responsibilitiesController,
                       ),
                       DatePickerField(
