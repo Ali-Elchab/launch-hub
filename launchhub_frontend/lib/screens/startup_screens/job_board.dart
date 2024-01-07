@@ -21,6 +21,8 @@ class JobBoard extends StatefulWidget {
 class _JobBoardState extends State<JobBoard> {
   void _openPostJobOverlay() {
     showModalBottomSheet(
+        backgroundColor: Colors.white,
+        elevation: 0,
         isScrollControlled: true,
         context: context,
         builder: (ctx) => PostJob(postJob: _postJob));

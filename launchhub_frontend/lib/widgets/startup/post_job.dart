@@ -1,12 +1,14 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/jobPost.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
+import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/submit_button.dart';
+import 'package:intl/intl.dart';
 
 class PostJob extends StatefulWidget {
   const PostJob({super.key, required this.postJob});
@@ -21,22 +23,39 @@ class PostJob extends StatefulWidget {
 
 class _PostJobState extends State<PostJob> {
   final _titleController = TextEditingController();
-  final _amountController = TextEditingController();
+  final _descriptionController = TextEditingController();
   DateTime? _selectedDate;
   Industry? _selectedIndustry;
+  final _formKey = GlobalKey<FormState>();
+  final _responsibilitiesController = TextEditingController();
+  final _requirementsController = TextEditingController();
+  final _skillsController = TextEditingController();
+  final _jobTypeController = TextEditingController();
+  final _jobLocationController = TextEditingController();
+  final _jobSalaryController = TextEditingController();
+  final _preferredGenderController = TextEditingController();
+  final _experienceLevelController = TextEditingController();
+  final _educationalLevelController = TextEditingController();
+  final _jobStatusController = TextEditingController();
+  final _jobQualificationController = TextEditingController();
+  final _jobSpecializationController = TextEditingController();
+  final _jobIndustryController = TextEditingController();
+  final _jobDeadlineController = TextEditingController();
 
-  void _presentDatePicker() async {
-    final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
-    final pickedDate = await showDatePicker(
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: now,
-      firstDate: firstDate,
-      lastDate: now,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
     );
-    setState(() {
-      _selectedDate = pickedDate;
-    });
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        _jobDeadlineController.text =
+            DateFormat('yyyy-MM-dd').format(picked); // Format date as required
+      });
+    }
   }
 
   void _showDialog() {
@@ -59,10 +78,10 @@ class _PostJobState extends State<PostJob> {
   }
 
   void _submitJobData() {
-    final enteredAmount = double.tryParse(_amountController.text);
-    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    // final enteredAmount = double.tryParse(_descri.text);
+    // final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
     if (_titleController.text.trim().isEmpty ||
-        amountIsInvalid ||
+        _descriptionController.text.trim().isEmpty ||
         _selectedDate == null) {
       _showDialog();
       return;
@@ -91,108 +110,158 @@ class _PostJobState extends State<PostJob> {
   @override
   void dispose() {
     _titleController.dispose();
-    _amountController.dispose();
+    _descriptionController.dispose();
     super.dispose();
+  }
+
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field cannot be empty';
+    }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
-    return Padding(
-      padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
-      child: SizedBox(
+    return Scaffold(
+      body: SizedBox(
         height: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(
-                controller: _titleController,
-                maxLength: 50,
-                decoration: const InputDecoration(
-                  label: Text('Title'),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 16),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/backgrounds/header.png'),
+                    fit: BoxFit.cover),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(37),
+                  bottomRight: Radius.circular(37),
                 ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        prefixText: '\$ ',
-                        label: Text('Amount'),
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Post a Job',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    color: Colors.white,
+                                  )),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          _selectedDate == null
-                              ? 'No date selected'
-                              : DateFormat('yyyy-MM-dd').format(_selectedDate!),
-                        ),
-                        IconButton(
-                          onPressed: _presentDatePicker,
-                          icon: const Icon(
-                            Icons.calendar_month,
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      width: 300,
+                      child: Text(
+                        textAlign: TextAlign.justify,
+                        'Ready to grow your team? Post a job for free and reach potential candidates easily.Your company details and logo will be showcased for job seekers to preview in the listing',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: IndustryDropDown(
-                      list: industries,
-                      value: _selectedIndustry,
-                      validator: (value) {
-                        if (value == null) {
-                          return 'This field cannot be empty';
-                        }
-                        return null;
-                      },
-                      onChanged: (Industry? newValue) {
-                        setState(() {
-                          _selectedIndustry = newValue;
-                        });
-                      },
-                    ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                width: 300,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InputField(
+                        label: 'Job Title',
+                        controller: _titleController,
+                      ),
+                      InputField(
+                        label: 'Description',
+                        isDescription: true,
+                        controller: _descriptionController,
+                      ),
+                      InputField(
+                        label: 'Responsibilities',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Responsibilities',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Requirements',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'sstype',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Job Location',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'ssjobtype',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Salary / Month',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Preffered Gender',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Experience Level',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Required Skills',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'Job Location',
+                        controller: _responsibilitiesController,
+                      ),
+                      InputField(
+                        label: 'ُEducational Level',
+                        controller: _responsibilitiesController,
+                      ),
+                      DatePickerField(
+                          controller: _jobDeadlineController,
+                          onTap: () => _selectDate(context),
+                          validator: validator,
+                          text: 'Founding Date'),
+                    ],
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel'),
-                  ),
-                  ElevatedButton(
-                    onPressed: _submitJobData,
-                    child: const Text('Save Expense'),
-                  ),
-                ],
+                ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(width: 300, child: SubmitButton('Submit', () {})),
+            const SizedBox(height: 25),
+          ],
         ),
       ),
+      // bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
-
-//  @override
-//   Widget build(BuildContext context) {
-//     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
-//     return LayoutBuilder(builder: (ctx, constraints) {
-//       return SizedBox(
-//         height: double.infinity,
-//         child: SingleChildScrollView(
-//           child: Padding(
-//             padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
