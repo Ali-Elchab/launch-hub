@@ -1,20 +1,7 @@
-// "id": 1,
-// "job_title": "Software Developer",
-// "job_description": "Develop and maintain software applications.",
-// "job_location": "Remote",
-// "job_type": "Full-time",
-// "job_salary": 80000,
-// "job_qualification": "Bachelor’s Degree in Computer Science",
-// "experience_level": "Mid-level",
-// "education_level": "Bachelors",
-// "preferred_gender": "any",
-// "deadline": "2024-01-19",
-// "job_status": "open",
-// "created_at": "2024-01-05T09:21:19.000000Z",
-// "updated_at": "2024-01-05T09:21:19.000000Z",
-// "industry_id": 1,
-// "specialization_id": 1,
-// "startup_id": 1
+import 'package:uuid/uuid.dart';
+
+const uuid = Uuid();
+
 enum JobStatus { open, closed }
 
 enum PreferredGender { male, female, any }
@@ -22,8 +9,7 @@ enum PreferredGender { male, female, any }
 enum JobType { fullTime, partTime, contract, internship, temporary }
 
 class JobPost {
-  const JobPost({
-    required this.id,
+  JobPost({
     required this.jobTitle,
     required this.jobDescription,
     required this.jobLocation,
@@ -37,10 +23,9 @@ class JobPost {
     required this.jobStatus,
     required this.industryId,
     required this.specializationId,
-    required this.startupId,
-  });
+  }) : id = uuid.v4();
 
-  final int id;
+  final String id;
   final String jobTitle;
   final String jobDescription;
   final String jobLocation;
@@ -54,5 +39,4 @@ class JobPost {
   final JobStatus jobStatus;
   final int industryId;
   final int specializationId;
-  final int startupId;
 }

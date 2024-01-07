@@ -104,8 +104,7 @@ List<String> hobbies = [
 ];
 
 List<JobPost> dummyJobPosts = [
-  const JobPost(
-    id: 1,
+  JobPost(
     jobTitle: "Software Engineer",
     jobDescription:
         "Join as an IT Technician to deliver top-tier technical support, troubleshoot hardware and software challenges, and enhance the overall efficiency of our dynamic IT environment.",
@@ -120,10 +119,8 @@ List<JobPost> dummyJobPosts = [
     jobStatus: JobStatus.open,
     industryId: 1,
     specializationId: 101,
-    startupId: 201,
   ),
-  const JobPost(
-    id: 2,
+  JobPost(
     jobTitle: "Graphic Designer",
     jobDescription: "Create visually appealing graphics and designs.",
     jobLocation: "New York, NY",
@@ -137,7 +134,6 @@ List<JobPost> dummyJobPosts = [
     jobStatus: JobStatus.open,
     industryId: 2,
     specializationId: 102,
-    startupId: 202,
   ),
   // Add more dummy job posts as needed
 ];
