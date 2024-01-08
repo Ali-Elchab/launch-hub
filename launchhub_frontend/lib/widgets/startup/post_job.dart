@@ -41,14 +41,14 @@ class _PostJobState extends State<PostJob> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _jobDeadlineController.text =
-            DateFormat('yyyy-MM-dd').format(picked); // Format date as required
+        _jobDeadlineController.text = DateFormat('yyyy-MM-dd')
+            .format(picked); // Format date as 'yyyy-MM-dd'
       });
     }
   }
@@ -82,32 +82,45 @@ class _PostJobState extends State<PostJob> {
   }
 
   void _submitJobData() {
-    // final enteredAmount = double.tryParse(_descri.text);
-    // final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    final enteredSalary = double.tryParse(_jobSalaryController.text);
+    final salaryIsInvalid = enteredSalary == null || enteredSalary <= 0;
     if (_titleController.text.trim().isEmpty ||
         _descriptionController.text.trim().isEmpty ||
-        _selectedDate == null) {
+        salaryIsInvalid ||
+        _selectedIndustry == null ||
+        _selectedNiche == null ||
+        _selectExperienceLevel == null ||
+        _selectEducationceLevel == null ||
+        _selectJobType == null ||
+        _selectGender == null ||
+        _selectLocation == null ||
+        selectedSkills.isEmpty ||
+        _jobQualificationController.text.trim().isEmpty ||
+        _jobDeadlineController.text.trim().isEmpty ||
+        _jobSalaryController.text.trim().isEmpty ||
+        _jobQualificationController.text.trim().isEmpty ||
+        _jobDeadlineController.text.trim().isEmpty ||
+        _jobSalaryController.text.trim().isEmpty) {
       _showDialog();
       return;
     }
 
-    // widget.postJob(
-    //   JobPost(
-    //     deadline: _selectedDate.toString(),
-    //     educationLevel: String,
-    //     experienceLevel: String,
-    //     jobDescription: String,
-    //     jobTitle: String,
-    //     jobType: String,
-    //     industryId: int,
-    //     jobLocation: String,
-    //     jobSalary: int,
-    //     jobQualification: String,
-    //     jobStatus: amountIsInvalid,
-    //     preferredGender: String,
-    //     specializationId: int,
-    //   ),
-    // );
+    widget.postJob(
+      JobPost(
+        deadline: _jobDeadlineController.text,
+        educationLevel: _selectEducationceLevel!,
+        experienceLevel: _selectExperienceLevel!,
+        jobDescription: _descriptionController.text,
+        jobTitle: _titleController.text,
+        jobType: _selectJobType!,
+        industryId: _selectedIndustry!.id,
+        jobLocation: _selectLocation!,
+        jobSalary: int.parse(_jobSalaryController.text),
+        jobQualification: _jobQualificationController.text,
+        preferredGender: _selectGender!,
+        specializationId: _selectedNiche!.id,
+      ),
+    );
     Navigator.pop(context);
   }
 
@@ -316,7 +329,7 @@ class _PostJobState extends State<PostJob> {
                 ),
               ),
             ),
-            SizedBox(width: 300, child: SubmitButton('Submit', () {})),
+            SizedBox(width: 300, child: SubmitButton('Submit', _submitJobData)),
             const SizedBox(height: 25),
           ],
         ),

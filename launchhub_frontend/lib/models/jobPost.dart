@@ -1,12 +1,7 @@
+// ignore: file_names
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
-
-enum JobStatus { open, closed }
-
-enum PreferredGender { male, female, any }
-
-enum JobType { fullTime, partTime, contract, internship, temporary }
 
 class JobPost {
   JobPost({
@@ -20,7 +15,7 @@ class JobPost {
     required this.educationLevel,
     required this.preferredGender,
     required this.deadline,
-    required this.jobStatus,
+    this.jobStatus = 'open',
     required this.industryId,
     required this.specializationId,
   }) : id = uuid.v4();
@@ -29,14 +24,14 @@ class JobPost {
   final String jobTitle;
   final String jobDescription;
   final String jobLocation;
-  final JobType jobType;
+  final String jobType;
   final int jobSalary;
   final String jobQualification;
   final String experienceLevel;
   final String educationLevel;
-  final PreferredGender preferredGender;
+  final String preferredGender;
   final String deadline;
-  final JobStatus jobStatus;
+  String jobStatus = 'open';
   final int industryId;
   final int specializationId;
 }
