@@ -31,7 +31,7 @@ class JobSeeker {
   final List<Hobby> hobbies;
   final List<Skill> skills;
   final List<JobPost> jobPosts;
-
+  final String proffesionalSummary;
   JobSeeker({
     required this.id,
     required this.firstName,
@@ -42,6 +42,7 @@ class JobSeeker {
     required this.address,
     required this.city,
     required this.bio,
+    required this.proffesionalSummary,
     this.resume,
     required this.isAvailable,
     required this.industryId,
@@ -67,6 +68,7 @@ class JobSeeker {
       address: json['address'] as String,
       city: json['city'] as String,
       bio: json['bio'] as String,
+      proffesionalSummary: json['proffesional_summary'] as String,
       resume: json['resume'] as String?,
       isAvailable: (json['is_available'] as int) == 1,
       userId: json['user_id'] as int,

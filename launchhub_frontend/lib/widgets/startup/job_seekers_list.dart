@@ -16,15 +16,12 @@ class JobSeekersList extends StatelessWidget {
         children: [
           JobSeekerCard(
             jobSeeker: dummyJobSeekers[index],
-            onTap: () {},
           ),
           JobSeekerCard(
             jobSeeker: dummyJobSeekers[index],
-            onTap: () {},
           ),
           JobSeekerCard(
             jobSeeker: dummyJobSeekers[index],
-            onTap: () {},
           ),
           const SizedBox(height: 20),
         ],

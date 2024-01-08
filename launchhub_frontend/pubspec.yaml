@@ -70,12 +70,9 @@ flutter:
     - assets/backgrounds/header.png
     - assets/images/splashscreen-img.png
     - assets/images/google_logo.png
-    - assets/images/educationalbg_2_32.jpeg
-    - assets/images/experience_1_32.jpeg
     - assets/images/how-to-apply_2_32.jpeg
     - assets/images/job-req_1_32.jpeg
     - assets/images/job-resp.jpeg
-    - assets/images/skillshobbies.jpeg
     - assets/images/job_board.png
     - assets/images/guides.png
     - assets/images/hire_talent.png
@@ -91,6 +88,9 @@ flutter:
     - assets/images/legal_guides.png
     - assets/logos/default-logo.png
     - assets/logos/default-profile.png
+    - assets/images/educationalbg.jpeg
+    - assets/images/experience.jpeg
+    - assets/images/skillshobbies.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

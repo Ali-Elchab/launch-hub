@@ -218,6 +218,8 @@ List<JobSeeker> dummyJobSeekers = [
     city: 'Anytown',
     bio:
         'HR Specialist: Proven expertise in talent management, employee relations, and a commitment to creating a positive workplace environment for organizational success.',
+    proffesionalSummary:
+        ' Results-oriented HR Professional with a proven track record in talent acquisition, employee relations, and organizational development. Skilled in implementing HR strategies that foster a positive workplace culture, drive employee engagement, and support business objectives. Adept at navigating complex employment issues, ensuring compliance, and enhancing overall HR operations for organizational success.',
     resume: 'path/to/resume1.pdf',
     isAvailable: true,
     industryId: industries[3],
@@ -227,6 +229,12 @@ List<JobSeeker> dummyJobSeekers = [
       SocialMediaLink(
         platform: 'LinkedIn',
         link: 'https://www.linkedin.com/in/johndoe/',
+        userId: 1,
+        id: '1',
+      ),
+      SocialMediaLink(
+        platform: 'facebook',
+        link: 'https://www.facebook.com/aliElchab',
         userId: 1,
         id: '1',
       ),

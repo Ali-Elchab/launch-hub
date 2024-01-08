@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/jobSeeker.dart';
+import 'package:launchhub_frontend/screens/startup_screens/job_seeker_profile.dart';
 
 class JobSeekerCard extends StatelessWidget {
   final JobSeeker jobSeeker;
@@ -11,10 +12,19 @@ class JobSeekerCard extends StatelessWidget {
     this.onTap,
   });
 
+  void onClick(context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => JobSeekerProfile(jobSeeker: jobSeeker)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        onClick(context);
+      },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 10),
         elevation: 0,
