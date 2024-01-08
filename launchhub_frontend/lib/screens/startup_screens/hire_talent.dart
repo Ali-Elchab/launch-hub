@@ -10,14 +10,14 @@ import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
 import 'package:launchhub_frontend/widgets/startup/post_job.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
-class JobBoard extends StatefulWidget {
-  const JobBoard({super.key});
+class HireTalent extends StatefulWidget {
+  const HireTalent({super.key});
 
   @override
-  State<JobBoard> createState() => _JobBoardState();
+  State<HireTalent> createState() => _HireTalentState();
 }
 
-class _JobBoardState extends State<JobBoard> {
+class _HireTalentState extends State<HireTalent> {
   void _openPostJobOverlay() {
     showModalBottomSheet(
         backgroundColor: Colors.white,
@@ -40,27 +40,27 @@ class _JobBoardState extends State<JobBoard> {
     });
   }
 
-  void _removeJobPost(JobPost jobPost) {
-    final jobIndex = dummyJobPosts.indexOf(jobPost);
-    setState(() {
-      dummyJobPosts.remove(jobPost);
-    });
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text('Expense deleted.'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            setState(() {
-              dummyJobPosts.insert(jobIndex, jobPost);
-            });
-          },
-        ),
-      ),
-    );
-  }
+  // void _removeJobPost(JobPost jobPost) {
+  //   final jobIndex = dummyJobPosts.indexOf(jobPost);
+  //   setState(() {
+  //     dummyJobPosts.remove(jobPost);
+  //   });
+  //   ScaffoldMessenger.of(context).clearSnackBars();
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       duration: const Duration(seconds: 3),
+  //       content: const Text('Expense deleted.'),
+  //       action: SnackBarAction(
+  //         label: 'Undo',
+  //         onPressed: () {
+  //           setState(() {
+  //             dummyJobPosts.insert(jobIndex, jobPost);
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +69,12 @@ class _JobBoardState extends State<JobBoard> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(
-            FontAwesomeIcons.folderOpen,
+            Icons.clear_rounded,
             size: 80,
             color: Color.fromARGB(255, 0, 0, 0),
           ),
           const SizedBox(height: 30),
-          Text('NO JOB POSTS YET\nSTART ADDING SOME!',
+          Text('No Job seekers found',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
@@ -83,21 +83,21 @@ class _JobBoardState extends State<JobBoard> {
       ),
     );
 
-    if (dummyJobPosts.isNotEmpty) {
-      mainContent = JobPostsList(
-        jobPosts: dummyJobPosts,
-        removeJobPost: _removeJobPost,
-      );
-    }
+    // if (dummyJobPosts.isNotEmpty) {
+    //   mainContent = JobPostsList(
+    //     jobPosts: dummyJobPosts,
+    //     removeJobPost: _removeJobPost,
+    //   );
+    // }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(180),
         child: Header(
-          title: 'Job Board',
+          title: 'Hire Talent',
           text:
-              'Cultivate your team and shape your company\'s future. Here in the Job board, effortlessly add, view, and manage your job listings, empowering you to connect with top talent seamlessly.',
+              'Explore a diverse pool of talented job seekers from various backgrounds on our hiring page, tailored for startups seeking exceptional candidates.',
         ),
       ),
       body: Center(

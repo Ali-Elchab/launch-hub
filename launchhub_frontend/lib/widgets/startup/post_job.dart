@@ -107,6 +107,7 @@ class _PostJobState extends State<PostJob> {
 
     widget.postJob(
       JobPost(
+        id: 1,
         deadline: _jobDeadlineController.text,
         educationLevel: _selectEducationceLevel!,
         experienceLevel: _selectExperienceLevel!,
@@ -119,6 +120,8 @@ class _PostJobState extends State<PostJob> {
         jobQualification: _jobQualificationController.text,
         preferredGender: _selectGender!,
         specializationId: _selectedNiche!.id,
+        jobStatus: 'open',
+        startupId: 1,
       ),
     );
     Navigator.pop(context);
