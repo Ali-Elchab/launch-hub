@@ -3,7 +3,6 @@ import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/choosing_candidate.dart';
-import 'package:launchhub_frontend/widgets/startup/how_to_write_job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_seekers_list.dart';
 

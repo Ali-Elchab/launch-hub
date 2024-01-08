@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
-import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
