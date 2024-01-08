@@ -33,10 +33,10 @@ class _PickSkillsState extends State<PickSkills> {
             width: double.infinity,
             child: Text('Pick skills:',
                 style: Theme.of(context).textTheme.titleMedium!)),
-        ...skills.map((skill) => ChoiceTag(
-              label: skill,
-              isSelected: widget.selectedSkills!.contains(skill),
-              onSelected: () => toggleSkill(skill),
+        ...mockSkills.map((skill) => ChoiceTag(
+              label: skill.name,
+              isSelected: widget.selectedSkills!.contains(skill.name),
+              onSelected: () => toggleSkill(skill.name),
             )),
       ]),
     );

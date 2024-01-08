@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
-import 'package:launchhub_frontend/models/jobPost.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
+import 'package:launchhub_frontend/widgets/startup/choosing_candidate.dart';
 import 'package:launchhub_frontend/widgets/startup/how_to_write_job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
-import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
-import 'package:launchhub_frontend/widgets/startup/post_job.dart';
-import 'package:launchhub_frontend/widgets/submit_button.dart';
+import 'package:launchhub_frontend/widgets/startup/job_seekers_list.dart';
 
 class HireTalent extends StatefulWidget {
   const HireTalent({super.key});
@@ -18,49 +15,12 @@ class HireTalent extends StatefulWidget {
 }
 
 class _HireTalentState extends State<HireTalent> {
-  void _openPostJobOverlay() {
-    showModalBottomSheet(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => PostJob(postJob: _postJob));
-  }
-
-  void _howToWriteJobPost() {
+  void _choosingPerfectCandidate() {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
-        builder: (ctx) => const HowToWriteJobPost());
+        builder: (ctx) => const StartupCandidateArticle());
   }
-
-  void _postJob(JobPost jobPost) {
-    setState(() {
-      dummyJobPosts.add(jobPost);
-    });
-  }
-
-  // void _removeJobPost(JobPost jobPost) {
-  //   final jobIndex = dummyJobPosts.indexOf(jobPost);
-  //   setState(() {
-  //     dummyJobPosts.remove(jobPost);
-  //   });
-  //   ScaffoldMessenger.of(context).clearSnackBars();
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       duration: const Duration(seconds: 3),
-  //       content: const Text('Expense deleted.'),
-  //       action: SnackBarAction(
-  //         label: 'Undo',
-  //         onPressed: () {
-  //           setState(() {
-  //             dummyJobPosts.insert(jobIndex, jobPost);
-  //           });
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +43,11 @@ class _HireTalentState extends State<HireTalent> {
       ),
     );
 
-    // if (dummyJobPosts.isNotEmpty) {
-    //   mainContent = JobPostsList(
-    //     jobPosts: dummyJobPosts,
-    //     removeJobPost: _removeJobPost,
-    //   );
-    // }
+    if (dummyJobSeekers.isNotEmpty) {
+      mainContent = JobSeekersList(
+        jobSeekers: dummyJobSeekers,
+      );
+    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -106,23 +65,23 @@ class _HireTalentState extends State<HireTalent> {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              SearchFilter(onPressedFilter: () {}),
-              Expanded(
-                child: mainContent,
+              SearchFilter(
+                onPressedFilter: () {},
+                margin: 10,
               ),
-              SubmitButton('Post a job', () {
-                _openPostJobOverlay();
-              }),
-              const SizedBox(height: 3),
               InkWell(
                 onTap: () {
-                  _howToWriteJobPost();
+                  _choosingPerfectCandidate();
                 },
                 child: Text(
-                  'How To Write An Effective Job Posting',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  'Choosing The Perfect Candidate For Your Startup',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 11),
                 ),
+              ),
+              Expanded(
+                child: mainContent,
               ),
               const SizedBox(height: 25),
             ],

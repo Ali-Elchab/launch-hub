@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SearchFilter extends StatelessWidget {
-  const SearchFilter({super.key, required this.onPressedFilter});
+  const SearchFilter(
+      {super.key, required this.onPressedFilter, this.margin = 25});
 
   final Function onPressedFilter;
+  final double margin;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 25),
+      margin: EdgeInsets.only(bottom: margin),
       child: Row(
         children: [
           Expanded(

@@ -89,11 +89,12 @@ class _SkillsState extends State<Skills> {
                       Wrap(
                         spacing: 9.0,
                         runSpacing: 4.0,
-                        children: skills
+                        children: mockSkills
                             .map((skill) => ChoiceTag(
-                                  label: skill,
-                                  isSelected: selectedSkills.contains(skill),
-                                  onSelected: () => toggleSkill(skill),
+                                  label: skill.name,
+                                  isSelected:
+                                      selectedSkills.contains(skill.name),
+                                  onSelected: () => toggleSkill(skill.name),
                                 ))
                             .toList(),
                       ),

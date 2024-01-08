@@ -88,11 +88,12 @@ class _HobbiesState extends State<Hobbies> {
                       Wrap(
                         spacing: 9.0,
                         runSpacing: 4.0,
-                        children: hobbies
+                        children: mockHobbies
                             .map((hobby) => ChoiceTag(
-                                  label: hobby,
-                                  isSelected: selectedHobbies.contains(hobby),
-                                  onSelected: () => togglehobby(hobby),
+                                  label: hobby.name,
+                                  isSelected:
+                                      selectedHobbies.contains(hobby.name),
+                                  onSelected: () => togglehobby(hobby.name),
                                 ))
                             .toList(),
                       ),

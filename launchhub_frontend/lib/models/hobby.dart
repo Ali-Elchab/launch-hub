@@ -1,19 +1,16 @@
 class Hobby {
   final int id;
   final String name;
-  final Pivot pivot;
 
   Hobby({
     required this.id,
     required this.name,
-    required this.pivot,
   });
 
   factory Hobby.fromJson(Map<String, dynamic> json) {
     return Hobby(
       id: json['id'] as int,
       name: json['name'] as String,
-      pivot: Pivot.fromJson(json['pivot'] as Map<String, dynamic>),
     );
   }
 
@@ -21,7 +18,6 @@ class Hobby {
     return {
       'id': id,
       'name': name,
-      'pivot': pivot.toJson(),
     };
   }
 }

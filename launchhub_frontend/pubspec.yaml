@@ -90,7 +90,7 @@ flutter:
     - assets/images/legal_advisors.png
     - assets/images/legal_guides.png
     - assets/logos/default-logo.png
-    # - assets/logos/default-image.png
+    - assets/logos/default-profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

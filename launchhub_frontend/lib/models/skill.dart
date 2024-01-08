@@ -2,13 +2,11 @@ class Skill {
   final int id;
   final String name;
   final int specializationId;
-  final SkillPivot pivot;
 
   Skill({
     required this.id,
     required this.name,
     required this.specializationId,
-    required this.pivot,
   });
 
   factory Skill.fromJson(Map<String, dynamic> json) {
@@ -16,7 +14,6 @@ class Skill {
       id: json['id'] as int,
       name: json['name'] as String,
       specializationId: json['specialization_id'] as int,
-      pivot: SkillPivot.fromJson(json['pivot'] as Map<String, dynamic>),
     );
   }
 
@@ -25,7 +22,6 @@ class Skill {
       'id': id,
       'name': name,
       'specialization_id': specializationId,
-      'pivot': pivot.toJson(),
     };
   }
 }

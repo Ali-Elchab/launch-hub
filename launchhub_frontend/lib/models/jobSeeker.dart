@@ -1,3 +1,6 @@
+import 'package:launchhub_frontend/models/industry.dart';
+import 'package:launchhub_frontend/models/niche.dart';
+
 import 'jobPost.dart';
 import 'socialMediaLink.dart';
 import 'education.dart';
@@ -18,9 +21,9 @@ class JobSeeker {
   final String bio;
   final String? resume;
   final bool isAvailable;
-  final int industryId;
+  final Industry industryId;
   final int userId;
-  final int specializationId;
+  final Niche specializationId;
   final List<SocialMediaLink> socialMediaLinks;
   final List<Education> educations;
   final List<Experience> experiences;
@@ -66,9 +69,13 @@ class JobSeeker {
       bio: json['bio'] as String,
       resume: json['resume'] as String?,
       isAvailable: (json['is_available'] as int) == 1,
-      industryId: json['industry_id'] as int,
       userId: json['user_id'] as int,
-      specializationId: json['specialization_id'] as int,
+      industryId: (json['industry_id'] != null)
+          ? Industry.fromJson(json['industry_id'])
+          : Industry(id: 0, name: 'None'),
+      specializationId: (json['specialization_id'] != null)
+          ? Niche.fromJson(json['specialization_id'])
+          : Niche(id: 0, name: 'None'),
       socialMediaLinks: (json['socialMediaLinks'] as List)
           .map((i) => SocialMediaLink.fromJson(i))
           .toList(),
