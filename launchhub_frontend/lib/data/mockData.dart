@@ -137,3 +137,79 @@ List<JobPost> dummyJobPosts = [
   ),
   // Add more dummy job posts as needed
 ];
+
+final List<String> experienceLevels = [
+  '0-1 years',
+  '1-3 years',
+  '3-5 years',
+  '5-10 years',
+  '10+ years',
+];
+
+final List<String> educationLevels = [
+  'High School',
+  'Associate Degree',
+  'Bachelor\'s Degree',
+  'Master\'s Degree',
+  'Doctoral Degree',
+];
+
+final List<String> jobTypes = [
+  'Full-time',
+  'Part-time',
+  'Contract',
+  'Internship',
+  'Temporary',
+];
+
+final List<String> genders = ['Male', 'Female', 'Any'];
+
+List<String> locations = [
+  'Beirut',
+  'Tripoli',
+  'Sidon',
+  'Tyre',
+  'Byblos',
+  'Baalbek',
+  'Jounieh',
+  'Zahle',
+  'Nabatieh',
+  'Anjar',
+  'Bcharre',
+  'Batroun',
+  'Aley',
+  'Jeita',
+  'Saida',
+  'Zgharta',
+  'Ehden',
+  'Kfardebian',
+  'Bekaa Valley',
+  'Chouf District',
+  'Jezzine',
+  'Bentael',
+  'Akkar District',
+  'Rashaya',
+  'Tannourine',
+  'Marjayoun',
+  'Miziara',
+  'Bhamdoun',
+  'Deir el Qamar',
+  'Jiya',
+  'Zahlé District',
+  'Broumana',
+  'Baskinta',
+  'Anfeh',
+  'Bikfaya',
+  'Dhour El Choueir',
+  'Douma',
+  'Jal el Dib',
+  'Jdeideh',
+  'Kousba',
+  'Mina, Tripoli',
+  'Mtein',
+  'Ras Baalbek',
+  'Rachaya',
+  'Zahle District',
+];
+
+// You can use this list of Lebanon locations for your location input field.

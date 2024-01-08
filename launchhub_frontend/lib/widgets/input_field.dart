@@ -7,18 +7,24 @@ class InputField extends StatefulWidget {
   final String? Function(String?)? validator;
   final AutovalidateMode autovalidateMode;
   final TextEditingController? controller;
-
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final Widget? icon;
   const InputField({
     super.key,
     this.controller,
     required this.label,
     this.isPassword = false,
     this.isDescription = false,
+    this.readOnly = false,
+    this.onTap,
+    this.icon,
     this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _InputFieldState createState() => _InputFieldState();
 }
 
@@ -30,6 +36,9 @@ class _InputFieldState extends State<InputField> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: TextFormField(
+        style: Theme.of(context).textTheme.bodyLarge,
+        controller: widget.controller,
+        readOnly: widget.readOnly,
         obscureText: widget.isPassword,
         validator: widget.validator,
         autovalidateMode: widget.autovalidateMode,
@@ -46,18 +55,19 @@ class _InputFieldState extends State<InputField> {
           labelText: widget.label,
           labelStyle: Theme.of(context).textTheme.labelMedium!,
           alignLabelWithHint: true,
-          floatingLabelStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
+          floatingLabelStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: const Color(0xFF326789),
-                height: 25,
+                color: Theme.of(context).colorScheme.primary,
+                // height: 25,
                 letterSpacing: 0.5,
               ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
               width: 1,
-              color: isFocused ? Colors.blue : Colors.transparent,
+              color: isFocused
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.transparent,
             ),
           ),
           enabledBorder: OutlineInputBorder(
@@ -67,12 +77,14 @@ class _InputFieldState extends State<InputField> {
               color: Colors.transparent,
             ),
           ),
+          suffixIcon: widget.icon,
         ),
         onChanged: (value) {
           setState(() {
             isFocused = true;
           });
         },
+        onTap: widget.onTap,
       ),
     );
   }

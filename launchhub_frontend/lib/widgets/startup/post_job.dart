@@ -1,12 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/jobPost.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
+import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/startup/pick_skills.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
@@ -26,20 +25,16 @@ class _PostJobState extends State<PostJob> {
   final _descriptionController = TextEditingController();
   DateTime? _selectedDate;
   Industry? _selectedIndustry;
+  Niche? _selectedNiche;
+  String? _selectExperienceLevel;
+  String? _selectEducationceLevel;
+  String? _selectJobType;
+  String? _selectGender;
+  String? _selectLocation;
+  List<String> selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
-  final _responsibilitiesController = TextEditingController();
-  final _requirementsController = TextEditingController();
-  final _skillsController = TextEditingController();
-  final _jobTypeController = TextEditingController();
-  final _jobLocationController = TextEditingController();
   final _jobSalaryController = TextEditingController();
-  final _preferredGenderController = TextEditingController();
-  final _experienceLevelController = TextEditingController();
-  final _educationalLevelController = TextEditingController();
-  final _jobStatusController = TextEditingController();
   final _jobQualificationController = TextEditingController();
-  final _jobSpecializationController = TextEditingController();
-  final _jobIndustryController = TextEditingController();
   final _jobDeadlineController = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -75,6 +70,15 @@ class _PostJobState extends State<PostJob> {
         ],
       ),
     );
+  }
+
+  void _openSkillsOverlay() {
+    showModalBottomSheet(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => PickSkills(selectedSkills: selectedSkills));
   }
 
   void _submitJobData() {
@@ -140,43 +144,47 @@ class _PostJobState extends State<PostJob> {
                 ),
               ),
               child: Center(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Post a Job',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Post a Job',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: Colors.white,
+                                    )),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          textAlign: TextAlign.justify,
+                          'Ready to grow your team? Post a job for free and reach potential candidates easily.Your company details and logo will be showcased for job seekers to preview in the listing',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     color: Colors.white,
-                                  )),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.close,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                                  ),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 300,
-                      child: Text(
-                        textAlign: TextAlign.justify,
-                        'Ready to grow your team? Post a job for free and reach potential candidates easily.Your company details and logo will be showcased for job seekers to preview in the listing',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -199,42 +207,110 @@ class _PostJobState extends State<PostJob> {
                         controller: _descriptionController,
                       ),
                       InputField(
-                        label: 'Location',
-                        controller: _jobLocationController,
-                      ),
-                      InputField(
                         label: 'Qualification',
+                        isDescription: true,
                         controller: _jobQualificationController,
                       ),
-                      InputField(
-                        label: 'Experience Level dropdown',
-                        controller: _responsibilitiesController,
+                      GenericDropdown<String>(
+                        label: 'Select Experience Level',
+                        options: experienceLevels,
+                        selectedOption: _selectExperienceLevel,
+                        optionLabel: (option) => option.toString(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectExperienceLevel = newValue;
+                          });
+                        },
                       ),
-                      InputField(
-                        label: 'Education Level Dropdown',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'Job Type DropDown',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'Salary / Month',
-                        controller: _responsibilitiesController,
-                      ),
-                      InputField(
-                        label: 'Preffered Gender Dropdown',
-                        controller: _responsibilitiesController,
+                      GenericDropdown<String>(
+                        label: 'Select Education Level',
+                        options: educationLevels,
+                        selectedOption: _selectEducationceLevel,
+                        optionLabel: (option) => option.toString(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectEducationceLevel = newValue;
+                          });
+                        },
                       ),
                       InputField(
                         label: 'Required Skills',
-                        controller: _responsibilitiesController,
+                        readOnly: true,
+                        onTap: () {
+                          _openSkillsOverlay();
+                        },
+                        isDescription: true,
+                        controller: TextEditingController(
+                            text: selectedSkills.join(', ')),
+                        icon: const Icon(Icons.add_circle_outline),
                       ),
-                      DatePickerField(
-                          controller: _jobDeadlineController,
-                          onTap: () => _selectDate(context),
-                          validator: validator,
-                          text: 'Founding Date'),
+                      GenericDropdown<String>(
+                        label: 'Select Job Type',
+                        options: jobTypes,
+                        selectedOption: _selectJobType,
+                        optionLabel: (option) => option.toString(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectJobType = newValue;
+                          });
+                        },
+                      ),
+                      GenericDropdown<String>(
+                        label: 'Select Location',
+                        options: locations,
+                        selectedOption: _selectLocation,
+                        optionLabel: (option) => option.toString(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectLocation = newValue;
+                          });
+                        },
+                      ),
+                      InputField(
+                        label: 'Salary / Month',
+                        controller: _jobSalaryController,
+                      ),
+                      GenericDropdown<String>(
+                        label: 'Select Preffered Gender',
+                        options: genders,
+                        selectedOption: _selectGender,
+                        optionLabel: (option) => option.toString(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectGender = newValue;
+                          });
+                        },
+                      ),
+                      GenericDropdown<Industry>(
+                        label: 'Select Industry',
+                        options: industries,
+                        selectedOption: _selectedIndustry,
+                        optionLabel: (industry) => industry!.name,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedIndustry = newValue;
+                          });
+                        },
+                      ),
+                      GenericDropdown<Niche>(
+                        label: 'Select Specialization',
+                        options: niches,
+                        selectedOption: _selectedNiche,
+                        optionLabel: (niche) => niche!.name,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedNiche = newValue;
+                          });
+                        },
+                      ),
+                      InputField(
+                        label: 'Deadline',
+                        readOnly: true,
+                        validator: validator,
+                        onTap: () => _selectDate(context),
+                        controller: _jobDeadlineController,
+                        icon: const Icon(Icons.calendar_today),
+                      ),
                     ],
                   ),
                 ),

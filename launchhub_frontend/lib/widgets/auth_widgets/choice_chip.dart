@@ -20,7 +20,7 @@ class ChoiceTag extends StatelessWidget {
         style: TextStyle(
           fontSize: 12,
           color: !isSelected
-              ? const Color.fromARGB(202, 146, 146, 146)
+              ? Theme.of(context).textTheme.labelLarge!.color
               : const Color(0xFF326789),
         ),
       ),

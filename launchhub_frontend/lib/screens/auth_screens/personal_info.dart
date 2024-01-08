@@ -3,11 +3,9 @@ import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/date_picker.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/industry_drop_down.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/niche_drop_down.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +23,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   Industry? _selectedIndustry;
-  Niche? _niche;
+  Niche? _selectedNiche;
   XFile? _image;
   final TextEditingController _controller = TextEditingController();
 
@@ -128,46 +126,40 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     child: Column(
                       children: [
                         InputField(label: 'First Name', validator: validator),
-                        DatePickerField(
-                            controller: _controller,
-                            onTap: () => _selectDate(context),
-                            validator: validator,
-                            text: 'Date of Birth'),
+                        InputField(
+                          label: 'Deadline',
+                          readOnly: true,
+                          icon: const Icon(Icons.calendar_today),
+                          controller: _controller,
+                          onTap: () => _selectDate(context),
+                          validator: validator,
+                        ),
                         const SizedBox(height: 16),
                         InputField(label: 'Phone Number', validator: validator),
                         InputField(
                             label: 'Professional Biography',
                             isDescription: true,
                             validator: validator),
-                        IndustryDropDown(
-                          list: industries,
-                          value: _selectedIndustry,
-                          validator: (value) {
-                            if (value == null) {
-                              return 'This field cannot be empty';
-                            }
-                            return null;
-                          },
-                          onChanged: (Industry? newValue) {
+                        GenericDropdown<Industry>(
+                          label: 'Select Industry',
+                          options: industries,
+                          selectedOption: _selectedIndustry,
+                          optionLabel: (industry) => industry!.name,
+                          onChanged: (newValue) {
                             setState(() {
                               _selectedIndustry = newValue;
                             });
                           },
                         ),
                         const SizedBox(height: 16),
-                        NicheDropDown(
-                          list: niches,
-                          value: _niche,
-                          text: 'Specialization',
-                          validator: (value) {
-                            if (value == null) {
-                              return 'This field cannot be empty';
-                            }
-                            return null;
-                          },
-                          onChanged: (Niche? newValue) {
+                        GenericDropdown<Niche>(
+                          label: 'Select Niche',
+                          options: niches,
+                          selectedOption: _selectedNiche,
+                          optionLabel: (niche) => niche!.name,
+                          onChanged: (newValue) {
                             setState(() {
-                              _niche = newValue;
+                              _selectedNiche = newValue;
                             });
                           },
                         ),
