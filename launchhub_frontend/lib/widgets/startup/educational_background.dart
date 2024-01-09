@@ -24,7 +24,7 @@ class EducationalBackground extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Skills and Hobbies',
+                'Educational Background',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       color: const Color.fromARGB(255, 255, 255, 255),
                     ),

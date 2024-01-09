@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 class FeatureCard extends StatelessWidget {
   final String title;
   final String description;
-  final String imagePath;
+  final String? imagePath;
   final Function()? onTap;
+  final String? url;
 
   const FeatureCard({
     super.key,
     required this.title,
     required this.description,
-    required this.imagePath,
+    this.imagePath,
     this.onTap,
+    this.url,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Card(
         margin: const EdgeInsets.only(bottom: 25.0),
@@ -26,8 +28,23 @@ class FeatureCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                alignment: Alignment.center,
-                child: Image.asset(imagePath, width: 55)),
+              alignment: Alignment.center,
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: url == null
+                      ? AssetImage(imagePath!) as ImageProvider
+                      : NetworkImage(url!),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            // child: url == null
+            //     ? Image.asset(imagePath!, width: 55)
+            //     : Image.network(url!, width: 70, height: 100)),
             const SizedBox(width: 22),
             Expanded(
               child: Column(
