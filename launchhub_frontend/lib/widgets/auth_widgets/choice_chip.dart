@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class ChoiceTag extends StatelessWidget {
   final String label;
   final bool isSelected;
-  final VoidCallback onSelected;
+  final VoidCallback? onSelected;
 
   const ChoiceTag({
     super.key,
     required this.label,
     required this.isSelected,
-    required this.onSelected,
+    this.onSelected,
   });
 
   @override
@@ -27,7 +27,7 @@ class ChoiceTag extends StatelessWidget {
       selected: isSelected,
       showCheckmark: false,
       onSelected: (bool selected) {
-        onSelected();
+        onSelected!();
       },
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       selectedColor: const Color.fromARGB(255, 255, 255, 255),

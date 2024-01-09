@@ -35,12 +35,12 @@ class ProfileHeader extends StatelessWidget {
           bottomLeft: Radius.circular(37),
           bottomRight: Radius.circular(37),
         ),
-        image: DecorationImage(
-          image: color == Colors.white
-              ? const AssetImage('assets/backgrounds/header.png')
-              : const AssetImage(''),
-          fit: BoxFit.cover,
-        ),
+        image: color == Colors.white
+            ? const DecorationImage(
+                image: AssetImage('assets/backgrounds/header.png'),
+                fit: BoxFit.cover,
+              )
+            : null,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min, // Use minimal space for the Column
@@ -62,10 +62,10 @@ class ProfileHeader extends StatelessWidget {
                         children: [
                           Row(
                             children: <Widget>[
-                              const Icon(
+                              Icon(
                                 Icons.phone_enabled_outlined,
-                                color: Colors.white,
-                                size: 13,
+                                color: color,
+                                size: 15,
                               ),
                               const SizedBox(width: 12),
                               Expanded(
@@ -75,8 +75,8 @@ class ProfileHeader extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        fontSize: 11,
-                                        color: Colors.white,
+                                        fontSize: 13,
+                                        color: color,
                                       ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -86,10 +86,10 @@ class ProfileHeader extends StatelessWidget {
                           const SizedBox(height: 7),
                           Row(
                             children: <Widget>[
-                              const Icon(
+                              Icon(
                                 Icons.email_outlined,
-                                color: Colors.white,
-                                size: 13,
+                                color: color,
+                                size: 15,
                               ),
                               const SizedBox(width: 12),
                               Text(
@@ -98,8 +98,8 @@ class ProfileHeader extends StatelessWidget {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                      fontSize: 11,
-                                      color: Colors.white,
+                                      fontSize: 13,
+                                      color: color,
                                     ),
                               ),
                             ],
@@ -107,10 +107,10 @@ class ProfileHeader extends StatelessWidget {
                           const SizedBox(height: 7),
                           Row(
                             children: <Widget>[
-                              const Icon(
+                              Icon(
                                 Icons.location_on_outlined,
-                                color: Colors.white,
-                                size: 13,
+                                color: color,
+                                size: 15,
                               ),
                               const SizedBox(width: 12),
                               Text(
@@ -119,8 +119,8 @@ class ProfileHeader extends StatelessWidget {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                      fontSize: 11,
-                                      color: Colors.white,
+                                      fontSize: 13,
+                                      color: color,
                                     ),
                               ),
                             ],
@@ -132,16 +132,28 @@ class ProfileHeader extends StatelessWidget {
                               for (var social in socials!)
                                 if (social.platform.toLowerCase().trim() ==
                                     'facebook')
-                                  _buildSocialIcon(context, social.platform,
-                                      social.link, FontAwesomeIcons.facebook)
+                                  _buildSocialIcon(
+                                      context,
+                                      social.platform,
+                                      color!,
+                                      social.link,
+                                      FontAwesomeIcons.facebook)
                                 else if (social.platform.toLowerCase().trim() ==
                                     'instagram')
-                                  _buildSocialIcon(context, social.platform,
-                                      social.link, FontAwesomeIcons.instagram)
+                                  _buildSocialIcon(
+                                      context,
+                                      social.platform,
+                                      color!,
+                                      social.link,
+                                      FontAwesomeIcons.instagram)
                                 else if (social.platform.toLowerCase().trim() ==
                                     'linkedin')
-                                  _buildSocialIcon(context, social.platform,
-                                      social.link, FontAwesomeIcons.linkedin)
+                                  _buildSocialIcon(
+                                      context,
+                                      social.platform,
+                                      color!,
+                                      social.link,
+                                      FontAwesomeIcons.linkedin)
                             ],
                           )
                         ],
@@ -168,13 +180,14 @@ class ProfileHeader extends StatelessWidget {
   }
 }
 
-Widget _buildSocialIcon(context, String platform, String link, IconData icon) {
+Widget _buildSocialIcon(
+    context, String platform, Color color, String link, IconData icon) {
   Uri uriLink = Uri.parse(link);
   return IconButton(
     alignment: Alignment.centerLeft,
     icon: FaIcon(
       icon,
-      color: Colors.white,
+      color: color,
       size: 15,
     ),
     onPressed: () async {

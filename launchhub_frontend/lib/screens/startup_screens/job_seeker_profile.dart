@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/jobSeeker.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
+import 'package:launchhub_frontend/widgets/startup/educational_background.dart';
+import 'package:launchhub_frontend/widgets/startup/skills&hobbies.dart';
 
 class JobSeekerProfile extends StatefulWidget {
   const JobSeekerProfile({super.key, required this.jobSeeker});
@@ -13,6 +15,24 @@ class JobSeekerProfile extends StatefulWidget {
 }
 
 class _JobSeekerProfileState extends State<JobSeekerProfile> {
+  bool showModal = false;
+
+  void _showModal(Widget widget) {
+    showModalBottomSheet(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 0,
+        isScrollControlled: true,
+        context: context,
+        isDismissible: true,
+        enableDrag: false,
+        barrierColor: Colors.transparent,
+        builder: (ctx) => widget);
+  }
+
+  void _toggleHeaderColor() => setState(() {
+        showModal = !showModal;
+      });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +48,7 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
           phoneNumber: widget.jobSeeker.phone,
           socials: widget.jobSeeker.socialMediaLinks,
           profilePicture: widget.jobSeeker.profilePic,
+          color: showModal ? Colors.black : Colors.white,
         ),
       ),
       body: Center(
@@ -56,7 +77,15 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              _toggleHeaderColor();
+                              _showModal(SkillsAndHobbies(
+                                toggleHeaderColor: () {
+                                  _toggleHeaderColor();
+                                },
+                                skills: widget.jobSeeker.skills,
+                              ));
+                            },
                             child: Column(
                               children: [
                                 Container(
@@ -80,7 +109,15 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              _toggleHeaderColor();
+                              _showModal(EducationalBackground(
+                                toggleHeaderColor: () {
+                                  _toggleHeaderColor();
+                                },
+                                educations: widget.jobSeeker.educations,
+                              ));
+                            },
                             child: Column(
                               children: [
                                 Container(
