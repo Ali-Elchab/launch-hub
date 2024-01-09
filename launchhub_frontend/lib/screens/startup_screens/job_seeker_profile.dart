@@ -3,6 +3,7 @@ import 'package:launchhub_frontend/models/jobSeeker.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
 import 'package:launchhub_frontend/widgets/startup/educational_background.dart';
+import 'package:launchhub_frontend/widgets/startup/experience.dart';
 import 'package:launchhub_frontend/widgets/startup/skills&hobbies.dart';
 
 class JobSeekerProfile extends StatefulWidget {
@@ -141,7 +142,15 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              _toggleHeaderColor();
+                              _showModal(JobSeekerExperience(
+                                toggleHeaderColor: () {
+                                  _toggleHeaderColor();
+                                },
+                                experiences: widget.jobSeeker.experiences,
+                              ));
+                            },
                             child: Column(
                               children: [
                                 Container(

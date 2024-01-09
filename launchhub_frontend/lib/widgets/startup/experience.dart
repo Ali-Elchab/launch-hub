@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/models/skill.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
+import 'package:launchhub_frontend/models/experience.dart';
 
-class Experience extends StatelessWidget {
-  const Experience(
-      {super.key, required this.toggleHeaderColor, required this.skills});
+class JobSeekerExperience extends StatelessWidget {
+  const JobSeekerExperience({
+    super.key,
+    required this.toggleHeaderColor,
+    required this.experiences,
+  });
 
   final Function()? toggleHeaderColor;
-  final List<Skill> skills;
+  final List<Experience> experiences;
 
   @override
   Widget build(BuildContext context) {
@@ -21,31 +23,100 @@ class Experience extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Skills and Hobbies',
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: const Color.fromARGB(255, 255, 255, 255))),
+              Text(
+                'Skills and Hobbies',
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+              ),
               IconButton(
-                  onPressed: () {
-                    toggleHeaderColor!();
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.close),
-                  color: const Color.fromARGB(255, 255, 255, 255)),
+                onPressed: () {
+                  toggleHeaderColor!();
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.close),
+                color: const Color.fromARGB(255, 255, 255, 255),
+              ),
             ],
           ),
           const SizedBox(height: 24),
           Expanded(
             child: SingleChildScrollView(
-              child: Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Wrap(spacing: 9.0, runSpacing: 4.0, children: [
-                  ...skills.map((skill) => ChoiceTag(
-                        label: skill.name,
-                        isSelected: false,
-                      )),
-                ]),
+              child: Column(
+                children: [
+                  ...experiences.map((experience) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                flex: 2,
+                                child: Text(
+                                  experience.position,
+                                  style:
+                                      Theme.of(context).textTheme.titleSmall!,
+                                  overflow: TextOverflow
+                                      .ellipsis, // Add ellipsis to indicate overflow
+                                  maxLines: 2,
+                                ),
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: Text(
+                                  experience.company,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                  overflow: TextOverflow
+                                      .ellipsis, // Add ellipsis to indicate overflow
+                                  maxLines: 2,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${experience.startDate} - ',
+                                style: Theme.of(context).textTheme.bodySmall!,
+                              ),
+                              Text(
+                                experience.endDate,
+                                style: Theme.of(context).textTheme.bodySmall!,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                experience.location,
+                                style: Theme.of(context).textTheme.bodySmall!,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            experience.description,
+                            style: Theme.of(context).textTheme.bodySmall!,
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
               ),
             ),
           ),
