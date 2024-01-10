@@ -93,10 +93,9 @@ class StartupController extends Controller
 
     public function getAdvisors(Request $request)
     {
-        $category = $request->query('category');
+        $category = $request->category;
 
-        $advisors = Advisor::where('category', $category)
-            ->get();
+        $advisors = Advisor::where('category', $category)->get();
 
 
         return response()->json($advisors);
