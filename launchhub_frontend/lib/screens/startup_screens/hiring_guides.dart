@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/udemy_api.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
-import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
 import 'package:launchhub_frontend/widgets/startup/interview_questions.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HiringGuides extends StatefulWidget {
   const HiringGuides({super.key});
@@ -67,10 +65,8 @@ class _HiringGuidesState extends State<HiringGuides> {
                       'Streamline your hiring process with this checklist template, ensuring a systematic and efficient approach to recruitment.',
                   imagePath: 'assets/images/hiring-process.png',
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const StartScreen();
-                    }));
+                    openLink(context,
+                        'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf');
                   },
                 ),
                 FeatureCard(
@@ -79,10 +75,8 @@ class _HiringGuidesState extends State<HiringGuides> {
                       'This template streamlines the reference-checking process, enabling a comprehensive evaluation of a candidate\'s professional background.',
                   imagePath: 'assets/images/reference-check.png',
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const StartScreen();
-                    }));
+                    openLink(context,
+                        'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjorpeDudKDAxWhywIHHUp7BL4QFnoECBMQAQ&url=https%3A%2F%2Fwww.fairwork.gov.au%2Fsites%2Fdefault%2Ffiles%2Fmigration%2F766%2FReference-checking-form.docx&usg=AOvVaw1TA-0PyC8aY6Xu3AozapNu&opi=89978449');
                   },
                 ),
                 const SizedBox(height: 25),
