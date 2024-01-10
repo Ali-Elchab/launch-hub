@@ -96,6 +96,15 @@ flutter:
     - assets/images/hiring-process.png
     - assets/images/interview-questions.png
     - assets/images/reference-check.png
+    - assets/images/invoice-template.png
+    - assets/images/balance-sheet.png
+    - assets/images/expense-report.png
+    - assets/images/marketing-plan.png
+    - assets/images/event-planning.png
+    - assets/images/customer-persona.png
+    - assets/images/partnership-agreement.png
+    - assets/images/sales-agreement.png
+    - assets/images/employment-agreement.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

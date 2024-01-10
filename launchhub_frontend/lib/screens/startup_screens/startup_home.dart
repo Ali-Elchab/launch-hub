@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
-import 'package:launchhub_frontend/screens/startup_screens/marketing_articles_and_templates.dart';
+import 'package:launchhub_frontend/screens/startup_screens/articles_and_templates.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
@@ -92,7 +93,13 @@ class _StartupHomeState extends State<StartupHome> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const MarketingArticlesAndTemplates();
+                            return ArticlesAndTemplates(
+                              templates: marketingTemplates,
+                              query: 'marketing startup business',
+                              title: 'Marketing Guides',
+                              text:
+                                  'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
+                            );
                           }));
                         },
                       ),
@@ -129,7 +136,13 @@ class _StartupHomeState extends State<StartupHome> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
+                            return ArticlesAndTemplates(
+                              title: 'Financial Planning',
+                              text:
+                                  'Access essential articles and templates covering diverse legal aspects to guide your startup through various challenges, ensuring a secure and compliant business journey.',
+                              templates: financeTemplates,
+                              query: 'startup financial planning',
+                            );
                           }));
                         },
                       ),
@@ -154,7 +167,13 @@ class _StartupHomeState extends State<StartupHome> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
+                            return ArticlesAndTemplates(
+                              title: 'Legal Guides',
+                              text:
+                                  'Explore our Financial Planning page for budgeting, forecasting, and financial analysis tools. Empower your startup\'s fiscal planning with streamlined templates and checklists.',
+                              templates: legalTemplates,
+                              query: 'legal for business',
+                            );
                           }));
                         },
                       ),

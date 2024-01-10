@@ -1,10 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<List<dynamic>> fetchArticles(path) async {
+Future<List<dynamic>> fetchArticles(query) async {
   final response = await http.get(
     Uri.parse(
-        'https://newsapi.org/v2/everything?q=$path&pageSize=3&sortBy=popularity&apiKey=9c1cdbcfe9564f01bf1e3e18e85ab91f'),
+        'https://newsapi.org/v2/everything?q=$query&pageSize=3&sortBy=popularity&apiKey=9c1cdbcfe9564f01bf1e3e18e85ab91f'),
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json, text/plain, */*",
