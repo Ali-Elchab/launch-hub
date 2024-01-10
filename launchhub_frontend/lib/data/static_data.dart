@@ -58,7 +58,7 @@ List<Object> legalTemplates = [
         'Facilitate clear and comprehensive employment terms with our template, tailored for startups seeking effective employment arrangements.',
     'imagePath': 'assets/images/employment-agreement.png',
     'url':
-        'https://www.smartsheet.com/file/ic-non-disclosure-agreement-template-9060docx',
+        'https://www.betterteam.com/download/Employment-Contract-Template-Download-20201125.docx',
   },
   {
     'title': 'Partnership Agreement',
@@ -66,7 +66,7 @@ List<Object> legalTemplates = [
         'Define and formalize the terms of collaboration with our Partnership Agreement template, ideal for startups forging strong business partnerships.',
     'imagePath': 'assets/images/partnership-agreement.png',
     'url':
-        'https://www.smartsheet.com/file/ic-independent-contractor-agreement-template-9059docx',
+        'https://learn.marsdd.com/wp-content/uploads/2014/04/General-Partnership-Agreement_Template.doc',
   },
   {
     'title': 'Sales Agreement',
@@ -74,6 +74,14 @@ List<Object> legalTemplates = [
         'Designed to outline clear terms for the sale of goods or services, empowering startups in their business dealings.',
     'imagePath': 'assets/images/sales-agreement.png',
     'url':
-        'https://www.smartsheet.com/file/ic-employee-handbook-template-9058docx',
+        'https://www.jotform.com/uploads/guest_db4ba4c13feed1a6/sign/240097140418047/sign_240097140418047_template.pdf',
+  },
+  {
+    'title': 'Contract Template',
+    'description':
+        'Seamless Contracting: Explore our Library of Ready-to-Use Template for Common Business Contracts, Tailored for Your Convenience.',
+    'imagePath': 'assets/images/contract_templates.png',
+    'url':
+        'https://resources.gonitro.com/01/93/33bc63144ecbbc5bc8bcf66a3621/pdf-template-simple-contract-template.pdf',
   }
 ];

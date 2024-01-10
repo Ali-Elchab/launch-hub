@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/data/server_requests.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/screens/start_screen.dart';
+import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
@@ -111,7 +113,11 @@ class _StartupHomeState extends State<StartupHome> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
+                            return const Advisors(
+                                category: 'marketing',
+                                title: 'Content Creators',
+                                text:
+                                    "Explore our Content Creators Page—a hub connecting startups with talented content professionals. Elevate your brand with engaging content and strategic marketing. Find the perfect creator to bring your vision to life.");
                           }));
                         },
                       ),
@@ -182,18 +188,6 @@ class _StartupHomeState extends State<StartupHome> {
                         description:
                             'Startup Legal Expertise: Connect with Specialized Legal Advisors to Safeguard and Propel Your Startup\'s Success.',
                         imagePath: 'assets/images/legal_advisors.png',
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
-                          }));
-                        },
-                      ),
-                      FeatureCard(
-                        title: 'Contract Templates',
-                        description:
-                            'Seamless Contracting: Explore our Library of Ready-to-Use Templates for Common Business Contracts, Tailored for Your Convenience.',
-                        imagePath: 'assets/images/contract_templates.png',
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {

@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:launchhub_frontend/models/advisor.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/experience.dart';
@@ -9,6 +10,7 @@ import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/models/socialMediaLink.dart';
+import 'package:launchhub_frontend/widgets/startup/advisor_card.dart';
 
 List<Industry> industries = [
   Industry(id: 1, name: 'Agriculture'),
@@ -312,5 +314,44 @@ List<JobSeeker> dummyJobSeekers = [
       ),
       // ... add more if needed ...
     ],
+  ),
+];
+
+List<Advisor> dummyAdvisors = [
+  Advisor(
+    id: 1,
+    name: 'John Doe',
+    email: 'john.doe@financecorp.com',
+    location: 'New York, NY',
+    phone: '555-0100',
+    bio:
+        'Experienced financial advisor with a decade of successful client engagements.',
+    profilePic: 'assets/images/john_doe.png',
+    category: 'finance',
+    expertise: 'Investment Banking',
+  ),
+  Advisor(
+    id: 2,
+    name: 'Jane Smith',
+    email: 'jane.smith@marketgurus.com',
+    location: 'San Francisco, CA',
+    phone: '555-0200',
+    bio:
+        'Marketing expert specializing in digital campaigns and social media strategy.',
+    profilePic: 'assets/images/jane_smith.png',
+    category: 'marketing',
+    expertise: 'Digital Marketing',
+  ),
+  Advisor(
+    id: 3,
+    name: 'Alice Johnson',
+    email: 'alice.johnson@legalfirm.com',
+    location: 'Chicago, IL',
+    phone: '555-0300',
+    bio:
+        'Dedicated legal advisor with a focus on corporate law and compliance.',
+    profilePic: 'assets/images/alice_johnson.png',
+    category: 'legal',
+    expertise: 'Corporate Law',
   ),
 ];
