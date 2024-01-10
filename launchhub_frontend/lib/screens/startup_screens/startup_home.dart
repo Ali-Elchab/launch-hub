@@ -3,6 +3,7 @@ import 'package:launchhub_frontend/screens/start_screen.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
+import 'package:launchhub_frontend/screens/startup_screens/marketing_articles_and_templates.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
@@ -91,7 +92,7 @@ class _StartupHomeState extends State<StartupHome> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
+                            return const MarketingArticlesAndTemplates();
                           }));
                         },
                       ),

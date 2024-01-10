@@ -6,6 +6,7 @@ class FeatureCard extends StatelessWidget {
   final String? imagePath;
   final Function()? onTap;
   final String? url;
+  final bool external;
 
   const FeatureCard({
     super.key,
@@ -14,6 +15,7 @@ class FeatureCard extends StatelessWidget {
     this.imagePath,
     this.onTap,
     this.url,
+    this.external = false,
   });
 
   @override
@@ -35,16 +37,16 @@ class FeatureCard extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: url == null
-                      ? AssetImage(imagePath!) as ImageProvider
-                      : NetworkImage(url!),
+                  image: !external
+                      ? AssetImage(imagePath!)
+                      : url != null
+                          ? NetworkImage(url!)
+                          : const AssetImage('assets/logos/default-profile.png')
+                              as ImageProvider,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            // child: url == null
-            //     ? Image.asset(imagePath!, width: 55)
-            //     : Image.network(url!, width: 70, height: 100)),
             const SizedBox(width: 22),
             Expanded(
               child: Column(
