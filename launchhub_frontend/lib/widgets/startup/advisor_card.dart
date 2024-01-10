@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/advisor.dart';
-import 'package:launchhub_frontend/models/advisor.dart';
 
 class AdvisorCard extends StatelessWidget {
   final Advisor advisor;

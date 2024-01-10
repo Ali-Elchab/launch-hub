@@ -10,7 +10,6 @@ import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/models/socialMediaLink.dart';
-import 'package:launchhub_frontend/widgets/startup/advisor_card.dart';
 
 List<Industry> industries = [
   Industry(id: 1, name: 'Agriculture'),
