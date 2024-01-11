@@ -32,7 +32,7 @@ class EducationsList extends StatelessWidget {
               ),
               direction: DismissDirection.endToStart,
               background: Container(
-                color: Color.fromARGB(255, 167, 11, 0),
+                color: const Color.fromARGB(255, 167, 11, 0),
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.only(right: 20),
                 margin: const EdgeInsets.symmetric(

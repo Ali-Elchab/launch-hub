@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_seeker_card.dart';
 

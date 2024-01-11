@@ -1,6 +1,6 @@
 // import 'package:launchhub_frontend/data/server_requests.dart';
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';

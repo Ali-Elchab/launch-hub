@@ -9,7 +9,7 @@ import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:intl/intl.dart';
-import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PersonalInfo extends StatefulWidget {

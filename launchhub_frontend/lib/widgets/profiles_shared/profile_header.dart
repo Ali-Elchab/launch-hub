@@ -72,7 +72,7 @@ class ProfileHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 40),
+                const SizedBox(width: 40),
                 Expanded(
                   child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,

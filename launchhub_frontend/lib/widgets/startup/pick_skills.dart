@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 
@@ -36,7 +36,7 @@ class _PickSkillsState extends State<PickSkills> {
                 style: Theme.of(context).textTheme.titleMedium!)),
         ...mockSkills.map((skill) => ChoiceTag(
               label: skill.name,
-              isSelected: widget.selectedSkills!.contains(skill.name),
+              isSelected: widget.selectedSkills!.contains(skill),
               onSelected: () => toggleSkill(skill),
             )),
       ]),

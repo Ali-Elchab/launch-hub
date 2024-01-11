@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:launchhub_frontend/data/mockData.dart';
+import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/screens/auth_screens/hobbies.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
