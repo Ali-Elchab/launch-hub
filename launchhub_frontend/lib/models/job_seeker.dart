@@ -1,8 +1,8 @@
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 
-import 'jobPost.dart';
-import 'socialMediaLink.dart';
+import 'job_post.dart';
+import 'social_media_link.dart';
 import 'education.dart';
 import 'experience.dart';
 import 'certification.dart';

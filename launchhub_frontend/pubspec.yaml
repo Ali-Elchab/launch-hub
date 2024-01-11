@@ -105,6 +105,10 @@ flutter:
     - assets/images/partnership-agreement.png
     - assets/images/sales-agreement.png
     - assets/images/employment-agreement.png
+    - assets/images/jobseeker_home_main.png
+    - assets/images/job_opportunities.png
+    - assets/images/career-skills.png
+    - assets/images/trending.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

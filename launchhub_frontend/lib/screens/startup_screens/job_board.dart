@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
-import 'package:launchhub_frontend/models/jobPost.dart';
+import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/how_to_write_job_post.dart';

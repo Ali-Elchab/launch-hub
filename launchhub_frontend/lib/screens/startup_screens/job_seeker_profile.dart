@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/models/jobSeeker.dart';
+import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
 import 'package:launchhub_frontend/widgets/startup/educational_background.dart';
 import 'package:launchhub_frontend/widgets/startup/experience.dart';
-import 'package:launchhub_frontend/widgets/startup/skills&hobbies.dart';
+import 'package:launchhub_frontend/widgets/startup/skills_and_hobbies.dart';
 
 class JobSeekerProfile extends StatefulWidget {
   const JobSeekerProfile({super.key, required this.jobSeeker});

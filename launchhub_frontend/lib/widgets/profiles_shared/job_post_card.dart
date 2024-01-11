@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/models/jobPost.dart';
+import 'package:launchhub_frontend/models/job_post.dart';
 
 class JobPostCard extends StatelessWidget {
   final JobPost jobPost;

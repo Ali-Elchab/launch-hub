@@ -5,6 +5,7 @@ class SocialMediaLinksDropdown extends StatefulWidget {
   const SocialMediaLinksDropdown({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SocialMediaLinksDropdownState createState() =>
       _SocialMediaLinksDropdownState();
 }

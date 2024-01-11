@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/models/jobSeeker.dart';
+import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_seeker_profile.dart';
 
 class JobSeekerCard extends StatelessWidget {

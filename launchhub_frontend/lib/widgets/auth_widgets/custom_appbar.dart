@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       onPressed: () => Navigator.pop(context),
                     )
-                  : SizedBox(width: 79)),
+                  : const SizedBox(width: 79)),
         ],
       ),
       backgroundColor: Colors.transparent,

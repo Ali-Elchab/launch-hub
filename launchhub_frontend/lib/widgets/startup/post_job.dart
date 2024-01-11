@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/models/industry.dart';
-import 'package:launchhub_frontend/models/jobPost.dart';
+import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';

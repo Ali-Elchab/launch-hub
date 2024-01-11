@@ -4,12 +4,12 @@ import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/hobby.dart';
-import 'package:launchhub_frontend/models/jobPost.dart';
-import 'package:launchhub_frontend/models/jobSeeker.dart';
+import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/skill.dart';
-import 'package:launchhub_frontend/models/socialMediaLink.dart';
+import 'package:launchhub_frontend/models/social_media_link.dart';
 
 List<Industry> industries = [
   Industry(id: 1, name: 'Agriculture'),
