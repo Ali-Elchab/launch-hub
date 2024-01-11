@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
-import 'package:launchhub_frontend/widgets/job_seeker_widgets/modal.dart';
+import 'package:launchhub_frontend/widgets/job_seeker_widgets/StartupProfileModal.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
@@ -158,7 +158,7 @@ class _JobPostViewState extends State<JobPostView> {
                               onTap: () {
                                 _toggleHeaderColor();
                                 showModal(
-                                    Modal(
+                                    StartupProfileModal(
                                       toggleHeaderColor: _toggleHeaderColor,
                                       qualifications:
                                           widget.jobPost.jobQualification,
@@ -193,7 +193,7 @@ class _JobPostViewState extends State<JobPostView> {
                               onTap: () {
                                 _toggleHeaderColor();
                                 showModal(
-                                    Modal(
+                                    StartupProfileModal(
                                       toggleHeaderColor: _toggleHeaderColor,
                                       responsibilities:
                                           widget.jobPost.responsibilities,

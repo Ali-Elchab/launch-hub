@@ -12,14 +12,9 @@ import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/welcome_card.dart';
 
-class StartupHome extends StatefulWidget {
+class StartupHome extends StatelessWidget {
   const StartupHome({super.key});
 
-  @override
-  State<StartupHome> createState() => _StartupHomeState();
-}
-
-class _StartupHomeState extends State<StartupHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +76,9 @@ class _StartupHomeState extends State<StartupHome> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const HiringGuides();
+                            return const HiringGuides(
+                              niche: 'networking',
+                            );
                           }));
                         },
                       ),

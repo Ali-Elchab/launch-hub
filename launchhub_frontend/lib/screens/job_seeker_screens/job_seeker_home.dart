@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/job_seeker_screens/career_skills_hub.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_opportunities.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
-import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
@@ -55,7 +55,8 @@ class JobSeekerHome extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const HireTalent();
+                      return const CareerSkillsHub(
+                          specialization: 'software development');
                     }));
                   },
                 ),
@@ -67,7 +68,7 @@ class JobSeekerHome extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const HiringGuides();
+                      return const HiringGuides(niche: 'web');
                     }));
                   },
                 )

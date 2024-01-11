@@ -4,7 +4,6 @@ import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
-import 'package:launchhub_frontend/widgets/startup/post_job.dart';
 
 class JobOpportunities extends StatefulWidget {
   const JobOpportunities({super.key});

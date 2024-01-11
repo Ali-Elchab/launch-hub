@@ -12,7 +12,7 @@ class FeatureCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.description,
-    this.imagePath,
+    this.imagePath = '',
     this.onTap,
     this.url,
     this.external = false,

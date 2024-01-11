@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 
-class Modal extends StatelessWidget {
-  const Modal(
+class StartupProfileModal extends StatelessWidget {
+  const StartupProfileModal(
       {super.key,
       required this.toggleHeaderColor,
       this.skills,
