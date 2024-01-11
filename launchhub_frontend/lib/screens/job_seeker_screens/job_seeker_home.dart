@@ -29,50 +29,46 @@ class JobSeekerHome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 45),
-                Column(
-                  children: [
-                    const WelcomeCard(
-                        imageUrl: 'assets/images/startup_home_main.png',
-                        text:
-                            'Welcome to Startup Assistance Hub – your go-to resource for hiring, marketing, legal, and finance success. Explore tailored features to elevate your startup journey.'),
-                    const SizedBox(height: 25),
-                    FeatureCard(
-                      title: 'Job Board',
-                      description:
-                          'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
-                      imagePath: 'assets/images/job_board.png',
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const JobBoard();
-                        }));
-                      },
-                    ),
-                    FeatureCard(
-                      title: 'Hire Talent',
-                      description:
-                          'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
-                      imagePath: 'assets/images/hire_talent.png',
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const HireTalent();
-                        }));
-                      },
-                    ),
-                    FeatureCard(
-                      title: 'Guides And Templates',
-                      description:
-                          'Build Your Dream Team: Comprehensive Guides and Templates for Crafting Effective Job Descriptions and Conducting Successful Interviews.',
-                      imagePath: 'assets/images/guides.png',
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const HiringGuides();
-                        }));
-                      },
-                    ),
-                  ],
+                const WelcomeCard(
+                    imageUrl: 'assets/images/jobseeker_home_main.png',
+                    text:
+                        'Welcome to Startup Assistance Hub – your go-to resource for hiring, marketing, legal, and finance success. Explore tailored features to elevate your startup journey.'),
+                const SizedBox(height: 25),
+                FeatureCard(
+                  title: 'Job Board',
+                  description:
+                      'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
+                  imagePath: 'assets/images/job_board.png',
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const JobBoard();
+                    }));
+                  },
+                ),
+                FeatureCard(
+                  title: 'Hire Talent',
+                  description:
+                      'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
+                  imagePath: 'assets/images/hire_talent.png',
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const HireTalent();
+                    }));
+                  },
+                ),
+                FeatureCard(
+                  title: 'Guides And Templates',
+                  description:
+                      'Build Your Dream Team: Comprehensive Guides and Templates for Crafting Effective Job Descriptions and Conducting Successful Interviews.',
+                  imagePath: 'assets/images/guides.png',
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const HiringGuides();
+                    }));
+                  },
                 )
               ],
             ),

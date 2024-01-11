@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 
 class Header extends StatelessWidget {
   final String title;
@@ -17,6 +17,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(top: 20),
       height: 200,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
@@ -50,7 +51,7 @@ class Header extends StatelessWidget {
                   text,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: textColor,
-                        fontSize: showBackButton ? 14 : 22,
+                        fontSize: showBackButton ? 14 : 20,
                       ),
                 ),
               ),

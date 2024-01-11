@@ -44,4 +44,4 @@ app.*.map.json
 
 
 #Lib
-/lib/screens/startup_screens/skeleton.dart
+/lib/screens/job_seeker_screens/skeleton.dart

@@ -12,8 +12,8 @@ class WelcomeCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          height: 180,
-          width: 120,
+          height: 160,
+          width: 110,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(imageUrl),
@@ -21,15 +21,11 @@ class WelcomeCard extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 20),
+        const SizedBox(width: 25),
         Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: const Color.fromARGB(255, 0, 0, 0),
-                  fontFamily: 'inter',
-                ),
-          ),
+          child: Text(text,
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.bodyMedium!),
         ),
       ],
     );

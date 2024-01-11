@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
 void main() {
@@ -52,7 +53,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const Scaffold(body: StartupHome()),
+      home: const Scaffold(body: JobSeekerHome()),
     );
   }
 }
