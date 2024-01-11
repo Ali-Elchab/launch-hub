@@ -17,7 +17,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: showBackButton ? null : const EdgeInsets.only(top: 20),
       height: 200,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(

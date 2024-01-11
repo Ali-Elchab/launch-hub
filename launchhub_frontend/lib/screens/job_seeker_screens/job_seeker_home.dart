@@ -17,8 +17,8 @@ class JobSeekerHome extends StatelessWidget {
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(180),
           child: Header(
-            text: 'Your Premier App for Turning Visions into Reality ',
-            title: 'Ahmad Hmad',
+            text: 'Unlock Your Gateway to Career Success ',
+            title: 'Ahmad Ahmad',
             showBackButton: false,
           ),
         ),
@@ -28,17 +28,17 @@ class JobSeekerHome extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 45),
+                const SizedBox(height: 35),
                 const WelcomeCard(
                     imageUrl: 'assets/images/jobseeker_home_main.png',
                     text:
-                        'Welcome to Startup Assistance Hub – your go-to resource for hiring, marketing, legal, and finance success. Explore tailored features to elevate your startup journey.'),
+                        'Welcome to Career Advancement Hub – Your resource for professional success. Explore our features to enhance your career journey.'),
                 const SizedBox(height: 25),
                 FeatureCard(
-                  title: 'Job Board',
+                  title: 'Job Opportunities',
                   description:
-                      'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
-                  imagePath: 'assets/images/job_board.png',
+                      'Explore Endless Opportunities: Your Gateway to Exciting Job Offers Awaits! Discover Your Next Career Move with our Diverse Range of Job Listings.',
+                  imagePath: 'assets/images/job_opportunities.png',
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
@@ -47,10 +47,10 @@ class JobSeekerHome extends StatelessWidget {
                   },
                 ),
                 FeatureCard(
-                  title: 'Hire Talent',
+                  title: 'Career Skills Hub',
                   description:
-                      'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
-                  imagePath: 'assets/images/hire_talent.png',
+                      'Boost Your Skills: Tailored Courses for Job Seekers Ready to Elevate Their Careers. Take the Next Step Toward Professional Growth and Success.',
+                  imagePath: 'assets/images/career-skills.png',
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
@@ -59,10 +59,10 @@ class JobSeekerHome extends StatelessWidget {
                   },
                 ),
                 FeatureCard(
-                  title: 'Guides And Templates',
+                  title: 'Trending',
                   description:
-                      'Build Your Dream Team: Comprehensive Guides and Templates for Crafting Effective Job Descriptions and Conducting Successful Interviews.',
-                  imagePath: 'assets/images/guides.png',
+                      'Navigate Your Career Journey: Essential Guides and Articles for Job Seekers, Covering Interviews, Resumes, and Beyond. Empowering You with Expert Insights for Success.',
+                  imagePath: 'assets/images/trending.png',
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
