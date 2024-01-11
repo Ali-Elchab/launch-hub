@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/educations_list.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
@@ -22,7 +23,17 @@ class EducationInfo extends StatefulWidget {
 
 class _EducationInfoState extends State<EducationInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  List<Education> educations = [];
+  List<Education> educations = [
+    Education(
+        id: '1',
+        degree: 'degree',
+        organization: 'organization',
+        startDate: 'startDate',
+        endDate: 'endDate',
+        description: 'description',
+        location: ' location',
+        jobSeekerId: 2)
+  ];
   XFile? _image;
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -60,7 +71,7 @@ class _EducationInfoState extends State<EducationInfo> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Contact Information',
+                    'Education',
                     textAlign: TextAlign.left,
                     style: Theme.of(context)
                         .textTheme
@@ -85,6 +96,20 @@ class _EducationInfoState extends State<EducationInfo> {
                       },
                       imageFile: _image,
                       text: 'Upload Profile Picture'),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Text(
+                      'Add Education',
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+                    )
+                  ],
+                ),
+                Expanded(child: EducationsList(educations: educations)),
                 const SizedBox(height: 20),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {

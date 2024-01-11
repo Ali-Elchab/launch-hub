@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/models/course.dart';
 import 'package:launchhub_frontend/models/education.dart';
 
 class EducationCard extends StatelessWidget {
-  final Education education;
+  final Education? education;
+  final Course? course;
   final Function()? onTap;
 
   const EducationCard({
     super.key,
-    required this.education,
+    this.education,
+    this.course,
     this.onTap,
   });
 
@@ -26,43 +29,52 @@ class EducationCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  education.degree,
-                  style: Theme.of(context).textTheme.titleSmall!,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              Text(
+                education != null ? education!.degree : course!.name,
+                style: Theme.of(context).textTheme.titleSmall!,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 5),
-              Expanded(
-                child: Text(
-                  education.organization,
-                  style: Theme.of(context).textTheme.bodyMedium!,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              const SizedBox(height: 3),
+              Text(
+                education != null
+                    ? education!.organization
+                    : course!.organization,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Colors.black87,
+                      fontSize: 9,
+                    ),
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 3),
               Row(
                 children: [
                   Text(
-                    education.startDate,
-                    style: Theme.of(context).textTheme.bodyMedium!,
+                    education != null
+                        ? education!.startDate
+                        : course!.startDate,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Colors.black87,
+                          fontSize: 9,
+                        ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    education.endDate,
-                    style: Theme.of(context).textTheme.bodyMedium!,
+                    education != null ? education!.endDate : course!.endDate,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Colors.black87,
+                          fontSize: 9,
+                        ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
-              Expanded(
-                child: Text(
-                  education.description,
-                  style: Theme.of(context).textTheme.bodyMedium!,
-                ),
+              const SizedBox(height: 10),
+              Text(
+                education != null
+                    ? education!.description
+                    : course!.description,
+                style: Theme.of(context).textTheme.bodySmall!,
               ),
               const SizedBox(height: 5),
             ],
