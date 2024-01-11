@@ -158,13 +158,17 @@ class _JobPostViewState extends State<JobPostView> {
                               onTap: () {
                                 _toggleHeaderColor();
                                 showModal(
-                                    StartupProfileModal(
-                                      toggleHeaderColor: _toggleHeaderColor,
-                                      qualifications:
-                                          widget.jobPost.jobQualification,
-                                      skills: widget.jobPost.requiredSkills,
-                                    ),
-                                    context);
+                                  StartupProfileModal(
+                                    toggleHeaderColor: _toggleHeaderColor,
+                                    qualifications:
+                                        widget.jobPost.jobQualification,
+                                    skills: widget.jobPost.requiredSkills,
+                                  ),
+                                  context,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  enableDrag: false,
+                                  isDismissible: false,
+                                );
                               },
                               child: Column(
                                 children: [
@@ -193,12 +197,16 @@ class _JobPostViewState extends State<JobPostView> {
                               onTap: () {
                                 _toggleHeaderColor();
                                 showModal(
-                                    StartupProfileModal(
-                                      toggleHeaderColor: _toggleHeaderColor,
-                                      responsibilities:
-                                          widget.jobPost.responsibilities,
-                                    ),
-                                    context);
+                                  StartupProfileModal(
+                                    toggleHeaderColor: _toggleHeaderColor,
+                                    responsibilities:
+                                        widget.jobPost.responsibilities,
+                                  ),
+                                  context,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  enableDrag: false,
+                                  isDismissible: false,
+                                );
                               },
                               child: Column(
                                 children: [

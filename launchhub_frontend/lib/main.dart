@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:launchhub_frontend/screens/auth_screens/education_info.dart';
-import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
-import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

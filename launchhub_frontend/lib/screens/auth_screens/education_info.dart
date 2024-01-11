@@ -1,14 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
+import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/educations_list.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
-import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,6 +28,18 @@ class _EducationInfoState extends State<EducationInfo> {
     Education(
         id: '1',
         degree: 'degree',
+        organization: 'organization',
+        startDate: 'startDate',
+        endDate: 'endDate',
+        description: 'description',
+        location: ' location',
+        jobSeekerId: 2)
+  ];
+  List<Certification> certifications = [
+    Certification(
+        id: '1',
+        name: 'web dev',
+        certificate: 'certificate',
         organization: 'organization',
         startDate: 'startDate',
         endDate: 'endDate',
@@ -54,11 +67,22 @@ class _EducationInfoState extends State<EducationInfo> {
     return null;
   }
 
+  void _addEducation(Education education) {
+    setState(() {
+      educations.add(education);
+    });
+  }
+
+  void _addCertification(Certification certification) {
+    setState(() {
+      certifications.add(certification);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset:
-          true, // Set to true to resize when keyboard appears
+      resizeToAvoidBottomInset: true,
       appBar: const CustomAppBar(title: 'Job Seeker Profile'),
       backgroundColor: Colors.white,
       body: Center(
@@ -72,11 +96,9 @@ class _EducationInfoState extends State<EducationInfo> {
                   alignment: Alignment.topLeft,
                   child: Text(
                     'Education',
-                    textAlign: TextAlign.left,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontSize: 24,
+                        ),
                   ),
                 ),
                 const SizedBox(height: 35),
@@ -98,18 +120,47 @@ class _EducationInfoState extends State<EducationInfo> {
                       text: 'Upload Profile Picture'),
                 const SizedBox(height: 20),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Add Education',
+                      'Education',
                       textAlign: TextAlign.left,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
-                    )
+                      style: Theme.of(context).textTheme.titleMedium!,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          showModal(
+                            AddEducation(addEducation: _addEducation),
+                            context,
+                            color: Colors.white,
+                            enableDrag: true,
+                            isDismissible: true,
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                        )),
                   ],
                 ),
                 Expanded(child: EducationsList(educations: educations)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Certifications',
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.titleMedium!,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          // showModal(AddCertification(add: _addCertification),
+                          //     Colors.white, context);
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                        )),
+                  ],
+                ),
                 const SizedBox(height: 20),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {

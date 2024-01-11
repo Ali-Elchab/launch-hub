@@ -42,7 +42,13 @@ class HiringGuides extends StatelessWidget {
                       'This template offers a curated set of insightful interview questions designed to assess candidates thoroughly and make informed hiring decisions.',
                   imagePath: 'assets/images/interview-questions.png',
                   onTap: () {
-                    showModal(const InterviewQuestions(), context);
+                    showModal(
+                      const InterviewQuestions(),
+                      context,
+                      color: Theme.of(context).colorScheme.primary,
+                      enableDrag: false,
+                      isDismissible: false,
+                    );
                   },
                 ),
                 FeatureCard(

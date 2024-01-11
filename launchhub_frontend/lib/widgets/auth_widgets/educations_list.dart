@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/models/course.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/education_card.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
 
 class EducationsList extends StatelessWidget {
   const EducationsList({
