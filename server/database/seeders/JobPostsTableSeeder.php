@@ -18,6 +18,12 @@ class JobPostsTableSeeder extends Seeder
                 'job_type' => 'Full-time',
                 'job_salary' => 80000,
                 'job_qualification' => 'Bachelor’s Degree in Computer Science',
+                'responsibilities' => 'Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.
+                Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.
+                Foster a positive and inclusive workplace culture through effective employee relations.
+                Implement and maintain HR policies and procedures in alignment with industry best practices.
+                Plan and conduct training sessions on various HR-related topics.
+                Maintain accurate records and documentation related to employee activities.',
                 'experience_level' => 'Mid-level',
                 'education_level' => 'Bachelors',
                 'preferred_gender' => 'any',
@@ -35,6 +41,12 @@ class JobPostsTableSeeder extends Seeder
                 'job_location' => 'Beirut',
                 'job_type' => 'Full-time',
                 'job_salary' => 120000,
+                'responsibilities' => 'Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.
+                Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.
+                Foster a positive and inclusive workplace culture through effective employee relations.
+                Implement and maintain HR policies and procedures in alignment with industry best practices.
+                Plan and conduct training sessions on various HR-related topics.
+                Maintain accurate records and documentation related to employee activities.',
                 'job_qualification' => 'Doctoral Degree in Health Sciences',
                 'experience_level' => 'Mid-level',
                 'education_level' => 'Doctoral',
@@ -53,6 +65,12 @@ class JobPostsTableSeeder extends Seeder
                 'job_location' => 'New York',
                 'job_type' => 'Part-time',
                 'job_salary' => 50000,
+                'responsibilities' => 'Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.
+                Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.
+                Foster a positive and inclusive workplace culture through effective employee relations.
+                Implement and maintain HR policies and procedures in alignment with industry best practices.
+                Plan and conduct training sessions on various HR-related topics.
+                Maintain accurate records and documentation related to employee activities.',
                 'job_qualification' => 'Bachelor’s Degree in Graphic Design',
                 'experience_level' => 'Entry-level',
                 'education_level' => 'Bachelors',
@@ -71,6 +89,12 @@ class JobPostsTableSeeder extends Seeder
                 'job_location' => 'San Francisco',
                 'job_type' => 'Contract',
                 'job_salary' => 90000,
+                'responsibilities' => 'Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.
+                Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.
+                Foster a positive and inclusive workplace culture through effective employee relations.
+                Implement and maintain HR policies and procedures in alignment with industry best practices.
+                Plan and conduct training sessions on various HR-related topics.
+                Maintain accurate records and documentation related to employee activities.',
                 'job_qualification' => 'Bachelor’s Degree in Statistics or Mathematics',
                 'experience_level' => 'Senior-level',
                 'education_level' => 'Masters',
