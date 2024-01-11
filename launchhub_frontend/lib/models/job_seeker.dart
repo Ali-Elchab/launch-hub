@@ -96,4 +96,30 @@ class JobSeeker {
           (json['job_posts'] as List).map((i) => JobPost.fromJson(i)).toList(),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['profile_pic'] = profilePic;
+    data['dob'] = dob;
+    data['phone'] = phone;
+    data['address'] = address;
+    data['city'] = city;
+    data['bio'] = bio;
+    data['proffesional_summary'] = proffesionalSummary;
+    data['resume'] = resume;
+    data['is_available'] = isAvailable;
+    data['industry_id'] = industryId;
+    data['user_id'] = userId;
+    data['specialization_id'] = specializationId;
+    data['socialMediaLinks'] = socialMediaLinks;
+    data['educations'] = educations;
+    data['experiences'] = experiences;
+    data['certifications'] = certifications;
+    data['hobbies'] = hobbies;
+    data['skills'] = skills;
+    data['job_posts'] = jobPosts;
+    return data;
+  }
 }
