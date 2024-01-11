@@ -10,6 +10,7 @@ import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/models/social_media_link.dart';
+import 'package:launchhub_frontend/models/startup.dart';
 
 List<Industry> industries = [
   Industry(id: 1, name: 'Agriculture'),
@@ -352,5 +353,80 @@ List<Advisor> dummyAdvisors = [
     profilePic: 'assets/images/alice_johnson.png',
     category: 'legal',
     expertise: 'Corporate Law',
+  ),
+];
+
+List<Startup> dummyStartups = [
+  Startup(
+    id: 'startup-001',
+    companyName: 'Innovatech Solutions',
+    companyEmail: 'contact@innovatech.io',
+    companyPhone: '123-456-7890',
+    copmanyLogo: 'assets/images/innovatech_logo.png',
+    companyDescription: 'Pioneering smart IoT solutions for modern businesses.',
+    companyWebsiteUrl: 'https://www.innovatech.io',
+    registrationNumber: 'REG1234567',
+    foundingDate: DateTime(2022, 1, 15),
+    companyAddress: '123 Tech Drive',
+    companyCity: 'Techville',
+    companyBio:
+        'At Innovatech Solutions, we integrate IoT with business intelligence to create smarter ecosystems.',
+    userId: 2,
+    industryId: 2,
+    specializationId: 1,
+    socialMediaLinks: [
+      SocialMediaLink(
+        platform: 'LinkedIn',
+        link: 'https://www.linkedin.com/in/johndoe/',
+        userId: 1,
+        id: '1',
+      ),
+      SocialMediaLink(
+        platform: 'facebook',
+        link: 'https://www.facebook.com/aliElchab',
+        userId: 1,
+        id: '1',
+      ),
+      // ... add more if needed ...
+    ],
+    founders: ['Alex Johnson', 'Jamie Smith'],
+    ceos: ['Alex Johnson'],
+    keyExcecutives: ['Jamie Smith - CTO', 'Sam Patel - COO'],
+  ),
+  Startup(
+    id: 'startup-002',
+    companyName: 'EcoSynth Labs',
+    companyEmail: 'info@ecosynthlabs.com',
+    companyPhone: '987-654-3210',
+    copmanyLogo: 'assets/images/ecosynth_logo.png',
+    companyDescription: 'Developing sustainable biotech for a greener future.',
+    companyWebsiteUrl: 'https://www.ecosynthlabs.com',
+    registrationNumber: 'REG7654321',
+    foundingDate: DateTime(2023, 5, 20),
+    companyAddress: '456 Green Lane',
+    companyCity: 'EcoCity',
+    companyBio:
+        'EcoSynth Labs leverages biotechnology to build eco-friendly products.',
+    userId: 4,
+    industryId: 2,
+    specializationId: 22,
+    socialMediaLinks: [
+      SocialMediaLink(
+        platform: 'LinkedIn',
+        link: 'https://www.linkedin.com/in/johndoe/',
+        userId: 1,
+        id: '1',
+      ),
+      SocialMediaLink(
+        platform: 'facebook',
+        link: 'https://www.facebook.com/aliElchab',
+        userId: 1,
+        id: '1',
+      ),
+      // ... add more if needed ...
+    ],
+    founders: ['Morgan Taylor', 'Casey Lee'],
+    ceos: ['Morgan Taylor'],
+    keyExcecutives: ['Casey Lee - CSO', 'Jordan Chung - CFO'],
   ),
 ];
