@@ -105,6 +105,8 @@ List<JobPost> dummyJobPosts = [
     jobType: jobTypes[1],
     jobSalary: 80000,
     jobQualification: "Bachelor's degree in Computer Science",
+    responsibilities:
+        "Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.Foster a positive and inclusive workplace culture through effective employee relations.Implement and maintain HR policies and procedures in alignment with industry best practices.Plan and conduct training sessions on various HR-related topics.Maintain accurate records and documentation related to employee activities.",
     experienceLevel: "2-4 years",
     educationLevel: "Bachelor's degree",
     preferredGender: genders[2],
@@ -127,6 +129,8 @@ List<JobPost> dummyJobPosts = [
     jobType: jobTypes[0],
     jobSalary: 50000,
     jobQualification: "Bachelor's degree in Graphic Design",
+    responsibilities:
+        "Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.Foster a positive and inclusive workplace culture through effective employee relations.Implement and maintain HR policies and procedures in alignment with industry best practices.Plan and conduct training sessions on various HR-related topics.Maintain accurate records and documentation related to employee activities.",
     experienceLevel: "1-3 years",
     educationLevel: "Bachelor's degree",
     preferredGender: genders[0],

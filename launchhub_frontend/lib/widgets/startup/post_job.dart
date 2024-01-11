@@ -34,6 +34,7 @@ class _PostJobState extends State<PostJob> {
   String? _selectLocation;
   List<Skill> selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
+  final _responsibilitiesController = TextEditingController();
   final _jobSalaryController = TextEditingController();
   final _jobQualificationController = TextEditingController();
   final _jobDeadlineController = TextEditingController();
@@ -115,6 +116,7 @@ class _PostJobState extends State<PostJob> {
         jobDescription: _descriptionController.text,
         jobTitle: _titleController.text,
         jobType: _selectJobType!,
+        responsibilities: _responsibilitiesController.text,
         industryId: _selectedIndustry!.id,
         jobLocation: _selectLocation!,
         jobSalary: int.parse(_jobSalaryController.text),
@@ -228,6 +230,11 @@ class _PostJobState extends State<PostJob> {
                         label: 'Qualification',
                         isDescription: true,
                         controller: _jobQualificationController,
+                      ),
+                      InputField(
+                        label: 'Responsibilities',
+                        isDescription: true,
+                        controller: _responsibilitiesController,
                       ),
                       GenericDropdown<String>(
                         label: 'Select Experience Level',

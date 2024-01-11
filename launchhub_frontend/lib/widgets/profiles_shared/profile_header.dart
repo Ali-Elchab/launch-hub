@@ -9,6 +9,7 @@ class ProfileHeader extends StatelessWidget {
     super.key,
     this.firstName,
     this.lastName,
+    this.companyName,
     this.city,
     this.email,
     this.phoneNumber,
@@ -20,6 +21,7 @@ class ProfileHeader extends StatelessWidget {
   final Color? color;
   final String? firstName;
   final String? lastName;
+  final String? companyName;
   final String? city;
   final String? email;
   final String? phoneNumber;
@@ -47,13 +49,30 @@ class ProfileHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomAppBar(
-            title: '${firstName!} ${lastName!}',
+            title: companyName != null
+                ? '$companyName'
+                : '${firstName!} ${lastName!}',
             textColor: color,
           ),
           SizedBox(
-            width: 300,
+            width: 320,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&q=70&fm=webp'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 40),
                 Expanded(
                   child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -158,18 +177,6 @@ class ProfileHeader extends StatelessWidget {
                           )
                         ],
                       )),
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&q=70&fm=webp'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                 ),
               ],
             ),

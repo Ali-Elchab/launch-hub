@@ -109,6 +109,8 @@ flutter:
     - assets/images/job_opportunities.png
     - assets/images/career-skills.png
     - assets/images/trending.png
+    - assets/images/requirements.png
+    - assets/images/responsibilities.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -11,6 +11,7 @@ class JobPost {
     required this.jobQualification,
     required this.experienceLevel,
     required this.educationLevel,
+    required this.responsibilities,
     required this.preferredGender,
     required this.deadline,
     required this.requiredSkills,
@@ -26,6 +27,7 @@ class JobPost {
   final String jobType;
   final int jobSalary;
   final String jobQualification;
+  final String responsibilities;
   final String experienceLevel;
   final String educationLevel;
   final String preferredGender;
@@ -44,6 +46,7 @@ class JobPost {
       jobType: json['job_type'] as String,
       jobSalary: json['job_salary'] as int,
       jobQualification: json['job_qualification'] as String,
+      responsibilities: json['responsibilities'] as String,
       experienceLevel: json['experience_level'] as String,
       educationLevel: json['education_level'] as String,
       preferredGender: json['preferred_gender'] as String,
