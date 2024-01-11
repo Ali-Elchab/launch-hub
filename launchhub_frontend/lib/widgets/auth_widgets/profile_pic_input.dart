@@ -33,10 +33,12 @@ class ProfileImagePicker extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       const Icon(Icons.add_a_photo,
-                          size: 40, color: Colors.white),
+                          size: 32, color: Colors.white),
+                      const SizedBox(height: 5),
                       Text(text,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.white)),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12)),
                     ],
                   ),
                 ),

@@ -30,11 +30,12 @@ class _SocialMediaLinksDropdownState extends State<SocialMediaLinksDropdown> {
     return ExpansionTile(
       shape: const Border(top: BorderSide.none),
       collapsedBackgroundColor: const Color(0xFFF5F5F5),
-      collapsedTextColor: const Color.fromARGB(255, 204, 204, 204),
+      collapsedTextColor: const Color.fromARGB(255, 48, 48, 48),
       collapsedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       tilePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       title: const Text('Social Media Links'),
+      collapsedIconColor: const Color.fromARGB(255, 48, 48, 48),
       leading: const Icon(Icons.link),
       children: <Widget>[
         _buildSocialMediaTextField(
@@ -81,11 +82,7 @@ class _SocialMediaLinksDropdownState extends State<SocialMediaLinksDropdown> {
           filled: true,
           fillColor: const Color(0xFFF5F5F5),
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: const Color.fromARGB(255, 194, 194, 194),
-              ),
+          hintStyle: Theme.of(context).textTheme.labelMedium!,
           icon: Icon(icon),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
