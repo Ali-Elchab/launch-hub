@@ -3,6 +3,7 @@ import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/startup/pick_skills.dart';
@@ -31,7 +32,7 @@ class _PostJobState extends State<PostJob> {
   String? _selectJobType;
   String? _selectGender;
   String? _selectLocation;
-  List<String> selectedSkills = [];
+  List<Skill> selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
   final _jobSalaryController = TextEditingController();
   final _jobQualificationController = TextEditingController();
@@ -120,6 +121,7 @@ class _PostJobState extends State<PostJob> {
         jobQualification: _jobQualificationController.text,
         preferredGender: _selectGender!,
         specializationId: _selectedNiche!.id,
+        requiredSkills: selectedSkills,
         jobStatus: 'open',
         startupId: 1,
       ),

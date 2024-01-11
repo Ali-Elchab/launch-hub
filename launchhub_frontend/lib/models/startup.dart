@@ -1,7 +1,7 @@
 import 'package:launchhub_frontend/models/social_media_link.dart';
 
 class Startup {
-  String id;
+  int id;
   String companyName;
   String companyEmail;
   String companyPhone;

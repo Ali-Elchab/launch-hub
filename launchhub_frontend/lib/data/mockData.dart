@@ -110,6 +110,11 @@ List<JobPost> dummyJobPosts = [
     preferredGender: genders[2],
     deadline: "2024-12-31",
     jobStatus: 'open',
+    requiredSkills: [
+      mockSkills[0],
+      mockSkills[1],
+      mockSkills[2],
+    ],
     industryId: 1,
     specializationId: 101,
     startupId: 1,
@@ -130,6 +135,11 @@ List<JobPost> dummyJobPosts = [
     industryId: 2,
     specializationId: 102,
     startupId: 1,
+    requiredSkills: [
+      mockSkills[0],
+      mockSkills[1],
+      mockSkills[2],
+    ],
   ),
   // Add more dummy job posts as needed
 ];
@@ -294,26 +304,7 @@ List<JobSeeker> dummyJobSeekers = [
       Skill(id: 2, name: 'Python', specializationId: 2),
       // ... add more if needed ...
     ],
-    jobPosts: [
-      JobPost(
-        id: 1,
-        jobTitle: 'Senior Developer',
-        jobDescription: 'Develop high-quality software.',
-        jobLocation: 'Remote',
-        jobType: 'Full-time',
-        jobSalary: 80000,
-        jobQualification: 'Bachelor\'s degree in Computer Science',
-        experienceLevel: 'Senior',
-        educationLevel: 'Bachelor\'s',
-        preferredGender: 'any',
-        deadline: DateTime.now().add(const Duration(days: 30)).toString(),
-        jobStatus: 'open',
-        industryId: 1,
-        specializationId: 1,
-        startupId: 1,
-      ),
-      // ... add more if needed ...
-    ],
+    jobPosts: [dummyJobPosts[0], dummyJobPosts[1]],
   ),
 ];
 
@@ -358,7 +349,7 @@ List<Advisor> dummyAdvisors = [
 
 List<Startup> dummyStartups = [
   Startup(
-    id: 'startup-001',
+    id: 2,
     companyName: 'Innovatech Solutions',
     companyEmail: 'contact@innovatech.io',
     companyPhone: '123-456-7890',
@@ -394,7 +385,7 @@ List<Startup> dummyStartups = [
     keyExcecutives: ['Jamie Smith - CTO', 'Sam Patel - COO'],
   ),
   Startup(
-    id: 'startup-002',
+    id: 1,
     companyName: 'EcoSynth Labs',
     companyEmail: 'info@ecosynthlabs.com',
     companyPhone: '987-654-3210',

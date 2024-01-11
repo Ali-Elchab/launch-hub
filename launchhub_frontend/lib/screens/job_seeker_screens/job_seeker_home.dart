@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/job_seeker_screens/job_opportunities.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_board.dart';
@@ -42,7 +43,7 @@ class JobSeekerHome extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const JobBoard();
+                      return const JobOpportunities();
                     }));
                   },
                 ),

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mockData.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/screens/job_seeker_screens/job_post_view.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
 
 class JobPostsList extends StatelessWidget {
   const JobPostsList({
     super.key,
     required this.jobPosts,
-    required this.removeJobPost,
+    this.removeJobPost,
+    this.onTap,
   });
 
   final List<JobPost> jobPosts;
-  final void Function(JobPost jobPost) removeJobPost;
+  final void Function(JobPost jobPost)? onTap;
+  final void Function(JobPost jobPost)? removeJobPost;
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +65,18 @@ class JobPostsList extends StatelessWidget {
               );
             },
             onDismissed: (direction) {
-              removeJobPost(dummyJobPosts[index]);
+              removeJobPost!(dummyJobPosts[index]);
             },
             child: JobPostCard(
               jobPost: dummyJobPosts[index],
-              onTap: () {},
+              onTap: removeJobPost == null
+                  ? () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return JobPostView(jobPost: dummyJobPosts[index]);
+                      }));
+                    }
+                  : () {},
             ),
           ),
           const SizedBox(height: 20),

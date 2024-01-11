@@ -1,3 +1,5 @@
+import 'package:launchhub_frontend/models/skill.dart';
+
 class JobPost {
   JobPost({
     required this.id,
@@ -11,6 +13,7 @@ class JobPost {
     required this.educationLevel,
     required this.preferredGender,
     required this.deadline,
+    required this.requiredSkills,
     required this.jobStatus,
     required this.industryId,
     required this.specializationId,
@@ -28,6 +31,7 @@ class JobPost {
   final String preferredGender;
   final String deadline;
   final String jobStatus;
+  final List<Skill> requiredSkills;
   final int industryId;
   final int specializationId;
   final int startupId;
@@ -43,6 +47,7 @@ class JobPost {
       experienceLevel: json['experience_level'] as String,
       educationLevel: json['education_level'] as String,
       preferredGender: json['preferred_gender'] as String,
+      requiredSkills: json['required_skills'] as List<Skill>,
       deadline: json['deadline'] as String,
       jobStatus: json['job_status'] as String,
       industryId: json['industry_id'] as int,
@@ -62,6 +67,7 @@ class JobPost {
       'experience_level': experienceLevel,
       'education_level': educationLevel,
       'preferred_gender': preferredGender,
+      'required_skills': requiredSkills,
       'deadline': deadline,
       'job_status': jobStatus,
       'industry_id': industryId,
