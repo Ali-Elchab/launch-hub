@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/course.dart';
 import 'package:launchhub_frontend/models/education.dart';
 
 class EducationCard extends StatelessWidget {
   final Education? education;
-  final Course? course;
+  final Certification? certificationation;
   final Function()? onTap;
 
   const EducationCard({
     super.key,
     this.education,
-    this.course,
+    this.certificationation,
     this.onTap,
   });
 
@@ -30,7 +31,9 @@ class EducationCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                education != null ? education!.degree : course!.name,
+                education != null
+                    ? education!.degree
+                    : certificationation!.name,
                 style: Theme.of(context).textTheme.titleSmall!,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -38,7 +41,7 @@ class EducationCard extends StatelessWidget {
               Text(
                 education != null
                     ? education!.organization
-                    : course!.organization,
+                    : certificationation!.organization,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       color: Colors.black87,
                       fontSize: 9,
@@ -51,7 +54,7 @@ class EducationCard extends StatelessWidget {
                   Text(
                     education != null
                         ? education!.startDate
-                        : course!.startDate,
+                        : certificationation!.startDate,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: Colors.black87,
                           fontSize: 9,
@@ -60,7 +63,9 @@ class EducationCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    education != null ? education!.endDate : course!.endDate,
+                    education != null
+                        ? education!.endDate
+                        : certificationation!.endDate,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: Colors.black87,
                           fontSize: 9,
@@ -73,7 +78,7 @@ class EducationCard extends StatelessWidget {
               Text(
                 education != null
                     ? education!.description
-                    : course!.description,
+                    : certificationation!.description,
                 style: Theme.of(context).textTheme.bodySmall!,
               ),
               const SizedBox(height: 5),

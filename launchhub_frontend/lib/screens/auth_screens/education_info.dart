@@ -5,6 +5,7 @@ import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/add_certificate.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/educations_list.dart';
@@ -33,7 +34,7 @@ class _EducationInfoState extends State<EducationInfo> {
         endDate: 'endDate',
         description: 'description',
         location: ' location',
-        jobSeekerId: 2)
+        jobSeekerId: 2),
   ];
   List<Certification> certifications = [
     Certification(
@@ -153,14 +154,20 @@ class _EducationInfoState extends State<EducationInfo> {
                     ),
                     IconButton(
                         onPressed: () {
-                          // showModal(AddCertification(add: _addCertification),
-                          //     Colors.white, context);
+                          showModal(
+                            AddCertificate(addCertificate: _addCertification),
+                            context,
+                            color: Colors.white,
+                            enableDrag: true,
+                            isDismissible: true,
+                          );
                         },
                         icon: const Icon(
                           Icons.add,
                         )),
                   ],
                 ),
+                Expanded(child: EducationsList(certifications: certifications)),
                 const SizedBox(height: 20),
                 SmallButton('Next', () {
                   if (_formKey.currentState!.validate()) {

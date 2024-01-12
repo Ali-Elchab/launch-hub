@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/course.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/education_card.dart';
@@ -9,26 +10,30 @@ class EducationsList extends StatelessWidget {
     this.educations,
     this.removeEducation,
     this.removeCourse,
-    this.courses,
+    this.certifications,
     this.onTap,
   });
 
   final List<Education>? educations;
   final void Function(Education education)? onTap;
   final void Function(Education education)? removeEducation;
-  final void Function(Course course)? removeCourse;
-  final List<Course>? courses;
+  final void Function(Certification certification)? removeCourse;
+  final List<Certification>? certifications;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: educations != null ? educations!.length : courses!.length,
+      itemCount:
+          educations != null ? educations!.length : certifications!.length,
       itemBuilder: (context, index) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Dismissible(
               key: ValueKey(
-                educations != null ? educations![index].id : courses![index].id,
+                educations != null
+                    ? educations![index].id
+                    : certifications![index].id,
               ),
               direction: DismissDirection.endToStart,
               background: Container(
@@ -73,7 +78,7 @@ class EducationsList extends StatelessWidget {
               onDismissed: (direction) {
                 educations != null
                     ? removeEducation!(educations![index])
-                    : removeCourse!(courses![index]);
+                    : removeCourse!(certifications![index]);
               },
               child: educations != null
                   ? EducationCard(
@@ -81,7 +86,7 @@ class EducationsList extends StatelessWidget {
                       onTap: () {},
                     )
                   : EducationCard(
-                      course: courses![index],
+                      certificationation: certifications![index],
                       onTap: () {},
                     )),
           const SizedBox(height: 20),
