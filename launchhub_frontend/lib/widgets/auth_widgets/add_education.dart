@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/models/education.dart';
-import 'package:launchhub_frontend/models/industry.dart';
-import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/models/skill.dart';
-import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/location_picker.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
@@ -24,24 +20,17 @@ class AddEducation extends StatefulWidget {
 }
 
 class _AddEducationState extends State<AddEducation> {
-  final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _startDateController = TextEditingController();
+  final _endDateController = TextEditingController();
+  final _organizationController = TextEditingController();
+  final _degreeController = TextEditingController();
+  String? country;
+  String? state;
   DateTime? _selectedDate;
-  Industry? _selectedIndustry;
-  Niche? _selectedNiche;
-  String? _selectExperienceLevel;
-  String? _selectEducationceLevel;
-  String? _selectJobType;
-  String? _selectGender;
-  String? _selectLocation;
-  List<Skill> selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
-  final _responsibilitiesController = TextEditingController();
-  final _jobSalaryController = TextEditingController();
-  final _jobQualificationController = TextEditingController();
-  final _jobDeadlineController = TextEditingController();
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context, controller) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
@@ -51,10 +40,22 @@ class _AddEducationState extends State<AddEducation> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _jobDeadlineController.text = DateFormat('yyyy-MM-dd')
+        controller.text = DateFormat('yyyy-MM-dd')
             .format(picked); // Format date as 'yyyy-MM-dd'
       });
     }
+  }
+
+  setCountry(String? value) {
+    setState(() {
+      country = value;
+    });
+  }
+
+  setStateForState(String? value) {
+    setState(() {
+      state = value;
+    });
   }
 
   void _showDialog() {
@@ -77,49 +78,35 @@ class _AddEducationState extends State<AddEducation> {
   }
 
   void _submitJobData() {
-    final enteredSalary = double.tryParse(_jobSalaryController.text);
-    final salaryIsInvalid = enteredSalary == null || enteredSalary <= 0;
-    if (_titleController.text.trim().isEmpty ||
-        _descriptionController.text.trim().isEmpty ||
-        salaryIsInvalid ||
-        _selectedIndustry == null ||
-        _selectedNiche == null ||
-        _selectExperienceLevel == null ||
-        _selectEducationceLevel == null ||
-        _selectJobType == null ||
-        _selectGender == null ||
-        _selectLocation == null ||
-        selectedSkills.isEmpty ||
-        _jobQualificationController.text.trim().isEmpty ||
-        _jobDeadlineController.text.trim().isEmpty ||
-        _jobSalaryController.text.trim().isEmpty ||
-        _jobQualificationController.text.trim().isEmpty ||
-        _jobDeadlineController.text.trim().isEmpty ||
-        _jobSalaryController.text.trim().isEmpty) {
+    print(country);
+    if (country == null || state == null) {
       _showDialog();
       return;
     }
 
-    // widget.addEducation(
-    //   Education(
-    //     id: '1',
-    //    degree: _degreeController.text,
-    //     organization: _organizationController.text,
-    //     startDate: _startDateController.text,
-    //     endDate: _endDateController.text,
-    //     description: _descriptionController.text,
-    //     location: _locationController.text,
-    //     jobSeekerId:2 ,
-
-    //   ),
-    // );
+    widget.addEducation(
+      Education(
+        id: '1',
+        degree: _degreeController.text,
+        organization: _organizationController.text,
+        startDate: _startDateController.text,
+        endDate: _endDateController.text,
+        description: _descriptionController.text,
+        location: '${country!}, ${state!}, ',
+        jobSeekerId: 2,
+      ),
+    );
     Navigator.pop(context);
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
     _descriptionController.dispose();
+    _startDateController.dispose();
+    _endDateController.dispose();
+    _organizationController.dispose();
+    _degreeController.dispose();
+    _degreeController.dispose();
     super.dispose();
   }
 
@@ -133,164 +120,96 @@ class _AddEducationState extends State<AddEducation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 58, 16, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 90,
-                height: 5,
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/backgrounds/auth_bg.png'),
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: Container(
+            width: 300,
+            padding: const EdgeInsets.fromLTRB(16, 58, 16, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 90,
+                  height: 5,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              ),
-              Text(
-                'Add Education',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  width: 300,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        InputField(
-                          label: 'Job Title',
-                          controller: _titleController,
-                        ),
-                        InputField(
-                          label: 'Description',
-                          isDescription: true,
-                          controller: _descriptionController,
-                        ),
-                        InputField(
-                          label: 'Qualification',
-                          isDescription: true,
-                          controller: _jobQualificationController,
-                        ),
-                        InputField(
-                          label: 'Responsibilities',
-                          isDescription: true,
-                          controller: _responsibilitiesController,
-                        ),
-                        GenericDropdown<String>(
-                          label: 'Select Experience Level',
-                          options: experienceLevels,
-                          selectedOption: _selectExperienceLevel,
-                          optionLabel: (option) => option.toString(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectExperienceLevel = newValue;
-                            });
-                          },
-                        ),
-                        GenericDropdown<String>(
-                          label: 'Select Education Level',
-                          options: educationLevels,
-                          selectedOption: _selectEducationceLevel,
-                          optionLabel: (option) => option.toString(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectEducationceLevel = newValue;
-                            });
-                          },
-                        ),
-                        InputField(
-                          label: 'Required Skills',
-                          readOnly: true,
-                          onTap: () {},
-                          isDescription: true,
-                          controller: TextEditingController(
-                              text: selectedSkills.join(', ')),
-                          icon: const Icon(Icons.add_circle_outline),
-                        ),
-                        GenericDropdown<String>(
-                          label: 'Select Job Type',
-                          options: jobTypes,
-                          selectedOption: _selectJobType,
-                          optionLabel: (option) => option.toString(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectJobType = newValue;
-                            });
-                          },
-                        ),
-                        GenericDropdown<String>(
-                          label: 'Select Location',
-                          options: locations,
-                          selectedOption: _selectLocation,
-                          optionLabel: (option) => option.toString(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectLocation = newValue;
-                            });
-                          },
-                        ),
-                        InputField(
-                          label: 'Salary / Month',
-                          controller: _jobSalaryController,
-                        ),
-                        GenericDropdown<String>(
-                          label: 'Select Preffered Gender',
-                          options: genders,
-                          selectedOption: _selectGender,
-                          optionLabel: (option) => option.toString(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectGender = newValue;
-                            });
-                          },
-                        ),
-                        GenericDropdown<Industry>(
-                          label: 'Select Industry',
-                          options: industries,
-                          selectedOption: _selectedIndustry,
-                          optionLabel: (industry) => industry!.name,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedIndustry = newValue;
-                            });
-                          },
-                        ),
-                        GenericDropdown<Niche>(
-                          label: 'Select Specialization',
-                          options: niches,
-                          selectedOption: _selectedNiche,
-                          optionLabel: (niche) => niche!.name,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedNiche = newValue;
-                            });
-                          },
-                        ),
-                        InputField(
-                          label: 'Deadline',
-                          readOnly: true,
-                          validator: validator,
-                          onTap: () => _selectDate(context),
-                          controller: _jobDeadlineController,
-                          icon: const Icon(Icons.calendar_today),
-                        ),
-                      ],
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Add Education',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                    width: 300,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 16),
+                          InputField(
+                            label: 'Degree',
+                            controller: _degreeController,
+                          ),
+                          InputField(
+                            label: 'Organization',
+                            controller: _organizationController,
+                          ),
+                          InputField(
+                            label: 'Start Date',
+                            readOnly: true,
+                            validator: validator,
+                            onTap: () =>
+                                _selectDate(context, _startDateController),
+                            controller: _startDateController,
+                            icon: const Icon(Icons.calendar_today),
+                          ),
+                          InputField(
+                            label: 'End Date',
+                            readOnly: true,
+                            validator: validator,
+                            onTap: () =>
+                                _selectDate(context, _endDateController),
+                            controller: _endDateController,
+                            icon: const Icon(Icons.calendar_today),
+                          ),
+                          InputField(
+                            label: 'Description',
+                            isDescription: true,
+                            controller: _descriptionController,
+                          ),
+                          LocationPicker(
+                            onCountryChanged: setCountry,
+                            onStateChanged: setStateForState,
+                            country: country,
+                            state: state,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                  width: 300, child: SubmitButton('Submit', _submitJobData)),
-              const SizedBox(height: 25),
-            ],
+                SizedBox(
+                    width: 300, child: SubmitButton('Submit', _submitJobData)),
+                const SizedBox(height: 25),
+              ],
+            ),
           ),
         ),
       ),
-      // bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
