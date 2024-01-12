@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
-import 'package:launchhub_frontend/screens/start_screen.dart';
+import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
 import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';

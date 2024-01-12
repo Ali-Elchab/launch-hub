@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/certification.dart';
-import 'package:launchhub_frontend/models/course.dart';
 import 'package:launchhub_frontend/models/education.dart';
 
 class EducationCard extends StatelessWidget {
