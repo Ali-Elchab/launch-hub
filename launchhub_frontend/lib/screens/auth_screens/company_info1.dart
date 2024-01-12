@@ -91,90 +91,98 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Startup Profile'),
       backgroundColor: Colors.white,
-      body: Center(
-        child: SizedBox(
-          width: 300,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'Company Information',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/backgrounds/auth_bg.png'),
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 300,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        'Company Information',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontWeight: FontWeight.w700, fontSize: 22),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 35),
-                ProfileImagePicker(
-                    onImagePicked: () async {
-                      await _pickImage();
-                    },
-                    imageFile: _image,
-                    text: 'Upload Logo'),
-                const SizedBox(height: 22),
-                Expanded(
-                  child: SingleChildScrollView(
-                      child: Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      InputField(label: 'Company Name', validator: validator),
-                      InputField(
-                        label: 'Founding Date',
-                        readOnly: true,
-                        icon: const Icon(Icons.calendar_today),
-                        controller: _controller,
-                        onTap: () => _selectDate(context),
-                        validator: validator,
-                      ),
-                      const SizedBox(height: 16),
-                      const InputField(label: 'Registration Number'),
-                      const InputField(
-                          label: 'Company Description', isDescription: true),
-                      GenericDropdown<Industry>(
-                        label: 'Select Industry',
-                        options: industries,
-                        selectedOption: _selectedIndustry,
-                        optionLabel: (industry) => industry!.name,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedIndustry = newValue;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      GenericDropdown<Niche>(
-                        label: 'Select Niche',
-                        options: niches,
-                        selectedOption: _selectedNiche,
-                        optionLabel: (niche) => niche!.name,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedNiche = newValue;
-                          });
-                        },
-                      ),
-                    ],
-                  )),
-                ),
-                SmallButton('Next', () {
-                  if (_formKey.currentState!.validate()) {
-                    onNext();
-                  }
-                }),
-                const SizedBox(height: 15),
-                const BottomText(
-                  text:
-                      'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
-                ),
-              ],
+                  const SizedBox(height: 35),
+                  ProfileImagePicker(
+                      onImagePicked: () async {
+                        await _pickImage();
+                      },
+                      imageFile: _image,
+                      text: 'Upload Logo'),
+                  const SizedBox(height: 22),
+                  Expanded(
+                    child: SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        InputField(label: 'Company Name', validator: validator),
+                        InputField(
+                          label: 'Founding Date',
+                          readOnly: true,
+                          icon: const Icon(Icons.calendar_today),
+                          controller: _controller,
+                          onTap: () => _selectDate(context),
+                          validator: validator,
+                        ),
+                        const SizedBox(height: 16),
+                        const InputField(label: 'Registration Number'),
+                        const InputField(
+                            label: 'Company Description', isDescription: true),
+                        GenericDropdown<Industry>(
+                          label: 'Select Industry',
+                          options: industries,
+                          selectedOption: _selectedIndustry,
+                          optionLabel: (industry) => industry!.name,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedIndustry = newValue;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        GenericDropdown<Niche>(
+                          label: 'Select Niche',
+                          options: niches,
+                          selectedOption: _selectedNiche,
+                          optionLabel: (niche) => niche!.name,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedNiche = newValue;
+                            });
+                          },
+                        ),
+                      ],
+                    )),
+                  ),
+                  SmallButton('Next', () {
+                    if (_formKey.currentState!.validate()) {
+                      onNext();
+                    }
+                  }),
+                  const SizedBox(height: 15),
+                  const BottomText(
+                    text:
+                        'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
+                  ),
+                ],
+              ),
             ),
           ),
         ),

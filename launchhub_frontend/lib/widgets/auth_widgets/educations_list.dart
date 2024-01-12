@@ -9,7 +9,7 @@ class EducationsList extends StatelessWidget {
     super.key,
     this.educations,
     this.removeEducation,
-    this.removeCourse,
+    this.removeCertification,
     this.certifications,
     this.onTap,
   });
@@ -17,7 +17,7 @@ class EducationsList extends StatelessWidget {
   final List<Education>? educations;
   final void Function(Education education)? onTap;
   final void Function(Education education)? removeEducation;
-  final void Function(Certification certification)? removeCourse;
+  final void Function(Certification certification)? removeCertification;
   final List<Certification>? certifications;
 
   @override
@@ -78,7 +78,7 @@ class EducationsList extends StatelessWidget {
               onDismissed: (direction) {
                 educations != null
                     ? removeEducation!(educations![index])
-                    : removeCourse!(certifications![index]);
+                    : removeCertification!(certifications![index]);
               },
               child: educations != null
                   ? EducationCard(

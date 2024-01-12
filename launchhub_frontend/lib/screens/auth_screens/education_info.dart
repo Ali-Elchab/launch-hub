@@ -80,108 +80,169 @@ class _EducationInfoState extends State<EducationInfo> {
     });
   }
 
+  void _removeEducation(Education education) {
+    final educationIndex = educations.indexOf(education);
+    setState(() {
+      educations.remove(education);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Education deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              educations.insert(educationIndex, education);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  void _removeCertificate(Certification certification) {
+    final certificateIndex = certifications.indexOf(certification);
+    setState(() {
+      certifications.remove(certification);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Certification deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              certifications.insert(certificateIndex, certification);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      extendBodyBehindAppBar: true,
       appBar: const CustomAppBar(title: 'Job Seeker Profile'),
       backgroundColor: Colors.white,
-      body: Center(
-        child: SizedBox(
-          width: 300,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Education',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: 24,
-                        ),
-                  ),
-                ),
-                const SizedBox(height: 35),
-                if (widget.selectedImage != null)
-                  ClipOval(
-                    child: Image.file(
-                      File(widget.selectedImage!.path),
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                if (widget.selectedImage == null)
-                  ProfileImagePicker(
-                      onImagePicked: () async {
-                        await _pickImage();
-                      },
-                      imageFile: _image,
-                      text: 'Upload Profile Picture'),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/backgrounds/auth_bg.png'),
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.only(top: 80),
+            width: 300,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
                       'Education',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.titleMedium!,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontSize: 24,
+                          ),
                     ),
-                    IconButton(
-                        onPressed: () {
-                          showModal(
-                            AddEducation(addEducation: _addEducation),
-                            context,
-                            color: Colors.white,
-                            enableDrag: true,
-                            isDismissible: true,
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.add,
-                        )),
-                  ],
-                ),
-                Expanded(child: EducationsList(educations: educations)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Certifications',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.titleMedium!,
+                  ),
+                  const SizedBox(height: 35),
+                  if (widget.selectedImage != null)
+                    ClipOval(
+                      child: Image.file(
+                        File(widget.selectedImage!.path),
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    IconButton(
-                        onPressed: () {
-                          showModal(
-                            AddCertificate(addCertificate: _addCertification),
-                            context,
-                            color: Colors.white,
-                            enableDrag: true,
-                            isDismissible: true,
-                          );
+                  if (widget.selectedImage == null)
+                    ProfileImagePicker(
+                        onImagePicked: () async {
+                          await _pickImage();
                         },
-                        icon: const Icon(
-                          Icons.add,
-                        )),
-                  ],
-                ),
-                Expanded(child: EducationsList(certifications: certifications)),
-                const SizedBox(height: 20),
-                SmallButton('Next', () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Skills()));
-                  }
-                }),
-                const SizedBox(height: 15),
-                const BottomText(
-                    text:
-                        'Your provided details will be utilized to shape a personalized resume, presenting your unique skills and experiences to startups seeking candidates like you.'),
-              ],
+                        imageFile: _image,
+                        text: 'Upload Profile Picture'),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Education',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.titleMedium!,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            showModal(
+                              AddEducation(addEducation: _addEducation),
+                              context,
+                              color: Colors.white,
+                              enableDrag: true,
+                              isDismissible: true,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                          )),
+                    ],
+                  ),
+                  Expanded(
+                      child: EducationsList(
+                    educations: educations,
+                    removeEducation: _removeEducation,
+                  )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Certifications',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.titleMedium!,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            showModal(
+                              AddCertificate(addCertificate: _addCertification),
+                              context,
+                              color: Colors.white,
+                              enableDrag: true,
+                              isDismissible: true,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                          )),
+                    ],
+                  ),
+                  Expanded(
+                      child: EducationsList(
+                    certifications: certifications,
+                    removeCertification: _removeCertificate,
+                  )),
+                  const SizedBox(height: 20),
+                  SmallButton('Next', () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Skills()));
+                    }
+                  }),
+                  const SizedBox(height: 15),
+                  const BottomText(
+                      text:
+                          'Your provided details will be utilized to shape a personalized resume, presenting your unique skills and experiences to startups seeking candidates like you.'),
+                ],
+              ),
             ),
           ),
         ),
