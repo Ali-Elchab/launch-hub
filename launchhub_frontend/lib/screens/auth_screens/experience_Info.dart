@@ -1,5 +1,6 @@
+// ignore: file_names
 import 'dart:io';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/experience.dart';
@@ -9,6 +10,7 @@ import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/experience_list.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
+import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -47,6 +49,23 @@ class _ExperienceInfoState extends State<ExperienceInfo> {
       setState(() {
         _image = selectedImage;
       });
+    }
+  }
+
+  String? _resumeFilePath;
+  Future<void> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      setState(() {
+        _resumeFilePath = file.path;
+      });
+      print(file.name);
+      print(file.size);
+      print(file.extension);
+      print(_resumeFilePath);
+    } else {
+      print('No file selected.');
     }
   }
 
@@ -162,6 +181,13 @@ class _ExperienceInfoState extends State<ExperienceInfo> {
                     removeExperience: _removeExperience,
                   )),
                   const SizedBox(height: 20),
+                  InputField(
+                    label: 'Founding Date',
+                    readOnly: true,
+                    icon: const Icon(Icons.calendar_today),
+                    onTap: () => pickFile(),
+                    validator: validator,
+                  ),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(

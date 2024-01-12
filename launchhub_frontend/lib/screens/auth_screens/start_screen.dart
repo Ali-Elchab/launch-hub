@@ -5,10 +5,6 @@ import 'package:launchhub_frontend/widgets/submit_button.dart';
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
-  void _getStarted(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +49,8 @@ class StartScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 55),
                 SubmitButton('Get Started', () {
-                  _getStarted(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignIn()));
                 }),
               ],
             ),

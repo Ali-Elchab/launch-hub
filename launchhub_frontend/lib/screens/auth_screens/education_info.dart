@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
-import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
+import 'package:launchhub_frontend/screens/auth_screens/experience_Info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_certificate.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
@@ -234,7 +234,7 @@ class _EducationInfoState extends State<EducationInfo> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Skills()));
+                              builder: (context) => const ExperienceInfo()));
                     }
                   }),
                   const SizedBox(height: 15),

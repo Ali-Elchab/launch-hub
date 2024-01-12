@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
@@ -10,10 +11,6 @@ import 'package:launchhub_frontend/widgets/submit_button.dart';
 class SignIn extends StatelessWidget {
   SignIn({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  void _forgotPassword(BuildContext context, Widget route) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => route));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +69,10 @@ class SignIn extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: InkWell(
                           onTap: () {
-                            _forgotPassword(context, const SignUp());
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgotPassword()));
                           },
                           child: const Text(
                             'Forgot Password?',
