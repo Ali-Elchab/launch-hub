@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info2.dart';
@@ -64,17 +65,6 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
     }
   }
 
-  void onNext() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CompanyInfo2(
-          selectedImage: _image,
-        ),
-      ),
-    );
-  }
-
   String? validator(String? value) {
     if (value == null || value.isEmpty) {
       return 'This field cannot be empty';
@@ -84,11 +74,15 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Startup Profile'),
       backgroundColor: Colors.white,
       body: Container(
+        padding: const EdgeInsets.only(top: 85),
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/backgrounds/auth_bg.png'),
@@ -103,17 +97,10 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        'Company Information',
-                        textAlign: TextAlign.left,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 22),
-                      ),
+                    child: Text(
+                      'Company Information',
+                      textAlign: TextAlign.left,
+                      style: textTheme.titleLarge,
                     ),
                   ),
                   const SizedBox(height: 35),
@@ -138,7 +125,6 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                           onTap: () => _selectDate(context),
                           validator: validator,
                         ),
-                        const SizedBox(height: 16),
                         const InputField(label: 'Registration Number'),
                         const InputField(
                             label: 'Company Description', isDescription: true),
@@ -153,7 +139,6 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                             });
                           },
                         ),
-                        const SizedBox(height: 16),
                         GenericDropdown<Niche>(
                           label: 'Select Niche',
                           options: niches,
@@ -170,7 +155,12 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                   ),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate()) {
-                      onNext();
+                      navigator(
+                        context,
+                        CompanyInfo2(
+                          selectedImage: _image,
+                        ),
+                      );
                     }
                   }),
                   const SizedBox(height: 15),

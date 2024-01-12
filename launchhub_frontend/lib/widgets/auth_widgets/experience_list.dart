@@ -17,8 +17,11 @@ class ExperienceList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
       itemCount: experiences.length,
       itemBuilder: (context, index) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [

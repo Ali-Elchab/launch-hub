@@ -10,7 +10,7 @@ class ForgotPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _emailController = TextEditingController();
+    final emailController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Forgot Password'),
@@ -48,7 +48,7 @@ class ForgotPassword extends StatelessWidget {
                   const SizedBox(height: 25),
                   InputField(
                     label: 'Email',
-                    controller: _emailController,
+                    controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';

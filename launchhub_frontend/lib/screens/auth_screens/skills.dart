@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/hobbies.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
@@ -44,73 +45,77 @@ class _SkillsState extends State<Skills> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Job Seeker Profile'),
       backgroundColor: Colors.white,
-      body: Center(
-        child: SizedBox(
-          width: 300,
-          child: Column(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+      body: Container(
+        padding: const EdgeInsets.only(top: 85),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/backgrounds/auth_bg.png'),
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 300,
+            child: Column(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Text(
                     'Skills',
                     textAlign: TextAlign.left,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+                    style: textTheme.titleLarge,
                   ),
                 ),
-              ),
-              const SizedBox(height: 35),
-              ProfileImagePicker(
-                  onImagePicked: () async {
-                    await _pickImage();
-                  },
-                  imageFile: _image,
-                  text: 'Upload Profile Picture'),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Text(
-                  style: Theme.of(context).textTheme.labelSmall!,
-                  'Highlight your strengths and abilities for others to see and recognize.',
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Wrap(
-                        spacing: 9.0,
-                        runSpacing: 4.0,
-                        children: mockSkills
-                            .map((skill) => ChoiceTag(
-                                  label: skill.name,
-                                  isSelected:
-                                      selectedSkills.contains(skill.name),
-                                  onSelected: () => toggleSkill(skill.name),
-                                ))
-                            .toList(),
-                      ),
-                    ],
+                const SizedBox(height: 35),
+                ProfileImagePicker(
+                    onImagePicked: () async {
+                      await _pickImage();
+                    },
+                    imageFile: _image,
+                    text: 'Upload Profile Picture'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Text(
+                    style: textTheme.bodySmall!,
+                    'Highlight your strengths and abilities for others to see and recognize.',
+                    textAlign: TextAlign.left,
                   ),
                 ),
-              ),
-              SmallButton('Next', () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Hobbies()));
-              }),
-              const SizedBox(height: 15),
-              const BottomText(
-                  text:
-                      'Your provided details will be utilized to shape a personalized resume, presenting your unique skills and experiences to startups seeking candidates like you.'),
-            ],
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Wrap(
+                          spacing: 9.0,
+                          runSpacing: 4.0,
+                          children: mockSkills
+                              .map((skill) => ChoiceTag(
+                                    label: skill.name,
+                                    isSelected:
+                                        selectedSkills.contains(skill.name),
+                                    onSelected: () => toggleSkill(skill.name),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SmallButton('Next', () {
+                  navigator(context, const Hobbies());
+                }),
+                const SizedBox(height: 15),
+                const BottomText(
+                    text:
+                        'Your provided details will be utilized to shape a personalized resume, presenting your unique skills and experiences to startups seeking candidates like you.'),
+              ],
+            ),
           ),
         ),
       ),

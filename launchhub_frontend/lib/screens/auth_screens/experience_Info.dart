@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
@@ -25,6 +26,8 @@ class ExperienceInfo extends StatefulWidget {
 
 class _ExperienceInfoState extends State<ExperienceInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _resumeController = TextEditingController();
+
   List<Experience> experiences = [
     Experience(
         id: '1',
@@ -52,28 +55,13 @@ class _ExperienceInfoState extends State<ExperienceInfo> {
     }
   }
 
-  String? _resumeFilePath;
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      PlatformFile file = result.files.first;
       setState(() {
-        _resumeFilePath = file.path;
+        _resumeController.text = result.files.first.name;
       });
-      print(file.name);
-      print(file.size);
-      print(file.extension);
-      print(_resumeFilePath);
-    } else {
-      print('No file selected.');
-    }
-  }
-
-  String? validator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'This field cannot be empty';
-    }
-    return null;
+    } else {}
   }
 
   void _addExperience(Experience experience) {
@@ -180,20 +168,18 @@ class _ExperienceInfoState extends State<ExperienceInfo> {
                     experiences: experiences,
                     removeExperience: _removeExperience,
                   )),
-                  const SizedBox(height: 20),
-                  InputField(
-                    label: 'Founding Date',
-                    readOnly: true,
-                    icon: const Icon(Icons.calendar_today),
-                    onTap: () => pickFile(),
-                    validator: validator,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 55),
+                    child: InputField(
+                      label: 'Upload Resume Here',
+                      readOnly: true,
+                      icon: const Icon(Icons.file_download),
+                      onTap: () => pickFile(),
+                    ),
                   ),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Skills()));
+                      navigator(context, const Skills());
                     }
                   }),
                   const SizedBox(height: 15),

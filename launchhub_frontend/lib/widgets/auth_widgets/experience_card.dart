@@ -17,7 +17,7 @@ class ExperienceCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 0,
-        color: const Color.fromARGB(255, 251, 251, 251),
+        color: const Color(0xFFF5F5F5),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,

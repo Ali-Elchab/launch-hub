@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/founders.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -21,6 +22,11 @@ class CompanyInfo2 extends StatefulWidget {
 
 class _CompanyInfo2State extends State<CompanyInfo2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final websiteController = TextEditingController();
+  final socialMediaController = TextEditingController();
 
   XFile? _image;
   Future<void> _pickImage() async {
@@ -44,83 +50,97 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      resizeToAvoidBottomInset:
-          true, // Set to true to resize when keyboard appears
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Startup Profile'),
       backgroundColor: Colors.white,
-      body: Center(
-        child: SizedBox(
-          width: 300,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              // Use Column without Expanded
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+      body: Container(
+        padding: const EdgeInsets.only(top: 85),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/backgrounds/auth_bg.png'),
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 300,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
                     child: Text(
                       'Contact Information',
                       textAlign: TextAlign.left,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+                      style: textTheme.titleLarge,
                     ),
                   ),
-                ),
-                const SizedBox(height: 35),
-                if (widget.selectedImage != null)
-                  ClipOval(
-                    child: Image.file(
-                      File(widget.selectedImage!.path),
-                      width: 120, // Diameter of the circle
-                      height: 120, // Diameter of the circle
-                      fit: BoxFit
-                          .cover, // This ensures the image covers the circle crop
+                  const SizedBox(height: 35),
+                  if (widget.selectedImage != null)
+                    ClipOval(
+                      child: Image.file(
+                        File(widget.selectedImage!.path),
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  if (widget.selectedImage == null)
+                    ProfileImagePicker(
+                        onImagePicked: () async {
+                          await _pickImage();
+                        },
+                        imageFile: _image,
+                        text: 'Upload Logo'),
+                  const SizedBox(height: 32),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          InputField(
+                            label: 'Business Address',
+                            validator: validator,
+                            controller: addressController,
+                          ),
+                          InputField(
+                            label: 'Phone Number',
+                            validator: validator,
+                            controller: phoneController,
+                          ),
+                          InputField(
+                            label: 'Email Address',
+                            validator: validator,
+                            controller: emailController,
+                          ),
+                          InputField(
+                            label: 'Website URL',
+                            controller: websiteController,
+                          ),
+                          const SocialMediaLinksDropdown(),
+                        ],
+                      ),
                     ),
                   ),
-                if (widget.selectedImage == null)
-                  ProfileImagePicker(
-                      onImagePicked: () async {
-                        await _pickImage();
-                      },
-                      imageFile: _image,
-                      text: 'Upload Logo'),
-                const SizedBox(height: 32),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        InputField(
-                            label: 'Business Address', validator: validator),
-                        InputField(label: 'Phone Number', validator: validator),
-                        InputField(
-                            label: 'Email Address', validator: validator),
-                        const InputField(label: 'Website URL'),
-                        const SocialMediaLinksDropdown(),
-                      ],
-                    ),
+                  SmallButton('Next', () {
+                    if (_formKey.currentState!.validate()) {
+                      navigator(
+                          context,
+                          Founders(
+                            selectedImage: widget.selectedImage,
+                          ));
+                    }
+                  }),
+                  const SizedBox(height: 15),
+                  const BottomText(
+                    text:
+                        'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
                   ),
-                ),
-                SmallButton('Next', () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Founders(
-                                  selectedImage: widget.selectedImage,
-                                )));
-                  }
-                }),
-                const SizedBox(height: 15),
-                const BottomText(
-                  text:
-                      'This information will be showcased to job seekers, helping them make informed decisions about opportunities with your company.',
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

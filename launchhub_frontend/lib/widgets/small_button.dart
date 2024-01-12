@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SmallButton extends StatelessWidget {
-  const SmallButton(this.text, this.onPressed, {super.key});
+  const SmallButton(this.text, this.onPressed,
+      {this.showArrow = true, super.key});
   final String text;
+  final bool showArrow;
   final void Function() onPressed;
 
   @override
@@ -16,7 +18,7 @@ class SmallButton extends StatelessWidget {
             backgroundColor: const Color(0xFF326789),
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min, // Make Row take minimum space
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -26,8 +28,9 @@ class SmallButton extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
               ),
-              const Icon(Icons.arrow_forward_ios,
-                  color: Colors.white, size: 16),
+              if (showArrow)
+                const Icon(Icons.arrow_forward_ios,
+                    color: Colors.white, size: 16),
             ],
           ),
         ),

@@ -22,11 +22,14 @@ class EducationsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
       itemCount:
           educations != null ? educations!.length : certifications!.length,
       itemBuilder: (context, index) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Dismissible(
               key: ValueKey(
