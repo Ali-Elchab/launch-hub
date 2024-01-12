@@ -28,14 +28,11 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
   final TextEditingController _controller = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    // _selectedIndustry = _industries.isNotEmpty ? _industries.first : null;
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
+    selectedDate = null;
+    _selectedIndustry = null;
+    _selectedNiche = null;
     super.dispose();
   }
 

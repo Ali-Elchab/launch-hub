@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
+
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -14,20 +16,22 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Sign In'),
       extendBodyBehindAppBar: true, // Extend the body behind the AppBar
       body: Stack(
         children: [
-          // Full-screen background image
           Positioned.fill(
             child: Image.asset(
               'assets/backgrounds/auth_bg.png',
               fit: BoxFit.cover,
             ),
           ),
-          // Centered content with fixed width
           Center(
             child: SizedBox(
               width: 300,
@@ -40,14 +44,12 @@ class SignIn extends StatelessWidget {
                     Text(
                       'Welcome Back to LaunchHub!\nYour Startup Oasis',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                      style: textTheme.titleSmall!,
                     ),
                     const SizedBox(height: 35),
                     InputField(
                       label: 'Email',
+                      controller: emailController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
@@ -58,6 +60,7 @@ class SignIn extends StatelessWidget {
                     InputField(
                       label: 'Password',
                       isPassword: true,
+                      controller: passwordController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
@@ -66,36 +69,33 @@ class SignIn extends StatelessWidget {
                       },
                     ),
                     Align(
-                        alignment: Alignment.centerLeft,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ForgotPassword()));
-                          },
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Color(0xFF326789),
-                            ),
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPassword()));
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: textTheme.labelSmall!.copyWith(
+                            color: colorScheme.primary,
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 40),
                     SubmitButton('Sign In', () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const StartupHome()));
+                        navigator(context, const StartupHome());
                       }
                     }),
                     const SizedBox(height: 30),
                     const DividerWithText(text: 'or continue with'),
                     const SizedBox(height: 16),
                     SocialSignInButton(
-                      text: 'Google',
+                      text: 'Sign in with Google',
                       imagePath: 'assets/images/google_logo.png',
                       onPressed: () {},
                     ),
@@ -111,11 +111,9 @@ class SignIn extends StatelessWidget {
                             text: "Sign Up",
                             style: Theme.of(context)
                                 .textTheme
-                                .titleMedium!
+                                .titleSmall!
                                 .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: const Color(0xFF326789)),
+                                    fontSize: 14, color: colorScheme.primary),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(

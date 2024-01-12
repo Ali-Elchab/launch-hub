@@ -35,6 +35,10 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Sign Up'),
@@ -59,22 +63,50 @@ class _SignUpState extends State<SignUp> {
                     Text(
                       'Empowering Startups\nOne  Click at a Time',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                      style: Theme.of(context).textTheme.titleSmall!,
                     ),
                     const SizedBox(height: 35),
-                    InputField(label: 'Email', validator: validator),
+                    InputField(
+                      label: 'Email',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your Email';
+                        }
+                        return null;
+                      },
+                      controller: emailController,
+                    ),
                     InputField(
                       label: 'Password',
                       isPassword: true,
-                      validator: validator,
+                      controller: passwordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters long';
+                        }
+
+                        return null;
+                      },
                     ),
                     InputField(
-                        label: 'Confirm Password',
-                        isPassword: true,
-                        validator: validator),
+                      label: 'Confirm Password',
+                      isPassword: true,
+                      controller: confirmPasswordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (confirmPasswordController.text !=
+                            passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+
+                        return null;
+                      },
+                    ),
                     RadioButtons(
                       onSelectionChanged: _onRadioSelectionChanged,
                     ),
@@ -96,25 +128,24 @@ class _SignUpState extends State<SignUp> {
                     const DividerWithText(text: 'or sign up with'),
                     const SizedBox(height: 16),
                     SocialSignInButton(
-                      text: 'Google',
+                      text: 'Sign Up With Google',
                       imagePath: 'assets/images/google_logo.png',
                       onPressed: () {},
                     ),
                     const SizedBox(height: 10),
                     RichText(
                       text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
+                        style: textTheme.bodySmall!,
                         children: <TextSpan>[
-                          TextSpan(
-                              text: "Already have an account? ",
-                              style: Theme.of(context).textTheme.bodySmall!),
+                          const TextSpan(
+                            text: "Already have an account? ",
+                          ),
                           TextSpan(
                             text: "Sign In",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                    fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                     color: const Color(0xFF326789)),
                             recognizer: TapGestureRecognizer()

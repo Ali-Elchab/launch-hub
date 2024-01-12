@@ -18,7 +18,7 @@ class ProfileImagePicker extends StatelessWidget {
     return GestureDetector(
       onTap: onImagePicked,
       child: CircleAvatar(
-        radius: 60, // Adjust the radius as needed
+        radius: 60,
         backgroundImage:
             imageFile != null ? FileImage(File(imageFile!.path)) : null,
         child: imageFile == null

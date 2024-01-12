@@ -27,7 +27,7 @@ class _RadioButtonsState extends State<RadioButtons> {
       children: <Widget>[
         Row(children: [
           Radio<UserType>(
-            activeColor: Theme.of(context).colorScheme.inversePrimary,
+            activeColor: Theme.of(context).colorScheme.primary,
             value: UserType.startup,
             groupValue: _type,
             onChanged: _handleRadioValueChange,
@@ -36,7 +36,7 @@ class _RadioButtonsState extends State<RadioButtons> {
         ]),
         Row(children: [
           Radio<UserType>(
-            activeColor: Theme.of(context).colorScheme.inversePrimary,
+            activeColor: Theme.of(context).colorScheme.primary,
             value: UserType.jobseeker,
             groupValue: _type,
             onChanged: _handleRadioValueChange,
