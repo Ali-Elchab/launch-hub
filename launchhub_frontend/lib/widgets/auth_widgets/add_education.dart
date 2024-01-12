@@ -78,8 +78,13 @@ class _AddEducationState extends State<AddEducation> {
   }
 
   void _submitJobData() {
-    print(country);
-    if (country == null || state == null) {
+    if (_degreeController.text.trim().isEmpty ||
+        _descriptionController.text.trim().isEmpty ||
+        _endDateController.text.trim().isEmpty ||
+        _startDateController.text.trim().isEmpty ||
+        _organizationController.text.trim().isEmpty ||
+        country == null ||
+        state == null) {
       _showDialog();
       return;
     }
@@ -105,7 +110,6 @@ class _AddEducationState extends State<AddEducation> {
     _startDateController.dispose();
     _endDateController.dispose();
     _organizationController.dispose();
-    _degreeController.dispose();
     _degreeController.dispose();
     super.dispose();
   }
