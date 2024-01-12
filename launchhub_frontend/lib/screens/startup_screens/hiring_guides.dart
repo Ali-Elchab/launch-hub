@@ -57,8 +57,10 @@ class HiringGuides extends StatelessWidget {
                       'Streamline your hiring process with this checklist template, ensuring a systematic and efficient approach to recruitment.',
                   imagePath: 'assets/images/hiring-process.png',
                   onTap: () {
-                    openLink(context,
-                        'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf');
+                    downloadFile(
+                        url:
+                            'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
+                        name: 'Hiring Process Template');
                   },
                 ),
                 FeatureCard(

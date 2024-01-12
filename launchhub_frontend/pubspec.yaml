@@ -46,6 +46,7 @@ dependencies:
   country_state_picker: ^0.0.5
   csc_picker: ^0.2.7
   file_picker: ^6.1.1
+  flutter_file_downloader: ^1.2.1
 
 dev_dependencies:
   flutter_test:
