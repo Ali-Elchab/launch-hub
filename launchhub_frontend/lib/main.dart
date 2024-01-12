@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:launchhub_frontend/screens/auth_screens/education_info.dart';
+// import 'package:launchhub_frontend/screens/auth_screens/education_info.dart';
 import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
 
 void main() {
