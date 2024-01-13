@@ -48,11 +48,12 @@ class AuthController extends Controller
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ], 200);
     }
 
     public function signup(Request $request)
     {
+
         try {
             $request->validate([
                 'email' => 'required|string|email|unique:users,email',
@@ -60,12 +61,12 @@ class AuthController extends Controller
                 'user_type_id' => 'required|integer|exists:user_types,id',
             ],);
         } catch (ValidationException $e) {
+            // echo $e->getMessage();
             return response()->json([
                 'status' => 'error',
-                'message' => $e->errors(),
+                'message' => $e->getMessage(),
             ], 422);
         }
-
         try {
             $user = new User([
                 'email' => $request->email,
@@ -83,7 +84,7 @@ class AuthController extends Controller
                     'token' => $token,
                     'type' => 'bearer',
                 ],
-            ]);
+            ], 200);
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
