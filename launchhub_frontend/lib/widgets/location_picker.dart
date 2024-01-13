@@ -38,6 +38,7 @@ class _LocationPickerState extends State<LocationPicker> {
         borderRadius: BorderRadius.circular(10),
       ),
       onCountryChanged: (value) {
+        print(value);
         setState(() {
           widget.country = value;
         });
@@ -53,7 +54,7 @@ class _LocationPickerState extends State<LocationPicker> {
         setState(() {
           widget.city = value;
         });
-        widget.onCityChanged!(value);
+        // widget.onCityChanged!(value);
       },
     );
   }

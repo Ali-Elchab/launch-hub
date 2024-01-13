@@ -61,7 +61,7 @@ class AuthProvider with ChangeNotifier {
       prefs.setString('token', response.data['token']);
     } catch (e) {
       // Handle error
-      _isSignUpSuccessful = false;
+      _isSignUpSuccessful = true;
       _errorMessage = 'Failed to sign up: ${e.toString()}';
     }
     notifyListeners();

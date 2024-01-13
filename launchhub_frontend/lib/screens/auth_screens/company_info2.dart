@@ -8,6 +8,7 @@ import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/location_picker.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -22,12 +23,13 @@ class CompanyInfo2 extends StatefulWidget {
 
 class _CompanyInfo2State extends State<CompanyInfo2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final addressController = TextEditingController();
+
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final websiteController = TextEditingController();
   final socialMediaController = TextEditingController();
-
+  String? country;
+  String? state;
   XFile? _image;
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -46,6 +48,18 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
       return 'This field cannot be empty';
     }
     return null;
+  }
+
+  setCountry(String? value) {
+    setState(() {
+      country = value;
+    });
+  }
+
+  setStateForState(String? value) {
+    setState(() {
+      state = value;
+    });
   }
 
   @override
@@ -101,10 +115,11 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          InputField(
-                            label: 'Business Address',
-                            validator: validator,
-                            controller: addressController,
+                          LocationPicker(
+                            onCountryChanged: setCountry,
+                            onStateChanged: setStateForState,
+                            country: country,
+                            state: state,
                           ),
                           InputField(
                             label: 'Phone Number',

@@ -65,7 +65,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
     }
   }
 
-  String? validator(String? value) {
+  String? validator(value) {
     if (value == null || value.isEmpty) {
       return 'This field cannot be empty';
     }
@@ -118,13 +118,12 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                         const SizedBox(height: 16),
                         InputField(label: 'Company Name', validator: validator),
                         InputField(
-                          label: 'Founding Date',
-                          readOnly: true,
-                          icon: const Icon(Icons.calendar_today),
-                          controller: _controller,
-                          onTap: () => _selectDate(context),
-                          validator: validator,
-                        ),
+                            label: 'Founding Date',
+                            readOnly: true,
+                            icon: const Icon(Icons.calendar_today),
+                            controller: _controller,
+                            onTap: () => _selectDate(context),
+                            validator: validator),
                         const InputField(label: 'Registration Number'),
                         const InputField(
                             label: 'Company Description', isDescription: true),
@@ -133,6 +132,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                           options: industries,
                           selectedOption: _selectedIndustry,
                           optionLabel: (industry) => industry!.name,
+                          validator: validator,
                           onChanged: (newValue) {
                             setState(() {
                               _selectedIndustry = newValue;
@@ -142,6 +142,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                         GenericDropdown<Niche>(
                           label: 'Select Niche',
                           options: niches,
+                          validator: validator,
                           selectedOption: _selectedNiche,
                           optionLabel: (niche) => niche!.name,
                           onChanged: (newValue) {

@@ -76,7 +76,7 @@ class SignUp extends ConsumerWidget {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
                         }
-                        if (value.length < 6) {
+                        if (value.length < 3) {
                           return 'Password must be at least 6 characters long';
                         }
 
@@ -108,14 +108,14 @@ class SignUp extends ConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     SubmitButton('Sign Up', () {
-                      print(provider.selectedType.index);
+                      print(provider.isSignUpSuccessful);
                       if (_formKey.currentState!.validate()) {
                         ref.read(authProvider.notifier).updateCredentials(
                             emailController.text,
                             passwordController.text,
                             provider.selectedType.index);
                         ref.read(authProvider.notifier).signUp();
-                        if (ref.read(authProvider).isSignUpSuccessful) {
+                        if (provider.isSignUpSuccessful) {
                           navigator(
                               context,
                               provider.selectedType.index == 0

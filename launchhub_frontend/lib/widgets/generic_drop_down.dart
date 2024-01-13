@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/models/industry.dart';
 
 class GenericDropdown<T> extends StatelessWidget {
   final String label;
@@ -7,7 +6,7 @@ class GenericDropdown<T> extends StatelessWidget {
   final T? selectedOption;
   final String Function(T?) optionLabel;
   final void Function(T?) onChanged;
-  final String? Function(Industry?)? validator;
+  final String? Function(T)? validator;
   final AutovalidateMode autovalidateMode;
 
   const GenericDropdown({
@@ -32,14 +31,14 @@ class GenericDropdown<T> extends StatelessWidget {
       child: InputDecorator(
         decoration: InputDecoration(
           labelText: selectedOption != null ? label : null,
-          // floatingLabelBehavior: FloatingLabelBehavior.auto,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           floatingLabelStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary,
               ),
           border: InputBorder.none,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 00),
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           alignLabelWithHint: true,
         ),
         child: DropdownButtonHideUnderline(
