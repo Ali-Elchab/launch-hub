@@ -8,6 +8,7 @@ import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/location_picker.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -25,7 +26,9 @@ class _ContactInfoState extends State<ContactInfo> {
   final cityController = TextEditingController();
   final phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  String? address;
+  String? country;
+  String? state;
   XFile? _image;
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -44,6 +47,18 @@ class _ContactInfoState extends State<ContactInfo> {
       return 'This field cannot be empty';
     }
     return null;
+  }
+
+  setCountry(String? value) {
+    setState(() {
+      country = value;
+    });
+  }
+
+  setStateForState(String? value) {
+    setState(() {
+      state = value;
+    });
   }
 
   @override
@@ -100,8 +115,12 @@ class _ContactInfoState extends State<ContactInfo> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          InputField(label: 'Address', validator: validator),
-                          InputField(label: 'City', validator: validator),
+                          LocationPicker(
+                            onCountryChanged: setCountry,
+                            onStateChanged: setStateForState,
+                            country: country,
+                            state: state,
+                          ),
                           InputField(
                               label: 'Phone Number', validator: validator),
                           const SocialMediaLinksDropdown(),
@@ -110,8 +129,16 @@ class _ContactInfoState extends State<ContactInfo> {
                     ),
                   ),
                   SmallButton('Next', () {
-                    if (_formKey.currentState!.validate()) {
+                    address = '$state, $country';
+
+                    if (_formKey.currentState!.validate() && address != null) {
                       navigator(context, const EducationInfo());
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please fill in all the fields'),
+                        ),
+                      );
                     }
                   }),
                   const SizedBox(height: 15),

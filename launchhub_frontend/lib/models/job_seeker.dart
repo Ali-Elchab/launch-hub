@@ -17,7 +17,6 @@ class JobSeeker {
   final DateTime dob;
   final String phone;
   final String address;
-  final String city;
   final String bio;
   final String? resume;
   final bool isAvailable;
@@ -40,7 +39,6 @@ class JobSeeker {
     required this.dob,
     required this.phone,
     required this.address,
-    required this.city,
     required this.bio,
     required this.proffesionalSummary,
     this.resume,
@@ -66,7 +64,6 @@ class JobSeeker {
       dob: DateTime.parse(json['dob'] as String),
       phone: json['phone'] as String,
       address: json['address'] as String,
-      city: json['city'] as String,
       bio: json['bio'] as String,
       proffesionalSummary: json['proffesional_summary'] as String,
       resume: json['resume'] as String?,
@@ -105,7 +102,6 @@ class JobSeeker {
     data['dob'] = dob;
     data['phone'] = phone;
     data['address'] = address;
-    data['city'] = city;
     data['bio'] = bio;
     data['proffesional_summary'] = proffesionalSummary;
     data['resume'] = resume;

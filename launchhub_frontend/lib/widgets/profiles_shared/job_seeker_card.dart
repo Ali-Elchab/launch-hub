@@ -57,7 +57,7 @@ class JobSeekerCard extends StatelessWidget {
                         const SizedBox(width: 3),
                         Expanded(
                           child: Text(
-                            jobSeeker.city,
+                            jobSeeker.address,
                             style: Theme.of(context).textTheme.bodySmall!,
                             overflow: TextOverflow.ellipsis,
                           ),

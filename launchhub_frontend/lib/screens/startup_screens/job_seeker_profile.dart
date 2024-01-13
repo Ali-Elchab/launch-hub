@@ -44,7 +44,7 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
         child: ProfileHeader(
           firstName: widget.jobSeeker.firstName,
           lastName: widget.jobSeeker.lastName,
-          city: widget.jobSeeker.city,
+          city: widget.jobSeeker.address,
           email: widget.jobSeeker.firstName,
           phoneNumber: widget.jobSeeker.phone,
           socials: widget.jobSeeker.socialMediaLinks,

@@ -231,7 +231,6 @@ List<JobSeeker> dummyJobSeekers = [
     dob: DateTime(1990, 1, 1),
     phone: '123-456-7890',
     address: '123 Main St',
-    city: 'Anytown',
     bio:
         'HR Specialist: Proven expertise in talent management, employee relations, and a commitment to creating a positive workplace environment for organizational success.',
     proffesionalSummary:
@@ -363,7 +362,6 @@ List<Startup> dummyStartups = [
     registrationNumber: 'REG1234567',
     foundingDate: DateTime(2022, 1, 15),
     companyAddress: '123 Tech Drive',
-    companyCity: 'Techville',
     companyBio:
         'At Innovatech Solutions, we integrate IoT with business intelligence to create smarter ecosystems.',
     userId: 2,
@@ -399,7 +397,6 @@ List<Startup> dummyStartups = [
     registrationNumber: 'REG7654321',
     foundingDate: DateTime(2023, 5, 20),
     companyAddress: '456 Green Lane',
-    companyCity: 'EcoCity',
     companyBio:
         'EcoSynth Labs leverages biotechnology to build eco-friendly products.',
     userId: 4,

@@ -11,7 +11,6 @@ class Startup {
   String registrationNumber;
   DateTime foundingDate;
   String companyAddress;
-  String companyCity;
   String companyBio;
   int userId;
   int industryId;
@@ -32,7 +31,6 @@ class Startup {
     required this.registrationNumber,
     required this.foundingDate,
     required this.companyAddress,
-    required this.companyCity,
     required this.companyBio,
     required this.userId,
     required this.industryId,
@@ -55,7 +53,6 @@ class Startup {
       registrationNumber: json['registrationNumber'],
       foundingDate: json['foundingDate'],
       companyAddress: json['companyAddress'],
-      companyCity: json['companyCity'],
       companyBio: json['companyBio'],
       userId: json['userId'],
       industryId: json['industryId'],
@@ -79,7 +76,6 @@ class Startup {
     data['registrationNumber'] = registrationNumber;
     data['foundingDate'] = foundingDate;
     data['companyAddress'] = companyAddress;
-    data['companyCity'] = companyCity;
     data['companyBio'] = companyBio;
     data['userId'] = userId;
     data['industryId'] = industryId;

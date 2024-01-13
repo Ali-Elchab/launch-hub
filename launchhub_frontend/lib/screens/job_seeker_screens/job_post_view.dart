@@ -35,7 +35,7 @@ class _JobPostViewState extends State<JobPostView> {
         preferredSize: const Size.fromHeight(180),
         child: ProfileHeader(
           companyName: startup.companyName,
-          city: startup.companyCity,
+          city: startup.companyAddress,
           email: startup.companyEmail,
           phoneNumber: startup.companyPhone,
           socials: startup.socialMediaLinks,

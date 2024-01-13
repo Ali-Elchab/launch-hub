@@ -28,6 +28,7 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
   final emailController = TextEditingController();
   final websiteController = TextEditingController();
   final socialMediaController = TextEditingController();
+  String? address;
   String? country;
   String? state;
   XFile? _image;
@@ -141,12 +142,20 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                     ),
                   ),
                   SmallButton('Next', () {
-                    if (_formKey.currentState!.validate()) {
+                    address = '$state, $country';
+                    print(address);
+                    if (_formKey.currentState!.validate() && address != null) {
                       navigator(
                           context,
                           Founders(
                             selectedImage: widget.selectedImage,
                           ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please fill in all fields'),
+                        ),
+                      );
                     }
                   }),
                   const SizedBox(height: 15),
