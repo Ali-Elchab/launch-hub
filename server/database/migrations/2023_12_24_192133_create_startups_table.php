@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('company_phone');
             $table->string('logo_url')->nullable()->default('default-logo.png');
             $table->string('company_description');
-            $table->string('registration_number');
+            $table->string('registration_number')->nullable();
             $table->date('founding_date');
             $table->string('company_address');
             $table->string('website_url');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->json('ceos')->nullable();
             $table->json('key_executives')->nullable();
             $table->timestamps();
-            $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('specialization_id')->constrained()->onDelete('cascade');
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });

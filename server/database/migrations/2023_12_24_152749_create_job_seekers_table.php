@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('dob');
             $table->string('phone');
             $table->string('address');
-            $table->string('city');
             $table->string('bio');
             $table->string('resume')->nullable();
             $table->boolean('is_available')->default(true);

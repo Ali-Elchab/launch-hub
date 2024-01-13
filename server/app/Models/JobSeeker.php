@@ -17,7 +17,6 @@ class JobSeeker extends Model
         'phone',
         'bio',
         'address',
-        'city',
         'resume',
         'industry_id',
         'specialization_id',

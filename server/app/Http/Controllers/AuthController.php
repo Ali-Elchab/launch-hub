@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\JobSeeker;
 use App\Models\Startup;
 use App\Models\User;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
+
 use function uploadImage;
 use function uploadFile;
 use function uploadLogo;
@@ -47,19 +50,45 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register_jobseeker(Request $request)
+    public function signup(Request $request)
     {
-        if ($request->user_type_id != 2) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'wrong user type',
-            ], 401);
-        }
         try {
             $request->validate([
                 'email' => 'required|string|email|unique:users,email',
                 'password' => 'required|string',
                 'user_type_id' => 'required|integer|exists:user_types,id',
+            ],);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors(),
+            ], 422);
+        }
+
+        try {
+            $user = new User([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type_id' => $request->user_type_id,
+            ]);
+            $user->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user created successfully',
+                'user' => $user,
+            ]);
+        } catch (QueryException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function register_jobseeker(Request $request)
+    {
+        try {
+            $request->validate([
                 'industry_id' => 'required|integer|exists:industries,id',
                 'specialization_id' => 'required|integer|exists:specializations,id',
                 'bio' => 'nullable|string',
@@ -68,7 +97,6 @@ class AuthController extends Controller
                 'phone' => 'required|string',
                 'dob' => 'required|date',
                 'address' => 'required|string',
-                'city' => 'required|string',
                 'experience' => 'nullable|array',
                 'experience.*.position' => 'required|string|max:255',
                 'experience.*.company' => 'required|string|max:255',
@@ -103,24 +131,17 @@ class AuthController extends Controller
                 'social_media_links.*.platform' => 'required|string|max:255',
                 'social_media_links.*.link' => 'required|url',
             ],);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => $e->errors(),
             ], 422);
         }
 
-
         try {
             $profile = uploadImage($request);
             $resume = uploadFile($request);
-            $user = new User([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'user_type_id' => $request->user_type_id,
-            ]);
-            $user->save();
-
+            $user = User::find(auth()->user()->id);
             $jobseeker = new JobSeeker([
                 'user_id' => $user->id,
                 'industry_id' => $request->industry_id,
@@ -132,7 +153,6 @@ class AuthController extends Controller
                 'dob' => $request->dob,
                 'bio' => $request->bio,
                 'address' => $request->address,
-                'city' => $request->city,
                 'resume' => $resume ?? null,
 
             ]);
@@ -156,7 +176,7 @@ class AuthController extends Controller
                 'message' => 'job seeker created successfully',
                 'user' => User::with('jobSeeker')->find($user->id),
             ]);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
@@ -166,17 +186,8 @@ class AuthController extends Controller
 
     public function register_startup(Request $request)
     {
-        if ($request->user_type_id != 1) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'wrong user type',
-            ], 401);
-        }
         try {
             $request->validate([
-                'email' => 'required|string|email|unique:users,email',
-                'password' => 'required|string',
-                'user_type_id' => 'required|integer|exists:user_types,id',
                 'industry_id' => 'required|integer|exists:industries,id',
                 'specialization_id' => 'required|integer|exists:specializations,id',
                 'company_name' => 'required|string',
@@ -186,25 +197,18 @@ class AuthController extends Controller
                 'registration_number' => 'required|string',
                 'founding_date' => 'required|date',
                 'company_address' => 'required|string',
+                'city' => 'required|string',
                 'website_url' => 'nullable|url',
 
             ],);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => $e->errors(),
             ], 422);
         }
-
-
         try {
-            $user = new User([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'user_type_id' => $request->user_type_id,
-            ]);
-            $user->save();
-
+            $user = User::find(auth()->user()->id);
             $logo = uploadLogo($request);
             $startup = new Startup([
                 'user_id' => $user->id,
@@ -230,7 +234,7 @@ class AuthController extends Controller
                 'message' => 'startup created successfully',
                 'user' => User::with('startup')->find($user->id),
             ]);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
