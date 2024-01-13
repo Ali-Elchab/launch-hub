@@ -58,9 +58,8 @@ class HiringGuides extends StatelessWidget {
                   imagePath: 'assets/images/hiring-process.png',
                   onTap: () {
                     downloadFile(
-                        url:
-                            'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
-                        name: 'Hiring Process Template');
+                        'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
+                        'Hiring Process Template');
                   },
                 ),
                 FeatureCard(

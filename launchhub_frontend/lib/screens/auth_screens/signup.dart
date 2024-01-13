@@ -8,15 +8,16 @@ import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignUp extends StatefulWidget {
+class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  ConsumerState<SignUp> createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpState extends ConsumerState<SignUp> {
   UserType _selectedType = UserType.startup;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 

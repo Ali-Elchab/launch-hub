@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:launchhub_frontend/screens/auth_screens/education_info.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  runApp(ProviderScope(child: App()));
 }
 
 class App extends StatelessWidget {
