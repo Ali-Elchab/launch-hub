@@ -1,20 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/auth_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
-import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends ConsumerWidget {
   SignIn({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final emailController = TextEditingController();
@@ -85,9 +86,28 @@ class SignIn extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    SubmitButton('Sign In', () {
+                    SubmitButton('Sign In', () async {
+                      final provider = ref.read(authProvider);
                       if (_formKey.currentState!.validate()) {
-                        navigator(context, const StartupHome());
+                        // ref.read(authProvider.notifier).updateCredentials(
+                        //     emailController.text, passwordController.text, 0);
+
+                        await ref.read(authProvider.notifier).signIn(
+                            emailController.text, passwordController.text);
+
+                        if (provider.isSignInSuccessful) {
+                          provider.selectedType == UserType.startup
+                              ? navigatorKey.currentState
+                                  ?.popAndPushNamed('/StartupHome')
+                              : navigatorKey.currentState
+                                  ?.popAndPushNamed('/JobSeekerHome');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content:
+                                    Text('Error: ${provider.errorMessage}')),
+                          );
+                        }
                       }
                     }),
                     const SizedBox(height: 30),
