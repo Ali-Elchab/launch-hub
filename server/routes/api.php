@@ -14,12 +14,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
+    Route::post('signup', 'signup');
     Route::post('register_jobseeker', 'register_jobseeker');
     Route::post('register_startup', 'register_startup');
     Route::post('logout', 'logout');

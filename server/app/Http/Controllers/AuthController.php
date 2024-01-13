@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register_jobseeker', 'register_startup']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup', 'register_jobseeker', 'register_startup']]);
     }
 
     public function login(Request $request)
@@ -73,10 +73,15 @@ class AuthController extends Controller
             ]);
             $user->save();
 
+            $token = Auth::login($user);
             return response()->json([
                 'status' => 'success',
-                'message' => 'user created successfully',
+                'message' => 'User created successfully',
                 'user' => $user,
+                'authorisation' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ],
             ]);
         } catch (QueryException $e) {
             return response()->json([
@@ -197,7 +202,6 @@ class AuthController extends Controller
                 'registration_number' => 'required|string',
                 'founding_date' => 'required|date',
                 'company_address' => 'required|string',
-                'city' => 'required|string',
                 'website_url' => 'nullable|url',
 
             ],);
