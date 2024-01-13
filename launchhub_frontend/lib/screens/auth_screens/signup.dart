@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/auth_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
 import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/radio_buttons.dart';
@@ -10,22 +12,13 @@ import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignUp extends ConsumerStatefulWidget {
-  const SignUp({super.key});
+class SignUp extends ConsumerWidget {
+  SignUp({super.key});
 
-  @override
-  ConsumerState<SignUp> createState() => _SignUpState();
-}
-
-class _SignUpState extends ConsumerState<SignUp> {
-  UserType _selectedType = UserType.startup;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  void _onRadioSelectionChanged(UserType selectedType) {
-    setState(() {
-      _selectedType = selectedType;
-    });
-  }
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   String? validator(String? value) {
     if (value == null || value.isEmpty) {
@@ -35,11 +28,9 @@ class _SignUpState extends ConsumerState<SignUp> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
+    final provider = ref.watch(authProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Sign Up'),
@@ -109,20 +100,34 @@ class _SignUpState extends ConsumerState<SignUp> {
                       },
                     ),
                     RadioButtons(
-                      onSelectionChanged: _onRadioSelectionChanged,
+                      onSelectionChanged: (UserType selectedType) {
+                        ref
+                            .read(authProvider.notifier)
+                            .setSelectedType(selectedType);
+                      },
                     ),
                     const SizedBox(height: 20),
                     SubmitButton('Sign Up', () {
+                      print(provider.selectedType.index);
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    _selectedType == UserType.startup
-                                        ? const CompanyInfo1()
-                                        : _selectedType == UserType.jobseeker
-                                            ? const PersonalInfo()
-                                            : const SignUp()));
+                        ref.read(authProvider.notifier).updateCredentials(
+                            emailController.text,
+                            passwordController.text,
+                            provider.selectedType.index);
+                        ref.read(authProvider.notifier).signUp();
+                        if (ref.read(authProvider).isSignUpSuccessful) {
+                          navigator(
+                              context,
+                              provider.selectedType.index == 0
+                                  ? const CompanyInfo1()
+                                  : const PersonalInfo());
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content:
+                                    Text('Error: ${provider.errorMessage}')),
+                          );
+                        }
                       }
                     }),
                     const SizedBox(height: 30),
@@ -151,10 +156,9 @@ class _SignUpState extends ConsumerState<SignUp> {
                                     color: const Color(0xFF326789)),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.push(
+                                navigator(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignIn()),
+                                  SignIn(),
                                 );
                               },
                           ),
@@ -170,6 +174,14 @@ class _SignUpState extends ConsumerState<SignUp> {
       ),
     );
   }
+
+  // @override
+  // void dispose() {
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   confirmPasswordController.dispose();
+  //   super.dispose();
+  // }
 }
 
 class HeaderSection extends StatelessWidget {

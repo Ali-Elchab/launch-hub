@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
+class CustomBottomNavigationBar extends ConsumerStatefulWidget {
   const CustomBottomNavigationBar({
     super.key,
   });
 
   @override
-  State<CustomBottomNavigationBar> createState() =>
+  ConsumerState<CustomBottomNavigationBar> createState() =>
       _CustomBottomNavigationBarState();
 }
 
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+class _CustomBottomNavigationBarState
+    extends ConsumerState<CustomBottomNavigationBar> {
   int _currentIndex = 0;
 
   void _onItemTapped(int index) {
@@ -24,17 +27,15 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
     switch (index) {
       case 0:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const StartupHome()));
+        navigator(context, StartupHome());
+
         break;
       case 1:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
+        navigator(context, SignIn());
 
         break;
       case 2:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const SignUp()));
+        navigator(context, SignUp());
 
       // Add more cases as needed
     }

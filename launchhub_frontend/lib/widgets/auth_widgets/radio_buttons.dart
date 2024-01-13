@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum UserType { jobseeker, startup }
+import 'package:launchhub_frontend/providers/auth_provider.dart';
 
 class RadioButtons extends StatefulWidget {
   const RadioButtons({super.key, required this.onSelectionChanged});
