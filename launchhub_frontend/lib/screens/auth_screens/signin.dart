@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
-import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
@@ -116,11 +115,8 @@ class SignIn extends StatelessWidget {
                                     fontSize: 14, color: colorScheme.primary),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUp()),
-                                );
+                                navigatorKey.currentState
+                                    ?.popAndPushNamed('/SignUp');
                               },
                           ),
                         ],

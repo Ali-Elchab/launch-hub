@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/helpers/base_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio();
@@ -13,9 +13,9 @@ final authProvider = ChangeNotifierProvider<AuthProvider>((ref) {
 });
 
 class AuthProvider with ChangeNotifier {
-  String _email = ''; // Make it a variable that can be updated
-  String _password = ''; // Add a field for password
-  int _userType = 0; // Example field for user type
+  String _email = '';
+  String _password = '';
+  int _userType = 0;
   String? _errorMessage;
   bool _isSignUpSuccessful = false;
   UserType _selectedType = UserType.startup;
@@ -30,39 +30,49 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Function to update email and password
-  void updateCredentials(String email, String password, int userType) {
+  void updateCredentials(String email, String password, int? userType) {
     _email = email;
     _password = password;
-    _userType = userType;
-    // Call notifyListeners if necessary
+    _userType = userType!;
   }
 
-  // Future<void> signIn(String email, String password) async {
-  //   // Implement sign-in logic
-  //   // Update authentication state
-  //   notifyListeners();
-  // }
+  Future<void> signIn(String email, String password) async {
+    // Implement sign-in logic
+    // Update authentication state
+    notifyListeners();
+  }
 
   Future<void> signUp() async {
+    print(_email);
+    print(_password);
+    print(_userType);
     try {
       final response = await dio.post(
-        'http://lo',
-        data: jsonEncode({
+        "${baseURL}signup",
+        data: {
           "email": _email,
           "password": _password,
-          "userType": _userType,
-        }),
+          "user_type_id": _userType,
+        },
       );
-      // Handle success
-      _isSignUpSuccessful = true;
-      _errorMessage = null;
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', response.data['token']);
+      if (response.statusCode == 200) {
+        _isSignUpSuccessful = true;
+        _errorMessage = null;
+        if (response.data.containsKey('authorisation')) {
+          final authorizationData = response.data['authorisation'];
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('token', authorizationData['token']);
+        } else {
+          _isSignUpSuccessful = false;
+          _errorMessage = 'Token not found in response';
+        }
+      }
+    } on DioException catch (e) {
+      _isSignUpSuccessful = false;
+      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
     } catch (e) {
-      // Handle error
-      _isSignUpSuccessful = true;
-      _errorMessage = 'Failed to sign up: ${e.toString()}';
+      _isSignUpSuccessful = false;
+      _errorMessage = 'Failed to sign up: $e';
     }
     notifyListeners();
   }

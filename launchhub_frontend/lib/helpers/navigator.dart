@@ -6,3 +6,5 @@ navigator(BuildContext context, Widget page) {
     MaterialPageRoute(builder: (context) => page),
   );
 }
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

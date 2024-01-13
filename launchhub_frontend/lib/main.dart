@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
+import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
+import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
+import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
+import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
+import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,8 +58,16 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
+      routes: {
+        '/SignUp': (context) => SignUp(),
+        '/CompanyInfo1': (context) => const CompanyInfo1(),
+        '/PersonalInfo': (context) => const PersonalInfo(),
+        '/StartupHome': (context) => const StartupHome(),
+        '/JobSeekerHome': (context) => const JobSeekerHome(),
+      },
       theme: theme,
-      home: Scaffold(body: SignIn()),
+      home: const Scaffold(body: StartScreen()),
     );
   }
 }

@@ -1,9 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/auth_provider.dart';
-import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
-import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/radio_buttons.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
@@ -107,20 +107,21 @@ class SignUp extends ConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 20),
-                    SubmitButton('Sign Up', () {
-                      print(provider.isSignUpSuccessful);
+                    SubmitButton('Sign Up', () async {
                       if (_formKey.currentState!.validate()) {
                         ref.read(authProvider.notifier).updateCredentials(
                             emailController.text,
                             passwordController.text,
-                            provider.selectedType.index);
-                        ref.read(authProvider.notifier).signUp();
+                            provider.selectedType.index + 1);
+
+                        await ref.read(authProvider.notifier).signUp();
+
                         if (provider.isSignUpSuccessful) {
-                          navigator(
-                              context,
-                              provider.selectedType.index == 0
-                                  ? const CompanyInfo1()
-                                  : const PersonalInfo());
+                          provider.selectedType == UserType.startup
+                              ? navigatorKey.currentState
+                                  ?.popAndPushNamed('/CompanyInfo1')
+                              : navigatorKey.currentState
+                                  ?.popAndPushNamed('/PersonalInfo');
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
