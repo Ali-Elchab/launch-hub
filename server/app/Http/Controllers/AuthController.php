@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\JobSeeker;
 use App\Models\Startup;
 use App\Models\User;
+use Faker\Provider\bg_BG\PhoneNumber;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
@@ -92,6 +93,20 @@ class AuthController extends Controller
     }
     public function register_jobseeker(Request $request)
     {
+        $user = User::find(auth()->user()->id);
+        if (Startup::where('user_id', $user->id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'user already registered as startup',
+            ], 422);
+        }
+
+        if (JobSeeker::where('user_id', $user->id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'user already registered as jobseeker',
+            ], 422);
+        }
         try {
             $request->validate([
                 'industry_id' => 'required|integer|exists:industries,id',
@@ -146,7 +161,6 @@ class AuthController extends Controller
         try {
             $profile = uploadImage($request);
             $resume = uploadFile($request);
-            $user = User::find(auth()->user()->id);
             $jobseeker = new JobSeeker([
                 'user_id' => $user->id,
                 'industry_id' => $request->industry_id,
@@ -191,6 +205,20 @@ class AuthController extends Controller
 
     public function register_startup(Request $request)
     {
+        $user = User::find(auth()->user()->id);
+        if (Startup::where('user_id', $user->id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'user already registered as startup',
+            ], 422);
+        }
+
+        if (JobSeeker::where('user_id', $user->id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'user already registered as jobseeker',
+            ], 422);
+        }
         try {
             $request->validate([
                 'industry_id' => 'required|integer|exists:industries,id',
