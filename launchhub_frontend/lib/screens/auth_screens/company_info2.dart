@@ -124,7 +124,17 @@ class CompanyInfo2 extends ConsumerWidget {
                   ),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate() &&
-                        provider.address.isNotEmpty) {
+                        provider.address.trim().isNotEmpty) {
+                      ref
+                          .read(startupRegisterProvider.notifier)
+                          .updateContactInfo(
+                              emailController.text,
+                              phoneController.text,
+                              websiteController.text,
+                              linkedinController.text,
+                              facebookController.text,
+                              instagramController.text,
+                              githubController.text);
                       navigator(context, Founders());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

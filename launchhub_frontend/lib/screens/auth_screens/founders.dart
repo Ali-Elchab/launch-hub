@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/startup_register_provider.dart';
-import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
@@ -14,9 +12,12 @@ import 'package:launchhub_frontend/widgets/small_button.dart';
 class Founders extends ConsumerWidget {
   Founders({super.key});
 
-  final foundersController = TextEditingController();
+  final founderController = TextEditingController();
   final ceoController = TextEditingController();
-  final keyExecutiveController = TextEditingController();
+  final keyexecutiveController = TextEditingController();
+
+  // List<String> founders = [];
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? validator(String? value) {
@@ -76,32 +77,222 @@ class Founders extends ConsumerWidget {
                         imageFile: provider.selectedImage,
                         text: 'Upload Logo'),
                   const SizedBox(height: 32),
-
-                  // Scrollable part for dynamic input fields
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: InputField(
+                          label: 'Add Founder',
+                          controller: founderController,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        ref
+                            .read(startupRegisterProvider.notifier)
+                            .addNewFounder(
+                              founderController.text,
+                            );
+                        founderController.clear();
+                      },
+                      icon: const Icon(Icons.add),
+                    )
+                  ]),
                   Expanded(
-                      child: Column(
-                    children: [
-                      InputField(
-                        label: 'Founder Name',
-                        validator: validator,
-                        controller: foundersController,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: provider.founders.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          background: Container(
+                            color: const Color.fromARGB(255, 167, 11, 0),
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(right: 20),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 4,
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                          ),
+                          key: ValueKey(provider.founders[index]),
+                          onDismissed: (direction) {
+                            ref
+                                .read(startupRegisterProvider.notifier)
+                                .removeFounder(provider.founders[index]);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              provider.founders[index],
+                              style: textTheme.bodyLarge,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: InputField(
+                          label: 'Add CEO',
+                          controller: ceoController,
+                        ),
                       ),
-                      InputField(
-                        label: 'CEO\'s Name',
-                        validator: validator,
-                        controller: ceoController,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        ref.read(startupRegisterProvider.notifier).addNewCEO(
+                              ceoController.text,
+                            );
+                        ceoController.clear();
+                      },
+                      icon: const Icon(Icons.add),
+                    )
+                  ]),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: provider.ceos.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          background: Container(
+                            color: const Color.fromARGB(255, 167, 11, 0),
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(right: 20),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 4,
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                          ),
+                          key: ValueKey(provider.ceos[index]),
+                          onDismissed: (direction) {
+                            ref
+                                .read(startupRegisterProvider.notifier)
+                                .removeCEO(provider.ceos[index]);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              provider.ceos[index],
+                              style: textTheme.bodyLarge,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: InputField(
+                          label: 'Add Key Executive',
+                          controller: keyexecutiveController,
+                        ),
                       ),
-                      InputField(
-                        label: 'Key Executive`s Name',
-                        validator: validator,
-                        controller: keyExecutiveController,
-                      ),
-                    ],
-                  )),
-
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        ref
+                            .read(startupRegisterProvider.notifier)
+                            .addNewKeyExecutive(
+                              keyexecutiveController.text,
+                            );
+                        keyexecutiveController.clear();
+                      },
+                      icon: const Icon(Icons.add),
+                    )
+                  ]),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: provider.keyExecutives.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          background: Container(
+                            color: const Color.fromARGB(255, 167, 11, 0),
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(right: 20),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 4,
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                          ),
+                          key: ValueKey(provider.ceos[index]),
+                          onDismissed: (direction) {
+                            ref
+                                .read(startupRegisterProvider.notifier)
+                                .removeKeyExecutive(provider.ceos[index]);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              provider.keyExecutives[index],
+                              style: textTheme.bodyLarge,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   SmallButton('Submit', () {
-                    if (_formKey.currentState!.validate()) {
-                      navigator(context, const StartupHome());
+                    if (provider.founders.isNotEmpty) {
+                      navigatorKey.currentState
+                          ?.popAndPushNamed('/StartupHome');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Please add at least one founder')),
+                      );
                     }
                   }, showArrow: false),
                   const SizedBox(height: 15),

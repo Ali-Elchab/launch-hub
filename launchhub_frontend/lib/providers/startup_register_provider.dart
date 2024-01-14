@@ -31,6 +31,9 @@ class StartupRegisterProvider with ChangeNotifier {
   String _companyEmail = '';
   String _companyWebsite = '';
   List socialMediaLinks = [];
+  List<String> founders = [];
+  List<String> ceos = [];
+  List<String> keyExecutives = [];
 
   String? _errorMessage;
 
@@ -112,7 +115,37 @@ class StartupRegisterProvider with ChangeNotifier {
     state = value;
   }
 
-  String get address => country! + state!;
+  addNewFounder(founder) {
+    founders.add(founder);
+    notifyListeners();
+  }
+
+  addNewCEO(ceo) {
+    ceos.add(ceo);
+    notifyListeners();
+  }
+
+  addNewKeyExecutive(keyExecutive) {
+    keyExecutives.add(keyExecutive);
+    notifyListeners();
+  }
+
+  void removeFounder(founder) {
+    founders.remove(founder);
+    notifyListeners();
+  }
+
+  void removeCEO(ceo) {
+    ceos.remove(ceo);
+    notifyListeners();
+  }
+
+  void removeKeyExecutive(keyExecutive) {
+    keyExecutives.remove(keyExecutive);
+    notifyListeners();
+  }
+
+  String get address => '$country $state';
   String get companyName => _companyName;
   String get companyEmail => _companyEmail;
   String get companyPhoneNumber => _companyPhoneNumber;
@@ -168,5 +201,9 @@ class StartupRegisterProvider with ChangeNotifier {
         }
       }
     }
+  }
+
+  void updateFounders() {
+    notifyListeners();
   }
 }
