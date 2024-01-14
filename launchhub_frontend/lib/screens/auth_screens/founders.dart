@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -10,33 +11,13 @@ import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 
-class Founders extends StatefulWidget {
-  final XFile? selectedImage;
+class Founders extends ConsumerWidget {
+  Founders({super.key});
 
-  const Founders({super.key, required this.selectedImage});
-
-  @override
-  State<Founders> createState() => _FoundersState();
-}
-
-class _FoundersState extends State<Founders> {
   final foundersController = TextEditingController();
   final ceoController = TextEditingController();
   final keyExecutiveController = TextEditingController();
-  XFile? _image;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (selectedImage != null) {
-      setState(() {
-        _image = selectedImage;
-      });
-    }
-  }
 
   String? validator(String? value) {
     if (value == null || value.isEmpty) {
@@ -46,9 +27,9 @@ class _FoundersState extends State<Founders> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-
+    final provider = ref.watch(startupRegisterProvider);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -76,23 +57,24 @@ class _FoundersState extends State<Founders> {
                     ),
                   ),
                   const SizedBox(height: 35),
-                  if (widget.selectedImage != null)
+                  if (provider.selectedImage != null)
                     ClipOval(
                       child: Image.file(
-                        File(widget.selectedImage!.path),
+                        File(provider.selectedImage!.path),
                         width: 120,
                         height: 120,
                         fit: BoxFit.cover,
                       ),
                     ),
-                  if (widget.selectedImage == null)
+                  if (provider.selectedImage == null)
                     ProfileImagePicker(
-                      onImagePicked: () async {
-                        await _pickImage();
-                      },
-                      imageFile: _image,
-                      text: 'Upload Logo',
-                    ),
+                        onImagePicked: () async {
+                          await ref
+                              .read(startupRegisterProvider.notifier)
+                              .pickImage();
+                        },
+                        imageFile: provider.selectedImage,
+                        text: 'Upload Logo'),
                   const SizedBox(height: 32),
 
                   // Scrollable part for dynamic input fields

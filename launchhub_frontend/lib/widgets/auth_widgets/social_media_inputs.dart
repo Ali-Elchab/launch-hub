@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SocialMediaLinksDropdown extends StatefulWidget {
-  const SocialMediaLinksDropdown({super.key});
+  const SocialMediaLinksDropdown(
+      {super.key,
+      required this.linkedinController,
+      required this.facebookController,
+      required this.instagramController,
+      required this.githubController});
+
+  final TextEditingController linkedinController;
+  final TextEditingController facebookController;
+  final TextEditingController instagramController;
+  final TextEditingController githubController;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -11,17 +21,12 @@ class SocialMediaLinksDropdown extends StatefulWidget {
 }
 
 class _SocialMediaLinksDropdownState extends State<SocialMediaLinksDropdown> {
-  final TextEditingController _linkedinController = TextEditingController();
-  final TextEditingController _facebookController = TextEditingController();
-  final TextEditingController _instagramController = TextEditingController();
-  final TextEditingController _githubController = TextEditingController();
-
   @override
   void dispose() {
-    _linkedinController.dispose();
-    _facebookController.dispose();
-    _instagramController.dispose();
-    _githubController.dispose();
+    widget.linkedinController.dispose();
+    widget.facebookController.dispose();
+    widget.instagramController.dispose();
+    widget.githubController.dispose();
     super.dispose();
   }
 
@@ -39,25 +44,25 @@ class _SocialMediaLinksDropdownState extends State<SocialMediaLinksDropdown> {
       leading: const Icon(Icons.link),
       children: <Widget>[
         _buildSocialMediaTextField(
-          controller: _linkedinController,
+          controller: widget.linkedinController,
           context: context,
           hintText: 'LinkedIn',
           icon: FontAwesomeIcons.linkedinIn,
         ),
         _buildSocialMediaTextField(
-          controller: _facebookController,
+          controller: widget.facebookController,
           context: context,
           hintText: 'Facebook',
           icon: FontAwesomeIcons.facebook,
         ),
         _buildSocialMediaTextField(
-          controller: _instagramController,
+          controller: widget.instagramController,
           context: context,
           hintText: 'Instagram',
           icon: FontAwesomeIcons.instagram,
         ),
         _buildSocialMediaTextField(
-          controller: _githubController,
+          controller: widget.githubController,
           context: context,
           hintText: 'GitHub',
           icon: FontAwesomeIcons.github,

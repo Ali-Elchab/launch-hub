@@ -26,6 +26,10 @@ class _ContactInfoState extends State<ContactInfo> {
   final cityController = TextEditingController();
   final phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final linkedinController = TextEditingController();
+  final facebookController = TextEditingController();
+  final instagramController = TextEditingController();
+  final githubController = TextEditingController();
   String? address;
   String? country;
   String? state;
@@ -64,7 +68,6 @@ class _ContactInfoState extends State<ContactInfo> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -123,7 +126,12 @@ class _ContactInfoState extends State<ContactInfo> {
                           ),
                           InputField(
                               label: 'Phone Number', validator: validator),
-                          const SocialMediaLinksDropdown(),
+                          SocialMediaLinksDropdown(
+                            linkedinController: linkedinController,
+                            facebookController: facebookController,
+                            instagramController: instagramController,
+                            githubController: githubController,
+                          ),
                         ],
                       ),
                     ),

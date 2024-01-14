@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:launchhub_frontend/models/social_media_link.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -26,7 +25,7 @@ class ProfileHeader extends StatelessWidget {
   final String? email;
   final String? phoneNumber;
   final String? profilePicture;
-  final List<SocialMediaLink>? socials;
+  final List? socials;
 
   @override
   Widget build(BuildContext context) {

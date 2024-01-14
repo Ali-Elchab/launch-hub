@@ -25,6 +25,12 @@ class StartupRegisterProvider with ChangeNotifier {
   List<Niche> niches = [];
   XFile? _image;
   DateTime? selectedDate;
+  String? country;
+  String? state;
+  String _companyPhoneNumber = '';
+  String _companyEmail = '';
+  String _companyWebsite = '';
+  List socialMediaLinks = [];
 
   String? _errorMessage;
 
@@ -98,7 +104,19 @@ class StartupRegisterProvider with ChangeNotifier {
     }
   }
 
+  setCountry(String? value) {
+    country = value;
+  }
+
+  setStateForState(String? value) {
+    state = value;
+  }
+
+  String get address => country! + state!;
   String get companyName => _companyName;
+  String get companyEmail => _companyEmail;
+  String get companyPhoneNumber => _companyPhoneNumber;
+  String get companyWebsite => _companyWebsite;
   XFile? get selectedImage => _image;
   String get foundingDate => selectedDate.toString();
   String get registrationNumber => _registrationNumber;
@@ -113,5 +131,42 @@ class StartupRegisterProvider with ChangeNotifier {
     _companyName = companyName;
     _registrationNumber = registrationNumber;
     _companyDescription = companyDescription;
+  }
+
+  void updateContactInfo(
+      String email,
+      String phoneNumber,
+      String websiteUrl,
+      String linkedInUrl,
+      String facebookUrl,
+      String instagramUrl,
+      String gitHubUrl) {
+    _companyEmail = email;
+    _companyWebsite = websiteUrl;
+    _companyPhoneNumber = phoneNumber;
+    if (linkedInUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'name': 'LinkedIn',
+        'url': linkedInUrl,
+      });
+      if (facebookUrl.isNotEmpty) {
+        socialMediaLinks.add({
+          'name': 'Facebook',
+          'url': facebookUrl,
+        });
+        if (instagramUrl.isNotEmpty) {
+          socialMediaLinks.add({
+            'name': 'Instagram',
+            'url': instagramUrl,
+          });
+        }
+        if (gitHubUrl.isNotEmpty) {
+          socialMediaLinks.add({
+            'name': 'Github',
+            'url': gitHubUrl,
+          });
+        }
+      }
+    }
   }
 }

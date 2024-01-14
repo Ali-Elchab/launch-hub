@@ -140,7 +140,7 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                         startupregisterprovider.selectedIndustry != null) {
                       navigator(
                         context,
-                        const CompanyInfo2(),
+                        CompanyInfo2(),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

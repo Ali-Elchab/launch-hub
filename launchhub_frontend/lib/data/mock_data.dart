@@ -241,18 +241,14 @@ List<JobSeeker> dummyJobSeekers = [
     userId: 1,
     specializationId: Niche(id: 1, name: 'Organic Farming', industryId: 1),
     socialMediaLinks: [
-      SocialMediaLink(
-        platform: 'LinkedIn',
-        link: 'https://www.linkedin.com/in/johndoe/',
-        userId: 1,
-        id: '1',
-      ),
-      SocialMediaLink(
-        platform: 'facebook',
-        link: 'https://www.facebook.com/aliElchab',
-        userId: 1,
-        id: '1',
-      ),
+      {
+        "platform": 'LinkedIn',
+        "link": 'https://www.linkedin.com/in/johndoe/',
+      },
+      {
+        'platform': 'facebook',
+        'link': 'https://www.facebook.com/aliElchab',
+      }
       // ... add more if needed ...
     ],
     educations: [
@@ -372,13 +368,11 @@ List<Startup> dummyStartups = [
         platform: 'LinkedIn',
         link: 'https://www.linkedin.com/in/johndoe/',
         userId: 1,
-        id: '1',
       ),
       SocialMediaLink(
         platform: 'facebook',
         link: 'https://www.facebook.com/aliElchab',
         userId: 1,
-        id: '1',
       ),
       // ... add more if needed ...
     ],
@@ -403,18 +397,6 @@ List<Startup> dummyStartups = [
     industryId: 2,
     specializationId: 22,
     socialMediaLinks: [
-      SocialMediaLink(
-        platform: 'LinkedIn',
-        link: 'https://www.linkedin.com/in/johndoe/',
-        userId: 1,
-        id: '1',
-      ),
-      SocialMediaLink(
-        platform: 'facebook',
-        link: 'https://www.facebook.com/aliElchab',
-        userId: 1,
-        id: '1',
-      ),
       // ... add more if needed ...
     ],
     founders: ['Morgan Taylor', 'Casey Lee'],

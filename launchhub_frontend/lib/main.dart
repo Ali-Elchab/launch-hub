@@ -68,7 +68,8 @@ class App extends StatelessWidget {
         '/JobSeekerHome': (context) => const JobSeekerHome(),
       },
       theme: theme,
-      home: const Scaffold(body: CompanyInfo1()),
+      home:
+          const Scaffold(resizeToAvoidBottomInset: false, body: CompanyInfo1()),
     );
   }
 }

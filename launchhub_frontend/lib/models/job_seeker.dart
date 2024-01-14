@@ -23,7 +23,7 @@ class JobSeeker {
   final Industry industryId;
   final int userId;
   final Niche specializationId;
-  final List<SocialMediaLink> socialMediaLinks;
+  final List socialMediaLinks;
   final List<Education> educations;
   final List<Experience> experiences;
   final List<Certification> certifications;

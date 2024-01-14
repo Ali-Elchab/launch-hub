@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/industry.dart';
-import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -24,7 +23,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   Industry? _selectedIndustry;
-  Niche? _selectedNiche;
   XFile? _image;
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -41,7 +39,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
     bioController.dispose();
     selectedDate = null;
     _selectedIndustry = null;
-    _selectedNiche = null;
     super.dispose();
   }
 
