@@ -74,7 +74,7 @@ class JobSeeker {
           : Industry(id: 0, name: 'None'),
       specializationId: (json['specialization_id'] != null)
           ? Niche.fromJson(json['specialization_id'])
-          : Niche(id: 0, name: 'None'),
+          : Niche(id: 0, name: 'None', industryId: 0),
       socialMediaLinks: (json['socialMediaLinks'] as List)
           .map((i) => SocialMediaLink.fromJson(i))
           .toList(),

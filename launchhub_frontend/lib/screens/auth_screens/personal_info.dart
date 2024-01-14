@@ -160,17 +160,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               });
                             },
                           ),
-                          GenericDropdown<Niche>(
-                            label: 'Select Niche',
-                            options: niches,
-                            selectedOption: _selectedNiche,
-                            optionLabel: (niche) => niche!.name,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _selectedNiche = newValue;
-                              });
-                            },
-                          ),
+                          // GenericDropdown<Niche>(
+                          //   label: 'Select Niche',
+                          //   options: niches,
+                          //   selectedOption: _selectedNiche,
+                          //   optionLabel: (niche) => niche!.name,
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       _selectedNiche = newValue;
+                          //     });
+                          //   },
+                          // ),
                         ],
                       ),
                     ),

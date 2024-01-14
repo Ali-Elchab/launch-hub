@@ -317,17 +317,17 @@ class _PostJobState extends State<PostJob> {
                           });
                         },
                       ),
-                      GenericDropdown<Niche>(
-                        label: 'Select Specialization',
-                        options: niches,
-                        selectedOption: _selectedNiche,
-                        optionLabel: (niche) => niche!.name,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedNiche = newValue;
-                          });
-                        },
-                      ),
+                      // GenericDropdown<Niche>(
+                      //   label: 'Select Specialization',
+                      //   options: niches,
+                      //   selectedOption: _selectedNiche,
+                      //   optionLabel: (niche) => niche!.name,
+                      //   onChanged: (newValue) {
+                      //     setState(() {
+                      //       _selectedNiche = newValue;
+                      //     });
+                      //   },
+                      // ),
                       InputField(
                         label: 'Deadline',
                         readOnly: true,

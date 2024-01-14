@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info2.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -9,61 +11,32 @@ import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
-import 'package:intl/intl.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
-import 'package:image_picker/image_picker.dart';
 
-class CompanyInfo1 extends StatefulWidget {
+class CompanyInfo1 extends ConsumerStatefulWidget {
   const CompanyInfo1({super.key});
 
   @override
-  State<CompanyInfo1> createState() => _CompanyInfo1State();
+  ConsumerState<CompanyInfo1> createState() => _CompanyInfo1State();
 }
 
-class _CompanyInfo1State extends State<CompanyInfo1> {
+class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  DateTime? selectedDate;
-  Industry? _selectedIndustry;
-  Niche? _selectedNiche;
-  XFile? _image;
-  final TextEditingController _controller = TextEditingController();
 
   @override
-  void dispose() {
-    _controller.dispose();
-    selectedDate = null;
-    _selectedIndustry = null;
-    _selectedNiche = null;
-    super.dispose();
+  void initState() {
+    super.initState();
+    ref.read(startupRegisterProvider.notifier).getIndustries();
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        _controller.text =
-            DateFormat('yyyy-MM-dd').format(picked); // Format date as required
-      });
-    }
+  Future getNiches() async {
+    await ref.read(startupRegisterProvider.notifier).getNiches();
   }
 
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (selectedImage != null) {
-      setState(() {
-        _image = selectedImage;
-      });
-    }
-  }
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   String? validator(value) {
     if (value == null || value.isEmpty) {
@@ -74,6 +47,7 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
 
   @override
   Widget build(BuildContext context) {
+    final startupregisterprovider = ref.watch(startupRegisterProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -106,9 +80,11 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                   const SizedBox(height: 35),
                   ProfileImagePicker(
                       onImagePicked: () async {
-                        await _pickImage();
+                        await ref
+                            .read(startupRegisterProvider.notifier)
+                            .pickImage();
                       },
-                      imageFile: _image,
+                      imageFile: startupregisterprovider.selectedImage,
                       text: 'Upload Logo'),
                   const SizedBox(height: 22),
                   Expanded(
@@ -121,46 +97,58 @@ class _CompanyInfo1State extends State<CompanyInfo1> {
                             label: 'Founding Date',
                             readOnly: true,
                             icon: const Icon(Icons.calendar_today),
-                            controller: _controller,
-                            onTap: () => _selectDate(context),
+                            controller: startupregisterprovider.date,
+                            onTap: () => ref
+                                .read(startupRegisterProvider.notifier)
+                                .selectDate(context),
                             validator: validator),
                         const InputField(label: 'Registration Number'),
                         const InputField(
                             label: 'Company Description', isDescription: true),
                         GenericDropdown<Industry>(
-                          label: 'Select Industry',
-                          options: industries,
-                          selectedOption: _selectedIndustry,
+                          label: 'Industry',
+                          options: startupregisterprovider.industries,
+                          selectedOption:
+                              startupregisterprovider.selectedIndustry,
                           optionLabel: (industry) => industry!.name,
                           validator: validator,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedIndustry = newValue;
-                            });
+                          onChanged: (newValue) async {
+                            ref
+                                .read(startupRegisterProvider.notifier)
+                                .setSelectedIndustry(newValue!);
+                            await getNiches();
                           },
                         ),
                         GenericDropdown<Niche>(
-                          label: 'Select Niche',
-                          options: niches,
+                          label: 'Niche',
+                          options: startupregisterprovider.niches,
                           validator: validator,
-                          selectedOption: _selectedNiche,
+                          selectedOption: startupregisterprovider.selectedNiche,
                           optionLabel: (niche) => niche!.name,
                           onChanged: (newValue) {
-                            setState(() {
-                              _selectedNiche = newValue;
-                            });
+                            ref
+                                .read(startupRegisterProvider.notifier)
+                                .setSelectedNiche(newValue!);
                           },
                         ),
                       ],
                     )),
                   ),
                   SmallButton('Next', () {
-                    if (_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate() &&
+                        startupregisterprovider.selectedNiche != null &&
+                        startupregisterprovider.selectedIndustry != null) {
                       navigator(
                         context,
-                        CompanyInfo2(
-                          selectedImage: _image,
-                        ),
+                        const CompanyInfo2(),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            backgroundColor: Color.fromARGB(255, 156, 10, 0),
+                            content: Text(
+                              'Please fill Company Name, Founding Date, Industry and Niche fields',
+                            )),
                       );
                     }
                   }),

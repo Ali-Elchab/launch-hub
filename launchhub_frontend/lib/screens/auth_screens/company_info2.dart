@@ -13,9 +13,7 @@ import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CompanyInfo2 extends StatefulWidget {
-  final XFile? selectedImage;
-
-  const CompanyInfo2({super.key, required this.selectedImage});
+  const CompanyInfo2({super.key});
 
   @override
   State<CompanyInfo2> createState() => _CompanyInfo2State();
@@ -95,22 +93,22 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                     ),
                   ),
                   const SizedBox(height: 35),
-                  if (widget.selectedImage != null)
-                    ClipOval(
-                      child: Image.file(
-                        File(widget.selectedImage!.path),
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  if (widget.selectedImage == null)
-                    ProfileImagePicker(
-                        onImagePicked: () async {
-                          await _pickImage();
-                        },
-                        imageFile: _image,
-                        text: 'Upload Logo'),
+                  // if (widget.selectedImage != null)
+                  //   ClipOval(
+                  //     child: Image.file(
+                  //       File(widget.selectedImage!.path),
+                  //       width: 120,
+                  //       height: 120,
+                  //       fit: BoxFit.cover,
+                  //     ),
+                  //   ),
+                  // if (widget.selectedImage == null)
+                  //   ProfileImagePicker(
+                  //       onImagePicked: () async {
+                  //         await _pickImage();
+                  //       },
+                  //       imageFile: _image,
+                  //       text: 'Upload Logo'),
                   const SizedBox(height: 32),
                   Expanded(
                     child: SingleChildScrollView(
@@ -145,11 +143,11 @@ class _CompanyInfo2State extends State<CompanyInfo2> {
                     address = '$state, $country';
                     print(address);
                     if (_formKey.currentState!.validate() && address != null) {
-                      navigator(
-                          context,
-                          Founders(
-                            selectedImage: widget.selectedImage,
-                          ));
+                      // navigator(
+                      //     context,
+                      //     Founders(
+                      //       selectedImage: widget.selectedImage,
+                      //     ));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
