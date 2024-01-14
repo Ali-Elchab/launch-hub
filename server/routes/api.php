@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\SkillsController;
@@ -23,9 +24,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::controller(SkillsController::class)->group(function () {
+Route::controller(DataController::class)->group(function () {
     Route::get('specialization_skills', 'getSkillsBySpecialization');
     Route::get('general_skills', 'getGeneralSkills');
+    Route::get('hobbies', 'getHobbies');
+    Route::get('industries', 'getIndustries');
+    Route::get('specializations/{industry_id}', 'getSpecializations');
 });
 
 Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(function () {
@@ -74,6 +78,7 @@ Route::controller(ApplicationController::class)->group(function () {
         Route::post('application_response', 'applicationResponse');
     });
 });
+
 
 Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::controller(AdminController::class)->group(function () {
