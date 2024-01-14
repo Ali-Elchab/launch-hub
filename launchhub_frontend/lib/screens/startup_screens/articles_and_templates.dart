@@ -47,7 +47,11 @@ class ArticlesAndTemplates extends StatelessWidget {
                     description: template['description'],
                     imagePath: template['imagePath'],
                     onTap: () {
-                      openLink(context, template['url']);
+                      downloadFile(
+                        context: context,
+                        url: template['url'],
+                        name: template['title'],
+                      );
                     },
                   );
                 }),

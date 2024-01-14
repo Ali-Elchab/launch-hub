@@ -58,8 +58,10 @@ class HiringGuides extends StatelessWidget {
                   imagePath: 'assets/images/hiring-process.png',
                   onTap: () {
                     downloadFile(
-                        'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
-                        'Hiring Process Template');
+                        context: context,
+                        url:
+                            'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
+                        name: 'Hiring Process Template');
                   },
                 ),
                 FeatureCard(
@@ -68,8 +70,11 @@ class HiringGuides extends StatelessWidget {
                       'This template streamlines the reference-checking process, enabling a comprehensive evaluation of a candidate\'s professional background.',
                   imagePath: 'assets/images/reference-check.png',
                   onTap: () {
-                    openLink(context,
-                        'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjorpeDudKDAxWhywIHHUp7BL4QFnoECBMQAQ&url=https%3A%2F%2Fwww.fairwork.gov.au%2Fsites%2Fdefault%2Ffiles%2Fmigration%2F766%2FReference-checking-form.docx&usg=AOvVaw1TA-0PyC8aY6Xu3AozapNu&opi=89978449');
+                    downloadFile(
+                        context: context,
+                        url:
+                            'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjorpeDudKDAxWhywIHHUp7BL4QFnoECBMQAQ&url=https%3A%2F%2Fwww.fairwork.gov.au%2Fsites%2Fdefault%2Ffiles%2Fmigration%2F766%2FReference-checking-form.docx&usg=AOvVaw1TA-0PyC8aY6Xu3AozapNu&opi=89978449',
+                        name: 'Reference Checker Template');
                   },
                 ),
                 const SizedBox(height: 25),

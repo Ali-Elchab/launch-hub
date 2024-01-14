@@ -22,8 +22,12 @@ class InterviewQuestions extends StatelessWidget {
                     ),
               ),
               IconButton(
-                onPressed: () async {
-                  await openLink(context, 'URL_GOES_HERE');
+                onPressed: () {
+                  downloadFile(
+                      context: context,
+                      url:
+                          'https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
+                      name: 'Interview Questions Template');
                 },
                 icon: const Icon(Icons.download_rounded),
                 color: const Color.fromARGB(255, 255, 255, 255),

@@ -58,9 +58,10 @@ class Trending extends StatelessWidget {
                               url: article['urlToImage'],
                               external: true,
                               onTap: () {
-                                openLink(
-                                  context,
-                                  'www.udemy.com${article['url']}',
+                                downloadFile(
+                                  context: context,
+                                  url: article['url'],
+                                  name: article['title'],
                                 );
                               });
                         },
