@@ -177,14 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-  country_state_picker:
-    dependency: "direct main"
-    description:
-      name: country_state_picker
-      sha256: "3ae444923f89f5399ba142d79529e8d7217311d6f8fe4cacabfda9922339a86a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.5"
   cross_file:
     dependency: transitive
     description:
@@ -552,6 +544,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  jwt_decoder:
+    dependency: "direct main"
+    description:
+      name: jwt_decoder
+      sha256: "54774aebf83f2923b99e6416b4ea915d47af3bde56884eb622de85feabbc559f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   lints:
     dependency: transitive
     description:

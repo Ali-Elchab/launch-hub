@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/base_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 final dio = Dio();
 
@@ -39,8 +40,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signIn(String email, String password) async {
-    print(email);
-    print(password);
     try {
       final response = await dio.post(
         "${baseURL}login",
@@ -58,15 +57,14 @@ class AuthProvider with ChangeNotifier {
             : response.data['user']['user_type_id'] == 2
                 ? UserType.jobseeker
                 : UserType.startup;
-        // if (response.data.containsKey('authorisation')) {
-        //   final authorizationData = response.data['authorisation'];
-        //   SharedPreferences prefs = await SharedPreferences.getInstance();
-        //   prefs.setString('token', authorizationData['token']);
-        //   print(prefs.getString('token'));
-        // } else {
-        //   _isSignInSuccessful = false;
-        //   _errorMessage = 'Token not found in response';
-        // }
+        if (response.data.containsKey('authorisation')) {
+          final authorizationData = response.data['authorisation'];
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('token', authorizationData['token']);
+        } else {
+          _isSignInSuccessful = false;
+          _errorMessage = 'Token not found in response';
+        }
       }
     } on DioException catch (e) {
       _isSignInSuccessful = false;
@@ -79,9 +77,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signUp() async {
-    print(_email);
-    print(_password);
-    print(_userType);
     try {
       final response = await dio.post(
         "${baseURL}signup",
@@ -111,5 +106,36 @@ class AuthProvider with ChangeNotifier {
       _errorMessage = 'Failed to sign up: $e';
     }
     notifyListeners();
+  }
+
+  Future<void> refreshTokenIfNeeded() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    if (token != null) {
+      final Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+      if (decodedToken.containsKey('exp')) {
+        final int expirationTimestamp = decodedToken['exp'];
+        final int currentTimestamp =
+            DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
+        if (currentTimestamp > expirationTimestamp) {
+          final refresh = await dio.post(
+            "${baseURL}refresh",
+          );
+          if (refresh.statusCode == 200) {
+            if (refresh.data.containsKey('authorisation')) {
+              final authorizationData = refresh.data['authorisation'];
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.setString('token', authorizationData['token']);
+            } else {
+              _isSignUpSuccessful = false;
+              _errorMessage = 'Token not found in response';
+            }
+          }
+        }
+      }
+    }
   }
 }
