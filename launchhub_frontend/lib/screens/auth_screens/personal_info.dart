@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/industry.dart';
+import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -8,66 +11,39 @@ import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
-import 'package:intl/intl.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
-import 'package:image_picker/image_picker.dart';
 
-class PersonalInfo extends StatefulWidget {
+class PersonalInfo extends ConsumerStatefulWidget {
   const PersonalInfo({super.key});
 
   @override
-  State<PersonalInfo> createState() => _PersonalInfoState();
+  ConsumerState<PersonalInfo> createState() => _PersonalInfoState();
 }
 
-class _PersonalInfoState extends State<PersonalInfo> {
+class _PersonalInfoState extends ConsumerState<PersonalInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  DateTime? selectedDate;
-  Industry? _selectedIndustry;
-  XFile? _image;
+
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
   final bioController = TextEditingController();
-  final TextEditingController _dobController = TextEditingController();
+
+  @override
+  void initState() {
+    ref.read(jobSeekerRegisterProvider.notifier).getIndustries();
+    super.initState();
+  }
+
+  Future getNiches() async {
+    await ref.read(jobSeekerRegisterProvider.notifier).getNiches();
+  }
 
   @override
   void dispose() {
-    _dobController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
     phoneController.dispose();
     bioController.dispose();
-    selectedDate = null;
-    _selectedIndustry = null;
     super.dispose();
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        _dobController.text =
-            DateFormat('yyyy-MM-dd').format(picked); // Format date as required
-      });
-    }
-  }
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (selectedImage != null) {
-      setState(() {
-        _image = selectedImage;
-      });
-    }
   }
 
   String? validator(String? value) {
@@ -80,7 +56,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    final provider = ref.watch(jobSeekerRegisterProvider);
+    final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -111,9 +88,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   const SizedBox(height: 35),
                   ProfileImagePicker(
                       onImagePicked: () async {
-                        await _pickImage();
+                        await providerNotifier.pickImage();
                       },
-                      imageFile: _image,
+                      imageFile: provider.selectedImage,
                       text: 'Upload Profile Picture'),
                   const SizedBox(height: 32),
                   Expanded(
@@ -133,8 +110,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             label: 'Date of Birth',
                             readOnly: true,
                             icon: const Icon(Icons.calendar_today),
-                            controller: _dobController,
-                            onTap: () => _selectDate(context),
+                            controller: provider.date,
+                            onTap: () => providerNotifier.selectDate(context),
                             validator: validator,
                           ),
                           InputField(
@@ -148,38 +125,40 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               validator: validator),
                           GenericDropdown<Industry>(
                             label: 'Select Industry',
-                            options: industries,
-                            selectedOption: _selectedIndustry,
+                            options: provider.industries,
+                            selectedOption: provider.selectedIndustry,
                             optionLabel: (industry) => industry!.name,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _selectedIndustry = newValue;
-                              });
+                            onChanged: (newValue) async {
+                              providerNotifier.setSelectedIndustry(newValue!);
+                              await getNiches();
                             },
                           ),
-                          // GenericDropdown<Niche>(
-                          //   label: 'Select Niche',
-                          //   options: niches,
-                          //   selectedOption: _selectedNiche,
-                          //   optionLabel: (niche) => niche!.name,
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       _selectedNiche = newValue;
-                          //     });
-                          //   },
-                          // ),
+                          GenericDropdown<Niche>(
+                            label: 'Select Specialization',
+                            options: provider.niches,
+                            selectedOption: provider.selectedNiche,
+                            optionLabel: (niche) => niche!.name,
+                            onChanged: (newValue) {
+                              providerNotifier.setSelectedNiche(newValue!);
+                            },
+                          ),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 24),
                   SmallButton('Next', () {
-                    if (_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate() &&
+                        provider.selectedNiche != null &&
+                        provider.selectedIndustry != null) {
+                      providerNotifier.updatePersonalInfo(
+                          firstNameController.text,
+                          lastNameController.text,
+                          phoneController.text,
+                          bioController.text);
                       navigator(
                         context,
-                        ContactInfo(
-                          selectedImage: _image,
-                        ),
+                        const ContactInfo(),
                       );
                     }
                   }),

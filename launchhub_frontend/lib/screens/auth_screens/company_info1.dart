@@ -21,6 +21,9 @@ class CompanyInfo1 extends ConsumerStatefulWidget {
 
 class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final companyDescriptionController = TextEditingController();
+  final registrationNumberController = TextEditingController();
+  final companyNameController = TextEditingController();
 
   @override
   void initState() {
@@ -92,7 +95,11 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                         child: Column(
                       children: [
                         const SizedBox(height: 16),
-                        InputField(label: 'Company Name', validator: validator),
+                        InputField(
+                          label: 'Company Name',
+                          validator: validator,
+                          controller: companyNameController,
+                        ),
                         InputField(
                             label: 'Founding Date',
                             readOnly: true,
@@ -102,9 +109,15 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                                 .read(startupRegisterProvider.notifier)
                                 .selectDate(context),
                             validator: validator),
-                        const InputField(label: 'Registration Number'),
-                        const InputField(
-                            label: 'Company Description', isDescription: true),
+                        InputField(
+                          label: 'Registration Number',
+                          controller: registrationNumberController,
+                        ),
+                        InputField(
+                          label: 'Company Description',
+                          isDescription: true,
+                          controller: companyDescriptionController,
+                        ),
                         GenericDropdown<Industry>(
                           label: 'Industry',
                           options: startupregisterprovider.industries,
@@ -138,6 +151,12 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                     if (_formKey.currentState!.validate() &&
                         startupregisterprovider.selectedNiche != null &&
                         startupregisterprovider.selectedIndustry != null) {
+                      ref
+                          .read(startupRegisterProvider.notifier)
+                          .updateCredentials(
+                              companyNameController.text,
+                              companyDescriptionController.text,
+                              registrationNumberController.text);
                       navigator(
                         context,
                         CompanyInfo2(),

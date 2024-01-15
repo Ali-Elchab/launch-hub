@@ -9,31 +9,31 @@ import 'package:launchhub_frontend/models/niche.dart';
 
 final dio = Dio();
 
-final startupRegisterProvider =
-    ChangeNotifierProvider<StartupRegisterProvider>((ref) {
-  return StartupRegisterProvider();
+final jobSeekerRegisterProvider =
+    ChangeNotifierProvider<JobSeekerRegisterProvider>((ref) {
+  return JobSeekerRegisterProvider();
 });
 
-class StartupRegisterProvider with ChangeNotifier {
-  String _companyName = '';
+class JobSeekerRegisterProvider with ChangeNotifier {
+  String _firstName = '';
+  String _lastName = '';
   TextEditingController date = TextEditingController();
-  String _registrationNumber = '';
-  String _companyDescription = '';
+  DateTime? selectedDate;
+  String _phoneNumber = '';
+  String _professionalBio = '';
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
   List<Industry> industries = [];
   List<Niche> niches = [];
   XFile? _image;
-  DateTime? selectedDate;
-  String? country;
-  String? state;
-  String _companyPhoneNumber = '';
-  String _companyEmail = '';
-  String _companyWebsite = '';
-  List socialMediaLinks = [];
-  List<String> founders = [];
-  List<String> ceos = [];
-  List<String> keyExecutives = [];
+
+  // String? country;
+  // String? state;
+  // String _companyWebsite = '';
+  // List socialMediaLinks = [];
+  // List<String> founders = [];
+  // List<String> ceos = [];
+  // List<String> keyExecutives = [];
 
   String? _errorMessage;
 
@@ -107,99 +107,78 @@ class StartupRegisterProvider with ChangeNotifier {
     }
   }
 
-  setCountry(String? value) {
-    country = value;
-  }
+  // setCountry(String? value) {
+  //   country = value;
+  // }
 
-  setStateForState(String? value) {
-    state = value;
-  }
+  // setStateForState(String? value) {
+  //   state = value;
+  // }
 
-  addNewFounder(founder) {
-    founders.add(founder);
-    notifyListeners();
-  }
+  // addNewFounder(founder) {
+  //   founders.add(founder);
+  //   notifyListeners();
+  // }
 
-  addNewCEO(ceo) {
-    ceos.add(ceo);
-    notifyListeners();
-  }
+  // void removeFounder(founder) {
+  //   founders.remove(founder);
+  //   notifyListeners();
+  // }
 
-  addNewKeyExecutive(keyExecutive) {
-    keyExecutives.add(keyExecutive);
-    notifyListeners();
-  }
-
-  void removeFounder(founder) {
-    founders.remove(founder);
-    notifyListeners();
-  }
-
-  void removeCEO(ceo) {
-    ceos.remove(ceo);
-    notifyListeners();
-  }
-
-  void removeKeyExecutive(keyExecutive) {
-    keyExecutives.remove(keyExecutive);
-    notifyListeners();
-  }
-
-  String get address => '$country $state';
-  String get companyName => _companyName;
-  String get companyEmail => _companyEmail;
-  String get companyPhoneNumber => _companyPhoneNumber;
-  String get companyWebsite => _companyWebsite;
+  String get firstName => _firstName;
+  String get lastName => _lastName;
+  String get phoneNumber => _phoneNumber;
+  String get professionalBio => _professionalBio;
   XFile? get selectedImage => _image;
   String get foundingDate => selectedDate.toString();
-  String get registrationNumber => _registrationNumber;
-  String get companyDescription => _companyDescription;
   Industry? get selectedIndustry => _selectedIndustry;
   Niche? get selectedNiche => _selectedNiche;
+  // String get address => '$country $state';
 
   String? get errorMessage => _errorMessage;
 
-  void updateCredentials(String companyName, String registrationNumber,
-      String companyDescription) {
-    _companyName = companyName;
-    _registrationNumber = registrationNumber;
-    _companyDescription = companyDescription;
+  void updatePersonalInfo(
+      String firstName, String lastName, String phoneNumber, String bio) {
+    _firstName = firstName;
+    _lastName = lastName;
+    _phoneNumber = phoneNumber;
+    _professionalBio = bio;
   }
 
-  void updateContactInfo(
-      String email,
-      String phoneNumber,
-      String websiteUrl,
-      String linkedInUrl,
-      String facebookUrl,
-      String instagramUrl,
-      String gitHubUrl) {
-    _companyEmail = email;
-    _companyWebsite = websiteUrl;
-    _companyPhoneNumber = phoneNumber;
-    if (linkedInUrl.isNotEmpty) {
-      socialMediaLinks.add({
-        'name': 'LinkedIn',
-        'url': linkedInUrl,
-      });
-      if (facebookUrl.isNotEmpty) {
-        socialMediaLinks.add({
-          'name': 'Facebook',
-          'url': facebookUrl,
-        });
-        if (instagramUrl.isNotEmpty) {
-          socialMediaLinks.add({
-            'name': 'Instagram',
-            'url': instagramUrl,
-          });
-        }
-        if (gitHubUrl.isNotEmpty) {
-          socialMediaLinks.add({
-            'name': 'Github',
-            'url': gitHubUrl,
-          });
-        }
-      }
-    }
-  }
+  // void updateContactInfo(
+  //     String email,
+  //     String phoneNumber,
+  //     String websiteUrl,
+  //     String linkedInUrl,
+  //     String facebookUrl,
+  //     String instagramUrl,
+  //     String gitHubUrl) {
+  //   _companyEmail = email;
+  //   _companyWebsite = websiteUrl;
+  //   _companyPhoneNumber = phoneNumber;
+  //   if (linkedInUrl.isNotEmpty) {
+  //     socialMediaLinks.add({
+  //       'name': 'LinkedIn',
+  //       'url': linkedInUrl,
+  //     });
+  //     if (facebookUrl.isNotEmpty) {
+  //       socialMediaLinks.add({
+  //         'name': 'Facebook',
+  //         'url': facebookUrl,
+  //       });
+  //       if (instagramUrl.isNotEmpty) {
+  //         socialMediaLinks.add({
+  //           'name': 'Instagram',
+  //           'url': instagramUrl,
+  //         });
+  //       }
+  //       if (gitHubUrl.isNotEmpty) {
+  //         socialMediaLinks.add({
+  //           'name': 'Github',
+  //           'url': gitHubUrl,
+  //         });
+  //       }
+  //     }
+  //   }
+  // }
 }

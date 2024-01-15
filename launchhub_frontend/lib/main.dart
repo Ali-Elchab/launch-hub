@@ -68,7 +68,9 @@ class App extends StatelessWidget {
       },
       theme: theme,
       home: const Scaffold(
-          resizeToAvoidBottomInset: false, body: HiringGuides(niche: 'webdev')),
+        resizeToAvoidBottomInset: false,
+        body: PersonalInfo(),
+      ),
     );
   }
 }

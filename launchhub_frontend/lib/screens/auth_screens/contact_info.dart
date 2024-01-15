@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/education_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -13,9 +10,7 @@ import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ContactInfo extends StatefulWidget {
-  final XFile? selectedImage;
-
-  const ContactInfo({super.key, required this.selectedImage});
+  const ContactInfo({super.key});
 
   @override
   State<ContactInfo> createState() => _ContactInfoState();
@@ -96,23 +91,23 @@ class _ContactInfoState extends State<ContactInfo> {
                     ),
                   ),
                   const SizedBox(height: 35),
-                  if (widget.selectedImage != null)
-                    ClipOval(
-                      child: Image.file(
-                        File(widget.selectedImage!.path),
-                        width: 120, // Diameter of the circle
-                        height: 120, // Diameter of the circle
-                        fit: BoxFit
-                            .cover, // This ensures the image covers the circle crop
-                      ),
-                    ),
-                  if (widget.selectedImage == null)
-                    ProfileImagePicker(
-                        onImagePicked: () async {
-                          await _pickImage();
-                        },
-                        imageFile: _image,
-                        text: 'Upload Profile Picture'),
+                  // if (widget.selectedImage != null)
+                  //   ClipOval(
+                  //     child: Image.file(
+                  //       File(widget.selectedImage!.path),
+                  //       width: 120, // Diameter of the circle
+                  //       height: 120, // Diameter of the circle
+                  //       fit: BoxFit
+                  //           .cover, // This ensures the image covers the circle crop
+                  //     ),
+                  //   ),
+                  // if (widget.selectedImage == null)
+                  //   ProfileImagePicker(
+                  //       onImagePicked: () async {
+                  //         await _pickImage();
+                  //       },
+                  //       imageFile: _image,
+                  //       text: 'Upload Profile Picture'),
                   const SizedBox(height: 32),
                   Expanded(
                     child: SingleChildScrollView(
