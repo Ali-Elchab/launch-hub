@@ -23,15 +23,6 @@ class _SkillsState extends ConsumerState<Skills> {
     ref.read(jobSeekerRegisterProvider.notifier).getSkills();
     super.initState();
   }
-  // void toggleSkill(String skill) {
-  //   setState(() {
-  //     if (selectedSkills.contains(skill)) {
-  //       selectedSkills.remove(skill);
-  //     } else {
-  //       selectedSkills.add(skill);
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +82,8 @@ class _SkillsState extends ConsumerState<Skills> {
                                     label: skill.name,
                                     isSelected:
                                         provider.selectedSkills.contains(skill),
-                                    // onSelected: () => toggleSkill(skill.name),
+                                    onSelected: () =>
+                                        providerNotifier.toggleSkill(skill),
                                   ))
                               .toList(),
                         ),
@@ -99,12 +91,8 @@ class _SkillsState extends ConsumerState<Skills> {
                     ),
                   ),
                 ),
-                SmallButton('Next', () async {
-                  await ref
-                      .read(jobSeekerRegisterProvider.notifier)
-                      .getSkills();
-
-                  // navigator(context, const Hobbies());
+                SmallButton('Next', () {
+                  navigator(context, const Hobbies());
                 }),
                 const SizedBox(height: 15),
                 const BottomText(

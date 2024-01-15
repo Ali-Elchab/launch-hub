@@ -9,6 +9,7 @@ import 'package:launchhub_frontend/helpers/base_url.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/experience.dart';
+import 'package:launchhub_frontend/models/hobby.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
@@ -74,6 +75,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   ];
   List<Skill> skills = [];
   List<Skill> selectedSkills = [];
+  List<Hobby> hobbies = [];
+  List<Hobby> selectedHobbies = [];
 
   String? _errorMessage;
 
@@ -275,6 +278,42 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       _errorMessage = 'Failed to get Skills: ${e.response?.data['message']}';
     } catch (e) {
       _errorMessage = 'Failed to get Skills: $e';
+    }
+    notifyListeners();
+  }
+
+  toggleSkill(Skill skill) {
+    if (selectedSkills.contains(skill)) {
+      selectedSkills.remove(skill);
+    } else {
+      selectedSkills.add(skill);
+    }
+    notifyListeners();
+  }
+
+  Future getHobbies() async {
+    try {
+      final response = await dio.get(
+        "${baseURL}hobbies",
+      );
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['hobbies'];
+        hobbies = data.map((json) => Hobby.fromJson(json)).toList();
+      }
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to get Hobbies: ${e.response?.data['message']}';
+    } catch (e) {
+      _errorMessage = 'Failed to get Hobbies: $e';
+    }
+
+    notifyListeners();
+  }
+
+  void togglehobby(Hobby hobby) {
+    if (selectedHobbies.contains(hobby)) {
+      selectedHobbies.remove(hobby);
+    } else {
+      selectedHobbies.add(hobby);
     }
     notifyListeners();
   }

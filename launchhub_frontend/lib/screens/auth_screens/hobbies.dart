@@ -1,50 +1,33 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 
-class Hobbies extends StatefulWidget {
+class Hobbies extends ConsumerStatefulWidget {
   const Hobbies({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _HobbiesState createState() => _HobbiesState();
+  ConsumerState<Hobbies> createState() => _HobbiesState();
 }
 
-class _HobbiesState extends State<Hobbies> {
-  XFile? _image;
-  List<String> selectedHobbies = [];
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (selectedImage != null) {
-      setState(() {
-        _image = selectedImage;
-      });
-    }
-  }
-
-  void togglehobby(String hobby) {
-    setState(() {
-      if (selectedHobbies.contains(hobby)) {
-        selectedHobbies.remove(hobby);
-      } else {
-        selectedHobbies.add(hobby);
-      }
-    });
+class _HobbiesState extends ConsumerState<Hobbies> {
+  @override
+  void initState() {
+    ref.read(jobSeekerRegisterProvider.notifier).getHobbies();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(jobSeekerRegisterProvider);
+    final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -72,16 +55,17 @@ class _HobbiesState extends State<Hobbies> {
                   ),
                 ),
                 const SizedBox(height: 35),
-                ProfileImagePicker(
-                    onImagePicked: () async {
-                      await _pickImage();
-                    },
-                    imageFile: _image,
-                    text: 'Upload Profile Picture'),
+                ClipOval(
+                  child: provider.selectedImage != null
+                      ? Image.file(File(provider.selectedImage!.path),
+                          width: 120, height: 120, fit: BoxFit.cover)
+                      : Image.asset('assets/logos/default-profile.png',
+                          width: 120, height: 120, fit: BoxFit.cover),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(
-                    style: textTheme.labelSmall!,
+                    style: textTheme.bodySmall!,
                     'Showcase your passions and interests to connect and share with like-minded individuals.',
                     textAlign: TextAlign.left,
                   ),
@@ -96,9 +80,10 @@ class _HobbiesState extends State<Hobbies> {
                           children: mockHobbies
                               .map((hobby) => ChoiceTag(
                                     label: hobby.name,
-                                    isSelected:
-                                        selectedHobbies.contains(hobby.name),
-                                    onSelected: () => togglehobby(hobby.name),
+                                    isSelected: provider.selectedHobbies
+                                        .contains(hobby),
+                                    onSelected: () =>
+                                        providerNotifier.togglehobby(hobby),
                                   ))
                               .toList(),
                         ),
