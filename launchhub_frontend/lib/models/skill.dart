@@ -1,19 +1,19 @@
 class Skill {
   final int id;
   final String name;
-  final int specializationId;
+  int? specializationId;
 
   Skill({
     required this.id,
     required this.name,
-    required this.specializationId,
+    this.specializationId,
   });
 
   factory Skill.fromJson(Map<String, dynamic> json) {
     return Skill(
       id: json['id'] as int,
       name: json['name'] as String,
-      specializationId: json['specialization_id'] as int,
+      specializationId: json['specialization_id'],
     );
   }
 

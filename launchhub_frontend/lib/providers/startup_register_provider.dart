@@ -39,6 +39,7 @@ class StartupRegisterProvider with ChangeNotifier {
 
   void setSelectedIndustry(Industry newIndustry) {
     _selectedIndustry = newIndustry;
+    _selectedNiche = null;
     notifyListeners();
   }
 

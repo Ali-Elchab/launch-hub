@@ -101,7 +101,7 @@ class ExperienceInfo extends ConsumerWidget {
                   ),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate()) {
-                      navigator(context, const Skills());
+                      navigator(context, Skills());
                     }
                   }),
                   const SizedBox(height: 15),

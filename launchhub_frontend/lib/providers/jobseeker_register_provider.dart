@@ -11,6 +11,7 @@ import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/models/skill.dart';
 
 final dio = Dio();
 
@@ -71,11 +72,14 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       location: ' location',
     ),
   ];
+  List<Skill> skills = [];
+  List<Skill> selectedSkills = [];
 
   String? _errorMessage;
 
   void setSelectedIndustry(Industry newIndustry) {
     _selectedIndustry = newIndustry;
+    _selectedNiche = null;
     notifyListeners();
   }
 
@@ -240,6 +244,38 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     if (result != null && result.files.isNotEmpty) {
       resumeFile = File(result.files.first.path!);
     } else {}
+    notifyListeners();
+  }
+
+  Future getSkills({Niche? niche}) async {
+    niche ??= _selectedNiche;
+    try {
+      final response = await dio.get(
+        "${baseURL}skills/${niche?.id}",
+      );
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['skills'];
+        skills = data.map((json) => Skill.fromJson(json)).toList();
+      }
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to get Skills: ${e.response?.data['message']}';
+    } catch (e) {
+      _errorMessage = 'Failed to get Skills: $e';
+    }
+    try {
+      final response = await dio.get(
+        "${baseURL}general_skills",
+      );
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['skills'];
+        skills = [...skills, ...data.map((json) => Skill.fromJson(json))];
+        notifyListeners();
+      }
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to get Skills: ${e.response?.data['message']}';
+    } catch (e) {
+      _errorMessage = 'Failed to get Skills: $e';
+    }
     notifyListeners();
   }
 

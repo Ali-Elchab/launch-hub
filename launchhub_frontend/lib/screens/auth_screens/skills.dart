@@ -1,52 +1,43 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/hobbies.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 
-class Skills extends StatefulWidget {
+class Skills extends ConsumerStatefulWidget {
   const Skills({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _SkillsState createState() => _SkillsState();
+  ConsumerState<Skills> createState() => _SkillsState();
 }
 
-class _SkillsState extends State<Skills> {
-  XFile? _image;
-  List<String> selectedSkills = [];
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (selectedImage != null) {
-      setState(() {
-        _image = selectedImage;
-      });
-    }
+class _SkillsState extends ConsumerState<Skills> {
+  @override
+  void initState() {
+    ref.read(jobSeekerRegisterProvider.notifier).getSkills();
+    super.initState();
   }
-
-  void toggleSkill(String skill) {
-    setState(() {
-      if (selectedSkills.contains(skill)) {
-        selectedSkills.remove(skill);
-      } else {
-        selectedSkills.add(skill);
-      }
-    });
-  }
+  // void toggleSkill(String skill) {
+  //   setState(() {
+  //     if (selectedSkills.contains(skill)) {
+  //       selectedSkills.remove(skill);
+  //     } else {
+  //       selectedSkills.add(skill);
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    final provider = ref.watch(jobSeekerRegisterProvider);
+    final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -73,12 +64,13 @@ class _SkillsState extends State<Skills> {
                   ),
                 ),
                 const SizedBox(height: 35),
-                ProfileImagePicker(
-                    onImagePicked: () async {
-                      await _pickImage();
-                    },
-                    imageFile: _image,
-                    text: 'Upload Profile Picture'),
+                ClipOval(
+                  child: provider.selectedImage != null
+                      ? Image.file(File(provider.selectedImage!.path),
+                          width: 120, height: 120, fit: BoxFit.cover)
+                      : Image.asset('assets/logos/default-profile.png',
+                          width: 120, height: 120, fit: BoxFit.cover),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(
@@ -94,12 +86,12 @@ class _SkillsState extends State<Skills> {
                         Wrap(
                           spacing: 9.0,
                           runSpacing: 4.0,
-                          children: mockSkills
+                          children: providerNotifier.skills
                               .map((skill) => ChoiceTag(
                                     label: skill.name,
                                     isSelected:
-                                        selectedSkills.contains(skill.name),
-                                    onSelected: () => toggleSkill(skill.name),
+                                        provider.selectedSkills.contains(skill),
+                                    // onSelected: () => toggleSkill(skill.name),
                                   ))
                               .toList(),
                         ),
@@ -107,8 +99,12 @@ class _SkillsState extends State<Skills> {
                     ),
                   ),
                 ),
-                SmallButton('Next', () {
-                  navigator(context, const Hobbies());
+                SmallButton('Next', () async {
+                  await ref
+                      .read(jobSeekerRegisterProvider.notifier)
+                      .getSkills();
+
+                  // navigator(context, const Hobbies());
                 }),
                 const SizedBox(height: 15),
                 const BottomText(
