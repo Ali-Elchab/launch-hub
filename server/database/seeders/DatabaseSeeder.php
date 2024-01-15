@@ -35,7 +35,6 @@ class DatabaseSeeder extends Seeder
             StartupsTableSeeder::class,
             JobSeekersTableSeeder::class,
             JobPostsTableSeeder::class,
-            CoursesTableSeeder::class,
             JobSeekerHasSkillsTableSeeder::class,
             JobSeekerHasHobbiesTableSeeder::class,
             JobPostRequiredSkillsTableSeeder::class,

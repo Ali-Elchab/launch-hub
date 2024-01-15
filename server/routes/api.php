@@ -25,7 +25,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(DataController::class)->group(function () {
-    Route::get('specialization_skills', 'getSkillsBySpecialization');
+    Route::get('skills/{specialization_id}', 'getSkillsBySpecialization');
     Route::get('general_skills', 'getGeneralSkills');
     Route::get('hobbies', 'getHobbies');
     Route::get('industries', 'getIndustries');
