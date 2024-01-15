@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
+import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
@@ -67,9 +68,9 @@ class App extends StatelessWidget {
         '/JobSeekerHome': (context) => const JobSeekerHome(),
       },
       theme: theme,
-      home: const Scaffold(
+      home: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: PersonalInfo(),
+        body: ContactInfo(),
       ),
     );
   }

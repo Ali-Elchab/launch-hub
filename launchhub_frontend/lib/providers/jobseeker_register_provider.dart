@@ -26,11 +26,9 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   List<Industry> industries = [];
   List<Niche> niches = [];
   XFile? _image;
-
-  // String? country;
-  // String? state;
-  // String _companyWebsite = '';
-  // List socialMediaLinks = [];
+  String? country;
+  String? state;
+  List socialMediaLinks = [];
   // List<String> founders = [];
   // List<String> ceos = [];
   // List<String> keyExecutives = [];
@@ -107,13 +105,13 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     }
   }
 
-  // setCountry(String? value) {
-  //   country = value;
-  // }
+  setCountry(String? value) {
+    country = value;
+  }
 
-  // setStateForState(String? value) {
-  //   state = value;
-  // }
+  setStateForState(String? value) {
+    state = value;
+  }
 
   // addNewFounder(founder) {
   //   founders.add(founder);
@@ -133,7 +131,7 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   String get foundingDate => selectedDate.toString();
   Industry? get selectedIndustry => _selectedIndustry;
   Niche? get selectedNiche => _selectedNiche;
-  // String get address => '$country $state';
+  String get address => '$country $state';
 
   String? get errorMessage => _errorMessage;
 
@@ -145,40 +143,32 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     _professionalBio = bio;
   }
 
-  // void updateContactInfo(
-  //     String email,
-  //     String phoneNumber,
-  //     String websiteUrl,
-  //     String linkedInUrl,
-  //     String facebookUrl,
-  //     String instagramUrl,
-  //     String gitHubUrl) {
-  //   _companyEmail = email;
-  //   _companyWebsite = websiteUrl;
-  //   _companyPhoneNumber = phoneNumber;
-  //   if (linkedInUrl.isNotEmpty) {
-  //     socialMediaLinks.add({
-  //       'name': 'LinkedIn',
-  //       'url': linkedInUrl,
-  //     });
-  //     if (facebookUrl.isNotEmpty) {
-  //       socialMediaLinks.add({
-  //         'name': 'Facebook',
-  //         'url': facebookUrl,
-  //       });
-  //       if (instagramUrl.isNotEmpty) {
-  //         socialMediaLinks.add({
-  //           'name': 'Instagram',
-  //           'url': instagramUrl,
-  //         });
-  //       }
-  //       if (gitHubUrl.isNotEmpty) {
-  //         socialMediaLinks.add({
-  //           'name': 'Github',
-  //           'url': gitHubUrl,
-  //         });
-  //       }
-  //     }
-  //   }
-  // }
+  void updateContactInfo(String phoneNumber, String linkedInUrl,
+      String facebookUrl, String instagramUrl, String gitHubUrl) {
+    _phoneNumber = phoneNumber;
+    if (linkedInUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'name': 'LinkedIn',
+        'url': linkedInUrl,
+      });
+      if (facebookUrl.isNotEmpty) {
+        socialMediaLinks.add({
+          'name': 'Facebook',
+          'url': facebookUrl,
+        });
+        if (instagramUrl.isNotEmpty) {
+          socialMediaLinks.add({
+            'name': 'Instagram',
+            'url': instagramUrl,
+          });
+        }
+        if (gitHubUrl.isNotEmpty) {
+          socialMediaLinks.add({
+            'name': 'Github',
+            'url': gitHubUrl,
+          });
+        }
+      }
+    }
+  }
 }

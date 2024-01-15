@@ -158,7 +158,7 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
                           bioController.text);
                       navigator(
                         context,
-                        const ContactInfo(),
+                        ContactInfo(),
                       );
                     }
                   }),
