@@ -33,7 +33,7 @@ class _AddEducationState extends ConsumerState<AddEducation> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(1900),
       lastDate: DateTime(2101),
     );
     if (picked != null && picked != _selectedDate) {

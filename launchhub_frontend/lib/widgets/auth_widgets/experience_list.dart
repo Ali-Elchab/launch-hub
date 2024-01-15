@@ -11,8 +11,8 @@ class ExperienceList extends StatelessWidget {
   });
 
   final List<Experience> experiences;
-  final void Function(Experience experiences)? onTap;
-  final void Function(Experience experiences)? removeExperience;
+  final Function? onTap;
+  final Function? removeExperience;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ExperienceList extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Dismissible(
-            key: ValueKey(experiences[index].id),
+            key: ValueKey(index),
             direction: DismissDirection.endToStart,
             background: Container(
               color: const Color.fromARGB(255, 167, 11, 0),
@@ -68,7 +68,7 @@ class ExperienceList extends StatelessWidget {
               );
             },
             onDismissed: (direction) {
-              removeExperience!(experiences[index]);
+              removeExperience!(experiences[index], context);
             },
             child: ExperienceCard(
               experience: experiences[index],

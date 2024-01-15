@@ -49,6 +49,7 @@ dependencies:
   shared_preferences: ^2.2.2
   jwt_decoder: ^2.0.1
   open_file: ^3.3.2
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

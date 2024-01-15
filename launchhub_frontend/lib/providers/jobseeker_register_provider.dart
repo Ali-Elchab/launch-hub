@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/helpers/base_url.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
+import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 
@@ -28,6 +31,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   List<Industry> industries = [];
   List<Niche> niches = [];
   XFile? _image;
+  String resume = '';
+  File? resumeFile;
   String? country;
   String? state;
   List socialMediaLinks = [];
@@ -53,8 +58,19 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       location: ' location',
     )
   ];
-  // List<String> ceos = [];
-  // List<String> keyExecutives = [];
+  List<Experience> experiences = [
+    Experience(
+      position: 'degree',
+      company: 'organization',
+      startDate: 'startDate',
+      industry: 1,
+      specialization: 2,
+      type: 'fulltime',
+      endDate: 'endDate',
+      description: 'description',
+      location: ' location',
+    ),
+  ];
 
   String? _errorMessage;
 
@@ -86,14 +102,16 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getNiches() async {
+  Future getNiches({Industry? industry}) async {
+    industry ??= _selectedIndustry;
     try {
       final response = await dio.get(
-        "${baseURL}specializations/${_selectedIndustry?.id}",
+        "${baseURL}specializations/${industry?.id}",
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['specializations'];
         niches = data.map((json) => Niche.fromJson(json)).toList();
+        notifyListeners();
       }
     } on DioException catch (e) {
       _errorMessage =
@@ -168,7 +186,7 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeCertificate(Certification certification, context) {
+  removeCertificate(Certification certification, context) {
     final certificateIndex = certifications.indexOf(certification);
 
     certifications.remove(certification);
@@ -187,6 +205,41 @@ class JobSeekerRegisterProvider with ChangeNotifier {
         ),
       ),
     );
+    notifyListeners();
+  }
+
+  addExperience(Experience experience) {
+    experiences.add(experience);
+    notifyListeners();
+  }
+
+  removeExperience(Experience experience, context) {
+    final experienceIndex = experiences.indexOf(experience);
+    experiences.remove(experience);
+    notifyListeners();
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Experience deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            experiences.insert(experienceIndex, experience);
+            notifyListeners();
+          },
+        ),
+      ),
+    );
+    notifyListeners();
+  }
+
+  Future<void> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null && result.files.isNotEmpty) {
+      resumeFile = File(result.files.first.path!);
+    } else {}
     notifyListeners();
   }
 

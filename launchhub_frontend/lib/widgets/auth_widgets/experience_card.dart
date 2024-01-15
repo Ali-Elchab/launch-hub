@@ -32,13 +32,26 @@ class ExperienceCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 3),
-              Text(
-                experience.company,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Colors.black87,
-                      fontSize: 9,
-                    ),
-                overflow: TextOverflow.ellipsis,
+              Row(
+                children: [
+                  Text(
+                    experience.company,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Colors.black87,
+                          fontSize: 9,
+                        ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(width: 9),
+                  Text(
+                    experience.location,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: const Color.fromARGB(221, 65, 65, 65),
+                          fontSize: 9,
+                        ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
               const SizedBox(height: 3),
               Row(

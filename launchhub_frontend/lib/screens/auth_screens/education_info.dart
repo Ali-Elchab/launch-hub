@@ -126,7 +126,7 @@ class EducationInfo extends ConsumerWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ExperienceInfo()));
+                              builder: (context) => ExperienceInfo()));
                     }
                   }),
                   const SizedBox(height: 15),

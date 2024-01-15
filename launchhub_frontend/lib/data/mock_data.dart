@@ -264,10 +264,10 @@ List<JobSeeker> dummyJobSeekers = [
     ],
     experiences: [
       Experience(
-        id: '1',
         position: 'Software Developer',
         company: 'Tech Corp',
-        industry: 'Software',
+        industry: 2,
+        specialization: 25,
         type: 'Full-Time',
         startDate: '2014-07-01',
         endDate: '2019-08-30',
