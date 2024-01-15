@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/helpers/base_url.dart';
+import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 
@@ -29,7 +30,16 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   String? country;
   String? state;
   List socialMediaLinks = [];
-  // List<String> founders = [];
+  List<Education> educations = [
+    Education(
+      degree: 'degree',
+      organization: 'organization',
+      startDate: 'startDate',
+      endDate: 'endDate',
+      description: 'description',
+      location: ' location',
+    ),
+  ];
   // List<String> ceos = [];
   // List<String> keyExecutives = [];
 
@@ -113,15 +123,31 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     state = value;
   }
 
-  // addNewFounder(founder) {
-  //   founders.add(founder);
-  //   notifyListeners();
-  // }
+  void addEducation(Education education) {
+    educations.add(education);
+    notifyListeners();
+  }
 
-  // void removeFounder(founder) {
-  //   founders.remove(founder);
-  //   notifyListeners();
-  // }
+  removeEducation(Education education, BuildContext context) {
+    final educationIndex = educations.indexOf(education);
+
+    educations.remove(education);
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Education deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            educations.insert(educationIndex, education);
+          },
+        ),
+      ),
+    );
+    notifyListeners();
+  }
 
   String get firstName => _firstName;
   String get lastName => _lastName;

@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/models/education.dart';
+import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/location_picker.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
-class AddEducation extends StatefulWidget {
+class AddEducation extends ConsumerStatefulWidget {
   const AddEducation({
     super.key,
-    required this.addEducation,
   });
 
-  final void Function(Education education) addEducation;
-
   @override
-  State<AddEducation> createState() {
+  ConsumerState<AddEducation> createState() {
     return _AddEducationState();
   }
 }
 
-class _AddEducationState extends State<AddEducation> {
+class _AddEducationState extends ConsumerState<AddEducation> {
   final _descriptionController = TextEditingController();
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
@@ -77,30 +76,28 @@ class _AddEducationState extends State<AddEducation> {
     );
   }
 
-  void _submitJobData() {
+  _submitJobData() {
     if (_degreeController.text.trim().isEmpty ||
         _descriptionController.text.trim().isEmpty ||
         _endDateController.text.trim().isEmpty ||
         _startDateController.text.trim().isEmpty ||
         _organizationController.text.trim().isEmpty ||
-        country == null ||
-        state == null) {
+        country == null) {
       _showDialog();
       return;
     }
 
-    widget.addEducation(
-      Education(
-        id: '1',
-        degree: _degreeController.text,
-        organization: _organizationController.text,
-        startDate: _startDateController.text,
-        endDate: _endDateController.text,
-        description: _descriptionController.text,
-        location: '${country!}, ${state!}, ',
-        jobSeekerId: 2,
-      ),
-    );
+    ref.read(jobSeekerRegisterProvider.notifier).addEducation(
+          Education(
+            degree: _degreeController.text,
+            organization: _organizationController.text,
+            startDate: _startDateController.text,
+            endDate: _endDateController.text,
+            description: _descriptionController.text,
+            location: '${country!}, ${state!}, ',
+          ),
+        );
+
     Navigator.pop(context);
   }
 

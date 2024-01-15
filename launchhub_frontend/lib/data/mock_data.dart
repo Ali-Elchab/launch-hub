@@ -253,14 +253,12 @@ List<JobSeeker> dummyJobSeekers = [
     ],
     educations: [
       Education(
-        id: '1',
         degree: 'BSc Computer Science',
         organization: 'University of Example',
         startDate: '2010-09-01',
         endDate: '2014-06-30',
         description: 'Studied computer science.',
         location: 'Anytown',
-        jobSeekerId: 1,
       ),
       // ... add more if needed ...
     ],

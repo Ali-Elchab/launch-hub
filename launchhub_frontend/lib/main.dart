@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
 import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
+import 'package:launchhub_frontend/screens/auth_screens/education_info.dart';
 import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
@@ -70,7 +71,7 @@ class App extends StatelessWidget {
       theme: theme,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: ContactInfo(),
+        body: EducationInfo(),
       ),
     );
   }

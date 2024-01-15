@@ -1,41 +1,30 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/certification.dart';
-import 'package:launchhub_frontend/models/education.dart';
+import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/experience_Info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_certificate.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/educations_list.dart';
-import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
 import 'package:image_picker/image_picker.dart';
 
-class EducationInfo extends StatefulWidget {
+class EducationInfo extends ConsumerStatefulWidget {
   final XFile? selectedImage;
 
   const EducationInfo({super.key, this.selectedImage});
 
   @override
-  State<EducationInfo> createState() => _EducationInfoState();
+  ConsumerState<EducationInfo> createState() => _EducationInfoState();
 }
 
-class _EducationInfoState extends State<EducationInfo> {
+class _EducationInfoState extends ConsumerState<EducationInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  List<Education> educations = [
-    Education(
-        id: '1',
-        degree: 'degree',
-        organization: 'organization',
-        startDate: 'startDate',
-        endDate: 'endDate',
-        description: 'description',
-        location: ' location',
-        jobSeekerId: 2),
-  ];
+
   List<Certification> certifications = [
     Certification(
         id: '1',
@@ -48,18 +37,6 @@ class _EducationInfoState extends State<EducationInfo> {
         location: ' location',
         jobSeekerId: 2)
   ];
-  XFile? _image;
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (selectedImage != null) {
-      setState(() {
-        _image = selectedImage;
-      });
-    }
-  }
 
   String? validator(String? value) {
     if (value == null || value.isEmpty) {
@@ -68,38 +45,10 @@ class _EducationInfoState extends State<EducationInfo> {
     return null;
   }
 
-  void _addEducation(Education education) {
-    setState(() {
-      educations.add(education);
-    });
-  }
-
   void _addCertification(Certification certification) {
     setState(() {
       certifications.add(certification);
     });
-  }
-
-  void _removeEducation(Education education) {
-    final educationIndex = educations.indexOf(education);
-    setState(() {
-      educations.remove(education);
-    });
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text('Education deleted.'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            setState(() {
-              educations.insert(educationIndex, education);
-            });
-          },
-        ),
-      ),
-    );
   }
 
   void _removeCertificate(Certification certification) {
@@ -126,6 +75,8 @@ class _EducationInfoState extends State<EducationInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(jobSeekerRegisterProvider);
+    final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       extendBodyBehindAppBar: true,
@@ -155,22 +106,13 @@ class _EducationInfoState extends State<EducationInfo> {
                     ),
                   ),
                   const SizedBox(height: 35),
-                  if (widget.selectedImage != null)
-                    ClipOval(
-                      child: Image.file(
-                        File(widget.selectedImage!.path),
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  if (widget.selectedImage == null)
-                    ProfileImagePicker(
-                        onImagePicked: () async {
-                          await _pickImage();
-                        },
-                        imageFile: _image,
-                        text: 'Upload Profile Picture'),
+                  ClipOval(
+                    child: provider.selectedImage != null
+                        ? Image.file(File(provider.selectedImage!.path),
+                            width: 120, height: 120, fit: BoxFit.cover)
+                        : Image.asset('assets/logos/default-profile.png',
+                            width: 120, height: 120, fit: BoxFit.cover),
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,7 +125,7 @@ class _EducationInfoState extends State<EducationInfo> {
                       IconButton(
                           onPressed: () {
                             showModal(
-                              AddEducation(addEducation: _addEducation),
+                              AddEducation(),
                               context,
                               color: Colors.white,
                               enableDrag: true,
@@ -197,8 +139,8 @@ class _EducationInfoState extends State<EducationInfo> {
                   ),
                   Expanded(
                       child: EducationsList(
-                    educations: educations,
-                    removeEducation: _removeEducation,
+                    educations: provider.educations,
+                    removeEducation: providerNotifier.removeEducation,
                   )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

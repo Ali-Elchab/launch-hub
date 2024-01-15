@@ -15,8 +15,9 @@ class EducationsList extends StatelessWidget {
 
   final List<Education>? educations;
   final void Function(Education education)? onTap;
-  final void Function(Education education)? removeEducation;
-  final void Function(Certification certification)? removeCertification;
+  final Function? removeEducation;
+  final Function? removeCertification;
+
   final List<Certification>? certifications;
 
   @override
@@ -32,11 +33,7 @@ class EducationsList extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Dismissible(
-              key: ValueKey(
-                educations != null
-                    ? educations![index].id
-                    : certifications![index].id,
-              ),
+              key: ValueKey(index),
               direction: DismissDirection.endToStart,
               background: Container(
                 color: const Color.fromARGB(255, 167, 11, 0),
