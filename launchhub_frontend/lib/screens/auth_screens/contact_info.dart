@@ -100,7 +100,7 @@ class ContactInfo extends ConsumerWidget {
                           facebookController.text,
                           instagramController.text,
                           githubController.text);
-                      navigator(context, const EducationInfo());
+                      navigator(context, EducationInfo());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

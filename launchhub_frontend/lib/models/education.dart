@@ -1,5 +1,7 @@
 class Education {
   Education({
+    this.id,
+    this.jobSeekerId,
     required this.degree,
     required this.organization,
     required this.startDate,
@@ -8,6 +10,8 @@ class Education {
     required this.location,
   });
 
+  int? id;
+  int? jobSeekerId;
   final String degree;
   final String organization;
   final String startDate;
@@ -17,12 +21,14 @@ class Education {
 
   factory Education.fromJson(Map<String, dynamic> json) {
     return Education(
+      id: json['id'] as int,
       degree: json['degree'] as String,
       organization: json['organization'] as String,
       startDate: json['start_date'] as String,
       endDate: json['end_date'] as String,
       description: json['description'] as String,
       location: json['location'] as String,
+      jobSeekerId: json['job_seeker_id'] as int,
     );
   }
 }

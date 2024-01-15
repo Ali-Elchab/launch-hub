@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/helpers/base_url.dart';
+import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
@@ -39,6 +40,18 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       description: 'description',
       location: ' location',
     ),
+  ];
+
+  List<Certification> certifications = [
+    Certification(
+      name: 'web dev',
+      certificate: 'certificate',
+      organization: 'organization',
+      startDate: 'startDate',
+      endDate: 'endDate',
+      description: 'description',
+      location: ' location',
+    )
   ];
   // List<String> ceos = [];
   // List<String> keyExecutives = [];
@@ -123,7 +136,7 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     state = value;
   }
 
-  void addEducation(Education education) {
+  addEducation(Education education) {
     educations.add(education);
     notifyListeners();
   }
@@ -142,6 +155,34 @@ class JobSeekerRegisterProvider with ChangeNotifier {
           label: 'Undo',
           onPressed: () {
             educations.insert(educationIndex, education);
+            notifyListeners();
+          },
+        ),
+      ),
+    );
+    notifyListeners();
+  }
+
+  addCertification(Certification certification) {
+    certifications.add(certification);
+    notifyListeners();
+  }
+
+  void removeCertificate(Certification certification, context) {
+    final certificateIndex = certifications.indexOf(certification);
+
+    certifications.remove(certification);
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Certification deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            certifications.insert(certificateIndex, certification);
+            notifyListeners();
           },
         ),
       ),

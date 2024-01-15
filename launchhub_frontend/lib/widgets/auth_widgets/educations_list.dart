@@ -76,8 +76,8 @@ class EducationsList extends StatelessWidget {
               },
               onDismissed: (direction) {
                 educations != null
-                    ? removeEducation!(educations![index])
-                    : removeCertification!(certifications![index]);
+                    ? removeEducation!(educations![index], context)
+                    : removeCertification!(certifications![index], context);
               },
               child: educations != null
                   ? EducationCard(

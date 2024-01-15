@@ -1,7 +1,6 @@
-import 'package:uuid/uuid.dart';
-
 class Certification {
-  final String id;
+  int? id;
+  int? jobSeekerId;
   final String name;
   final String certificate;
   final String organization;
@@ -9,10 +8,9 @@ class Certification {
   final String endDate;
   final String description;
   final String location;
-  final int jobSeekerId;
 
   Certification({
-    required this.id,
+    this.id,
     required this.name,
     required this.certificate,
     required this.organization,
@@ -20,13 +18,12 @@ class Certification {
     required this.endDate,
     required this.description,
     required this.location,
-    required this.jobSeekerId,
+    this.jobSeekerId,
   });
 
   factory Certification.fromJson(Map<String, dynamic> json) {
     return Certification(
-      id: json['id'] as String? ??
-          const Uuid().v4(), // Generate a new UUID if not provided
+      id: json['id'] as int,
       name: json['name'] as String,
       certificate: json['certificate'] as String,
       organization: json['organization'] as String,

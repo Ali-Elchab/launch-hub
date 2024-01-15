@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
-import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/experience_Info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_certificate.dart';
@@ -11,32 +10,11 @@ import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/educations_list.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/small_button.dart';
-import 'package:image_picker/image_picker.dart';
 
-class EducationInfo extends ConsumerStatefulWidget {
-  final XFile? selectedImage;
+class EducationInfo extends ConsumerWidget {
+  EducationInfo({super.key});
 
-  const EducationInfo({super.key, this.selectedImage});
-
-  @override
-  ConsumerState<EducationInfo> createState() => _EducationInfoState();
-}
-
-class _EducationInfoState extends ConsumerState<EducationInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  List<Certification> certifications = [
-    Certification(
-        id: '1',
-        name: 'web dev',
-        certificate: 'certificate',
-        organization: 'organization',
-        startDate: 'startDate',
-        endDate: 'endDate',
-        description: 'description',
-        location: ' location',
-        jobSeekerId: 2)
-  ];
 
   String? validator(String? value) {
     if (value == null || value.isEmpty) {
@@ -45,36 +23,8 @@ class _EducationInfoState extends ConsumerState<EducationInfo> {
     return null;
   }
 
-  void _addCertification(Certification certification) {
-    setState(() {
-      certifications.add(certification);
-    });
-  }
-
-  void _removeCertificate(Certification certification) {
-    final certificateIndex = certifications.indexOf(certification);
-    setState(() {
-      certifications.remove(certification);
-    });
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text('Certification deleted.'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            setState(() {
-              certifications.insert(certificateIndex, certification);
-            });
-          },
-        ),
-      ),
-    );
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(jobSeekerRegisterProvider);
     final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
     return Scaffold(
@@ -125,7 +75,7 @@ class _EducationInfoState extends ConsumerState<EducationInfo> {
                       IconButton(
                           onPressed: () {
                             showModal(
-                              AddEducation(),
+                              const AddEducation(),
                               context,
                               color: Colors.white,
                               enableDrag: true,
@@ -153,7 +103,7 @@ class _EducationInfoState extends ConsumerState<EducationInfo> {
                       IconButton(
                           onPressed: () {
                             showModal(
-                              AddCertificate(addCertificate: _addCertification),
+                              const AddCertificate(),
                               context,
                               color: Colors.white,
                               enableDrag: true,
@@ -167,8 +117,8 @@ class _EducationInfoState extends ConsumerState<EducationInfo> {
                   ),
                   Expanded(
                       child: EducationsList(
-                    certifications: certifications,
-                    removeCertification: _removeCertificate,
+                    certifications: provider.certifications,
+                    removeCertification: providerNotifier.removeCertificate,
                   )),
                   const SizedBox(height: 20),
                   SmallButton('Next', () {

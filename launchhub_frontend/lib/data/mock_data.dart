@@ -279,7 +279,6 @@ List<JobSeeker> dummyJobSeekers = [
     ],
     certifications: [
       Certification(
-        id: '1',
         name: 'Certified Java Programmer',
         certificate: 'CJP12345',
         organization: 'Java Institute',

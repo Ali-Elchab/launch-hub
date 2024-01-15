@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/models/certification.dart';
+import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/location_picker.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
-class AddCertificate extends StatefulWidget {
+class AddCertificate extends ConsumerStatefulWidget {
   const AddCertificate({
     super.key,
-    required this.addCertificate,
   });
 
-  final void Function(Certification certification) addCertificate;
-
   @override
-  State<AddCertificate> createState() {
+  ConsumerState<AddCertificate> createState() {
     return _AddCertificateState();
   }
 }
 
-class _AddCertificateState extends State<AddCertificate> {
+class _AddCertificateState extends ConsumerState<AddCertificate> {
   final _descriptionController = TextEditingController();
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
@@ -83,25 +82,22 @@ class _AddCertificateState extends State<AddCertificate> {
         _endDateController.text.trim().isEmpty ||
         _startDateController.text.trim().isEmpty ||
         _organizationController.text.trim().isEmpty ||
-        country == null ||
-        state == null) {
+        country == null) {
       _showDialog();
       return;
     }
 
-    widget.addCertificate(
-      Certification(
-        id: '1',
-        name: _nameController.text,
-        certificate: _certificateController.text,
-        organization: _organizationController.text,
-        startDate: _startDateController.text,
-        endDate: _endDateController.text,
-        description: _descriptionController.text,
-        location: '${country!}, ${state!}, ',
-        jobSeekerId: 2,
-      ),
-    );
+    ref.read(jobSeekerRegisterProvider.notifier).addCertification(
+          Certification(
+            name: _nameController.text,
+            certificate: _certificateController.text,
+            organization: _organizationController.text,
+            startDate: _startDateController.text,
+            endDate: _endDateController.text,
+            description: _descriptionController.text,
+            location: '${country!}, ${state!}, ',
+          ),
+        );
     Navigator.pop(context);
   }
 
