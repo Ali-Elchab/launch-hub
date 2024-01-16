@@ -9,7 +9,7 @@ class JobSeekerExperience extends StatelessWidget {
   });
 
   final Function()? toggleHeaderColor;
-  final List<Experience> experiences;
+  final List<Experience>? experiences;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class JobSeekerExperience extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ...experiences.map((experience) {
+                  ...experiences!.map((experience) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),

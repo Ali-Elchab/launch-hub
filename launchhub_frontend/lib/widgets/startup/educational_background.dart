@@ -9,7 +9,7 @@ class EducationalBackground extends StatelessWidget {
   });
 
   final Function()? toggleHeaderColor;
-  final List<Education> educations;
+  final List<Education>? educations;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class EducationalBackground extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ...educations.map((education) {
+                  ...educations!.map((education) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
