@@ -28,7 +28,11 @@ class StartupController extends Controller
             }
             $startup = $user->startup;
         }
-        return response()->json($startup);
+        if ($user && $user->startup) {
+            $startup->socialMediaLinks = $user->socialMediaLinks;
+
+            return response()->json(['status' => 'success', 'startup' => $startup]);
+        }
     }
 
     public function updateStartupProfile(Request $request)
@@ -54,7 +58,7 @@ class StartupController extends Controller
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        $logo = uploadLogo($request);
+        $logo = uploadFile($request);
         if ($logo) {
             $startup->logo_url = $logo;
             $startup->save();
