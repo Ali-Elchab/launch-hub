@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:launchhub_frontend/helpers/base_url.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
+import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
 import 'package:launchhub_frontend/models/experience.dart';
@@ -41,41 +42,10 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   String? country;
   String? state;
   List socialMediaLinks = [];
-  List<Education> educations = [
-    Education(
-      degree: 'degree',
-      organization: 'organization',
-      startDate: '2022-10-11',
-      endDate: '2022-10-11',
-      description: 'description',
-      location: ' location',
-    ),
-  ];
+  List<Education> educations = [];
 
-  List<Certification> certifications = [
-    Certification(
-      name: 'web dev',
-      certificate: 'certificate',
-      organization: 'organization',
-      startDate: '2022-10-11',
-      endDate: '2022-10-11',
-      description: 'description',
-      location: ' location',
-    )
-  ];
-  List<Experience> experiences = [
-    Experience(
-      position: 'degree',
-      company: 'organization',
-      startDate: '2022-10-11',
-      industryId: 1,
-      specializationId: 2,
-      type: 'fulltime',
-      endDate: '2022-10-11',
-      description: 'description',
-      location: ' location',
-    ),
-  ];
+  List<Certification> certifications = [];
+  List<Experience> experiences = [];
   List<Skill> skills = [];
   List<int> selectedSkills = [];
   List<Hobby> hobbies = [];
@@ -91,9 +61,7 @@ class JobSeekerRegisterProvider with ChangeNotifier {
 
   Future getIndustries() async {
     try {
-      final response = await dio.get(
-        "${baseURL}industries",
-      );
+      final response = await myDio.get(ApiRoute.getIndustries);
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['industries'];
         industries = data.map((json) => Industry.fromJson(json)).toList();
@@ -115,8 +83,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   Future getNiches({Industry? industry}) async {
     industry ??= _selectedIndustry;
     try {
-      final response = await dio.get(
-        "${baseURL}specializations/${industry?.id}",
+      final response = await myDio.get(
+        '${ApiRoute.getSpecializations}/${industry?.id}',
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['specializations'];
@@ -262,8 +230,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   Future getSkills({Niche? niche}) async {
     niche ??= _selectedNiche;
     try {
-      final response = await dio.get(
-        "${baseURL}skills/${niche?.id}",
+      final response = await myDio.get(
+        '${ApiRoute.getSkills}/${niche?.id}',
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['skills'];
@@ -275,8 +243,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       _errorMessage = 'Failed to get Skills: $e';
     }
     try {
-      final response = await dio.get(
-        "${baseURL}general_skills",
+      final response = await myDio.get(
+        ApiRoute.getGeneralSkills,
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['skills'];
@@ -302,9 +270,7 @@ class JobSeekerRegisterProvider with ChangeNotifier {
 
   Future getHobbies() async {
     try {
-      final response = await dio.get(
-        "${baseURL}hobbies",
-      );
+      final response = await myDio.get(ApiRoute.getHobbies);
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['hobbies'];
         hobbies = data.map((json) => Hobby.fromJson(json)).toList();
@@ -412,8 +378,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     };
 
     try {
-      final response = await dio.post(
-        "${baseURL}register_jobseeker",
+      final response = await myDio.post(
+        ApiRoute.registerJobseeker,
         data: data,
         options: Options(
           contentType: Headers.jsonContentType,
@@ -422,7 +388,6 @@ class JobSeekerRegisterProvider with ChangeNotifier {
           },
         ),
       );
-      // print(response.data['message']);
       if (response.statusCode == 200) {
         _isRegistered = true;
         notifyListeners();

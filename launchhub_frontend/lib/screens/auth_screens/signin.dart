@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/auth_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
 
@@ -92,10 +93,13 @@ class SignIn extends ConsumerWidget {
                         // ref.read(authProvider.notifier).updateCredentials(
                         //     emailController.text, passwordController.text, 0);
 
-                        await ref.read(authProvider.notifier).signIn(
-                            emailController.text, passwordController.text);
+                        final response = await ref
+                            .read(authProvider.notifier)
+                            .signIn(
+                                emailController.text, passwordController.text);
 
                         if (provider.isSignInSuccessful) {
+                          final user = User.fromJson(response);
                           provider.selectedType == UserType.startup
                               ? navigatorKey.currentState
                                   ?.popAndPushNamed('/StartupHome')

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:launchhub_frontend/helpers/base_url.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
+import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,9 +51,7 @@ class StartupRegisterProvider with ChangeNotifier {
 
   Future getIndustries() async {
     try {
-      final response = await dio.get(
-        "${baseURL}industries",
-      );
+      final response = await myDio.get(ApiRoute.getIndustries);
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['industries'];
         industries = data.map((json) => Industry.fromJson(json)).toList();
@@ -73,8 +72,8 @@ class StartupRegisterProvider with ChangeNotifier {
 
   Future getNiches() async {
     try {
-      final response = await dio.get(
-        "${baseURL}specializations/${_selectedIndustry?.id}",
+      final response = await myDio.get(
+        '${ApiRoute.getSpecializations}/${_selectedIndustry?.id}',
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['specializations'];
@@ -241,7 +240,7 @@ class StartupRegisterProvider with ChangeNotifier {
 
     try {
       final response = await dio.post(
-        "${baseURL}register_startup",
+        ApiRoute.registerStartup,
         data: data,
         options: Options(
           contentType: Headers.jsonContentType,

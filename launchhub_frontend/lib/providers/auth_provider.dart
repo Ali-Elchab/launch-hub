@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launchhub_frontend/helpers/base_url.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
+import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
@@ -39,17 +40,16 @@ class AuthProvider with ChangeNotifier {
     _userType = userType!;
   }
 
-  Future<void> signIn(String email, String password) async {
+  Future signIn(String email, String password) async {
     try {
-      final response = await dio.post(
-        "${baseURL}login",
+      final response = await myDio.post(
+        ApiRoute.login,
         data: {
           "email": email,
           "password": password,
         },
       );
       if (response.statusCode == 200) {
-        print(response.data['user']);
         _isSignInSuccessful = true;
         _errorMessage = null;
         _selectedType = response.data['user']['user_type_id'] == 1
@@ -61,6 +61,7 @@ class AuthProvider with ChangeNotifier {
           final authorizationData = response.data['authorisation'];
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('token', authorizationData['token']);
+          return response.data['user'];
         } else {
           _isSignInSuccessful = false;
           _errorMessage = 'Token not found in response';
@@ -78,8 +79,8 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> signUp() async {
     try {
-      final response = await dio.post(
-        "${baseURL}signup",
+      final response = await myDio.post(
+        ApiRoute.signup,
         data: {
           "email": _email,
           "password": _password,
@@ -121,9 +122,7 @@ class AuthProvider with ChangeNotifier {
             DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
         if (currentTimestamp > expirationTimestamp) {
-          final refresh = await dio.post(
-            "${baseURL}refresh",
-          );
+          final refresh = await myDio.post(ApiRoute.refresh);
           if (refresh.statusCode == 200) {
             if (refresh.data.containsKey('authorisation')) {
               final authorizationData = refresh.data['authorisation'];
