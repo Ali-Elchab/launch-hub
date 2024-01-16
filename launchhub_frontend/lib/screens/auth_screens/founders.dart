@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -286,8 +285,8 @@ class Founders extends ConsumerWidget {
                   ),
                   SmallButton('Submit', () {
                     if (provider.founders.isNotEmpty) {
-                      navigatorKey.currentState
-                          ?.popAndPushNamed('/StartupHome');
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/StartupHome', (route) => false);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

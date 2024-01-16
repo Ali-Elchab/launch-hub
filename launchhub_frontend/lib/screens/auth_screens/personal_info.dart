@@ -24,7 +24,6 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  final phoneController = TextEditingController();
   final bioController = TextEditingController();
 
   @override
@@ -41,7 +40,6 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
   void dispose() {
     firstNameController.dispose();
     lastNameController.dispose();
-    phoneController.dispose();
     bioController.dispose();
     super.dispose();
   }
@@ -115,10 +113,6 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
                             validator: validator,
                           ),
                           InputField(
-                              label: 'Phone Number',
-                              validator: validator,
-                              controller: phoneController),
-                          InputField(
                               label: 'Professional Biography',
                               isDescription: true,
                               controller: bioController,
@@ -148,13 +142,13 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
                   ),
                   const SizedBox(height: 24),
                   SmallButton('Next', () {
+                    providerNotifier.registerJobSeeker();
                     if (_formKey.currentState!.validate() &&
                         provider.selectedNiche != null &&
                         provider.selectedIndustry != null) {
                       providerNotifier.updatePersonalInfo(
                           firstNameController.text,
                           lastNameController.text,
-                          phoneController.text,
                           bioController.text);
                       navigator(
                         context,

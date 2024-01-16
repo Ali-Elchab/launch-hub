@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
-import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
-import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
@@ -92,7 +90,14 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                   ),
                 ),
                 SmallButton('Submit', () {
-                  navigator(context, const JobSeekerHome());
+                  providerNotifier.registerJobSeeker();
+                  provider.isRegistered
+                      ? Navigator.pushNamedAndRemoveUntil(
+                          context, '/JobSeekerHome', (route) => false)
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Error: ${provider.errorMessage}')),
+                        );
                 }, showArrow: false),
                 const SizedBox(height: 15),
                 const BottomText(
