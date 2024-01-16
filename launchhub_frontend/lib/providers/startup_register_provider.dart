@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/helpers/base_url.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio();
 
@@ -107,7 +108,7 @@ class StartupRegisterProvider with ChangeNotifier {
       context: context,
       initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
+      lastDate: DateTime.now(),
     );
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
@@ -187,27 +188,79 @@ class StartupRegisterProvider with ChangeNotifier {
     _companyPhoneNumber = phoneNumber;
     if (linkedInUrl.isNotEmpty) {
       socialMediaLinks.add({
-        'name': 'LinkedIn',
-        'url': linkedInUrl,
+        'platform': 'LinkedIn',
+        'link': linkedInUrl,
       });
-      if (facebookUrl.isNotEmpty) {
-        socialMediaLinks.add({
-          'name': 'Facebook',
-          'url': facebookUrl,
-        });
-        if (instagramUrl.isNotEmpty) {
-          socialMediaLinks.add({
-            'name': 'Instagram',
-            'url': instagramUrl,
-          });
-        }
-        if (gitHubUrl.isNotEmpty) {
-          socialMediaLinks.add({
-            'name': 'Github',
-            'url': gitHubUrl,
-          });
-        }
-      }
     }
+    if (facebookUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'platform': 'Facebook',
+        'link': facebookUrl,
+      });
+    }
+    if (instagramUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'platform': 'Instagram',
+        'link': instagramUrl,
+      });
+    }
+    if (gitHubUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'platform': 'Github',
+        'url': gitHubUrl,
+      });
+    }
+  }
+
+  bool _isRegistered = false;
+  bool get isRegistered => _isRegistered;
+  Future registerStartup() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      return;
+    }
+
+    final data = <String, dynamic>{
+      "company_name": _companyName,
+      "registration_number": _registrationNumber,
+      "founding_date": selectedDate.toString(),
+      'profilePic': base64Image,
+      "company_description": _companyDescription,
+      "industry_id": _selectedIndustry!.id,
+      "specialization_id": _selectedNiche!.id,
+      "company_phone": _companyPhoneNumber,
+      "company_email": _companyEmail,
+      "company_address": address,
+      "website_url": _companyWebsite,
+      'social_media_links': socialMediaLinks,
+      'founders': founders,
+      'ceos': ceos,
+      'key_executives': keyExecutives,
+    };
+
+    try {
+      final response = await dio.post(
+        "${baseURL}register_startup",
+        data: data,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        _isRegistered = true;
+        notifyListeners();
+      }
+    } on DioException catch (e) {
+      _isRegistered = false;
+      _errorMessage = 'Failed: ${e.response!.data['message']}';
+    } catch (e) {
+      _isRegistered = false;
+      _errorMessage = 'Failed to register:  ${e.toString()}';
+    }
+    notifyListeners();
   }
 }
