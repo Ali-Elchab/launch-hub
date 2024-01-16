@@ -1,18 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
+
 function uploadImage($request)
 {
-    if ($request->hasFile('profile_pic')) {
+    if ($request->profile_pic) {
         try {
-            $request->validate([
-                "profile_pic" => 'image|max:6000'
-            ]);
-
-            $file = $request->file('profile_pic');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('assets/images/profile_pics'), $filename);
-            return $filename;
+            $base64Image = $request->profile_pic;
+            $imageData = base64_decode($base64Image);
+            $fileName = 'image_' . time() . '.png';
+            Storage::disk('public')->put($fileName, $imageData);
+            return $fileName;
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
         }

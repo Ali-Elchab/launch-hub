@@ -54,6 +54,7 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
 
+
         try {
             $request->validate([
                 'email' => 'required|string|email|unique:users,email',
@@ -94,6 +95,9 @@ class AuthController extends Controller
     }
     public function register_jobseeker(Request $request)
     {
+        // return response()->json([
+        //     'res' => $request->all(),
+        // ]);
         $user = User::find(auth()->user()->id);
         if (Startup::where('user_id', $user->id)->exists()) {
             return response()->json([
@@ -121,28 +125,29 @@ class AuthController extends Controller
                 'experiences' => 'nullable|array',
                 'experiences.*.position' => 'required|string|max:255',
                 'experiences.*.company' => 'required|string|max:255',
-                'experiences.*.start_date' => 'required|date',
-                'experiences.*.end_date' => 'nullable|date',
+                'experiences.*.start_date' => 'required|string',
+                'experiences.*.end_date' => 'nullable|string',
                 'experiences.*.description' => 'nullable|string',
                 'experiences.*.type' => 'nullable|string|max:255',
                 'experiences.*.location' => 'nullable|string|max:255',
-                'experiences.*.industry' => 'nullable|string|max:255',
+                'experiences.*.industry_id' => 'nullable|int|exists:industries,id',
+                'experiences.*.specialization_id' => 'nullable|int|exists:specializations,id',
 
                 'educations' => 'nullable|array',
                 'educations.*.degree' => 'required|string|max:255',
                 'educations.*.organization' => 'required|string|max:255',
-                'educations.*.start_date' => 'required|date',
-                'educations.*.end_date' => 'nullable|date',
+                'educations.*.start_date' => 'required|string',
+                'educations.*.end_date' => 'nullable|string',
                 'educations.*.description' => 'nullable|string',
 
                 'certifications' => 'nullable|array',
                 'certifications.*.name' => 'required|string|max:255',
                 'certifications.*.organization' => 'required|string|max:255',
-                'certifications.*.start_date' => 'required|date',
-                'certifications.*.end_date' => 'nullable|date',
+                'certifications.*.start_date' => 'required|string',
+                'certifications.*.end_date' => 'nullable|string',
                 'certifications.*.description' => 'nullable|string',
 
-                'skills' => 'nullable|list',
+                'skills' => 'nullable|array',
                 'skills.*' => 'required|integer|exists:skills,id',
 
                 'hobbies' => 'nullable|array',
@@ -178,9 +183,12 @@ class AuthController extends Controller
             ]);
             $jobseeker->save();
 
-            if (!empty($request->experience))
+            // echo $request->all();
+
+
+            if (!empty($request->experiences))
                 $jobseeker->experiences()->createMany($request->experiences);
-            if (!empty($request->education))
+            if (!empty($request->educations))
                 $jobseeker->educations()->createMany($request->educations);
             if (!empty($request->certifications))
                 $jobseeker->certifications()->createMany($request->certifications);
