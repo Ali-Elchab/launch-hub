@@ -118,22 +118,22 @@ class AuthController extends Controller
                 'phone' => 'required|string',
                 'dob' => 'required|date',
                 'address' => 'required|string',
-                'experience' => 'nullable|array',
-                'experience.*.position' => 'required|string|max:255',
-                'experience.*.company' => 'required|string|max:255',
-                'experience.*.start_date' => 'required|date',
-                'experience.*.end_date' => 'nullable|date',
-                'experience.*.description' => 'nullable|string',
-                'experience.*.type' => 'nullable|string|max:255',
-                'experience.*.location' => 'nullable|string|max:255',
-                'experience.*.industry' => 'nullable|string|max:255',
+                'experiences' => 'nullable|array',
+                'experiences.*.position' => 'required|string|max:255',
+                'experiences.*.company' => 'required|string|max:255',
+                'experiences.*.start_date' => 'required|date',
+                'experiences.*.end_date' => 'nullable|date',
+                'experiences.*.description' => 'nullable|string',
+                'experiences.*.type' => 'nullable|string|max:255',
+                'experiences.*.location' => 'nullable|string|max:255',
+                'experiences.*.industry' => 'nullable|string|max:255',
 
-                'education' => 'nullable|array',
-                'education.*.degree' => 'required|string|max:255',
-                'education.*.organization' => 'required|string|max:255',
-                'education.*.start_date' => 'required|date',
-                'education.*.end_date' => 'nullable|date',
-                'education.*.description' => 'nullable|string',
+                'educations' => 'nullable|array',
+                'educations.*.degree' => 'required|string|max:255',
+                'educations.*.organization' => 'required|string|max:255',
+                'educations.*.start_date' => 'required|date',
+                'educations.*.end_date' => 'nullable|date',
+                'educations.*.description' => 'nullable|string',
 
                 'certifications' => 'nullable|array',
                 'certifications.*.name' => 'required|string|max:255',
@@ -142,7 +142,7 @@ class AuthController extends Controller
                 'certifications.*.end_date' => 'nullable|date',
                 'certifications.*.description' => 'nullable|string',
 
-                'skills' => 'nullable|array',
+                'skills' => 'nullable|list',
                 'skills.*' => 'required|integer|exists:skills,id',
 
                 'hobbies' => 'nullable|array',
@@ -179,9 +179,9 @@ class AuthController extends Controller
             $jobseeker->save();
 
             if (!empty($request->experience))
-                $jobseeker->experiences()->createMany($request->experience);
+                $jobseeker->experiences()->createMany($request->experiences);
             if (!empty($request->education))
-                $jobseeker->educations()->createMany($request->education);
+                $jobseeker->educations()->createMany($request->educations);
             if (!empty($request->certifications))
                 $jobseeker->certifications()->createMany($request->certifications);
             if (!empty($request->skills))
