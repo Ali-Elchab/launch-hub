@@ -213,8 +213,8 @@ class Founders extends ConsumerWidget {
                   const SizedBox(height: 16),
                   Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
                         child: InputField(
                           label: 'Add Key Executive',
                           controller: keyexecutiveController,
@@ -260,7 +260,7 @@ class Founders extends ConsumerWidget {
                                 .removeKeyExecutive(provider.ceos[index]);
                           },
                           child: Container(
-                            width: double.infinity,
+                            width: MediaQuery.of(context).size.width * 0.6,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             margin: const EdgeInsets.only(bottom: 16),
