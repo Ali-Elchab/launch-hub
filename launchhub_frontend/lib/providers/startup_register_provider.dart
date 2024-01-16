@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +27,7 @@ class StartupRegisterProvider with ChangeNotifier {
   List<Industry> industries = [];
   List<Niche> niches = [];
   XFile? _image;
+  String base64Image = '';
   DateTime? selectedDate;
   String? country;
   String? state;
@@ -91,7 +95,10 @@ class StartupRegisterProvider with ChangeNotifier {
 
     if (selectedImage != null) {
       _image = selectedImage;
+      Uint8List bytes = await _image!.readAsBytes();
+      base64Image = base64Encode(bytes);
     }
+
     notifyListeners();
   }
 

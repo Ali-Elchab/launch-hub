@@ -8,15 +8,15 @@ import 'package:open_file/open_file.dart';
 
 openLink(context, String urlPath) async {
   final url = urlPath;
-  if (await canLaunchUrl(Uri.parse(url))) {
-    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-  } else {
+  if (!await launchUrl(Uri.parse(url))) {
     // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Could not open  $url'),
       ),
     );
+  } else {
+    await launchUrl(Uri.parse(url));
   }
 }
 
@@ -37,9 +37,8 @@ downloadFile(
             content: Text('Download completed! Tap to open the file.'),
             action: SnackBarAction(
               label: 'Open',
-              onPressed: () {
-                // Use the open_file package to open the file
-                OpenFile.open(path);
+              onPressed: () async {
+                await OpenFile.open(path, type: 'csv/pdf');
               },
             ),
           ),

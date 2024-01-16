@@ -142,7 +142,6 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
                   ),
                   const SizedBox(height: 24),
                   SmallButton('Next', () {
-                    providerNotifier.registerJobSeeker();
                     if (_formKey.currentState!.validate() &&
                         provider.selectedNiche != null &&
                         provider.selectedIndustry != null) {

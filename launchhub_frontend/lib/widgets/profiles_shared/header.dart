@@ -51,7 +51,7 @@ class Header extends StatelessWidget {
                   text,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: textColor,
-                        fontSize: showBackButton ? 14 : 20,
+                        fontSize: showBackButton ? 14 : 18,
                       ),
                 ),
               ),

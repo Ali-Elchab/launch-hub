@@ -233,13 +233,11 @@ List<JobSeeker> dummyJobSeekers = [
     address: '123 Main St',
     bio:
         'HR Specialist: Proven expertise in talent management, employee relations, and a commitment to creating a positive workplace environment for organizational success.',
-    proffesionalSummary:
-        ' Results-oriented HR Professional with a proven track record in talent acquisition, employee relations, and organizational development. Skilled in implementing HR strategies that foster a positive workplace culture, drive employee engagement, and support business objectives. Adept at navigating complex employment issues, ensuring compliance, and enhancing overall HR operations for organizational success.',
     resume: 'path/to/resume1.pdf',
     isAvailable: true,
-    industryId: industries[3],
+    industryId: 2,
     userId: 1,
-    specializationId: Niche(id: 1, name: 'Organic Farming', industryId: 1),
+    specializationId: 24,
     socialMediaLinks: [
       {
         "platform": 'LinkedIn',
@@ -266,8 +264,8 @@ List<JobSeeker> dummyJobSeekers = [
       Experience(
         position: 'Software Developer',
         company: 'Tech Corp',
-        industry: 2,
-        specialization: 25,
+        industryId: 2,
+        specializationId: 25,
         type: 'Full-Time',
         startDate: '2014-07-01',
         endDate: '2019-08-30',

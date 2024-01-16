@@ -79,7 +79,7 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                               .map((hobby) => ChoiceTag(
                                     label: hobby.name,
                                     isSelected: provider.selectedHobbies
-                                        .contains(hobby),
+                                        .contains(hobby.id),
                                     onSelected: () =>
                                         providerNotifier.togglehobby(hobby),
                                   ))

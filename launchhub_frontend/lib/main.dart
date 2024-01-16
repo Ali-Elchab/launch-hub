@@ -72,7 +72,7 @@ class App extends StatelessWidget {
       theme: theme,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Skills(),
+        body: SignUp(),
       ),
     );
   }

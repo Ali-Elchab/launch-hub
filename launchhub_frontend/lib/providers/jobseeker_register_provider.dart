@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:launchhub_frontend/models/hobby.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio();
 
@@ -33,8 +35,9 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   List<Industry> industries = [];
   List<Niche> niches = [];
   XFile? _image;
-  String resume = '';
-  File? resumeFile;
+  String base64Image = '';
+  String resumeName = '';
+  String base64Resume = '';
   String? country;
   String? state;
   List socialMediaLinks = [];
@@ -42,8 +45,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     Education(
       degree: 'degree',
       organization: 'organization',
-      startDate: 'startDate',
-      endDate: 'endDate',
+      startDate: '2022-10-11',
+      endDate: '2022-10-11',
       description: 'description',
       location: ' location',
     ),
@@ -54,8 +57,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       name: 'web dev',
       certificate: 'certificate',
       organization: 'organization',
-      startDate: 'startDate',
-      endDate: 'endDate',
+      startDate: '2022-10-11',
+      endDate: '2022-10-11',
       description: 'description',
       location: ' location',
     )
@@ -64,19 +67,19 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     Experience(
       position: 'degree',
       company: 'organization',
-      startDate: 'startDate',
-      industry: 1,
-      specialization: 2,
+      startDate: '2022-10-11',
+      industryId: 1,
+      specializationId: 2,
       type: 'fulltime',
-      endDate: 'endDate',
+      endDate: '2022-10-11',
       description: 'description',
       location: ' location',
     ),
   ];
   List<Skill> skills = [];
-  List<Skill> selectedSkills = [];
+  List<int> selectedSkills = [];
   List<Hobby> hobbies = [];
-  List<Hobby> selectedHobbies = [];
+  List<int> selectedHobbies = [];
 
   String? _errorMessage;
 
@@ -136,7 +139,10 @@ class JobSeekerRegisterProvider with ChangeNotifier {
 
     if (selectedImage != null) {
       _image = selectedImage;
+      Uint8List bytes = await _image!.readAsBytes();
+      base64Image = base64Encode(bytes);
     }
+
     notifyListeners();
   }
 
@@ -244,9 +250,12 @@ class JobSeekerRegisterProvider with ChangeNotifier {
 
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null && result.files.isNotEmpty) {
-      resumeFile = File(result.files.first.path!);
+    resumeName = result!.files.first.name;
+    if (result.files.single.bytes != null) {
+      final bytes = result.files.single.bytes!;
+      base64Resume = base64Encode(bytes);
     } else {}
+
     notifyListeners();
   }
 
@@ -283,10 +292,10 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   }
 
   toggleSkill(Skill skill) {
-    if (selectedSkills.contains(skill)) {
-      selectedSkills.remove(skill);
+    if (selectedSkills.contains(skill.id)) {
+      selectedSkills.remove(skill.id);
     } else {
-      selectedSkills.add(skill);
+      selectedSkills.add(skill.id);
     }
     notifyListeners();
   }
@@ -310,10 +319,10 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   }
 
   void togglehobby(Hobby hobby) {
-    if (selectedHobbies.contains(hobby)) {
-      selectedHobbies.remove(hobby);
+    if (selectedHobbies.contains(hobby.id)) {
+      selectedHobbies.remove(hobby.id);
     } else {
-      selectedHobbies.add(hobby);
+      selectedHobbies.add(hobby.id);
     }
     notifyListeners();
   }
@@ -330,11 +339,9 @@ class JobSeekerRegisterProvider with ChangeNotifier {
 
   String? get errorMessage => _errorMessage;
 
-  void updatePersonalInfo(
-      String firstName, String lastName, String phoneNumber, String bio) {
+  void updatePersonalInfo(String firstName, String lastName, String bio) {
     _firstName = firstName;
     _lastName = lastName;
-    _phoneNumber = phoneNumber;
     _professionalBio = bio;
   }
 
@@ -343,27 +350,90 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     _phoneNumber = phoneNumber;
     if (linkedInUrl.isNotEmpty) {
       socialMediaLinks.add({
-        'name': 'LinkedIn',
-        'url': linkedInUrl,
+        'platform': 'LinkedIn',
+        'link': linkedInUrl,
       });
-      if (facebookUrl.isNotEmpty) {
-        socialMediaLinks.add({
-          'name': 'Facebook',
-          'url': facebookUrl,
-        });
-        if (instagramUrl.isNotEmpty) {
-          socialMediaLinks.add({
-            'name': 'Instagram',
-            'url': instagramUrl,
-          });
-        }
-        if (gitHubUrl.isNotEmpty) {
-          socialMediaLinks.add({
-            'name': 'Github',
-            'url': gitHubUrl,
-          });
-        }
-      }
     }
+    if (facebookUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'platform': 'Facebook',
+        'link': facebookUrl,
+      });
+    }
+    if (instagramUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'platform': 'Instagram',
+        'link': instagramUrl,
+      });
+    }
+    if (gitHubUrl.isNotEmpty) {
+      socialMediaLinks.add({
+        'platform': 'Github',
+        'url': gitHubUrl,
+      });
+    }
+  }
+
+  bool _isRegistered = false;
+  bool get isRegistered => _isRegistered;
+  Future registerJobSeeker() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token == null) {
+      return;
+    }
+    List<Map<String, dynamic>> educationsJson =
+        educations.map((education) => education.toJson()).toList();
+
+    List<Map<String, dynamic>> experiencesJson =
+        experiences.map((experience) => experience.toJson()).toList();
+
+    List<Map<String, dynamic>> certificationsJson =
+        certifications.map((certification) => certification.toJson()).toList();
+
+    final data = <String, dynamic>{
+      "first_name": _firstName,
+      "last_name": _lastName,
+      "dob": selectedDate.toString(),
+      'profilePic': base64Image,
+      'resume': base64Resume,
+      "phone": phoneNumber,
+      "address": address,
+      "bio": _professionalBio,
+      "industry_id": _selectedIndustry!.id,
+      "specialization_id": _selectedNiche!.id,
+      'social_media_links': socialMediaLinks,
+      'educations': educationsJson,
+      'experiences': experiencesJson,
+      'certifications': certificationsJson,
+      'hobbies': selectedHobbies,
+      "skills": selectedSkills,
+    };
+
+    try {
+      final response = await dio.post(
+        "${baseURL}register_jobseeker",
+        data: data,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      // print(response.data['message']);
+      if (response.statusCode == 200) {
+        _isRegistered = true;
+        notifyListeners();
+      }
+    } on DioException catch (e) {
+      _isRegistered = false;
+      _errorMessage = 'Failed: ${e.response!.data['message']}';
+    } catch (e) {
+      _isRegistered = false;
+      _errorMessage = 'Failed to register:  ${e.toString()}';
+    }
+    notifyListeners();
   }
 }

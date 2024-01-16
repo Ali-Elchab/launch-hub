@@ -31,4 +31,24 @@ class Education {
       jobSeekerId: json['job_seeker_id'] as int,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'degree': degree,
+      'organization': organization,
+      'start_date': startDate,
+      'end_date': endDate,
+      'description': description,
+      'location': location,
+    };
+  }
+
+  List<Map<String, dynamic>> convertEducationsToJson(
+      List<Education> educations) {
+    return educations.map((education) => education.toJson()).toList();
+  }
+
+  List<Education> parseMultiEducation(List<Map<String, dynamic>> json) {
+    return json.map((education) => Education.fromJson(education)).toList();
+  }
 }
