@@ -2,8 +2,8 @@ class Experience {
   int? id;
   final String position;
   final String company;
-  final int industry;
-  final int specialization;
+  final int? industryId;
+  final int? specializationId;
   final String type;
   final String startDate;
   final String endDate;
@@ -15,8 +15,8 @@ class Experience {
     this.id,
     required this.position,
     required this.company,
-    required this.industry,
-    required this.specialization,
+    required this.industryId,
+    required this.specializationId,
     required this.type,
     required this.startDate,
     required this.endDate,
@@ -30,14 +30,28 @@ class Experience {
       id: json['id'] as int,
       position: json['position'] as String,
       company: json['company'] as String,
-      industry: json['industry'] as int,
+      industryId: json['industry_id'] as int,
       type: json['type'] as String,
-      specialization: json['specialization'] as int,
+      specializationId: json['specialization_id'] as int,
       startDate: json['start_date'] as String,
       endDate: json['end_date'] as String,
       description: json['description'] as String,
       location: json['location'] as String,
       jobSeekerId: json['job_seeker_id'] as int,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'position': position,
+      'company': company,
+      'industry_id': industryId,
+      'specialization_id': specializationId,
+      'type': type,
+      'start_date': startDate,
+      'end_date': endDate,
+      'description': description,
+      'location': location,
+    };
   }
 }
