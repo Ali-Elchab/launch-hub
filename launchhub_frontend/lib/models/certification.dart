@@ -34,4 +34,16 @@ class Certification {
       jobSeekerId: json['job_seeker_id'] as int,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'certificate': certificate,
+      'organization': organization,
+      'start_date': startDate,
+      'end_date': endDate,
+      'description': description,
+      'location': location,
+    };
+  }
 }
