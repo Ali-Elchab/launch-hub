@@ -18,7 +18,6 @@ class Certification extends Model
         'end_date',
         'description',
         'location',
-        'job_seeker_id',
     ];
 
     public function jobSeeker()

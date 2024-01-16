@@ -13,7 +13,6 @@ class Skill extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
         'industry_id',
     ];
 

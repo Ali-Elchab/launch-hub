@@ -14,13 +14,12 @@ class Experience extends Model
         'position',
         'company',
         'type',
-        'industry',
-        'company',
+        'industry_id',
+        'specialization_id',
         'start_date',
         'end_date',
         'description',
         'location',
-        'job_seeker_id',
     ];
 
     public function jobSeeker()
