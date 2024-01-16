@@ -80,7 +80,9 @@ class ContactInfo extends ConsumerWidget {
                             state: provider.state,
                           ),
                           InputField(
-                              label: 'Phone Number', validator: validator),
+                              label: 'Phone Number',
+                              validator: validator,
+                              controller: phoneController),
                           SocialMediaLinksDropdown(
                             linkedinController: linkedinController,
                             facebookController: facebookController,
