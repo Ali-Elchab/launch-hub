@@ -7,7 +7,7 @@ class SkillsAndHobbies extends StatelessWidget {
       {super.key, required this.toggleHeaderColor, required this.skills});
 
   final Function()? toggleHeaderColor;
-  final List<Skill> skills;
+  final List<Skill>? skills;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class SkillsAndHobbies extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Wrap(spacing: 9.0, runSpacing: 4.0, children: [
-                  ...skills.map((skill) => ChoiceTag(
+                  ...skills!.map((skill) => ChoiceTag(
                         label: skill.name,
                         isSelected: false,
                       )),

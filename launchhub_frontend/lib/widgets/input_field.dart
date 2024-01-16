@@ -25,7 +25,7 @@ class InputField extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
-  _InputFieldState createState() => _InputFieldState();
+  State<InputField> createState() => _InputFieldState();
 }
 
 class _InputFieldState extends State<InputField> {

@@ -95,7 +95,7 @@ class JobSeekerCard extends StatelessWidget {
                     Text('${jobSeeker.firstName} ${jobSeeker.lastName}',
                         style: Theme.of(context).textTheme.titleSmall!),
                     const SizedBox(height: 4),
-                    Text(jobSeeker.specializationId.name,
+                    Text('${jobSeeker.specializationId}',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               fontWeight: FontWeight.bold,
                             )),
