@@ -155,8 +155,8 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                           .read(startupRegisterProvider.notifier)
                           .updateCredentials(
                               companyNameController.text,
-                              companyDescriptionController.text,
-                              registrationNumberController.text);
+                              registrationNumberController.text,
+                              companyDescriptionController.text);
                       navigator(
                         context,
                         CompanyInfo2(),

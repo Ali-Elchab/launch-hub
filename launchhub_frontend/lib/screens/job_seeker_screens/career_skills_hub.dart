@@ -63,7 +63,7 @@ class CareerSkillsHub extends StatelessWidget {
                                 onTap: () {
                                   openLink(
                                     context,
-                                    'www.udemy.com${course['url']}',
+                                    'https://www.udemy.com${course['url']}',
                                   );
                                 });
                           },

@@ -98,9 +98,9 @@ class Founders extends ConsumerWidget {
                       icon: const Icon(Icons.add),
                     )
                   ]),
-                  Expanded(
+                  Container(
+                    height: 105,
                     child: ListView.builder(
-                      shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: provider.founders.length,
                       itemBuilder: (context, index) {
@@ -108,15 +108,13 @@ class Founders extends ConsumerWidget {
                           background: Container(
                             color: const Color.fromARGB(255, 167, 11, 0),
                             alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 20),
                             margin: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 4,
+                              vertical: 5,
                             ),
                             child: const Icon(
                               Icons.delete,
                               color: Colors.white,
-                              size: 40,
+                              size: 30,
                             ),
                           ),
                           key: ValueKey(provider.founders[index]),
@@ -129,7 +127,7 @@ class Founders extends ConsumerWidget {
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            margin: const EdgeInsets.only(bottom: 16),
+                            margin: const EdgeInsets.only(bottom: 6),
                             decoration: const BoxDecoration(
                               color: Color(0xFFF5F5F5),
                               borderRadius: BorderRadius.all(
@@ -168,7 +166,6 @@ class Founders extends ConsumerWidget {
                   ]),
                   Expanded(
                     child: ListView.builder(
-                      shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: provider.ceos.length,
                       itemBuilder: (context, index) {
@@ -238,7 +235,6 @@ class Founders extends ConsumerWidget {
                   ]),
                   Expanded(
                     child: ListView.builder(
-                      shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: provider.keyExecutives.length,
                       itemBuilder: (context, index) {
@@ -285,8 +281,17 @@ class Founders extends ConsumerWidget {
                   ),
                   SmallButton('Submit', () {
                     if (provider.founders.isNotEmpty) {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/StartupHome', (route) => false);
+                      ref
+                          .read(startupRegisterProvider.notifier)
+                          .registerStartup();
+                      provider.isRegistered
+                          ? Navigator.pushNamedAndRemoveUntil(
+                              context, '/StartupHome', (route) => false)
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content:
+                                      Text('Error: ${provider.errorMessage}')),
+                            );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
