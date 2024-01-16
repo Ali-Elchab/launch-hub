@@ -94,14 +94,14 @@ class ExperienceInfo extends ConsumerWidget {
                       label: 'Upload Resume Here',
                       readOnly: true,
                       controller: TextEditingController(
-                          text: path.basename(provider.resumeFile?.path ?? '')),
+                          text: path.basename(provider.resumeName)),
                       icon: const Icon(Icons.upload_file),
                       onTap: () => providerNotifier.pickFile(),
                     ),
                   ),
                   SmallButton('Next', () {
                     if (_formKey.currentState!.validate()) {
-                      navigator(context, Skills());
+                      navigator(context, const Skills());
                     }
                   }),
                   const SizedBox(height: 15),
