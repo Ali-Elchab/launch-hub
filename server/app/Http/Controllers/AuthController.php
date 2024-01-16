@@ -53,8 +53,6 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-
-
         try {
             $request->validate([
                 'email' => 'required|string|email|unique:users,email',
@@ -62,7 +60,6 @@ class AuthController extends Controller
                 'user_type_id' => 'required|integer|exists:user_types,id',
             ],);
         } catch (ValidationException $e) {
-            // echo $e->getMessage();
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
@@ -203,7 +200,7 @@ class AuthController extends Controller
                 'status' => 'success',
                 'message' => 'job seeker created successfully',
                 'user' => User::with('jobSeeker')->find($user->id),
-            ]);
+            ], 200);
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
@@ -250,7 +247,7 @@ class AuthController extends Controller
         }
         try {
             $user = User::find(auth()->user()->id);
-            $logo = uploadLogo($request);
+            $logo = uploadImage($request);
             $startup = new Startup([
                 'user_id' => $user->id,
                 'industry_id' => $request->industry_id,
@@ -289,7 +286,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'logged out successfully',
-        ]);
+        ], 200);
     }
 
     public function refresh()

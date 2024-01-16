@@ -9,7 +9,7 @@ function uploadImage($request)
             $base64Image = $request->profile_pic;
             $imageData = base64_decode($base64Image);
             $fileName = 'image_' . time() . '.png';
-            Storage::disk('public')->put($fileName, $imageData);
+            Storage::disk(public_path('assets/profile_pics'))->put($fileName, $imageData);
             return $fileName;
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
@@ -20,36 +20,15 @@ function uploadImage($request)
 
 function uploadFile($request)
 {
-    if ($request->hasFile('resume')) {
-        try {
-            $request->validate([
-                "resume" => 'file|max:10000'
-            ]);
 
-            $file = $request->file('resume');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('assets/resumes'), $filename);
-            return $filename;
-        } catch (\Exception $e) {
-            return ['error' => $e->getMessage()];
-        }
-    }
-    return null;
-}
-function uploadLogo($request)
-{
-    if ($request->hasFile('logo_url')) {
+    if ($request->resume) {
         try {
-            $request->validate([
-                "logo_url" => 'file|max:10000'
-            ]);
+            $base64Image = $request->resume;
+            $resumeData = base64_decode($base64Image);
+            $fileName = 'resume_' . time() . '.png';
+            Storage::disk(public_path('assets/files'))->put($fileName, $resumeData);
 
-            $file = $request->file('logo_url');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('assets/logos'), $filename);
-            return $filename;
+            return $fileName;
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
         }

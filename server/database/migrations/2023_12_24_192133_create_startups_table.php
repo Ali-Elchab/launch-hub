@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('registration_number')->nullable();
             $table->date('founding_date');
             $table->string('company_address');
-            $table->string('website_url');
+            $table->string('website_url')->nullable();
             $table->json('founders');
             $table->json('ceos')->nullable();
             $table->json('key_executives')->nullable();
