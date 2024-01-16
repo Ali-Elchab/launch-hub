@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
@@ -89,15 +90,28 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                     ),
                   ),
                 ),
-                SmallButton('Submit', () {
-                  providerNotifier.registerJobSeeker();
-                  provider.isRegistered
-                      ? Navigator.pushNamedAndRemoveUntil(
-                          context, '/JobSeekerHome', (route) => false)
-                      : ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text('Error: ${provider.errorMessage}')),
-                        );
+                SmallButton('Submit', () async {
+                  //   final response = await ref
+                  //       .read(startupRegisterProvider.notifier)
+                  //       .registerStartup();
+                  //   if (provider.isRegistered) {
+                  //     final user = User.fromJson(response['user']);
+                  //     ref.read(startupProfileProvider).loadProfile(user);
+                  //     navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                  //         '/StartupHome', (Route<dynamic> route) => false);
+                  //   } else {
+                  //     // ignore: use_build_context_synchronously
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text('Error: ${provider.errorMessage}'),
+                  //       ),
+                  //     );
+                  //   }
+                  // } else {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(
+                  //         content: Text('Please add at least one founder')),
+                  //   );
                 }, showArrow: false),
                 const SizedBox(height: 15),
                 const BottomText(

@@ -239,7 +239,7 @@ class StartupRegisterProvider with ChangeNotifier {
     };
 
     try {
-      final response = await dio.post(
+      final response = await myDio.post(
         ApiRoute.registerStartup,
         data: data,
         options: Options(
@@ -252,6 +252,7 @@ class StartupRegisterProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         _isRegistered = true;
         notifyListeners();
+        return response.data;
       }
     } on DioException catch (e) {
       _isRegistered = false;

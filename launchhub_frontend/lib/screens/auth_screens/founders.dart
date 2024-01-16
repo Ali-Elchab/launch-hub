@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/models/user.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -279,19 +282,24 @@ class Founders extends ConsumerWidget {
                       },
                     ),
                   ),
-                  SmallButton('Submit', () {
+                  SmallButton('Submit', () async {
                     if (provider.founders.isNotEmpty) {
-                      ref
+                      final response = await ref
                           .read(startupRegisterProvider.notifier)
                           .registerStartup();
-                      provider.isRegistered
-                          ? Navigator.pushNamedAndRemoveUntil(
-                              context, '/StartupHome', (route) => false)
-                          : ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content:
-                                      Text('Error: ${provider.errorMessage}')),
-                            );
+                      if (provider.isRegistered) {
+                        final user = User.fromJson(response['user']);
+                        ref.read(startupProfileProvider).loadProfile(user);
+                        navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                            '/StartupHome', (Route<dynamic> route) => false);
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Error: ${provider.errorMessage}'),
+                          ),
+                        );
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/auth_provider.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
 
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
@@ -59,16 +60,18 @@ class SignIn extends ConsumerWidget {
                       },
                     ),
                     InputField(
-                      label: 'Password',
-                      isPassword: true,
-                      controller: passwordController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                    ),
+                        label: 'Password',
+                        isPassword: true,
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 3) {
+                            return 'Password must be at least 6 characters long';
+                          }
+                          return null;
+                        }),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: InkWell(
@@ -90,22 +93,28 @@ class SignIn extends ConsumerWidget {
                     SubmitButton('Sign In', () async {
                       final provider = ref.read(authProvider);
                       if (_formKey.currentState!.validate()) {
-                        // ref.read(authProvider.notifier).updateCredentials(
-                        //     emailController.text, passwordController.text, 0);
-
+                        ref.read(authProvider.notifier).updateCredentials(
+                            emailController.text, passwordController.text, 0);
                         final response = await ref
                             .read(authProvider.notifier)
                             .signIn(
                                 emailController.text, passwordController.text);
 
                         if (provider.isSignInSuccessful) {
-                          final user = User.fromJson(response);
-                          provider.selectedType == UserType.startup
-                              ? navigatorKey.currentState
-                                  ?.popAndPushNamed('/StartupHome')
-                              : navigatorKey.currentState
-                                  ?.popAndPushNamed('/JobSeekerHome');
+                          final user = User.fromJson(response['user']);
+                          if (user.typeId == 1) {
+                            ref.read(startupProfileProvider).loadProfile(user);
+
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                                '/StartupHome',
+                                (Route<dynamic> route) => false);
+                          } else if (user.typeId == 2) {
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                                '/JobSeekerHome',
+                                (Route<dynamic> route) => false);
+                          }
                         } else {
+                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content:

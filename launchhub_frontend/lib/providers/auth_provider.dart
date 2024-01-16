@@ -61,7 +61,7 @@ class AuthProvider with ChangeNotifier {
           final authorizationData = response.data['authorisation'];
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('token', authorizationData['token']);
-          return response.data['user'];
+          return response.data;
         } else {
           _isSignInSuccessful = false;
           _errorMessage = 'Token not found in response';
