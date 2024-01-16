@@ -63,11 +63,11 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.jobSeeker.specializationId.name,
+                    Text('${widget.jobSeeker.specializationId}',
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 20),
                     Text(
-                      widget.jobSeeker.proffesionalSummary,
+                      widget.jobSeeker.bio,
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.justify,
                     ),

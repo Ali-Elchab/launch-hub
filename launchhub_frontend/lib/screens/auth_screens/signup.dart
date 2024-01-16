@@ -119,9 +119,9 @@ class SignUp extends ConsumerWidget {
                         if (provider.isSignUpSuccessful) {
                           provider.selectedType == UserType.startup
                               ? navigatorKey.currentState
-                                  ?.popAndPushNamed('/CompanyInfo1')
+                                  ?.pushNamed('/CompanyInfo1')
                               : navigatorKey.currentState
-                                  ?.popAndPushNamed('/PersonalInfo');
+                                  ?.pushNamed('/PersonalInfo');
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

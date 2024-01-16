@@ -80,8 +80,8 @@ class _SkillsState extends ConsumerState<Skills> {
                           children: providerNotifier.skills
                               .map((skill) => ChoiceTag(
                                     label: skill.name,
-                                    isSelected:
-                                        provider.selectedSkills.contains(skill),
+                                    isSelected: provider.selectedSkills
+                                        .contains(skill.id),
                                     onSelected: () =>
                                         providerNotifier.toggleSkill(skill),
                                   ))
