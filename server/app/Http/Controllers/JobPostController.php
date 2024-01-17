@@ -16,6 +16,7 @@ class JobPostController extends Controller
     public function getJobPost($id)
     {
         $jobpost = JobPost::find($id);
+        $jobpost->load(['requiredSkills']);
         if (!$jobpost) {
             return response()->json(['status' => 'error', 'message' => 'Job post not found'], 404);
         }
@@ -29,7 +30,8 @@ class JobPostController extends Controller
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        $jobposts = $startup->jobposts;
+        $jobposts = $startup->jobposts()->with('requiredSkills')->get();
+
         return response()->json($jobposts);
     }
 
@@ -80,6 +82,7 @@ class JobPostController extends Controller
                 'job_qualification' => 'required|string',
                 'experience_level' => 'required|string',
                 'education_level' => 'required|string',
+                'responsibilities' => 'required|string',
                 'preferred_gender' => 'required|string',
                 'job_status' => 'required|string',
                 'deadline' => 'required|string',
