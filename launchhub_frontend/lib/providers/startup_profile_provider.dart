@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
-import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/models/user.dart';
-import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final startupProfileProvider = StateProvider<StartupProfileProvider>((ref) {
