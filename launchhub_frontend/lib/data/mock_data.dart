@@ -101,7 +101,7 @@ List<JobPost> dummyJobPosts = [
         "Join as an IT Technician to deliver top-tier technical support, troubleshoot hardware and software challenges, and enhance the overall efficiency of our dynamic IT environment.",
     jobLocation: "San Francisco, CA",
     jobType: jobTypes[1],
-    jobSalary: 80000,
+    jobSalary: '80000',
     jobQualification: "Bachelor's degree in Computer Science",
     responsibilities:
         "Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.Foster a positive and inclusive workplace culture through effective employee relations.Implement and maintain HR policies and procedures in alignment with industry best practices.Plan and conduct training sessions on various HR-related topics.Maintain accurate records and documentation related to employee activities.",
@@ -121,7 +121,7 @@ List<JobPost> dummyJobPosts = [
     jobDescription: "Create visually appealing graphics and designs.",
     jobLocation: "New York, NY",
     jobType: jobTypes[0],
-    jobSalary: 50000,
+    jobSalary: '50000',
     jobQualification: "Bachelor's degree in Graphic Design",
     responsibilities:
         "Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.Foster a positive and inclusive workplace culture through effective employee relations.Implement and maintain HR policies and procedures in alignment with industry best practices.Plan and conduct training sessions on various HR-related topics.Maintain accurate records and documentation related to employee activities.",

@@ -1,5 +1,3 @@
-import 'package:launchhub_frontend/models/skill.dart';
-
 class JobPost {
   JobPost({
     required this.id,
@@ -25,7 +23,7 @@ class JobPost {
   final String jobDescription;
   final String jobLocation;
   final String jobType;
-  final int jobSalary;
+  final String jobSalary;
   final String jobQualification;
   final String responsibilities;
   final String experienceLevel;
@@ -44,7 +42,7 @@ class JobPost {
       jobDescription: json['job_description'] as String,
       jobLocation: json['job_location'] as String,
       jobType: json['job_type'] as String,
-      jobSalary: json['job_salary'] as int,
+      jobSalary: json['job_salary'] as String,
       jobQualification: json['job_qualification'] as String,
       responsibilities: json['responsibilities'] as String,
       experienceLevel: json['experience_level'] as String,
