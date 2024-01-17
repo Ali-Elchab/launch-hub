@@ -17,6 +17,7 @@ class JobPost extends Model
         'job_salary',
         'job_qualification',
         'experience_level',
+        'responsibilities',
         'education_level',
         'preferred_gender',
         'deadline',
@@ -48,6 +49,6 @@ class JobPost extends Model
 
     public function requiredSkills()
     {
-        return $this->belongsToMany(Skill::class, 'job_post_skills', 'job_post_id', 'skill_id');
+        return $this->belongsToMany(Skill::class, 'job_post_required_skills', 'job_post_id', 'skill_id');
     }
 }
