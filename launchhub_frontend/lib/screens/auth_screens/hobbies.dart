@@ -2,8 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
+import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
@@ -91,27 +94,29 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                   ),
                 ),
                 SmallButton('Submit', () async {
-                  //   final response = await ref
-                  //       .read(startupRegisterProvider.notifier)
-                  //       .registerStartup();
-                  //   if (provider.isRegistered) {
-                  //     final user = User.fromJson(response['user']);
-                  //     ref.read(startupProfileProvider).loadProfile(user);
-                  //     navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                  //         '/StartupHome', (Route<dynamic> route) => false);
-                  //   } else {
-                  //     // ignore: use_build_context_synchronously
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       SnackBar(
-                  //         content: Text('Error: ${provider.errorMessage}'),
-                  //       ),
-                  //     );
-                  //   }
-                  // } else {
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     const SnackBar(
-                  //         content: Text('Please add at least one founder')),
-                  //   );
+                  if (provider.selectedHobbies.isNotEmpty) {
+                    final response = await ref
+                        .read(startupRegisterProvider.notifier)
+                        .registerStartup();
+                    if (provider.isRegistered) {
+                      final user = User.fromJson(response['user']);
+                      ref.read(startupProfileProvider).loadUser(user);
+                      navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                          '/StartupHome', (Route<dynamic> route) => false);
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error: ${provider.errorMessage}'),
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Please add at least one founder')),
+                    );
+                  }
                 }, showArrow: false),
                 const SizedBox(height: 15),
                 const BottomText(

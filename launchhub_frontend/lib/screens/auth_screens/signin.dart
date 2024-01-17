@@ -102,8 +102,9 @@ class SignIn extends ConsumerWidget {
 
                         if (provider.isSignInSuccessful) {
                           final user = User.fromJson(response['user']);
+
                           if (user.typeId == 1) {
-                            ref.read(startupProfileProvider).loadProfile(user);
+                            ref.read(startupProfileProvider).loadUser(user);
 
                             navigatorKey.currentState?.pushNamedAndRemoveUntil(
                                 '/StartupHome',

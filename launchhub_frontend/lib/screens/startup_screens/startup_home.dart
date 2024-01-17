@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
 import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
@@ -12,19 +14,41 @@ import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/welcome_card.dart';
 
-class StartupHome extends StatelessWidget {
+class StartupHome extends ConsumerStatefulWidget {
   const StartupHome({super.key});
+
+  @override
+  ConsumerState<StartupHome> createState() => _StartupHomeState();
+}
+
+class _StartupHomeState extends ConsumerState<StartupHome> {
+  @override
+  void initState() {
+    try {
+      ref.read(startupProfileProvider).fetchStartupProfile();
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(180),
-          child: Header(
-            text: 'Your Premier App for Turning Visions into Reality ',
-            title: 'Vast',
-            showBackButton: false,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(180),
+          child: Consumer(
+            builder: (context, ref, child) {
+              final startupProfile = ref.read(startupProfileProvider);
+              return Header(
+                text: startupProfile.companyDescription,
+                title: startupProfile.companyName,
+                showBackButton: false,
+              );
+            },
           ),
         ),
         body: SingleChildScrollView(

@@ -289,7 +289,8 @@ class Founders extends ConsumerWidget {
                           .registerStartup();
                       if (provider.isRegistered) {
                         final user = User.fromJson(response['user']);
-                        ref.read(startupProfileProvider).loadProfile(user);
+                        ref.read(startupProfileProvider).loadUser(user);
+                        ref.read(startupProfileProvider).fetchStartupProfile();
                         navigatorKey.currentState?.pushNamedAndRemoveUntil(
                             '/StartupHome', (Route<dynamic> route) => false);
                       } else {
