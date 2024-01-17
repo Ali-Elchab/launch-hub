@@ -3,11 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/how_to_write_job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
+import 'package:launchhub_frontend/widgets/startup/post_job.dart';
+import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class JobBoard extends ConsumerWidget {
   const JobBoard({super.key});
@@ -15,7 +18,7 @@ class JobBoard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final jobBoard = ref.read(jobBoardProvider);
-
+    final startup = ref.read(startupProfileProvider);
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -39,6 +42,7 @@ class JobBoard extends ConsumerWidget {
       mainContent = JobPostsList(
         jobPosts: jobBoard.jobPosts,
         removeJobPost: jobBoard.removeJobPost,
+        company: startup.startup,
       );
     }
     return Scaffold(
@@ -62,10 +66,10 @@ class JobBoard extends ConsumerWidget {
               Expanded(
                 child: mainContent,
               ),
-              // SubmitButton('Post a job', () {
-              //   showModal(PostJob(postJob: _postJob), context,
-              //       color: Colors.white);
-              // }),
+              SubmitButton('Post a job', () {
+                showModal(PostJob(postJob: jobBoard.postJob), context,
+                    color: Colors.white);
+              }),
               const SizedBox(height: 3),
               InkWell(
                 onTap: () {
