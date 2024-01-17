@@ -243,7 +243,6 @@ class StartupRegisterProvider with ChangeNotifier {
         ApiRoute.registerStartup,
         data: data,
         options: Options(
-          contentType: Headers.jsonContentType,
           headers: {
             'Authorization': 'Bearer $token',
           },
