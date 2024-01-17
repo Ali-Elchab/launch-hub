@@ -16,23 +16,22 @@ class StartupController extends Controller
     public function getStartup($id = null)
     {
         if ($id) {
-            $startup = Startup::find($id);
+            $startup = Startup::with(['user.socialMediaLinks'])->find($id);
+            if (!$startup) {
+                return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
+            }
+            $startup->socialMediaLinks = $startup->user->socialMediaLinks ?? [];
+            unset($startup->user);
+        } else {
+            $user = auth()->user();
+            $startup = $user->startup;
 
             if (!$startup) {
                 return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
             }
-        } else {
-            $user = auth()->user();
-            if (!$user || !$user->startup) {
-                return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
-            }
-            $startup = $user->startup;
+            $startup->socialMediaLinks = $user->socialMediaLinks ?? [];
         }
-        if ($user && $user->startup) {
-            $startup->socialMediaLinks = $user->socialMediaLinks;
-
-            return response()->json(['status' => 'success', 'startup' => $startup]);
-        }
+        return response()->json(['status' => 'success', 'startup' => $startup], 200);
     }
 
     public function updateStartupProfile(Request $request)

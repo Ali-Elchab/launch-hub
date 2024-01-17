@@ -28,8 +28,9 @@ Route::controller(DataController::class)->group(function () {
     Route::get('skills/{specialization_id}', 'getSkillsBySpecialization');
     Route::get('general_skills', 'getGeneralSkills');
     Route::get('hobbies', 'getHobbies');
-    Route::get('industries', 'getIndustries');
-    Route::get('specializations/{industry_id}', 'getSpecializations');
+    Route::get('industries/{id?}', 'getIndustries');
+    Route::get('industry_specializations/{industry_id}', 'getSpecializationsByIndustry');
+    Route::get('specializations/{id?}', 'getSpecializations');
 });
 
 Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(function () {
