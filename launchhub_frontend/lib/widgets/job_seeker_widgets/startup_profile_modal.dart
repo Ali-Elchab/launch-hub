@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 
 class StartupProfileModal extends StatelessWidget {
@@ -13,7 +12,7 @@ class StartupProfileModal extends StatelessWidget {
   final Function()? toggleHeaderColor;
   final String? qualifications;
   final String? responsibilities;
-  final List<Skill>? skills;
+  final List? skills;
 
   @override
   Widget build(BuildContext context) {

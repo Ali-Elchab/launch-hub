@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
@@ -79,7 +78,7 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                         Wrap(
                           spacing: 9.0,
                           runSpacing: 4.0,
-                          children: mockHobbies
+                          children: providerNotifier.hobbies
                               .map((hobby) => ChoiceTag(
                                     label: hobby.name,
                                     isSelected: provider.selectedHobbies

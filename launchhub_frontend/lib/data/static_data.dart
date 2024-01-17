@@ -85,3 +85,29 @@ List<Object> legalTemplates = [
         'https://resources.gonitro.com/01/93/33bc63144ecbbc5bc8bcf66a3621/pdf-template-simple-contract-template.pdf',
   }
 ];
+
+final List<String> experienceLevels = [
+  '0-1 years',
+  '1-3 years',
+  '3-5 years',
+  '5-10 years',
+  '10+ years',
+];
+
+final List<String> educationLevels = [
+  'High School',
+  'Associate Degree',
+  'Bachelor\'s Degree',
+  'Master\'s Degree',
+  'Doctoral Degree',
+];
+
+final List<String> jobTypes = [
+  'Full-time',
+  'Part-time',
+  'Contract',
+  'Internship',
+  'Temporary',
+];
+
+final List<String> genders = ['Male', 'Female', 'Any'];

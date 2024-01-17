@@ -33,7 +33,7 @@ class JobPost {
   final String preferredGender;
   final String deadline;
   final String jobStatus;
-  final List<Skill> requiredSkills;
+  final List requiredSkills;
   final int industryId;
   final int specializationId;
   final int startupId;

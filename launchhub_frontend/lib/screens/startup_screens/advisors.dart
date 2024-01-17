@@ -86,17 +86,3 @@ class Advisors extends StatelessWidget {
     );
   }
 }
-
-// // void advisors() async {
-// //   // Example endpoint - replace with your actual endpoint
-// //   const endpoint = 'startup/advisors';
-// //   // Headers are optional, remove if not needed
-// //   const headers = {'Authorization': 'Bearer YOUR_API_TOKEN'};
-// //   try {
-// //     final advisors =
-// //         await fetchAdvisors('finance'); // Use the appropriate category
-// //     print(advisors);
-// //   } catch (e) {
-// //     print(e);
-// //   }
-// // }

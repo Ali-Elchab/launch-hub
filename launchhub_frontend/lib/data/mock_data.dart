@@ -1,4 +1,4 @@
-// ignore: file_names
+import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/models/advisor.dart';
 import 'package:launchhub_frontend/models/certification.dart';
 import 'package:launchhub_frontend/models/education.dart';
@@ -6,35 +6,33 @@ import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/hobby.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
-import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/models/social_media_link.dart';
 import 'package:launchhub_frontend/models/startup.dart';
 
-List<Industry> industries = [
-  Industry(id: 1, name: 'Agriculture'),
-  Industry(id: 2, name: 'Automotive'),
-  Industry(id: 3, name: 'Banking'),
-  Industry(id: 4, name: 'Construction'),
-  Industry(id: 5, name: 'Education'),
-  Industry(id: 6, name: 'Energy'),
-  Industry(id: 7, name: 'Entertainment'),
-  Industry(id: 8, name: 'Food'),
-  Industry(id: 9, name: 'Healthcare'),
-  Industry(id: 10, name: 'Hospitality'),
-  Industry(id: 11, name: 'Insurance'),
-  Industry(id: 12, name: 'Manufacturing'),
-  Industry(id: 13, name: 'Media'),
-  Industry(id: 14, name: 'Mining'),
-  Industry(id: 15, name: 'Pharmaceutical'),
-  Industry(id: 16, name: 'Real Estate'),
-  Industry(id: 17, name: 'Retail'),
-  Industry(id: 18, name: 'Telecommunications'),
-  Industry(id: 19, name: 'Transportation'),
-  Industry(id: 20, name: 'Utilities'),
-  Industry(id: 21, name: 'Other'),
-];
+// List<Industry> industries = [
+//   Industry(id: 1, name: 'Agriculture'),
+//   Industry(id: 2, name: 'Automotive'),
+//   Industry(id: 3, name: 'Banking'),
+//   Industry(id: 4, name: 'Construction'),
+//   Industry(id: 5, name: 'Education'),
+//   Industry(id: 6, name: 'Energy'),
+//   Industry(id: 7, name: 'Entertainment'),
+//   Industry(id: 8, name: 'Food'),
+//   Industry(id: 9, name: 'Healthcare'),
+//   Industry(id: 10, name: 'Hospitality'),
+//   Industry(id: 11, name: 'Insurance'),
+//   Industry(id: 12, name: 'Manufacturing'),
+//   Industry(id: 13, name: 'Media'),
+//   Industry(id: 14, name: 'Mining'),
+//   Industry(id: 15, name: 'Pharmaceutical'),
+//   Industry(id: 16, name: 'Real Estate'),
+//   Industry(id: 17, name: 'Retail'),
+//   Industry(id: 18, name: 'Telecommunications'),
+//   Industry(id: 19, name: 'Transportation'),
+//   Industry(id: 20, name: 'Utilities'),
+//   Industry(id: 21, name: 'Other'),
+// ];
 
 // List<Niche> niches = [
 //   Niche(id: 1, name: 'Organic Farming'),
@@ -112,11 +110,7 @@ List<JobPost> dummyJobPosts = [
     preferredGender: genders[2],
     deadline: "2024-12-31",
     jobStatus: 'open',
-    requiredSkills: [
-      mockSkills[0],
-      mockSkills[1],
-      mockSkills[2],
-    ],
+    requiredSkills: [1, 2, 3],
     industryId: 1,
     specializationId: 101,
     startupId: 1,
@@ -139,87 +133,9 @@ List<JobPost> dummyJobPosts = [
     industryId: 2,
     specializationId: 102,
     startupId: 1,
-    requiredSkills: [
-      mockSkills[0],
-      mockSkills[1],
-      mockSkills[2],
-    ],
+    requiredSkills: [5, 8, 9],
   ),
   // Add more dummy job posts as needed
-];
-
-final List<String> experienceLevels = [
-  '0-1 years',
-  '1-3 years',
-  '3-5 years',
-  '5-10 years',
-  '10+ years',
-];
-
-final List<String> educationLevels = [
-  'High School',
-  'Associate Degree',
-  'Bachelor\'s Degree',
-  'Master\'s Degree',
-  'Doctoral Degree',
-];
-
-final List<String> jobTypes = [
-  'Full-time',
-  'Part-time',
-  'Contract',
-  'Internship',
-  'Temporary',
-];
-
-final List<String> genders = ['Male', 'Female', 'Any'];
-
-List<String> locations = [
-  'Beirut',
-  'Tripoli',
-  'Sidon',
-  'Tyre',
-  'Byblos',
-  'Baalbek',
-  'Jounieh',
-  'Zahle',
-  'Nabatieh',
-  'Anjar',
-  'Bcharre',
-  'Batroun',
-  'Aley',
-  'Jeita',
-  'Saida',
-  'Zgharta',
-  'Ehden',
-  'Kfardebian',
-  'Bekaa Valley',
-  'Chouf District',
-  'Jezzine',
-  'Bentael',
-  'Akkar District',
-  'Rashaya',
-  'Tannourine',
-  'Marjayoun',
-  'Miziara',
-  'Bhamdoun',
-  'Deir el Qamar',
-  'Jiya',
-  'Zahlé District',
-  'Broumana',
-  'Baskinta',
-  'Anfeh',
-  'Bikfaya',
-  'Dhour El Choueir',
-  'Douma',
-  'Jal el Dib',
-  'Jdeideh',
-  'Kousba',
-  'Mina, Tripoli',
-  'Mtein',
-  'Ras Baalbek',
-  'Rachaya',
-  'Zahle District',
 ];
 
 List<JobSeeker> dummyJobSeekers = [

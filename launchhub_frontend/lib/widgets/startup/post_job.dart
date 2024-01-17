@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
@@ -280,17 +281,17 @@ class _PostJobState extends State<PostJob> {
                           });
                         },
                       ),
-                      GenericDropdown<String>(
-                        label: 'Select Location',
-                        options: locations,
-                        selectedOption: _selectLocation,
-                        optionLabel: (option) => option.toString(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectLocation = newValue;
-                          });
-                        },
-                      ),
+                      // GenericDropdown<String>(
+                      //   label: 'Select Location',
+                      //   options: locations,
+                      //   selectedOption: _selectLocation,
+                      //   optionLabel: (option) => option.toString(),
+                      //   onChanged: (newValue) {
+                      //     setState(() {
+                      //       _selectLocation = newValue;
+                      //     });
+                      //   },
+                      // ),
                       InputField(
                         label: 'Salary / Month',
                         controller: _jobSalaryController,
@@ -306,17 +307,17 @@ class _PostJobState extends State<PostJob> {
                           });
                         },
                       ),
-                      GenericDropdown<Industry>(
-                        label: 'Select Industry',
-                        options: industries,
-                        selectedOption: _selectedIndustry,
-                        optionLabel: (industry) => industry!.name,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedIndustry = newValue;
-                          });
-                        },
-                      ),
+                      // GenericDropdown<Industry>(
+                      //   label: 'Select Industry',
+                      //   options: industries,
+                      //   selectedOption: _selectedIndustry,
+                      //   optionLabel: (industry) => industry!.name,
+                      //   onChanged: (newValue) {
+                      //     setState(() {
+                      //       _selectedIndustry = newValue;
+                      //     });
+                      //   },
+                      // ),
                       // GenericDropdown<Niche>(
                       //   label: 'Select Specialization',
                       //   options: niches,

@@ -162,7 +162,7 @@ class _JobPostViewState extends State<JobPostView> {
                                     toggleHeaderColor: _toggleHeaderColor,
                                     qualifications:
                                         widget.jobPost.jobQualification,
-                                    skills: widget.jobPost.requiredSkills,
+                                    skills: [1, 2, 3],
                                   ),
                                   context,
                                   color: Theme.of(context).colorScheme.primary,
