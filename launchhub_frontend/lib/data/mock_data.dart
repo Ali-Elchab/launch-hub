@@ -351,10 +351,8 @@ List<Startup> dummyStartups = [
     companyDescription: 'Pioneering smart IoT solutions for modern businesses.',
     companyWebsiteUrl: 'https://www.innovatech.io',
     registrationNumber: 'REG1234567',
-    foundingDate: DateTime(2022, 1, 15),
+    foundingDate: '2022',
     companyAddress: '123 Tech Drive',
-    companyBio:
-        'At Innovatech Solutions, we integrate IoT with business intelligence to create smarter ecosystems.',
     userId: 2,
     industryId: 2,
     specializationId: 1,
@@ -384,10 +382,8 @@ List<Startup> dummyStartups = [
     companyDescription: 'Developing sustainable biotech for a greener future.',
     companyWebsiteUrl: 'https://www.ecosynthlabs.com',
     registrationNumber: 'REG7654321',
-    foundingDate: DateTime(2023, 5, 20),
+    foundingDate: '2',
     companyAddress: '456 Green Lane',
-    companyBio:
-        'EcoSynth Labs leverages biotechnology to build eco-friendly products.',
     userId: 4,
     industryId: 2,
     specializationId: 22,
