@@ -15,9 +15,6 @@ class JobPostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      // splashFactory: NoSplash.splashFactory,
-
-      // splashColor: Colors.transparent,
       child: Card(
         elevation: 0,
         color: const Color.fromARGB(255, 251, 251, 251),

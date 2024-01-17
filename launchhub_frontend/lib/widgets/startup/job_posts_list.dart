@@ -14,12 +14,12 @@ class JobPostsList extends StatelessWidget {
 
   final List<JobPost> jobPosts;
   final void Function(JobPost jobPost)? onTap;
-  final void Function(JobPost jobPost)? removeJobPost;
+  final Future Function(JobPost jobPost, dynamic)? removeJobPost;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: dummyJobPosts.length,
+      itemCount: jobPosts.length,
       itemBuilder: (context, index) => Column(
         children: [
           Dismissible(
@@ -65,24 +65,19 @@ class JobPostsList extends StatelessWidget {
               );
             },
             onDismissed: (direction) {
-              removeJobPost!(dummyJobPosts[index]);
+              removeJobPost!(jobPosts[index], context);
             },
             child: JobPostCard(
-              jobPost: dummyJobPosts[index],
+              jobPost: jobPosts[index],
               onTap: removeJobPost == null
                   ? () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return JobPostView(jobPost: dummyJobPosts[index]);
+                        return JobPostView(jobPost: jobPosts[index]);
                       }));
                     }
                   : () {},
             ),
-          ),
-          const SizedBox(height: 20),
-          JobPostCard(
-            jobPost: dummyJobPosts[index],
-            onTap: () {},
           ),
           const SizedBox(height: 20),
         ],
