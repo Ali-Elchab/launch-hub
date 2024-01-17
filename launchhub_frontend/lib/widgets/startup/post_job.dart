@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
+import 'package:launchhub_frontend/providers/job_board_provider.dart';
+import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/startup/pick_skills.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
-class PostJob extends StatefulWidget {
+class PostJob extends ConsumerStatefulWidget {
   const PostJob({super.key, required this.postJob});
 
   final void Function(JobPost jobPost) postJob;
 
   @override
-  State<PostJob> createState() {
+  ConsumerState<PostJob> createState() {
     return _PostJobState();
   }
 }
 
-class _PostJobState extends State<PostJob> {
+class _PostJobState extends ConsumerState<PostJob> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   DateTime? _selectedDate;
@@ -39,6 +43,17 @@ class _PostJobState extends State<PostJob> {
   final _jobSalaryController = TextEditingController();
   final _jobQualificationController = TextEditingController();
   final _jobDeadlineController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    ref.read(dataProvider).getIndustries();
+  }
+
+  Future getNiches() async {
+    await ref
+        .read(dataProvider)
+        .getNiches(ref.read(jobBoardProvider).selectedIndustry!);
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -120,7 +135,7 @@ class _PostJobState extends State<PostJob> {
         responsibilities: _responsibilitiesController.text,
         industryId: _selectedIndustry!.id,
         jobLocation: _selectLocation!,
-        jobSalary: int.parse(_jobSalaryController.text),
+        jobSalary: _jobSalaryController.text,
         jobQualification: _jobQualificationController.text,
         preferredGender: _selectGender!,
         specializationId: _selectedNiche!.id,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_post_view.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
 
@@ -9,10 +9,12 @@ class JobPostsList extends StatelessWidget {
     super.key,
     required this.jobPosts,
     this.removeJobPost,
+    this.company,
     this.onTap,
   });
 
   final List<JobPost> jobPosts;
+  final Startup? company;
   final void Function(JobPost jobPost)? onTap;
   final Future Function(JobPost jobPost, dynamic)? removeJobPost;
 
@@ -23,7 +25,7 @@ class JobPostsList extends StatelessWidget {
       itemBuilder: (context, index) => Column(
         children: [
           Dismissible(
-            key: ValueKey(dummyJobPosts[index].id),
+            key: ValueKey(jobPosts[index].id),
             direction: DismissDirection.endToStart,
             background: Container(
               color: Colors.red,
@@ -69,6 +71,7 @@ class JobPostsList extends StatelessWidget {
             },
             child: JobPostCard(
               jobPost: jobPosts[index],
+              company: company,
               onTap: removeJobPost == null
                   ? () {
                       Navigator.push(context,

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/models/startup.dart';
 
 class JobPostCard extends StatelessWidget {
   final JobPost jobPost;
   final Function()? onTap;
+  final Startup? company;
 
   const JobPostCard({
     super.key,
     required this.jobPost,
     this.onTap,
+    this.company,
   });
 
   @override
@@ -32,9 +35,14 @@ class JobPostCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        alignment: Alignment.topLeft,
-                        child: Image.asset('assets/logos/default-logo.png',
-                            width: 65)),
+                      alignment: Alignment.topLeft,
+                      child: company!.copmanyLogo == null
+                          ? Image.asset('assets/logos/default-logo.png',
+                              width: 65)
+                          : Image.asset('assets/logos/default-logo.png',
+                              width:
+                                  65), //Image.network(company!.copmanyLogo!),
+                    ),
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
@@ -98,7 +106,7 @@ class JobPostCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('Vast Technologies',
+                    Text(company!.companyName,
                         style: Theme.of(context).textTheme.titleSmall!),
                     const SizedBox(height: 4),
                     Text(jobPost.jobTitle,
