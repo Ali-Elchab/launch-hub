@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
+import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/models/niche.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final jobBoardProvider = StateProvider<JobBoardProvider>((ref) {
@@ -13,9 +15,13 @@ final jobBoardProvider = StateProvider<JobBoardProvider>((ref) {
 class JobBoardProvider with ChangeNotifier {
   List<JobPost> jobPosts;
   String _errorMessage = '';
-
+  Industry? _selectedIndustry;
+  Niche? _selectedNiche;
   JobBoardProvider({required this.jobPosts});
 
+  String? get errorMessage => _errorMessage;
+  Industry? get selectedIndustry => _selectedIndustry;
+  Niche? get selectedNiche => _selectedNiche;
   void loadJobPosts(List<JobPost> jobPosts) {
     jobPosts = jobPosts;
     notifyListeners();
@@ -40,6 +46,7 @@ class JobBoardProvider with ChangeNotifier {
     } on DioException catch (e) {
       _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
     }
+    return _errorMessage;
   }
 
   Future postJob(JobPost jobPost) async {

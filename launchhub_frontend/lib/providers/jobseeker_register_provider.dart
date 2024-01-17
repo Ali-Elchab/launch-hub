@@ -33,8 +33,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   String _professionalBio = '';
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
-  List<Industry> industries = [];
-  List<Niche> niches = [];
+  // List<Industry> industries = [];
+  // List<Niche> niches = [];
   XFile? _image;
   String base64Image = '';
   String resumeName = '';
@@ -43,12 +43,9 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   String? state;
   List socialMediaLinks = [];
   List<Education> educations = [];
-
   List<Certification> certifications = [];
   List<Experience> experiences = [];
-  List<Skill> skills = [];
   List<int> selectedSkills = [];
-  List<Hobby> hobbies = [];
   List<int> selectedHobbies = [];
 
   String? _errorMessage;
@@ -59,44 +56,8 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getIndustries() async {
-    try {
-      final response = await myDio.get(ApiRoute.getIndustries);
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['industries'];
-        industries = data.map((json) => Industry.fromJson(json)).toList();
-      }
-    } on DioException catch (e) {
-      _errorMessage =
-          'Failed to get industries: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get industries: $e';
-    }
-    notifyListeners();
-  }
-
   void setSelectedNiche(Niche newNiche) {
     _selectedNiche = newNiche;
-    notifyListeners();
-  }
-
-  Future getNiches({Industry? industry}) async {
-    industry ??= _selectedIndustry;
-    try {
-      final response = await myDio.get(
-        '${ApiRoute.getIndustrySpecializations}/${industry?.id}',
-      );
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['specializations'];
-        niches = data.map((json) => Niche.fromJson(json)).toList();
-        notifyListeners();
-      }
-    } on DioException catch (e) {
-      _errorMessage =
-          'Failed to get Specializations: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get industries: $e';
-    }
     notifyListeners();
   }
 
@@ -227,60 +188,12 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getSkills({Niche? niche}) async {
-    niche ??= _selectedNiche;
-    try {
-      final response = await myDio.get(
-        '${ApiRoute.getSkills}/${niche?.id}',
-      );
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['skills'];
-        skills = data.map((json) => Skill.fromJson(json)).toList();
-      }
-    } on DioException catch (e) {
-      _errorMessage = 'Failed to get Skills: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get Skills: $e';
-    }
-    try {
-      final response = await myDio.get(
-        ApiRoute.getGeneralSkills,
-      );
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['skills'];
-        skills = [...skills, ...data.map((json) => Skill.fromJson(json))];
-        notifyListeners();
-      }
-    } on DioException catch (e) {
-      _errorMessage = 'Failed to get Skills: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get Skills: $e';
-    }
-    notifyListeners();
-  }
-
   toggleSkill(Skill skill) {
     if (selectedSkills.contains(skill.id)) {
       selectedSkills.remove(skill.id);
     } else {
       selectedSkills.add(skill.id);
     }
-    notifyListeners();
-  }
-
-  Future getHobbies() async {
-    try {
-      final response = await myDio.get(ApiRoute.getHobbies);
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['hobbies'];
-        hobbies = data.map((json) => Hobby.fromJson(json)).toList();
-      }
-    } on DioException catch (e) {
-      _errorMessage = 'Failed to get Hobbies: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get Hobbies: $e';
-    }
-
     notifyListeners();
   }
 
