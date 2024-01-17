@@ -37,7 +37,7 @@ class JobPost {
   final int industryId;
   final int specializationId;
   final int startupId;
-  factory JobPost.fromJson(Map<String, dynamic> json) {
+  factory JobPost.fromJson(Map json) {
     return JobPost(
       id: json['id'] as int,
       jobTitle: json['job_title'] as String,
@@ -50,7 +50,7 @@ class JobPost {
       experienceLevel: json['experience_level'] as String,
       educationLevel: json['education_level'] as String,
       preferredGender: json['preferred_gender'] as String,
-      requiredSkills: json['required_skills'] as List<Skill>,
+      requiredSkills: json['required_skills'] as List,
       deadline: json['deadline'] as String,
       jobStatus: json['job_status'] as String,
       industryId: json['industry_id'] as int,
@@ -60,7 +60,6 @@ class JobPost {
   }
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'job_title': jobTitle,
       'job_description': jobDescription,
       'job_location': jobLocation,
@@ -69,41 +68,21 @@ class JobPost {
       'job_qualification': jobQualification,
       'experience_level': experienceLevel,
       'education_level': educationLevel,
+      "responsibilities": responsibilities,
       'preferred_gender': preferredGender,
       'required_skills': requiredSkills,
       'deadline': deadline,
-      'job_status': jobStatus,
       'industry_id': industryId,
       'specialization_id': specializationId,
       'startup_id': startupId,
     };
   }
-}
 
-class JobPostPivot {
-  final int jobSeekerId;
-  final int jobPostId;
-  final String status;
-
-  JobPostPivot({
-    required this.jobSeekerId,
-    required this.jobPostId,
-    required this.status,
-  });
-
-  factory JobPostPivot.fromJson(Map<String, dynamic> json) {
-    return JobPostPivot(
-      jobSeekerId: json['job_seeker_id'] as int,
-      jobPostId: json['job_post_id'] as int,
-      status: json['status'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'job_seeker_id': jobSeekerId,
-      'job_post_id': jobPostId,
-      'status': status,
-    };
+  static List<JobPost> parseMultipleJobPosts(List<dynamic> jsons) {
+    List<JobPost> list = [];
+    for (Map json in jsons) {
+      list.add(JobPost.fromJson(json));
+    }
+    return list;
   }
 }
