@@ -17,8 +17,11 @@ class JobBoardProvider with ChangeNotifier {
   String _errorMessage = '';
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
+  String? country;
+  String? state;
   JobBoardProvider({required this.jobPosts});
 
+  String get address => '$country $state';
   String? get errorMessage => _errorMessage;
   Industry? get selectedIndustry => _selectedIndustry;
   Niche? get selectedNiche => _selectedNiche;
@@ -104,6 +107,37 @@ class JobBoardProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       _errorMessage = "Error: $e";
+    }
+    notifyListeners();
+  }
+
+  setCountry(String? value) {
+    country = value;
+  }
+
+  setStateForState(String? value) {
+    state = value;
+  }
+
+  Future updateJobPost(json) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final response = await myDio.post(
+        '${ApiRoute.updateJobPost}/${json['id']}',
+        data: json,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      _errorMessage = response.data['message'];
+      notifyListeners();
+      fetchJobPosts();
+    } catch (e) {
+      _errorMessage = "Error: $e";
+      print(_errorMessage);
     }
     notifyListeners();
   }

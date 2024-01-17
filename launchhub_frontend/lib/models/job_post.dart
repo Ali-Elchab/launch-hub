@@ -1,3 +1,5 @@
+import 'package:launchhub_frontend/models/industry.dart';
+
 class JobPost {
   JobPost({
     required this.id,

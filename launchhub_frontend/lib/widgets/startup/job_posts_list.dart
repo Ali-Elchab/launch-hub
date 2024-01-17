@@ -1,8 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/startup.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_post_view.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
+import 'package:launchhub_frontend/widgets/startup/update_job_post.dart';
 
 class JobPostsList extends StatelessWidget {
   const JobPostsList({
@@ -69,17 +76,33 @@ class JobPostsList extends StatelessWidget {
             onDismissed: (direction) {
               removeJobPost!(jobPosts[index], context);
             },
-            child: JobPostCard(
-              jobPost: jobPosts[index],
-              company: company,
-              onTap: removeJobPost == null
-                  ? () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return JobPostView(jobPost: jobPosts[index]);
-                      }));
-                    }
-                  : () {},
+            child: Consumer(
+              builder: (context, ref, child) => JobPostCard(
+                jobPost: jobPosts[index],
+                company: company,
+                onTap: removeJobPost == null
+                    ? () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return JobPostView(jobPost: jobPosts[index]);
+                        }));
+                      }
+                    : () async {
+                        await ref.read(dataProvider.notifier).getIndustries();
+                        final industry = ref
+                            .read(dataProvider)
+                            .industries
+                            .firstWhere((element) =>
+                                element.id == jobPosts[index].industryId);
+                        await ref.read(dataProvider).getNiches(industry);
+                        showModal(
+                            color: Colors.white,
+                            UpdateJobPost(
+                              jobPost: jobPosts[index],
+                            ),
+                            context);
+                      },
+              ),
             ),
           ),
           const SizedBox(height: 20),

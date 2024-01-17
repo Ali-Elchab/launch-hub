@@ -38,6 +38,7 @@ class DataProvider with ChangeNotifier {
   }
 
   Future getNiches(industry) async {
+    niches = [];
     try {
       final response = await myDio.get(
         '${ApiRoute.getIndustrySpecializations}/${industry.id}',

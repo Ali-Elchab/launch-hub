@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/udemy_api.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
-import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
-import 'package:launchhub_frontend/widgets/startup/interview_questions.dart';
 
 class HiringGuides extends StatelessWidget {
   const HiringGuides({super.key, required this.niche});
@@ -42,13 +40,11 @@ class HiringGuides extends StatelessWidget {
                       'This template offers a curated set of insightful interview questions designed to assess candidates thoroughly and make informed hiring decisions.',
                   imagePath: 'assets/images/interview-questions.png',
                   onTap: () {
-                    showModal(
-                      const InterviewQuestions(),
-                      context,
-                      color: Theme.of(context).colorScheme.primary,
-                      enableDrag: false,
-                      isDismissible: false,
-                    );
+                    downloadFile(
+                        context: context,
+                        url:
+                            ' https://hr.berkeley.edu/sites/default/files/attachments/Hiring_Process_Checklist.pdf',
+                        name: 'Hiring Process Template');
                   },
                 ),
                 FeatureCard(

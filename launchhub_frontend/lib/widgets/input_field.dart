@@ -9,6 +9,7 @@ class InputField extends StatefulWidget {
   final TextEditingController? controller;
   final bool readOnly;
   final VoidCallback? onTap;
+  final TextInputType? keyboardType;
   final Widget? icon;
   const InputField({
     super.key,
@@ -20,6 +21,7 @@ class InputField extends StatefulWidget {
     this.onTap,
     this.icon,
     this.validator,
+    this.keyboardType = TextInputType.text,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
   });
 
@@ -45,7 +47,7 @@ class _InputFieldState extends State<InputField> {
         maxLines: widget.isDescription ? 4 : 1,
         minLines: widget.isDescription ? 4 : 1,
         keyboardType:
-            widget.isPassword ? TextInputType.text : TextInputType.multiline,
+            widget.isPassword ? widget.keyboardType : TextInputType.multiline,
         scrollPhysics: const BouncingScrollPhysics(),
         decoration: InputDecoration(
           contentPadding:

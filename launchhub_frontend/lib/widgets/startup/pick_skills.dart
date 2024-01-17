@@ -6,7 +6,7 @@ import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 class PickSkills extends StatefulWidget {
   const PickSkills({super.key, this.selectedSkills});
 
-  final List<Skill>? selectedSkills;
+  final List? selectedSkills;
 
   @override
   State<PickSkills> createState() => _PickSkillsState();
