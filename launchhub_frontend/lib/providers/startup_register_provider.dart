@@ -26,8 +26,6 @@ class StartupRegisterProvider with ChangeNotifier {
   String _companyDescription = '';
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
-  List<Industry> industries = [];
-  List<Niche> niches = [];
   XFile? _image;
   String base64Image = '';
   DateTime? selectedDate;
@@ -40,7 +38,6 @@ class StartupRegisterProvider with ChangeNotifier {
   List<String> founders = [];
   List<String> ceos = [];
   List<String> keyExecutives = [];
-
   String? _errorMessage;
 
   void setSelectedIndustry(Industry newIndustry) {
@@ -49,42 +46,8 @@ class StartupRegisterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getIndustries() async {
-    try {
-      final response = await myDio.get(ApiRoute.getIndustries);
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['industries'];
-        industries = data.map((json) => Industry.fromJson(json)).toList();
-      }
-    } on DioException catch (e) {
-      _errorMessage =
-          'Failed to get industries: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get industries: $e';
-    }
-    notifyListeners();
-  }
-
   void setSelectedNiche(Niche newNiche) {
     _selectedNiche = newNiche;
-    notifyListeners();
-  }
-
-  Future getNiches() async {
-    try {
-      final response = await myDio.get(
-        '${ApiRoute.getIndustrySpecializations}/${_selectedIndustry?.id}',
-      );
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['specializations'];
-        niches = data.map((json) => Niche.fromJson(json)).toList();
-      }
-    } on DioException catch (e) {
-      _errorMessage =
-          'Failed to get Specializations: ${e.response?.data['message']}';
-    } catch (e) {
-      _errorMessage = 'Failed to get industries: $e';
-    }
     notifyListeners();
   }
 

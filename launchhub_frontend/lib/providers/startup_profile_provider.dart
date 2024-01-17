@@ -77,16 +77,6 @@ class StartupProfileProvider with ChangeNotifier {
     return;
   }
 
-  // String getNicheName() {
-  //   final industry = industries.firstWhere(
-  //     (element) => element.id == startup.industryId,
-  //     orElse: () => industries.first,
-  //   );
-  //   industryName = industry.name;
-  //   notifyListeners();
-  //   return industryName;
-  // }
-
   Future<String> getNicheName() async {
     try {
       final response = await myDio
