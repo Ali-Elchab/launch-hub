@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
@@ -31,7 +34,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
   @override
   Widget build(BuildContext context) {
     final startupProfile = ref.read(startupProfileProvider);
-
+    final jobBoard = ref.read(jobBoardProvider);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: PreferredSize(
@@ -64,7 +67,8 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                         description:
                             'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
                         imagePath: 'assets/images/job_board.png',
-                        onTap: () {
+                        onTap: () async {
+                          await jobBoard.fetchJobPosts();
                           navigator(context, const JobBoard());
                         },
                       ),

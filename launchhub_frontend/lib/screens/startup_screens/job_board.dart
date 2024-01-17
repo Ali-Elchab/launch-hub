@@ -1,69 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
-import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
+import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/how_to_write_job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
-import 'package:launchhub_frontend/widgets/startup/post_job.dart';
-import 'package:launchhub_frontend/widgets/submit_button.dart';
 
-class JobBoard extends StatefulWidget {
+class JobBoard extends ConsumerWidget {
   const JobBoard({super.key});
 
   @override
-  State<JobBoard> createState() => _JobBoardState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final jobBoard = ref.read(jobBoardProvider);
 
-class _JobBoardState extends State<JobBoard> {
-  void _openPostJobOverlay() {
-    showModalBottomSheet(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => PostJob(postJob: _postJob));
-  }
-
-  void _howToWriteJobPost() {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => const HowToWriteJobPost());
-  }
-
-  void _postJob(JobPost jobPost) {
-    setState(() {
-      dummyJobPosts.add(jobPost);
-    });
-  }
-
-  void _removeJobPost(JobPost jobPost) {
-    final jobIndex = dummyJobPosts.indexOf(jobPost);
-    setState(() {
-      dummyJobPosts.remove(jobPost);
-    });
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text('Expense deleted.'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            setState(() {
-              dummyJobPosts.insert(jobIndex, jobPost);
-            });
-          },
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -83,10 +35,10 @@ class _JobBoardState extends State<JobBoard> {
       ),
     );
 
-    if (dummyJobPosts.isNotEmpty) {
+    if (jobBoard.jobPosts.isNotEmpty) {
       mainContent = JobPostsList(
-        jobPosts: dummyJobPosts,
-        removeJobPost: _removeJobPost,
+        jobPosts: jobBoard.jobPosts,
+        removeJobPost: jobBoard.removeJobPost,
       );
     }
     return Scaffold(
@@ -110,13 +62,15 @@ class _JobBoardState extends State<JobBoard> {
               Expanded(
                 child: mainContent,
               ),
-              SubmitButton('Post a job', () {
-                _openPostJobOverlay();
-              }),
+              // SubmitButton('Post a job', () {
+              //   showModal(PostJob(postJob: _postJob), context,
+              //       color: Colors.white);
+              // }),
               const SizedBox(height: 3),
               InkWell(
                 onTap: () {
-                  _howToWriteJobPost();
+                  showModal(const HowToWriteJobPost(), context,
+                      color: Colors.white);
                 },
                 child: Text(
                   'How To Write An Effective Job Posting',
