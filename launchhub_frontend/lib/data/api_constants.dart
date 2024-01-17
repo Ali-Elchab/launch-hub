@@ -11,4 +11,7 @@ abstract class ApiRoute {
   static const getGeneralSkills = 'general_skills';
   static const getHobbies = 'hobbies';
   static const getStartupProfile = 'startup/profile';
+  static const getStartupJobPosts = 'jobposts/startup';
+  static const postJob = 'jobposts/post';
+  static const deleteJobPost = 'jobposts/delete';
 }
