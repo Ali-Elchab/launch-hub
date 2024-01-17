@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
@@ -8,7 +7,6 @@ import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
-import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/startup/pick_skills.dart';
@@ -135,7 +133,7 @@ class _PostJobState extends ConsumerState<PostJob> {
         responsibilities: _responsibilitiesController.text,
         industryId: _selectedIndustry!.id,
         jobLocation: _selectLocation!,
-        jobSalary: _jobSalaryController.text,
+        jobSalary: int.parse(_jobSalaryController.text),
         jobQualification: _jobQualificationController.text,
         preferredGender: _selectGender!,
         specializationId: _selectedNiche!.id,
