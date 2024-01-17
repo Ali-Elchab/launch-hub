@@ -73,7 +73,7 @@ class StartupRegisterProvider with ChangeNotifier {
   Future getNiches() async {
     try {
       final response = await myDio.get(
-        '${ApiRoute.getSpecializations}/${_selectedIndustry?.id}',
+        '${ApiRoute.getIndustrySpecializations}/${_selectedIndustry?.id}',
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['specializations'];

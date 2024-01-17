@@ -3,101 +3,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
+import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/models/user.dart';
+import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final startupProfileProvider = StateProvider<StartupProfileProvider>((ref) {
   return StartupProfileProvider(
-      email: '',
-      type: 0,
+    user: User(
       id: 0,
-      startupId: 0,
+      email: '',
+      typeId: 0,
+    ),
+    startup: Startup(
+      id: 0,
       companyName: '',
       companyEmail: '',
       companyPhone: '',
       companyAddress: '',
       companyDescription: '',
-      companyWebsite: '',
-      companyLogo: '',
-      companyRegistrationNumber: '',
+      companyWebsiteUrl: '',
+      copmanyLogo: '',
+      registrationNumber: '',
       foundingDate: '',
       specializationId: 0,
       industryId: 0,
       founders: [],
       ceos: [],
-      keyExecutives: [],
-      socialMediaLinks: []);
+      keyExcecutives: [],
+      socialMediaLinks: [],
+      userId: 0,
+    ),
+  );
 });
 
 class StartupProfileProvider with ChangeNotifier {
-  String email;
-  int type;
-  int id;
-  int startupId;
-  String companyName;
-  String companyEmail;
-  String companyPhone;
-  String companyAddress;
-  String companyDescription;
-  String companyWebsite;
-  String companyLogo;
-  String companyRegistrationNumber;
-  String foundingDate;
-  int specializationId;
-  int industryId;
-  List founders;
-  List ceos;
-  List keyExecutives;
-  List socialMediaLinks = [];
-
-  StartupProfileProvider(
-      {required this.email,
-      required this.type,
-      required this.id,
-      required this.startupId,
-      required this.companyName,
-      required this.companyEmail,
-      required this.companyPhone,
-      required this.companyAddress,
-      required this.companyDescription,
-      required this.companyWebsite,
-      required this.companyLogo,
-      required this.companyRegistrationNumber,
-      required this.foundingDate,
-      required this.specializationId,
-      required this.industryId,
-      required this.founders,
-      required this.ceos,
-      required this.keyExecutives,
-      required this.socialMediaLinks});
+  User user;
+  Startup startup;
+  String nicheName = '';
+  String industryName = '';
+  StartupProfileProvider({required this.startup, required this.user});
 
   void loadUser(User user) {
-    email = user.email;
-    type = user.typeId;
-    id = user.id;
-
+    user = user;
     notifyListeners();
   }
 
-  void loadStartup(Startup startup) {
-    startupId = startup.id;
-    companyName = startup.companyName;
-    companyEmail = startup.companyEmail;
-    companyPhone = startup.companyPhone;
-    companyAddress = startup.companyAddress;
-    companyDescription = startup.companyDescription;
-    companyWebsite = startup.companyWebsiteUrl ?? '';
-    companyLogo = startup.copmanyLogo ?? '';
-    companyRegistrationNumber = startup.registrationNumber ?? '';
-    foundingDate = startup.foundingDate.toString();
-    specializationId = startup.specializationId;
-    industryId = startup.industryId;
-    founders = startup.founders ?? [];
-    ceos = startup.ceos ?? [];
-    keyExecutives = startup.keyExcecutives ?? [];
-    socialMediaLinks = startup.socialMediaLinks;
-
+  void loadStartup(Startup startUp) {
+    startup = startUp;
     notifyListeners();
   }
 
@@ -123,5 +77,27 @@ class StartupProfileProvider with ChangeNotifier {
     notifyListeners();
 
     return;
+  }
+
+  // String getNicheName() {
+  //   final industry = industries.firstWhere(
+  //     (element) => element.id == startup.industryId,
+  //     orElse: () => industries.first,
+  //   );
+  //   industryName = industry.name;
+  //   notifyListeners();
+  //   return industryName;
+  // }
+
+  Future<String> getNicheName() async {
+    try {
+      final response = await myDio
+          .get('${ApiRoute.getSpecializations}/${startup.specializationId}');
+      nicheName = response.data['specialization']['name'];
+    } catch (e) {
+      return 'Failed to get niche name: $e';
+    }
+    notifyListeners();
+    return nicheName;
   }
 }

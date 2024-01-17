@@ -10,7 +10,7 @@ import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.da
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(child: App()));
 }
 

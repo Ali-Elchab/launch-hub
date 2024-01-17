@@ -6,6 +6,7 @@ abstract class ApiRoute {
   static const registerJobseeker = 'register_jobseeker';
   static const getIndustries = 'industries';
   static const getSpecializations = 'specializations';
+  static const getIndustrySpecializations = 'industry_specializations';
   static const getSkills = 'skills';
   static const getGeneralSkills = 'general_skills';
   static const getHobbies = 'hobbies';

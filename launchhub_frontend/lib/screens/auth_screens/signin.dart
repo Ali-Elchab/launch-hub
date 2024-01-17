@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -105,7 +107,14 @@ class SignIn extends ConsumerWidget {
 
                           if (user.typeId == 1) {
                             ref.read(startupProfileProvider).loadUser(user);
-
+                            try {
+                              await ref
+                                  .read(startupProfileProvider)
+                                  .fetchStartupProfile();
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Error: $e')));
+                            }
                             navigatorKey.currentState?.pushNamedAndRemoveUntil(
                                 '/StartupHome',
                                 (Route<dynamic> route) => false);
@@ -115,7 +124,6 @@ class SignIn extends ConsumerWidget {
                                 (Route<dynamic> route) => false);
                           }
                         } else {
-                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content:

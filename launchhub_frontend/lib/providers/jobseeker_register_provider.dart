@@ -84,7 +84,7 @@ class JobSeekerRegisterProvider with ChangeNotifier {
     industry ??= _selectedIndustry;
     try {
       final response = await myDio.get(
-        '${ApiRoute.getSpecializations}/${industry?.id}',
+        '${ApiRoute.getIndustrySpecializations}/${industry?.id}',
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['specializations'];

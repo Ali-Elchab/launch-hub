@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
-import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
 import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
@@ -24,31 +24,22 @@ class StartupHome extends ConsumerStatefulWidget {
 class _StartupHomeState extends ConsumerState<StartupHome> {
   @override
   void initState() {
-    try {
-      ref.read(startupProfileProvider).fetchStartupProfile();
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Error: $e')));
-    }
-
+    ref.read(startupProfileProvider).getNicheName();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final startupProfile = ref.read(startupProfileProvider);
+
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(180),
-          child: Consumer(
-            builder: (context, ref, child) {
-              final startupProfile = ref.read(startupProfileProvider);
-              return Header(
-                text: startupProfile.companyDescription,
-                title: startupProfile.companyName,
-                showBackButton: false,
-              );
-            },
+          child: Header(
+            text: startupProfile.startup.companyDescription,
+            title: startupProfile.startup.companyName,
+            showBackButton: false,
           ),
         ),
         body: SingleChildScrollView(
@@ -74,10 +65,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
                         imagePath: 'assets/images/job_board.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const JobBoard();
-                          }));
+                          navigator(context, const JobBoard());
                         },
                       ),
                       FeatureCard(
@@ -86,10 +74,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
                         imagePath: 'assets/images/hire_talent.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const HireTalent();
-                          }));
+                          navigator(context, const HireTalent());
                         },
                       ),
                       FeatureCard(
@@ -98,12 +83,11 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Build Your Dream Team: Comprehensive Guides and Templates for Crafting Effective Job Descriptions and Conducting Successful Interviews.',
                         imagePath: 'assets/images/guides.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const HiringGuides(
-                              niche: 'networking',
-                            );
-                          }));
+                          navigator(
+                              context,
+                              HiringGuides(
+                                niche: startupProfile.nicheName,
+                              ));
                         },
                       ),
                       const SectionTitle(title: 'Marketing'),
@@ -113,16 +97,15 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Craft and Elevate Your Brand: Resources for Creating and Maintaining a Strong Brand Identity for Your Startup.',
                         imagePath: 'assets/images/marketing_guides.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ArticlesAndTemplates(
-                              templates: marketingTemplates,
-                              query: 'marketing startup business',
-                              title: 'Marketing Guides',
-                              text:
-                                  'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
-                            );
-                          }));
+                          navigator(
+                              context,
+                              ArticlesAndTemplates(
+                                templates: marketingTemplates,
+                                query: 'marketing startup business',
+                                title: 'Marketing Guides',
+                                text:
+                                    'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
+                              ));
                         },
                       ),
                       FeatureCard(
@@ -131,26 +114,14 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
                         imagePath: 'assets/images/content_creators.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const Advisors(
+                          navigator(
+                            context,
+                            const Advisors(
                                 category: 'marketing',
                                 title: 'Content Creators',
                                 text:
-                                    "Explore our Content Creators Page—a hub connecting startups with talented content professionals. Elevate your brand with engaging content and strategic marketing. Find the perfect creator to bring your vision to life.");
-                          }));
-                        },
-                      ),
-                      FeatureCard(
-                        title: 'Digital Marketing',
-                        description:
-                            'Unlock Content Success: Dive into Expert Guides for Crafting Valuable Content that Resonates with Your Online Audience.',
-                        imagePath: 'assets/images/digital_marketing.png',
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
-                          }));
+                                    "Explore our Content Creators Page—a hub connecting startups with talented content professionals. Elevate your brand with engaging content and strategic marketing. Find the perfect creator to bring your vision to life."),
+                          );
                         },
                       ),
                       const SectionTitle(title: 'Finance'),
@@ -160,16 +131,19 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Financial Mastery Hub: Tools for Budgeting, Forecasting, and Financial Analysis to Empower Your Startup\'s Fiscal Planning.',
                         imagePath: 'assets/images/financial_planning.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ArticlesAndTemplates(
-                              title: 'Financial Planning',
-                              text:
-                                  'Access essential articles and templates covering diverse legal aspects to guide your startup through various challenges, ensuring a secure and compliant business journey.',
-                              templates: financeTemplates,
-                              query: 'startup financial planning',
-                            );
-                          }));
+                          navigator(
+                            context,
+                            navigator(
+                              context,
+                              ArticlesAndTemplates(
+                                templates: marketingTemplates,
+                                query: 'marketing startup business',
+                                title: 'Marketing Guides',
+                                text:
+                                    'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
+                              ),
+                            ),
+                          );
                         },
                       ),
                       FeatureCard(
@@ -178,10 +152,14 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Navigate Financial Success: Connect with Expert Financial Advisors Tailored for Startups to Drive Strategic Growth.',
                         imagePath: 'assets/images/financial_advisors.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
-                          }));
+                          navigator(
+                            context,
+                            const Advisors(
+                                category: 'finance',
+                                title: 'Financial Advisors',
+                                text:
+                                    "Discover a curated list of financial advisors tailored for startups. Choose from experienced professionals and engage in direct conversations to address your financial queries, providing personalized guidance for your startup's fiscal success."),
+                          );
                         },
                       ),
                       const SectionTitle(title: 'Legal'),
@@ -191,16 +169,14 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Legal Wisdom Hub: Dive into Articles and Resources Covering Crucial Legal Issues Tailored for Startups.',
                         imagePath: 'assets/images/legal_guides.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ArticlesAndTemplates(
-                              title: 'Legal Guides',
-                              text:
-                                  'Explore our Financial Planning page for budgeting, forecasting, and financial analysis tools. Empower your startup\'s fiscal planning with streamlined templates and checklists.',
-                              templates: legalTemplates,
-                              query: 'legal for business',
-                            );
-                          }));
+                          navigator(
+                            context,
+                            const Advisors(
+                                category: 'marketing',
+                                title: 'Content Creators',
+                                text:
+                                    "Explore our Content Creators Page—a hub connecting startups with talented content professionals. Elevate your brand with engaging content and strategic marketing. Find the perfect creator to bring your vision to life."),
+                          );
                         },
                       ),
                       FeatureCard(
@@ -209,10 +185,14 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Startup Legal Expertise: Connect with Specialized Legal Advisors to Safeguard and Propel Your Startup\'s Success.',
                         imagePath: 'assets/images/legal_advisors.png',
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const StartScreen();
-                          }));
+                          navigator(
+                            context,
+                            const Advisors(
+                                category: 'legal',
+                                title: 'Legal Advisors',
+                                text:
+                                    "Discover a curated list of Legal Advisors on our platform, offering startups personalized guidance on key legal matters. Connect, chat, and get tailored advice for your business needs."),
+                          );
                         },
                       ),
                     ],
