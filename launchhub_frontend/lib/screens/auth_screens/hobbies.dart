@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/user.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/providers/startup_register_provider.dart';
@@ -21,7 +22,7 @@ class Hobbies extends ConsumerStatefulWidget {
 class _HobbiesState extends ConsumerState<Hobbies> {
   @override
   void initState() {
-    ref.read(jobSeekerRegisterProvider.notifier).getHobbies();
+    ref.read(dataProvider).getHobbies();
     super.initState();
   }
 
@@ -78,7 +79,9 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                         Wrap(
                           spacing: 9.0,
                           runSpacing: 4.0,
-                          children: providerNotifier.hobbies
+                          children: ref
+                              .watch(dataProvider)
+                              .hobbies
                               .map((hobby) => ChoiceTag(
                                     label: hobby.name,
                                     isSelected: provider.selectedHobbies

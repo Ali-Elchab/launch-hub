@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/contact_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
@@ -25,15 +26,16 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final bioController = TextEditingController();
-
   @override
   void initState() {
-    ref.read(jobSeekerRegisterProvider.notifier).getIndustries();
     super.initState();
+    ref.read(dataProvider.notifier).getIndustries();
   }
 
   Future getNiches() async {
-    await ref.read(jobSeekerRegisterProvider.notifier).getNiches();
+    await ref
+        .read(dataProvider)
+        .getNiches(ref.read(jobSeekerRegisterProvider).selectedIndustry!);
   }
 
   @override
@@ -56,6 +58,8 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
     final textTheme = Theme.of(context).textTheme;
     final provider = ref.watch(jobSeekerRegisterProvider);
     final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
+    final dataprovider = ref.watch(dataProvider);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -118,22 +122,26 @@ class _PersonalInfoState extends ConsumerState<PersonalInfo> {
                               controller: bioController,
                               validator: validator),
                           GenericDropdown<Industry>(
-                            label: 'Select Industry',
-                            options: provider.industries,
+                            label: 'Industry',
+                            options: dataprovider.industries,
                             selectedOption: provider.selectedIndustry,
                             optionLabel: (industry) => industry!.name,
                             onChanged: (newValue) async {
-                              providerNotifier.setSelectedIndustry(newValue!);
+                              ref
+                                  .read(jobSeekerRegisterProvider.notifier)
+                                  .setSelectedIndustry(newValue!);
                               await getNiches();
                             },
                           ),
                           GenericDropdown<Niche>(
-                            label: 'Select Specialization',
-                            options: provider.niches,
+                            label: 'Niche',
+                            options: dataprovider.niches,
                             selectedOption: provider.selectedNiche,
                             optionLabel: (niche) => niche!.name,
                             onChanged: (newValue) {
-                              providerNotifier.setSelectedNiche(newValue!);
+                              ref
+                                  .read(jobSeekerRegisterProvider.notifier)
+                                  .setSelectedNiche(newValue!);
                             },
                           ),
                         ],

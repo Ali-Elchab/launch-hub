@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info2.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
@@ -28,11 +29,13 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
   @override
   void initState() {
     super.initState();
-    ref.read(startupRegisterProvider.notifier).getIndustries();
+    ref.read(dataProvider.notifier).getIndustries();
   }
 
   Future getNiches() async {
-    await ref.read(startupRegisterProvider.notifier).getNiches();
+    await ref
+        .read(dataProvider)
+        .getNiches(ref.read(startupRegisterProvider).selectedIndustry!);
   }
 
   // @override
@@ -51,6 +54,7 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
   @override
   Widget build(BuildContext context) {
     final startupregisterprovider = ref.watch(startupRegisterProvider);
+    final dataprovider = ref.watch(dataProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -120,7 +124,7 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                         ),
                         GenericDropdown<Industry>(
                           label: 'Industry',
-                          options: startupregisterprovider.industries,
+                          options: dataprovider.industries,
                           selectedOption:
                               startupregisterprovider.selectedIndustry,
                           optionLabel: (industry) => industry!.name,
@@ -134,7 +138,7 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
                         ),
                         GenericDropdown<Niche>(
                           label: 'Niche',
-                          options: startupregisterprovider.niches,
+                          options: dataprovider.niches,
                           validator: validator,
                           selectedOption: startupregisterprovider.selectedNiche,
                           optionLabel: (niche) => niche!.name,

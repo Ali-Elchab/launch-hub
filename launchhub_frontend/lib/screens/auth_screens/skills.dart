@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/hobbies.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
@@ -20,7 +21,10 @@ class Skills extends ConsumerStatefulWidget {
 class _SkillsState extends ConsumerState<Skills> {
   @override
   void initState() {
-    ref.read(jobSeekerRegisterProvider.notifier).getSkills();
+    final selectedNiche = ref.read(jobSeekerRegisterProvider).selectedNiche;
+
+    ref.read(dataProvider).getSkills(selectedNiche!);
+
     super.initState();
   }
 
@@ -77,7 +81,9 @@ class _SkillsState extends ConsumerState<Skills> {
                         Wrap(
                           spacing: 9.0,
                           runSpacing: 4.0,
-                          children: providerNotifier.skills
+                          children: ref
+                              .watch(dataProvider.notifier)
+                              .skills
                               .map((skill) => ChoiceTag(
                                     label: skill.name,
                                     isSelected: provider.selectedSkills
