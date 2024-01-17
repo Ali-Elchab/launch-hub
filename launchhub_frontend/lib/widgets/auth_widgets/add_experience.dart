@@ -4,6 +4,7 @@ import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
@@ -35,18 +36,6 @@ class _AddExperienceState extends ConsumerState<AddExperience> {
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    ref.read(jobSeekerRegisterProvider.notifier).getIndustries();
-  }
-
-  Future getNiches(industry) async {
-    await ref
-        .read(jobSeekerRegisterProvider.notifier)
-        .getNiches(industry: industry);
-  }
 
   Future<void> _selectDate(BuildContext context, controller) async {
     final DateTime? picked = await showDatePicker(
@@ -143,7 +132,8 @@ class _AddExperienceState extends ConsumerState<AddExperience> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(jobSeekerRegisterProvider);
+    final dataprovider = ref.watch(dataProvider);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -207,25 +197,13 @@ class _AddExperienceState extends ConsumerState<AddExperience> {
                             ),
                             GenericDropdown<Industry>(
                               label: 'Industry',
-                              options: provider.industries,
+                              options: dataprovider.industries,
                               selectedOption: _selectedIndustry,
                               optionLabel: (industry) => industry!.name,
                               onChanged: (newValue) async {
                                 setState(() {
                                   _selectedIndustry = newValue!;
                                   _selectedNiche = null;
-                                });
-                                await getNiches(newValue!);
-                              },
-                            ),
-                            GenericDropdown<Niche>(
-                              label: 'Niche',
-                              options: provider.niches,
-                              selectedOption: _selectedNiche,
-                              optionLabel: (niche) => niche!.name,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _selectedNiche = newValue!;
                                 });
                               },
                             ),
