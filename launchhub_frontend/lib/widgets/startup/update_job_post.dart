@@ -17,9 +17,8 @@ import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
 class UpdateJobPost extends ConsumerStatefulWidget {
-  const UpdateJobPost({super.key, this.postJob, this.jobPost});
+  const UpdateJobPost({super.key, this.jobPost});
 
-  final Function? postJob;
   final JobPost? jobPost;
 
   @override

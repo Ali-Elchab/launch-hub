@@ -9,7 +9,7 @@ class Skill {
     this.specializationId,
   });
 
-  factory Skill.fromJson(Map<String, dynamic> json) {
+  factory Skill.fromJson(Map json) {
     return Skill(
       id: json['id'] as int,
       name: json['name'] as String,
@@ -24,28 +24,8 @@ class Skill {
       'specialization_id': specializationId,
     };
   }
-}
 
-class SkillPivot {
-  final int jobSeekerId;
-  final int skillId;
-
-  SkillPivot({
-    required this.jobSeekerId,
-    required this.skillId,
-  });
-
-  factory SkillPivot.fromJson(Map<String, dynamic> json) {
-    return SkillPivot(
-      jobSeekerId: json['job_seeker_id'] as int,
-      skillId: json['skill_id'] as int,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'job_seeker_id': jobSeekerId,
-      'skill_id': skillId,
-    };
+  static List<Skill> parseMultipleSkills(List<dynamic> json) {
+    return json.map((skill) => Skill.fromJson(skill)).toList();
   }
 }

@@ -19,7 +19,7 @@ class Education {
   final String description;
   final String location;
 
-  factory Education.fromJson(Map<String, dynamic> json) {
+  factory Education.fromJson(Map json) {
     return Education(
       id: json['id'] as int,
       degree: json['degree'] as String,
@@ -43,12 +43,7 @@ class Education {
     };
   }
 
-  List<Map<String, dynamic>> convertEducationsToJson(
-      List<Education> educations) {
-    return educations.map((education) => education.toJson()).toList();
-  }
-
-  List<Education> parseMultiEducation(List<Map<String, dynamic>> json) {
+  static List<Education> parseMultipleEducations(List<dynamic> json) {
     return json.map((education) => Education.fromJson(education)).toList();
   }
 }

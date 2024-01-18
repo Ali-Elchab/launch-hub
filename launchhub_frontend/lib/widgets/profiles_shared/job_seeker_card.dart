@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/screens/startup_screens/job_seeker_profile.dart';
 
-class JobSeekerCard extends StatelessWidget {
+class JobSeekerCard extends ConsumerWidget {
   final JobSeeker jobSeeker;
   final Function()? onTap;
 
@@ -12,18 +17,17 @@ class JobSeekerCard extends StatelessWidget {
     this.onTap,
   });
 
-  void onClick(context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => JobSeekerProfile(jobSeeker: jobSeeker)));
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {
-        onClick(context);
+      onTap: () async {
+        await ref.watch(dataProvider).getIndustries();
+        final industry = ref
+            .watch(dataProvider)
+            .industries
+            .firstWhere((element) => element.id == jobSeeker.industryId);
+        await ref.read(dataProvider).getNiches(industry);
+        navigator(context, JobSeekerProfile(jobSeeker: jobSeeker));
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 10),

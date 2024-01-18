@@ -12,7 +12,7 @@ class ProfileHeader extends StatelessWidget {
     this.city,
     this.email,
     this.phoneNumber,
-    this.socials,
+    this.socials = const [],
     this.profilePicture,
     this.color = Colors.white,
   });
@@ -25,7 +25,7 @@ class ProfileHeader extends StatelessWidget {
   final String? email;
   final String? phoneNumber;
   final String? profilePicture;
-  final List? socials;
+  final List socials;
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +147,7 @@ class ProfileHeader extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              for (var social in socials!)
+                              for (var social in socials)
                                 if (social.platform.toLowerCase().trim() ==
                                     'facebook')
                                   _buildSocialIcon(

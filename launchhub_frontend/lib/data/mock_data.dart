@@ -275,11 +275,13 @@ List<Startup> dummyStartups = [
     specializationId: 1,
     socialMediaLinks: [
       SocialMediaLink(
+        id: 1,
         platform: 'LinkedIn',
         link: 'https://www.linkedin.com/in/johndoe/',
         userId: 1,
       ),
       SocialMediaLink(
+        id: 2,
         platform: 'facebook',
         link: 'https://www.facebook.com/aliElchab',
         userId: 1,

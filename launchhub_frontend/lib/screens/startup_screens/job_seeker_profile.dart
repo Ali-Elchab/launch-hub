@@ -1,41 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
+import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
+import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
+import 'package:launchhub_frontend/widgets/startup/skills_and_hobbies.dart';
 import 'package:launchhub_frontend/widgets/startup/educational_background.dart';
 import 'package:launchhub_frontend/widgets/startup/experience.dart';
-import 'package:launchhub_frontend/widgets/startup/skills_and_hobbies.dart';
 
-class JobSeekerProfile extends StatefulWidget {
+class JobSeekerProfile extends ConsumerStatefulWidget {
   const JobSeekerProfile({super.key, required this.jobSeeker});
 
   final JobSeeker jobSeeker;
 
   @override
-  State<JobSeekerProfile> createState() => _JobSeekerProfileState();
+  ConsumerState<JobSeekerProfile> createState() => _JobSeekerProfileState();
 }
 
-class _JobSeekerProfileState extends State<JobSeekerProfile> {
-  bool showModal = false;
+class _JobSeekerProfileState extends ConsumerState<JobSeekerProfile> {
+  bool isShowModal = false;
+  Industry? industry;
+  Niche? specialization;
+  @override
+  void initState() {
+    ref
+        .read(hireTalentProvider.notifier)
+        .getJobSeekerProfile(widget.jobSeeker.id);
+    industry = ref
+        .read(dataProvider)
+        .industries
+        .firstWhere((element) => element.id == widget.jobSeeker.industryId);
 
-  void _showModal(Widget widget) {
-    showModalBottomSheet(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        elevation: 0,
-        isScrollControlled: true,
-        context: context,
-        isDismissible: true,
-        enableDrag: false,
-        barrierColor: Colors.transparent,
-        builder: (ctx) => widget);
+    specialization = ref
+        .read(dataProvider)
+        .niches
+        .where((element) => element.id == widget.jobSeeker.specializationId)
+        .first;
+
+    super.initState();
   }
 
   void _toggleHeaderColor() => setState(() {
-        showModal = !showModal;
+        isShowModal = !isShowModal;
       });
 
   @override
   Widget build(BuildContext context) {
+    final details = ref.watch(hireTalentProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -47,9 +62,9 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
           city: widget.jobSeeker.address,
           email: widget.jobSeeker.firstName,
           phoneNumber: widget.jobSeeker.phone,
-          // socials: widget.jobSeeker.socialMediaLinks,
+          socials: details.socialMediaLinks,
           profilePicture: widget.jobSeeker.profilePic,
-          color: showModal ? Colors.black : Colors.white,
+          color: isShowModal ? Colors.black : Colors.white,
         ),
       ),
       body: Center(
@@ -63,7 +78,7 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${widget.jobSeeker.specializationId}',
+                    Text(specialization!.name,
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 20),
                     Text(
@@ -80,12 +95,17 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                           GestureDetector(
                             onTap: () {
                               _toggleHeaderColor();
-                              // _showModal(SkillsAndHobbies(
-                              //   toggleHeaderColor: () {
-                              //     _toggleHeaderColor();
-                              //   },
-                              //   skills: widget.jobSeeker.skills,
-                              // ));
+                              showModal(
+                                  color: Theme.of(context).primaryColor,
+                                  isDismissible: true,
+                                  enableDrag: false,
+                                  SkillsAndHobbies(
+                                    toggleHeaderColor: () {
+                                      _toggleHeaderColor();
+                                    },
+                                    skills: details.skills,
+                                  ),
+                                  context);
                             },
                             child: Column(
                               children: [
@@ -112,12 +132,17 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                           GestureDetector(
                             onTap: () {
                               _toggleHeaderColor();
-                              // _showModal(EducationalBackground(
-                              //   toggleHeaderColor: () {
-                              //     _toggleHeaderColor();
-                              //   },
-                              //   educations: widget.jobSeeker.educations,
-                              // ));
+                              showModal(
+                                  color: Theme.of(context).primaryColor,
+                                  isDismissible: true,
+                                  enableDrag: false,
+                                  EducationalBackground(
+                                    toggleHeaderColor: () {
+                                      _toggleHeaderColor();
+                                    },
+                                    educations: details.educations,
+                                  ),
+                                  context);
                             },
                             child: Column(
                               children: [
@@ -144,12 +169,17 @@ class _JobSeekerProfileState extends State<JobSeekerProfile> {
                           GestureDetector(
                             onTap: () {
                               _toggleHeaderColor();
-                              // _showModal(JobSeekerExperience(
-                              //   toggleHeaderColor: () {
-                              //     _toggleHeaderColor();
-                              //   },
-                              //   experiences: widget.jobSeeker.experiences,
-                              // ));
+                              showModal(
+                                  color: Theme.of(context).primaryColor,
+                                  isDismissible: true,
+                                  enableDrag: false,
+                                  JobSeekerExperience(
+                                    toggleHeaderColor: () {
+                                      _toggleHeaderColor();
+                                    },
+                                    experiences: details.experiences,
+                                  ),
+                                  context);
                             },
                             child: Column(
                               children: [

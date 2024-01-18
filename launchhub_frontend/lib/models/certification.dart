@@ -21,7 +21,7 @@ class Certification {
     this.jobSeekerId,
   });
 
-  factory Certification.fromJson(Map<String, dynamic> json) {
+  factory Certification.fromJson(Map json) {
     return Certification(
       id: json['id'] as int,
       name: json['name'] as String,
@@ -45,5 +45,11 @@ class Certification {
       'description': description,
       'location': location,
     };
+  }
+
+  static List<Certification> parseMultipleCertifications(List<dynamic> json) {
+    return json
+        .map((certification) => Certification.fromJson(certification))
+        .toList();
   }
 }

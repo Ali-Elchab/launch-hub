@@ -25,7 +25,7 @@ class Experience {
     this.jobSeekerId,
   });
 
-  factory Experience.fromJson(Map<String, dynamic> json) {
+  factory Experience.fromJson(Map json) {
     return Experience(
       id: json['id'] as int,
       position: json['position'] as String,
@@ -53,5 +53,9 @@ class Experience {
       'description': description,
       'location': location,
     };
+  }
+
+  static List<Experience> parseMultipleExperiences(List<dynamic> json) {
+    return json.map((experience) => Experience.fromJson(experience)).toList();
   }
 }

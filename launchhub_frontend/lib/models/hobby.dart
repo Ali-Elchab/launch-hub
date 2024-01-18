@@ -7,7 +7,7 @@ class Hobby {
     required this.name,
   });
 
-  factory Hobby.fromJson(Map<String, dynamic> json) {
+  factory Hobby.fromJson(Map json) {
     return Hobby(
       id: json['id'] as int,
       name: json['name'] as String,
@@ -20,28 +20,8 @@ class Hobby {
       'name': name,
     };
   }
-}
 
-class Pivot {
-  final int jobSeekerId;
-  final int hobbyId;
-
-  Pivot({
-    required this.jobSeekerId,
-    required this.hobbyId,
-  });
-
-  factory Pivot.fromJson(Map<String, dynamic> json) {
-    return Pivot(
-      jobSeekerId: json['job_seeker_id'] as int,
-      hobbyId: json['hobby_id'] as int,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'job_seeker_id': jobSeekerId,
-      'hobby_id': hobbyId,
-    };
+  static List<Hobby> parseMultipleHobbies(List<dynamic> json) {
+    return json.map((hobby) => Hobby.fromJson(hobby)).toList();
   }
 }
