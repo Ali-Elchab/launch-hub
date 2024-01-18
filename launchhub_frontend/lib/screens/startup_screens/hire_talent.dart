@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
+import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/choosing_candidate.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_seekers_list.dart';
 
-class HireTalent extends StatefulWidget {
+class HireTalent extends ConsumerWidget {
   const HireTalent({super.key});
 
   @override
-  State<HireTalent> createState() => _HireTalentState();
-}
-
-class _HireTalentState extends State<HireTalent> {
-  void _choosingPerfectCandidate() {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => const StartupCandidateArticle());
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hiretalentprovider = ref.watch(hireTalentProvider);
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -42,9 +33,9 @@ class _HireTalentState extends State<HireTalent> {
       ),
     );
 
-    if (dummyJobSeekers.isNotEmpty) {
+    if (hiretalentprovider.jobSeekers.isNotEmpty) {
       mainContent = JobSeekersList(
-        jobSeekers: dummyJobSeekers,
+        jobSeekers: hiretalentprovider.jobSeekers,
       );
     }
     return Scaffold(
@@ -70,7 +61,7 @@ class _HireTalentState extends State<HireTalent> {
               ),
               InkWell(
                 onTap: () {
-                  _choosingPerfectCandidate();
+                  showModal(const StartupCandidateArticle(), context);
                 },
                 child: Text(
                   'Choosing The Perfect Candidate For Your Startup',

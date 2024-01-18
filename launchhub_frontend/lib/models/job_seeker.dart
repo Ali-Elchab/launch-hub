@@ -10,22 +10,22 @@ class JobSeeker {
   final String firstName;
   final String lastName;
   final String? profilePic;
-  final DateTime dob;
+  final String dob;
   final String phone;
   final String address;
   final String bio;
   final String? resume;
-  bool? isAvailable;
+  int? isAvailable;
   final int industryId;
   int? userId;
   final int specializationId;
-  final List? socialMediaLinks;
-  final List<Education>? educations;
-  final List<Experience>? experiences;
-  final List<Certification>? certifications;
-  final List<Hobby>? hobbies;
-  final List<Skill>? skills;
-  final List<JobPost>? jobPosts;
+  // final List? socialMediaLinks;
+  // final List<Education>? educations;
+  // final List<Experience>? experiences;
+  // final List<Certification>? certifications;
+  // final List<Hobby>? hobbies;
+  // final List<Skill>? skills;
+  // final List<JobPost>? jobPosts;
   JobSeeker({
     this.id,
     required this.firstName,
@@ -40,22 +40,22 @@ class JobSeeker {
     required this.industryId,
     this.userId,
     required this.specializationId,
-    this.socialMediaLinks,
-    this.educations,
-    this.experiences,
-    this.certifications,
-    this.hobbies,
-    this.skills,
-    this.jobPosts,
+    // this.socialMediaLinks,
+    // this.educations,
+    // this.experiences,
+    // this.certifications,
+    // this.hobbies,
+    // this.skills,
+    // this.jobPosts,
   });
 
-  factory JobSeeker.fromJson(Map<String, dynamic> json) {
+  factory JobSeeker.fromJson(Map json) {
     return JobSeeker(
       id: json['id'],
       firstName: json['first_name'] as String,
       lastName: json['last_name'] as String,
       profilePic: json['profile_pic'] as String?,
-      dob: DateTime.parse(json['dob'] as String),
+      dob: json['dob'] as String,
       phone: json['phone'] as String,
       address: json['address'] as String,
       bio: json['bio'] as String,
@@ -63,7 +63,7 @@ class JobSeeker {
       isAvailable: json['is_available'],
       userId: json['user_id'] as int?,
       industryId: json['industry_id'] as int,
-      specializationId: json['industry_id'] as int,
+      specializationId: json['specialization_id'] as int,
       // socialMediaLinks: (json['socialMediaLinks'] as List)
       //     .map((i) => SocialMediaLink.fromJson(i))
       //     .toList(),
@@ -83,43 +83,32 @@ class JobSeeker {
     );
   }
 
-  static Map<String, dynamic> toJson(
-      {firstName,
-      lastName,
-      profilePic,
-      dob,
-      phone,
-      address,
-      bio,
-      resume,
-      industryId,
-      userId,
-      specializationId,
-      socialMediaLinks,
-      educations,
-      experiences,
-      certifications,
-      hobbies,
-      skills,
-      jobPosts}) {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['first_name'] = firstName;
-    data['last_name'] = lastName;
-    data['profile_pic'] = profilePic;
-    data['dob'] = dob;
-    data['phone'] = phone;
-    data['address'] = address;
-    data['bio'] = bio;
-    data['resume'] = resume;
-    data['industry_id'] = industryId;
-    data['user_id'] = userId;
-    data['specialization_id'] = specializationId;
-    data['social_media_links'] = socialMediaLinks;
-    data['educations'] = educations;
-    data['experiences'] = experiences;
-    data['certifications'] = certifications;
-    data['hobbies'] = hobbies;
-    data['skills'] = skills;
-    return data;
+  // static Map<String, dynamic> toJson(){
+  //   firstName,
+  //   lastName,
+  //   profilePic,
+  //   dob,
+  //   phone,
+  //   address,
+  //   bio,
+  //   resume,
+  //   industryId,
+  //   userId,
+  //   specializationId,
+  //   // socialMediaLinks,
+  //   // educations,
+  //   // experiences,
+  //   // certifications,
+  //   // hobbies,
+  //   // skills,
+  //   // jobPosts
+  // }
+
+  static List<JobSeeker> parseMultipleJobSeekers(List<dynamic> jsons) {
+    List<JobSeeker> list = [];
+    for (Map json in jsons) {
+      list.add(JobSeeker.fromJson(json));
+    }
+    return list;
   }
 }

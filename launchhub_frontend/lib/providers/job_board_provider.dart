@@ -54,11 +54,8 @@ class JobBoardProvider with ChangeNotifier {
 
   Future postJob(JobPost jobPost) async {
     final data = jobPost.toJson();
-    print(data);
     jobPosts.add(jobPost);
     try {
-      print('in tr ');
-
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final response = await myDio.post(
@@ -76,11 +73,9 @@ class JobBoardProvider with ChangeNotifier {
     } on DioException catch (e) {
       jobPosts.remove(jobPost);
       _errorMessage = 'Failed to post job: ${e.response}';
-      print(_errorMessage);
     } catch (e) {
       jobPosts.remove(jobPost);
       _errorMessage = "Error: $e";
-      print(_errorMessage);
     }
     notifyListeners();
   }

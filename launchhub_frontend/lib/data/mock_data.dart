@@ -144,78 +144,79 @@ List<JobSeeker> dummyJobSeekers = [
     firstName: 'Ahmad',
     lastName: 'Ahmad',
     profilePic: 'path/to/profile1.jpg',
-    dob: DateTime(1990, 1, 1),
+    dob: '1990, 1, 1',
     phone: '123-456-7890',
     address: '123 Main St',
     bio:
         'HR Specialist: Proven expertise in talent management, employee relations, and a commitment to creating a positive workplace environment for organizational success.',
     resume: 'path/to/resume1.pdf',
-    isAvailable: true,
+    isAvailable: 1,
     industryId: 2,
     userId: 1,
     specializationId: 24,
-    socialMediaLinks: [
-      {
-        "platform": 'LinkedIn',
-        "link": 'https://www.linkedin.com/in/johndoe/',
-      },
-      {
-        'platform': 'facebook',
-        'link': 'https://www.facebook.com/aliElchab',
-      }
-      // ... add more if needed ...
-    ],
-    educations: [
-      Education(
-        degree: 'BSc Computer Science',
-        organization: 'University of Example',
-        startDate: '2010-09-01',
-        endDate: '2014-06-30',
-        description: 'Studied computer science.',
-        location: 'Anytown',
-      ),
-      // ... add more if needed ...
-    ],
-    experiences: [
-      Experience(
-        position: 'Software Developer',
-        company: 'Tech Corp',
-        industryId: 2,
-        specializationId: 25,
-        type: 'Full-Time',
-        startDate: '2014-07-01',
-        endDate: '2019-08-30',
-        description: 'Developed software.',
-        location: 'Anytown',
-        jobSeekerId: 1,
-      ),
-      // ... add more if needed ...
-    ],
-    certifications: [
-      Certification(
-        name: 'Certified Java Programmer',
-        certificate: 'CJP12345',
-        organization: 'Java Institute',
-        startDate: '2015-05-01',
-        endDate: '2025-05-01',
-        description: 'Java programming certification.',
-        location: 'Online',
-        jobSeekerId: 1,
-      ),
-      // ... add more if needed ...
-    ],
-    hobbies: [
-      Hobby(id: 1, name: 'Cycling'),
-      Hobby(id: 2, name: 'Reading'),
-      // ... add more if needed ...
-    ],
-    skills: [
-      Skill(id: 1, name: 'Java', specializationId: 1),
-      Skill(id: 2, name: 'Python', specializationId: 2),
-      // ... add more if needed ...
-    ],
-    jobPosts: [dummyJobPosts[0], dummyJobPosts[1]],
-  ),
+  )
+  //   socialMediaLinks: [
+  //     {
+  //       "platform": 'LinkedIn',
+  //       "link": 'https://www.linkedin.com/in/johndoe/',
+  //     },
+  //     {
+  //       'platform': 'facebook',
+  //       'link': 'https://www.facebook.com/aliElchab',
+  //     }
+  //     // ... add more if needed ...
+  //   ],
+  //   educations: [
+  //     Education(
+  //       degree: 'BSc Computer Science',
+  //       organization: 'University of Example',
+  //       startDate: '2010-09-01',
+  //       endDate: '2014-06-30',
+  //       description: 'Studied computer science.',
+  //       location: 'Anytown',
+  //     ),
+  //     // ... add more if needed ...
+  //   ],
+  //   experiences: [
+  //     Experience(
+  //       position: 'Software Developer',
+  //       company: 'Tech Corp',
+  //       industryId: 2,
+  //       specializationId: 25,
+  //       type: 'Full-Time',
+  //       startDate: '2014-07-01',
+  //       endDate: '2019-08-30',
+  //       description: 'Developed software.',
+  //       location: 'Anytown',
+  //       jobSeekerId: 1,
+  //     ),
+  //     // ... add more if needed ...
+  //   ],
+  //   certifications: [
+  //     Certification(
+  //       name: 'Certified Java Programmer',
+  //       certificate: 'CJP12345',
+  //       organization: 'Java Institute',
+  //       startDate: '2015-05-01',
+  //       endDate: '2025-05-01',
+  //       description: 'Java programming certification.',
+  //       location: 'Online',
+  //       jobSeekerId: 1,
+  //     ),
+  //     // ... add more if needed ...
+  //   ],
+  //   hobbies: [
+  //     Hobby(id: 1, name: 'Cycling'),
+  //     Hobby(id: 2, name: 'Reading'),
+  //     // ... add more if needed ...
+  //   ],
+  //   skills: [
+  //     Skill(id: 1, name: 'Java', specializationId: 1),
+  //     Skill(id: 2, name: 'Python', specializationId: 2),
+  //     // ... add more if needed ...
+  //   ],
+  //   jobPosts: [dummyJobPosts[0], dummyJobPosts[1]],
+  // ),
 ];
 
 List<Advisor> dummyAdvisors = [

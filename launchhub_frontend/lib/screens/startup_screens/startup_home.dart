@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
@@ -36,6 +37,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
   @override
   Widget build(BuildContext context) {
     final startupProfile = ref.read(startupProfileProvider);
+    final hireTalent = ref.read(hireTalentProvider);
     final jobBoard = ref.read(jobBoardProvider);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -79,7 +81,8 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                         description:
                             'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
                         imagePath: 'assets/images/hire_talent.png',
-                        onTap: () {
+                        onTap: () async {
+                          await hireTalent.fetchJobSeekers();
                           navigator(context, const HireTalent());
                         },
                       ),
