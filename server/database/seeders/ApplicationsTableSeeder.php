@@ -35,13 +35,7 @@ class ApplicationsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'job_post_id' => 4, // Replace with the appropriate job post ID
-                'job_seeker_id' => 4, // Replace with the appropriate job seeker ID
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+
         ];
 
         foreach ($applications as $application) {

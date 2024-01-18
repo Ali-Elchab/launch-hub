@@ -24,8 +24,8 @@ class JobPostsTableSeeder extends Seeder
                 Implement and maintain HR policies and procedures in alignment with industry best practices.
                 Plan and conduct training sessions on various HR-related topics.
                 Maintain accurate records and documentation related to employee activities.',
-                'experience_level' => 'Mid-level',
-                'education_level' => 'Bachelors',
+                'experience_level' => '1-3 years',
+                'education_level' => 'Doctoral Degree',
                 'preferred_gender' => 'any',
                 'deadline' => now()->addWeeks(2),
                 'job_status' => 'Open',
@@ -48,8 +48,8 @@ class JobPostsTableSeeder extends Seeder
                 Plan and conduct training sessions on various HR-related topics.
                 Maintain accurate records and documentation related to employee activities.',
                 'job_qualification' => 'Doctoral Degree in Health Sciences',
-                'experience_level' => 'Mid-level',
-                'education_level' => 'Doctoral',
+                'experience_level' => '1-3 years',
+                'education_level' => 'Doctoral Degree',
                 'preferred_gender' => 'any',
                 'deadline' => now()->addWeeks(2),
                 'job_status' => 'Open',
@@ -59,30 +59,7 @@ class JobPostsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'job_title' => 'Graphic Designer',
-                'job_description' => 'Create visual concepts to communicate ideas.',
-                'job_location' => 'New York',
-                'job_type' => 'Part-time',
-                'job_salary' => 50000,
-                'responsibilities' => 'Collaborate with department heads to identify staffing needs and devise effective recruitment strategies.
-                Conduct the entire recruitment process, from sourcing and screening to interviewing and onboarding.
-                Foster a positive and inclusive workplace culture through effective employee relations.
-                Implement and maintain HR policies and procedures in alignment with industry best practices.
-                Plan and conduct training sessions on various HR-related topics.
-                Maintain accurate records and documentation related to employee activities.',
-                'job_qualification' => 'Bachelor’s Degree in Graphic Design',
-                'experience_level' => 'Entry-level',
-                'education_level' => 'Bachelors',
-                'preferred_gender' => 'any',
-                'deadline' => now()->addWeeks(3),
-                'job_status' => 'Open',
-                'industry_id' => 2,
-                'specialization_id' => 20,
-                'startup_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+
             [
                 'job_title' => 'Data Analyst',
                 'job_description' => 'Interpret data and analyze results using statistical techniques.',
@@ -96,8 +73,8 @@ class JobPostsTableSeeder extends Seeder
                 Plan and conduct training sessions on various HR-related topics.
                 Maintain accurate records and documentation related to employee activities.',
                 'job_qualification' => 'Bachelor’s Degree in Statistics or Mathematics',
-                'experience_level' => 'Senior-level',
-                'education_level' => 'Masters',
+                'experience_level' => '1-3 years',
+                'education_level' => 'Doctoral Degree',
                 'preferred_gender' => 'any',
                 'deadline' => now()->addWeeks(1),
                 'job_status' => 'Open',

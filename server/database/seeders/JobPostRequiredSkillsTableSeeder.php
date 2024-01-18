@@ -50,18 +50,7 @@ class JobPostRequiredSkillsTableSeeder extends Seeder
 
 
             ],
-            [
-                'job_post_id' => 4, // Replace with the appropriate job post ID
-                'skill_id' => 22, // Replace with the appropriate job seeker ID
 
-
-            ],
-            [
-                'job_post_id' => 4, // Replace with the appropriate job post ID
-                'skill_id' => 23, // Replace with the appropriate job seeker ID
-
-
-            ],
         ];
         foreach ($skills as $skill) {
             DB::table('job_post_required_skills')->insert($skill);

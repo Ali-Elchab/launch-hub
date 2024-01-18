@@ -35,7 +35,7 @@ class JobPostController extends Controller
         return response()->json($jobposts);
     }
 
-    public function updateJobPost(Request $request)
+    public function updateJobPost(Request $request, $id)
     {
         try {
             $request->validate([
@@ -63,7 +63,7 @@ class JobPostController extends Controller
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        $jobpost = JobPost::find($request->id);
+        $jobpost = JobPost::find($id);
         if (!$jobpost) {
             return response()->json(['status' => 'error', 'message' => 'Job post not found'], 404);
         }
