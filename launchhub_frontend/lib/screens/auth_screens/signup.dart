@@ -3,7 +3,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/auth_provider.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/radio_buttons.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
@@ -114,14 +116,23 @@ class SignUp extends ConsumerWidget {
                             passwordController.text,
                             provider.selectedType.index + 1);
 
-                        await ref.read(authProvider.notifier).signUp();
+                        final response =
+                            await ref.read(authProvider.notifier).signUp();
 
                         if (provider.isSignUpSuccessful) {
-                          provider.selectedType == UserType.startup
-                              ? navigatorKey.currentState
-                                  ?.pushNamed('/CompanyInfo1')
-                              : navigatorKey.currentState
-                                  ?.pushNamed('/PersonalInfo');
+                          final user = User.fromJson(response['user']);
+
+                          if (user.typeId == 1) {
+                            ref.read(startupProfileProvider).loadUser(user);
+
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                                '/CompanyInfo1',
+                                (Route<dynamic> route) => false);
+                          } else if (user.typeId == 2) {
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                                '/PersonalInfo',
+                                (Route<dynamic> route) => false);
+                          }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

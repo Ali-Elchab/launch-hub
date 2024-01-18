@@ -77,7 +77,7 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signUp() async {
+  Future signUp() async {
     try {
       final response = await myDio.post(
         ApiRoute.signup,
@@ -94,6 +94,7 @@ class AuthProvider with ChangeNotifier {
           final authorizationData = response.data['authorisation'];
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('token', authorizationData['token']);
+          return response.data;
         } else {
           _isSignUpSuccessful = false;
           _errorMessage = 'Token not found in response';

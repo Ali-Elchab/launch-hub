@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
-import 'package:launchhub_frontend/models/user.dart';
+import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
@@ -51,42 +51,43 @@ class Founders extends ConsumerWidget {
             child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Founders & Key Members',
-                      style: textTheme.titleLarge,
-                    ),
+                  Text(
+                    'Founders & Key Members',
+                    style: textTheme.titleLarge,
                   ),
                   const SizedBox(height: 35),
                   if (provider.selectedImage != null)
-                    ClipOval(
-                      child: Image.file(
-                        File(provider.selectedImage!.path),
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
+                    Align(
+                      alignment: Alignment.center,
+                      child: ClipOval(
+                        child: Image.file(
+                          File(provider.selectedImage!.path),
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   if (provider.selectedImage == null)
-                    ProfileImagePicker(
-                        onImagePicked: () async {
-                          await ref
-                              .read(startupRegisterProvider.notifier)
-                              .pickImage();
-                        },
-                        imageFile: provider.selectedImage,
-                        text: 'Upload Logo'),
+                    Align(
+                      alignment: Alignment.center,
+                      child: ProfileImagePicker(
+                          onImagePicked: () async {
+                            await ref
+                                .read(startupRegisterProvider.notifier)
+                                .pickImage();
+                          },
+                          imageFile: provider.selectedImage,
+                          text: 'Upload Logo'),
+                    ),
                   const SizedBox(height: 32),
                   Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: InputField(
-                          label: 'Add Founder',
-                          controller: founderController,
-                        ),
+                      child: InputField(
+                        label: 'Add Founder',
+                        controller: founderController,
                       ),
                     ),
                     IconButton(
@@ -101,8 +102,9 @@ class Founders extends ConsumerWidget {
                       icon: const Icon(Icons.add),
                     )
                   ]),
-                  Container(
-                    height: 105,
+                  SizedBox(
+                    height: 45,
+                    width: MediaQuery.of(context).size.width * 0.61,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: provider.founders.length,
@@ -149,12 +151,9 @@ class Founders extends ConsumerWidget {
                   const SizedBox(height: 16),
                   Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: InputField(
-                          label: 'Add CEO',
-                          controller: ceoController,
-                        ),
+                      child: InputField(
+                        label: 'Add CEO',
+                        controller: ceoController,
                       ),
                     ),
                     IconButton(
@@ -167,7 +166,9 @@ class Founders extends ConsumerWidget {
                       icon: const Icon(Icons.add),
                     )
                   ]),
-                  Expanded(
+                  SizedBox(
+                    height: 45,
+                    width: MediaQuery.of(context).size.width * 0.61,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: provider.ceos.length,
@@ -236,7 +237,9 @@ class Founders extends ConsumerWidget {
                       icon: const Icon(Icons.add),
                     )
                   ]),
-                  Expanded(
+                  SizedBox(
+                    height: 45,
+                    width: MediaQuery.of(context).size.width * 0.61,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: provider.keyExecutives.length,
@@ -282,32 +285,35 @@ class Founders extends ConsumerWidget {
                       },
                     ),
                   ),
-                  SmallButton('Submit', () async {
-                    if (provider.founders.isNotEmpty) {
-                      final response = await ref
-                          .read(startupRegisterProvider.notifier)
-                          .registerStartup();
-                      if (provider.isRegistered) {
-                        final user = User.fromJson(response['user']);
-                        ref.read(startupProfileProvider).loadUser(user);
-                        ref.read(startupProfileProvider).fetchStartupProfile();
-                        navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                            '/StartupHome', (Route<dynamic> route) => false);
+                  const Spacer(),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SmallButton('Submit', () async {
+                      if (provider.founders.isNotEmpty) {
+                        final response = await ref
+                            .read(startupRegisterProvider.notifier)
+                            .registerStartup();
+                        if (provider.isRegistered) {
+                          final startup = Startup.fromJson(response);
+                          ref.read(startupProfileProvider).loadStartup(startup);
+                          navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                              '/StartupHome', (Route<dynamic> route) => false);
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Error: ${provider.errorMessage}'),
+                            ),
+                          );
+                        }
                       } else {
-                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Error: ${provider.errorMessage}'),
-                          ),
+                          const SnackBar(
+                              content: Text('Please add at least one founder')),
                         );
                       }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Please add at least one founder')),
-                      );
-                    }
-                  }, showArrow: false),
+                    }, showArrow: false),
+                  ),
                   const SizedBox(height: 15),
                   const BottomText(
                     text:
