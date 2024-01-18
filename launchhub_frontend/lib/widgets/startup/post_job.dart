@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
+import 'package:launchhub_frontend/helpers/select_date.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/location_picker.dart';
 import 'package:launchhub_frontend/widgets/startup/pick_skills.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 import 'package:intl/intl.dart';
 
 class PostJob extends ConsumerStatefulWidget {
-  const PostJob({super.key, required this.postJob});
-
-  final void Function(JobPost jobPost) postJob;
+  const PostJob({super.key});
 
   @override
   ConsumerState<PostJob> createState() {
@@ -34,8 +35,7 @@ class _PostJobState extends ConsumerState<PostJob> {
   String? _selectEducationceLevel;
   String? _selectJobType;
   String? _selectGender;
-  String? _selectLocation;
-  List<Skill> selectedSkills = [];
+  List selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
   final _responsibilitiesController = TextEditingController();
   final _jobSalaryController = TextEditingController();
@@ -48,34 +48,23 @@ class _PostJobState extends ConsumerState<PostJob> {
   }
 
   Future getNiches() async {
-    await ref
-        .read(dataProvider)
-        .getNiches(ref.read(jobBoardProvider).selectedIndustry!);
+    await ref.read(dataProvider).getNiches(_selectedIndustry);
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-        _jobDeadlineController.text = DateFormat('yyyy-MM-dd')
-            .format(picked); // Format date as 'yyyy-MM-dd'
-      });
-    }
+    final picked = await selectDate(context, _selectedDate);
+    setState(() {
+      _selectedDate = picked;
+      _jobDeadlineController.text = DateFormat('yyyy-MM-dd').format(picked);
+    });
   }
 
-  void _showDialog() {
+  void _showDialog(text) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Invalid input'),
-        content: const Text(
-            'Please make sure a valid title, amount, date and category was entered.'),
+        content: Text(text),
         actions: [
           TextButton(
             onPressed: () {
@@ -86,15 +75,6 @@ class _PostJobState extends ConsumerState<PostJob> {
         ],
       ),
     );
-  }
-
-  void _openSkillsOverlay() {
-    showModalBottomSheet(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => PickSkills(selectedSkills: selectedSkills));
   }
 
   void _submitJobData() {
@@ -109,47 +89,42 @@ class _PostJobState extends ConsumerState<PostJob> {
         _selectEducationceLevel == null ||
         _selectJobType == null ||
         _selectGender == null ||
-        _selectLocation == null ||
         selectedSkills.isEmpty ||
-        _jobQualificationController.text.trim().isEmpty ||
-        _jobDeadlineController.text.trim().isEmpty ||
         _jobSalaryController.text.trim().isEmpty ||
         _jobQualificationController.text.trim().isEmpty ||
         _jobDeadlineController.text.trim().isEmpty ||
         _jobSalaryController.text.trim().isEmpty) {
-      _showDialog();
+      if (salaryIsInvalid) {
+        _jobSalaryController.text = '';
+        _showDialog('Please make sure you fill only numbers in salary field.');
+      }
+      if (selectedSkills.isEmpty) {
+        _showDialog('Please select at least one skill.');
+      }
+      _showDialog('Please fill all the fields.');
       return;
     }
 
-    widget.postJob(
-      JobPost(
-        id: 1,
-        deadline: _jobDeadlineController.text,
-        educationLevel: _selectEducationceLevel!,
-        experienceLevel: _selectExperienceLevel!,
-        jobDescription: _descriptionController.text,
-        jobTitle: _titleController.text,
-        jobType: _selectJobType!,
-        responsibilities: _responsibilitiesController.text,
-        industryId: _selectedIndustry!.id,
-        jobLocation: _selectLocation!,
-        jobSalary: int.parse(_jobSalaryController.text),
-        jobQualification: _jobQualificationController.text,
-        preferredGender: _selectGender!,
-        specializationId: _selectedNiche!.id,
-        requiredSkills: selectedSkills,
-        jobStatus: 'open',
-        startupId: 1,
-      ),
-    );
+    ref.read(jobBoardProvider).postJob(JobPost(
+          id: ref.read(jobBoardProvider).jobPosts.length + 1,
+          jobTitle: _titleController.text,
+          jobDescription: _descriptionController.text,
+          jobLocation: ref.read(jobBoardProvider).address!,
+          jobType: _selectJobType!,
+          jobSalary: int.parse(_jobSalaryController.text),
+          jobQualification: _jobQualificationController.text,
+          responsibilities: _responsibilitiesController.text,
+          experienceLevel: _selectExperienceLevel!,
+          educationLevel: _selectEducationceLevel!,
+          preferredGender: _selectGender!,
+          deadline: _jobDeadlineController.text,
+          requiredSkills: selectedSkills.map((skill) => skill['id']).toList(),
+          jobStatus: 'open',
+          industryId: _selectedIndustry!.id,
+          specializationId: _selectedNiche!.id,
+          startupId: ref.read(startupProfileProvider).startup.id,
+        ));
     Navigator.pop(context);
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
   }
 
   String? validator(String? value) {
@@ -161,6 +136,9 @@ class _PostJobState extends ConsumerState<PostJob> {
 
   @override
   Widget build(BuildContext context) {
+    final jobboardprovider = ref.watch(jobBoardProvider);
+    final industries = ref.watch(dataProvider).industries;
+    final niches = ref.watch(dataProvider).niches;
     return Scaffold(
       body: SizedBox(
         height: double.infinity,
@@ -276,11 +254,14 @@ class _PostJobState extends ConsumerState<PostJob> {
                         label: 'Required Skills',
                         readOnly: true,
                         onTap: () {
-                          _openSkillsOverlay();
+                          showModal(PickSkills(selectedSkills: selectedSkills),
+                              context);
                         },
                         isDescription: true,
                         controller: TextEditingController(
-                            text: selectedSkills.join(', ')),
+                            text: selectedSkills
+                                .map((skill) => skill['name'])
+                                .join(', ')),
                         icon: const Icon(Icons.add_circle_outline),
                       ),
                       GenericDropdown<String>(
@@ -294,17 +275,13 @@ class _PostJobState extends ConsumerState<PostJob> {
                           });
                         },
                       ),
-                      // GenericDropdown<String>(
-                      //   label: 'Select Location',
-                      //   options: locations,
-                      //   selectedOption: _selectLocation,
-                      //   optionLabel: (option) => option.toString(),
-                      //   onChanged: (newValue) {
-                      //     setState(() {
-                      //       _selectLocation = newValue;
-                      //     });
-                      //   },
-                      // ),
+                      LocationPicker(
+                        onCountryChanged: ref.read(jobBoardProvider).setCountry,
+                        onStateChanged:
+                            ref.read(jobBoardProvider).setStateForState,
+                        country: jobboardprovider.country,
+                        state: jobboardprovider.state,
+                      ),
                       InputField(
                         label: 'Salary / Month',
                         controller: _jobSalaryController,
@@ -320,28 +297,30 @@ class _PostJobState extends ConsumerState<PostJob> {
                           });
                         },
                       ),
-                      // GenericDropdown<Industry>(
-                      //   label: 'Select Industry',
-                      //   options: industries,
-                      //   selectedOption: _selectedIndustry,
-                      //   optionLabel: (industry) => industry!.name,
-                      //   onChanged: (newValue) {
-                      //     setState(() {
-                      //       _selectedIndustry = newValue;
-                      //     });
-                      //   },
-                      // ),
-                      // GenericDropdown<Niche>(
-                      //   label: 'Select Specialization',
-                      //   options: niches,
-                      //   selectedOption: _selectedNiche,
-                      //   optionLabel: (niche) => niche!.name,
-                      //   onChanged: (newValue) {
-                      //     setState(() {
-                      //       _selectedNiche = newValue;
-                      //     });
-                      //   },
-                      // ),
+                      GenericDropdown<Industry>(
+                        label: 'Select Industry',
+                        options: industries,
+                        selectedOption: _selectedIndustry,
+                        optionLabel: (industry) => industry!.name,
+                        onChanged: (newValue) async {
+                          setState(() {
+                            _selectedIndustry = newValue;
+                            _selectedNiche = null;
+                          });
+                          await getNiches();
+                        },
+                      ),
+                      GenericDropdown<Niche>(
+                        label: 'Select Specialization',
+                        options: niches,
+                        selectedOption: _selectedNiche,
+                        optionLabel: (niche) => niche!.name,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedNiche = newValue;
+                          });
+                        },
+                      ),
                       InputField(
                         label: 'Deadline',
                         readOnly: true,
@@ -360,7 +339,6 @@ class _PostJobState extends ConsumerState<PostJob> {
           ],
         ),
       ),
-      // bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

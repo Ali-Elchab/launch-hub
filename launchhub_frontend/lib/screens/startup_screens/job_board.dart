@@ -67,8 +67,7 @@ class JobBoard extends ConsumerWidget {
                 child: mainContent,
               ),
               SubmitButton('Post a job', () {
-                showModal(PostJob(postJob: jobBoard.postJob), context,
-                    color: Colors.white);
+                showModal(const PostJob(), context, color: Colors.white);
               }),
               const SizedBox(height: 3),
               InkWell(

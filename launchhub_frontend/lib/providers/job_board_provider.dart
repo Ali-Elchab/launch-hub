@@ -21,7 +21,7 @@ class JobBoardProvider with ChangeNotifier {
   String? state;
   JobBoardProvider({required this.jobPosts});
 
-  String get address => '$country $state';
+  String? get address => '$country $state';
   String? get errorMessage => _errorMessage;
   Industry? get selectedIndustry => _selectedIndustry;
   Niche? get selectedNiche => _selectedNiche;
@@ -54,11 +54,14 @@ class JobBoardProvider with ChangeNotifier {
 
   Future postJob(JobPost jobPost) async {
     final data = jobPost.toJson();
+    print(data);
     jobPosts.add(jobPost);
     try {
+      print('in tr ');
+
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      await myDio.post(
+      final response = await myDio.post(
         ApiRoute.postJob,
         data: data,
         options: Options(
@@ -67,11 +70,17 @@ class JobBoardProvider with ChangeNotifier {
           },
         ),
       );
+      _errorMessage = 'Failed to post job: ${response.data['message']}';
 
       notifyListeners();
+    } on DioException catch (e) {
+      jobPosts.remove(jobPost);
+      _errorMessage = 'Failed to post job: ${e.response}';
+      print(_errorMessage);
     } catch (e) {
       jobPosts.remove(jobPost);
       _errorMessage = "Error: $e";
+      print(_errorMessage);
     }
     notifyListeners();
   }
@@ -141,7 +150,6 @@ class JobBoardProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       _errorMessage = "Error: $e";
-      print(_errorMessage);
     }
     notifyListeners();
   }

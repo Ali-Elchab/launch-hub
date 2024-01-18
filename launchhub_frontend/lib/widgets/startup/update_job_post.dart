@@ -6,6 +6,7 @@ import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
@@ -38,7 +39,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
   String? _selectJobType;
   String? _selectGender;
   String? _selectJobStatus;
-  List selectedSkills = [];
+  List<Skill> selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
   final _responsibilitiesController = TextEditingController();
   final _jobSalaryController = TextEditingController();
@@ -70,7 +71,6 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       _selectEducationceLevel = widget.jobPost!.educationLevel;
       _selectJobType = widget.jobPost!.jobType;
       _selectGender = widget.jobPost!.preferredGender;
-      selectedSkills = widget.jobPost!.requiredSkills;
       _selectJobStatus = widget.jobPost!.jobStatus;
     }
   }
@@ -85,12 +85,12 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
     }
   }
 
-  void _showDialog() {
+  void _showDialog(String text) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Invalid input'),
-        content: const Text('Please make sure you filled all entries.'),
+        content: Text(text),
         actions: [
           TextButton(
             onPressed: () {
@@ -116,13 +116,15 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
         _selectJobType == null ||
         _selectGender == null ||
         selectedSkills.isEmpty ||
-        _jobQualificationController.text.trim().isEmpty ||
-        _jobDeadlineController.text.trim().isEmpty ||
         _jobSalaryController.text.trim().isEmpty ||
         _jobQualificationController.text.trim().isEmpty ||
         _jobDeadlineController.text.trim().isEmpty ||
         _jobSalaryController.text.trim().isEmpty) {
-      _showDialog();
+      if (salaryIsInvalid) {
+        _jobSalaryController.text = '';
+        _showDialog('Please make sure you fill only numbers in salary field.');
+      }
+      _showDialog('Please fill all the fields.');
       return;
     }
 
@@ -136,24 +138,18 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       "job_type": _selectJobType!,
       "responsibilities": _responsibilitiesController.text,
       "industry_id": _selectedIndustry!.id,
-      "job_location": ref.read(jobBoardProvider).address,
+      "job_location":
+          ref.read(jobBoardProvider).address ?? widget.jobPost!.jobLocation,
       "job_salary": int.parse(_jobSalaryController.text),
       "job_qualification": _jobQualificationController.text,
       "preferred_gender": _selectGender!,
       "specialization_id": _selectedNiche!.id,
-      "required_skills": selectedSkills,
+      "required_skills": selectedSkills.map((skill) => skill.id).toList(),
       "job_status": _selectJobStatus,
       "startup_id": widget.jobPost!.startupId,
     });
     Navigator.pop(context);
   }
-
-  // @override
-  // void dispose() {
-  //   _titleController.dispose();
-  //   _descriptionController.dispose();
-  //   super.dispose();
-  // }
 
   String? validator(String? value) {
     if (value == null || value.isEmpty) {
@@ -299,7 +295,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                         isDescription: true,
                         controller: TextEditingController(
                             text: selectedSkills
-                                .map((skill) => skill['name'])
+                                .map((skill) => skill.name)
                                 .join(', ')),
                         icon: const Icon(Icons.add_circle_outline),
                       ),
@@ -376,7 +372,9 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                 ),
               ),
             ),
-            SizedBox(width: 300, child: SubmitButton('Submit', _submitJobData)),
+            SizedBox(
+                width: 300,
+                child: SubmitButton('Update Job Post', _submitJobData)),
             const SizedBox(height: 25),
           ],
         ),

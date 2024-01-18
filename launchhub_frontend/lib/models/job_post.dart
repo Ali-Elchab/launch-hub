@@ -71,6 +71,7 @@ class JobPost {
       'required_skills': requiredSkills,
       'deadline': deadline,
       'industry_id': industryId,
+      'job_status': jobStatus,
       'specialization_id': specializationId,
       'startup_id': startupId,
     };
