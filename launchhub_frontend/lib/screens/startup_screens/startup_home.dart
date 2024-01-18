@@ -28,6 +28,8 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
   @override
   void initState() {
     ref.read(startupProfileProvider).getNicheName();
+    ref.read(startupProfileProvider).getAdvisors();
+
     super.initState();
   }
 
@@ -117,7 +119,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                         description:
                             'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
                         imagePath: 'assets/images/content_creators.png',
-                        onTap: () {
+                        onTap: () async {
                           navigator(
                             context,
                             const Advisors(
@@ -137,15 +139,12 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                         onTap: () {
                           navigator(
                             context,
-                            navigator(
-                              context,
-                              ArticlesAndTemplates(
-                                templates: marketingTemplates,
-                                query: 'marketing startup business',
-                                title: 'Marketing Guides',
-                                text:
-                                    'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
-                              ),
+                            ArticlesAndTemplates(
+                              templates: marketingTemplates,
+                              query: 'marketing startup business',
+                              title: 'Marketing Guides',
+                              text:
+                                  'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
                             ),
                           );
                         },

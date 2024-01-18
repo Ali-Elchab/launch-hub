@@ -1,12 +1,13 @@
 // import 'package:launchhub_frontend/data/server_requests.dart';
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/advisor_card.dart';
 
-class Advisors extends StatelessWidget {
+class Advisors extends ConsumerWidget {
   const Advisors(
       {super.key,
       required this.title,
@@ -18,7 +19,8 @@ class Advisors extends StatelessWidget {
   final String category;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final startupHome = ref.watch(startupProfileProvider);
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,8 +40,8 @@ class Advisors extends StatelessWidget {
       ),
     );
 
-    if (dummyJobSeekers.isNotEmpty) {
-      final advisors = dummyAdvisors
+    if (startupHome.advisors.isNotEmpty) {
+      final advisors = startupHome.advisors
           .where((advisor) => advisor.category.toLowerCase() == category)
           .toList();
       mainContent = ListView.builder(
@@ -50,6 +52,25 @@ class Advisors extends StatelessWidget {
               advisor: advisors[index],
             ),
             const SizedBox(height: 20),
+          ],
+        ),
+      );
+    } else {
+      mainContent = Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.clear_rounded,
+              size: 80,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+            const SizedBox(height: 30),
+            Text('No Advisors found',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
+                textAlign: TextAlign.center),
           ],
         ),
       );

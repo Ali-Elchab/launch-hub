@@ -5,22 +5,22 @@ class Advisor {
   final String? location;
   final String phone;
   final String bio;
-  final String profilePic;
+  final String? profilePic;
   final String category;
   final String expertise;
   Advisor({
     required this.id,
     required this.name,
     required this.email,
-    required this.location,
+    this.location,
     required this.phone,
     required this.bio,
-    required this.profilePic,
+    this.profilePic,
     required this.category,
     required this.expertise,
   });
 
-  factory Advisor.fromJson(Map<String, dynamic> json) {
+  factory Advisor.fromJson(Map json) {
     return Advisor(
       id: json['id'] as int,
       name: json['name'] as String,
@@ -28,9 +28,17 @@ class Advisor {
       location: json['location'] as String?,
       phone: json['phone'] as String,
       bio: json['bio'] as String,
-      profilePic: json['profile_pic'] as String,
+      profilePic: json['photo_url'] as String,
       category: json['category'] as String,
       expertise: json['expertise'] as String,
     );
+  }
+
+  static List<Advisor> parseMultipleAdvisors(List<dynamic> jsons) {
+    List<Advisor> list = [];
+    for (Map json in jsons) {
+      list.add(Advisor.fromJson(json));
+    }
+    return list;
   }
 }

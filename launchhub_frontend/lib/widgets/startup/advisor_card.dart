@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
+import 'package:launchhub_frontend/helpers/open_link.dart';
 import 'package:launchhub_frontend/models/advisor.dart';
 
 class AdvisorCard extends StatelessWidget {
@@ -24,14 +26,18 @@ class AdvisorCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: 110,
+              width: 85,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       alignment: Alignment.topLeft,
-                      child: Image.asset('assets/logos/default-profile.png',
-                          width: 65)),
+                      child: advisor.profilePic == null
+                          ? Image.asset('assets/logos/default-profile.png',
+                              width: 65)
+                          : Image.network(
+                              '${baseUrl}assets/images/${advisor.profilePic}',
+                              width: 65)),
                   const SizedBox(height: 5),
                   Row(
                     children: <Widget>[
@@ -59,11 +65,19 @@ class AdvisorCard extends StatelessWidget {
                         size: 11,
                       ),
                       const SizedBox(width: 3),
-                      Text(
-                        advisor.phone,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 11,
-                            ),
+                      InkWell(
+                        onTap: () async {
+                          String phone = advisor.phone;
+                          String phoneCallUrl = "tel:$phone";
+                          openLink(context, phoneCallUrl);
+                        },
+                        child: Text(
+                          advisor.phone,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 11,
+                                  ),
+                        ),
                       ),
                     ],
                   ),
@@ -97,13 +111,20 @@ class AdvisorCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Expanded(
-                        child: Text(
-                          advisor.email,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 9,
-                                  ),
-                          overflow: TextOverflow.visible,
+                        child: InkWell(
+                          onTap: () async {
+                            String email = advisor.email;
+                            String mailtoUrl = "mailto:$email";
+                            openLink(context, mailtoUrl);
+                          },
+                          child: Text(
+                            advisor.email,
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 9,
+                                    ),
+                            overflow: TextOverflow.visible,
+                          ),
                         ),
                       ),
                     ],
