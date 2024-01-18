@@ -54,10 +54,11 @@ class JobBoardProvider with ChangeNotifier {
 
   Future postJob(JobPost jobPost) async {
     final data = jobPost.toJson();
+    jobPosts.add(jobPost);
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final response = await myDio.post(
+      await myDio.post(
         ApiRoute.postJob,
         data: data,
         options: Options(
@@ -66,16 +67,17 @@ class JobBoardProvider with ChangeNotifier {
           },
         ),
       );
-      _errorMessage = response.data['message'];
-      fetchJobPosts();
+
       notifyListeners();
     } catch (e) {
+      jobPosts.remove(jobPost);
       _errorMessage = "Error: $e";
     }
     notifyListeners();
   }
 
   Future removeJobPost(JobPost jobPost, context) async {
+    jobPosts.remove(jobPost);
     try {
       final id = jobPost.id;
       final prefs = await SharedPreferences.getInstance();
@@ -97,13 +99,13 @@ class JobBoardProvider with ChangeNotifier {
           action: SnackBarAction(
             label: 'Undo',
             onPressed: () {
+              jobPosts.add(jobPost);
               postJob(jobPost);
             },
           ),
         ),
       );
       _errorMessage = response.data['message'];
-      fetchJobPosts();
       notifyListeners();
     } catch (e) {
       _errorMessage = "Error: $e";
@@ -120,6 +122,8 @@ class JobBoardProvider with ChangeNotifier {
   }
 
   Future updateJobPost(json) async {
+    jobPosts[jobPosts.indexWhere((element) => element.id == json['id'])] =
+        JobPost.fromJson(json);
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -132,9 +136,9 @@ class JobBoardProvider with ChangeNotifier {
           },
         ),
       );
+
       _errorMessage = response.data['message'];
       notifyListeners();
-      fetchJobPosts();
     } catch (e) {
       _errorMessage = "Error: $e";
       print(_errorMessage);

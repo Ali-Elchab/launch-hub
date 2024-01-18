@@ -6,7 +6,6 @@ import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
@@ -144,6 +143,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       "specialization_id": _selectedNiche!.id,
       "required_skills": selectedSkills,
       "job_status": _selectJobStatus,
+      "startup_id": widget.jobPost!.startupId,
     });
     Navigator.pop(context);
   }
