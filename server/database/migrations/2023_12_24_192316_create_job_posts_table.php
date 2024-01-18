@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('responsibilities');
             $table->enum('preferred_gender', ['male', 'female', 'any']);
             $table->date('deadline');
-            $table->enum('job_status', ['open', 'closed']);
+            $table->enum('job_status', ['open', 'closed'])->default('open');
             $table->timestamps();
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
             $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');

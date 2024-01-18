@@ -84,6 +84,7 @@ class JobPostController extends Controller
                 'education_level' => 'required|string',
                 'responsibilities' => 'required|string',
                 'preferred_gender' => 'required|string',
+                'required_skills' => 'required|array',
                 'job_status' => 'required|string',
                 'deadline' => 'required|string',
                 'specialization_id' => 'required|integer',
@@ -96,6 +97,7 @@ class JobPostController extends Controller
             ], 422);
         };
         $user = auth()->user();
+
         $startup = $user->startup;
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
@@ -103,6 +105,9 @@ class JobPostController extends Controller
         $jobpost = new JobPost($request->all());
         $jobpost->startup_id = $startup->id;
         $jobpost->save();
+
+        if (!empty($request->required_skills))
+            $jobpost->requiredSkills()->attach($request->required_skills);
         return response()->json(['status' => 'success', 'message' => 'Job post created successfully']);
     }
 

@@ -92,9 +92,7 @@ class AuthController extends Controller
     }
     public function register_jobseeker(Request $request)
     {
-        // return response()->json([
-        //     'res' => $request->all(),
-        // ]);
+
         $user = User::find(auth()->user()->id);
         if (Startup::where('user_id', $user->id)->exists()) {
             return response()->json([
