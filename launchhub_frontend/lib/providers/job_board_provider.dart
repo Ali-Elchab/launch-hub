@@ -19,6 +19,8 @@ class JobBoardProvider with ChangeNotifier {
   Niche? _selectedNiche;
   String? country;
   String? state;
+  String searchQuery = '';
+  List<JobPost> filteredJobPosts = [];
   JobBoardProvider({required this.jobPosts});
 
   String? get address => '$country $state';
@@ -145,6 +147,28 @@ class JobBoardProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       _errorMessage = "Error: $e";
+    }
+    notifyListeners();
+  }
+
+  void updateSearchQuery(String query) {
+    searchQuery = query;
+    searchJobSeekers();
+    notifyListeners();
+  }
+
+  void searchJobSeekers() {
+    if (searchQuery.isEmpty) {
+      filteredJobPosts = jobPosts;
+    } else {
+      filteredJobPosts = jobPosts.where((jobseeker) {
+        return jobseeker.jobDescription
+                .toLowerCase()
+                .contains(searchQuery.toLowerCase()) ||
+            jobseeker.jobTitle
+                .toLowerCase()
+                .contains(searchQuery.toLowerCase());
+      }).toList();
     }
     notifyListeners();
   }

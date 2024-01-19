@@ -29,7 +29,9 @@ class HireTalentProvider with ChangeNotifier {
   List<Certification> certifications = [];
   List<Hobby> hobbies = [];
   List<Skill> skills = [];
+  List<JobSeeker> filteredJobSeekers = [];
   String _errorMessage = '';
+  String searchQuery = '';
   void loadJobSeekers(List<JobSeeker> jobSeekers) {
     jobSeekers = jobSeekers;
     notifyListeners();
@@ -70,7 +72,6 @@ class HireTalentProvider with ChangeNotifier {
           },
         ),
       );
-      print(response);
       final data = response.data['jobSeeker'];
       socialMediaLinks = SocialMediaLink.parseMultipleSocialMediaLinks(
           data['socialMediaLinks']);
@@ -85,8 +86,29 @@ class HireTalentProvider with ChangeNotifier {
       return;
     } on DioException catch (e) {
       _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
-      print(_errorMessage + 'error');
     }
     return;
+  }
+
+  void updateSearchQuery(String query) {
+    searchQuery = query;
+    searchJobSeekers();
+    notifyListeners();
+  }
+
+  void searchJobSeekers() {
+    if (searchQuery.isEmpty) {
+      filteredJobSeekers = jobSeekers;
+    } else {
+      filteredJobSeekers = jobSeekers.where((jobseeker) {
+        return jobseeker.bio
+                .toLowerCase()
+                .contains(searchQuery.toLowerCase()) ||
+            jobseeker.firstName
+                .toLowerCase()
+                .contains(searchQuery.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
   }
 }

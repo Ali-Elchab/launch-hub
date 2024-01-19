@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/advisor_card.dart';
 
 class Advisors extends ConsumerWidget {
@@ -91,10 +90,6 @@ class Advisors extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              SearchFilter(
-                onPressedFilter: () {},
-                margin: 10,
-              ),
               Expanded(
                 child: mainContent,
               ),

@@ -35,7 +35,7 @@ class HireTalent extends ConsumerWidget {
 
     if (hiretalentprovider.jobSeekers.isNotEmpty) {
       mainContent = JobSeekersList(
-        jobSeekers: hiretalentprovider.jobSeekers,
+        jobSeekers: hiretalentprovider.filteredJobSeekers,
       );
     }
     return Scaffold(
@@ -57,6 +57,8 @@ class HireTalent extends ConsumerWidget {
               const SizedBox(height: 25),
               SearchFilter(
                 onPressedFilter: () {},
+                onChanged: (String query) =>
+                    hiretalentprovider.updateSearchQuery(query),
                 margin: 10,
               ),
               InkWell(

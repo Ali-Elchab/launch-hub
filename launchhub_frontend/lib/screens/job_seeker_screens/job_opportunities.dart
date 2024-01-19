@@ -53,7 +53,12 @@ class JobOpportunities extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              SearchFilter(onPressedFilter: () {}),
+              SearchFilter(
+                  onPressedFilter: () {},
+                  onChanged: (String query) {
+                    provider.searchQuery = query;
+                    provider.filterJobPosts();
+                  }),
               Expanded(
                 child: mainContent,
               ),

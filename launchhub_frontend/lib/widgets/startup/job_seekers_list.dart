@@ -16,12 +16,6 @@ class JobSeekersList extends StatelessWidget {
           JobSeekerCard(
             jobSeeker: jobSeekers[index],
           ),
-          JobSeekerCard(
-            jobSeeker: jobSeekers[index],
-          ),
-          JobSeekerCard(
-            jobSeeker: jobSeekers[index],
-          ),
           const SizedBox(height: 20),
         ],
       ),

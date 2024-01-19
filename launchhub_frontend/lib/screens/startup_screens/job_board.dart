@@ -62,7 +62,10 @@ class JobBoard extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              SearchFilter(onPressedFilter: () {}),
+              SearchFilter(
+                onPressedFilter: () {},
+                onChanged: (String query) => jobBoard.updateSearchQuery(query),
+              ),
               Expanded(
                 child: mainContent,
               ),
