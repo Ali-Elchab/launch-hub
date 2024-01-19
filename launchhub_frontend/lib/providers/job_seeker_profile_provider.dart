@@ -40,7 +40,9 @@ class JobSeekerProfileProvider with ChangeNotifier {
   User user;
   JobSeeker jobSeeker;
   List<JobPost> jobPosts = [];
+  List<JobPost> filteredJobPosts = [];
   String _errorMessage = '';
+  String searchQuery = '';
   JobSeekerProfileProvider({required this.user, required this.jobSeeker});
 
   void loadUser(User u) {
@@ -156,5 +158,21 @@ class JobSeekerProfileProvider with ChangeNotifier {
       _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
     }
     return _errorMessage;
+  }
+
+  void updateSearchQuery(String query) {
+    searchQuery = query;
+    filterJobPosts();
+  }
+
+  void filterJobPosts() {
+    if (searchQuery.isEmpty) {
+      filteredJobPosts = jobPosts;
+    } else {
+      filteredJobPosts = jobPosts.where((post) {
+        return post.jobTitle.toLowerCase().contains(searchQuery.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
   }
 }
