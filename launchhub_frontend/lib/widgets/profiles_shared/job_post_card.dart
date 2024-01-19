@@ -1,23 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/startup.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 
-class JobPostCard extends StatelessWidget {
+class JobPostCard extends ConsumerStatefulWidget {
   final JobPost jobPost;
   final Function()? onTap;
-  final Startup? company;
 
   const JobPostCard({
     super.key,
     required this.jobPost,
     this.onTap,
-    this.company,
   });
+
+  @override
+  ConsumerState<JobPostCard> createState() => _JobPostCardState();
+}
+
+class _JobPostCardState extends ConsumerState<JobPostCard> {
+  Startup? startup;
+  @override
+  void initState() {
+    super.initState();
+    loadStartup();
+  }
+
+  Future loadStartup() async {
+    final startupId = widget.jobPost.startupId;
+    final startUp =
+        await ref.read(jobSeekerProfileProvider).getStartup(startupId);
+    setState(() {
+      startup = startUp;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Card(
         elevation: 0,
         color: const Color.fromARGB(255, 251, 251, 251),
@@ -36,12 +58,14 @@ class JobPostCard extends StatelessWidget {
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      child: company!.copmanyLogo == null
-                          ? Image.asset('assets/logos/default-logo.png',
-                              width: 65)
-                          : Image.asset('assets/logos/default-logo.png',
-                              width:
-                                  65), //Image.network(company!.copmanyLogo!),
+                      child: startup!.copmanyLogo == null
+                          ? Image.asset(
+                              'assets/logos/default-logo.png',
+                              width: 65,
+                            )
+                          : Image.network(
+                              "${baseUrl}assets/logos/${startup!.copmanyLogo!}",
+                              width: 65),
                     ),
                     const SizedBox(height: 5),
                     Row(
@@ -54,7 +78,7 @@ class JobPostCard extends StatelessWidget {
                         const SizedBox(width: 3),
                         Expanded(
                           child: Text(
-                            jobPost.jobLocation,
+                            widget.jobPost.jobLocation,
                             style: Theme.of(context).textTheme.bodySmall!,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -71,7 +95,7 @@ class JobPostCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 3),
                         Text(
-                          jobPost.jobType.toString().split('.').last,
+                          widget.jobPost.jobType.toString().split('.').last,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 11,
@@ -89,7 +113,7 @@ class JobPostCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 3),
                         Text(
-                          jobPost.deadline,
+                          widget.jobPost.deadline,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -106,16 +130,16 @@ class JobPostCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(company!.companyName,
+                    Text(startup?.companyName ?? 'Company Name',
                         style: Theme.of(context).textTheme.titleSmall!),
                     const SizedBox(height: 4),
-                    Text(jobPost.jobTitle,
+                    Text(widget.jobPost.jobTitle,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               fontWeight: FontWeight.bold,
                             )),
                     const SizedBox(height: 4),
                     Text(
-                      jobPost.jobDescription,
+                      widget.jobPost.jobDescription,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontSize: 10,
                           ),
