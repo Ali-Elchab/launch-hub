@@ -94,7 +94,7 @@ class _AddEducationState extends ConsumerState<AddEducation> {
             startDate: _startDateController.text,
             endDate: _endDateController.text,
             description: _descriptionController.text,
-            location: '${country!}, ${state!}, ',
+            location: state != null ? '${country!}, ${state!}' : '$country',
           ),
         );
 

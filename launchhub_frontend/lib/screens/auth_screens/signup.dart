@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/auth_provider.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/radio_buttons.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
@@ -129,6 +130,7 @@ class SignUp extends ConsumerWidget {
                                 '/CompanyInfo1',
                                 (Route<dynamic> route) => false);
                           } else if (user.typeId == 2) {
+                            ref.read(jobSeekerProfileProvider).loadUser(user);
                             navigatorKey.currentState?.pushNamedAndRemoveUntil(
                                 '/PersonalInfo',
                                 (Route<dynamic> route) => false);

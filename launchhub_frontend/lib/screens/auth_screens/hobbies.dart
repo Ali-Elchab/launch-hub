@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
-import 'package:launchhub_frontend/models/user.dart';
+import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
-import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
-import 'package:launchhub_frontend/providers/startup_register_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
@@ -98,11 +97,14 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                 SmallButton('Submit', () async {
                   if (provider.selectedHobbies.isNotEmpty) {
                     final response = await ref
-                        .read(startupRegisterProvider.notifier)
-                        .registerStartup();
+                        .read(jobSeekerRegisterProvider.notifier)
+                        .registerJobSeeker();
                     if (provider.isRegistered) {
-                      final user = User.fromJson(response['user']);
-                      ref.read(startupProfileProvider).loadUser(user);
+                      final jobSeeker =
+                          JobSeeker.fromJson(response['user']['job_seeker']);
+                      ref
+                          .read(jobSeekerProfileProvider.notifier)
+                          .loadJobSeeker(jobSeeker);
                       navigatorKey.currentState?.pushNamedAndRemoveUntil(
                           '/StartupHome', (Route<dynamic> route) => false);
                     } else {

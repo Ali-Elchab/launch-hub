@@ -95,7 +95,7 @@ class _AddCertificateState extends ConsumerState<AddCertificate> {
             startDate: _startDateController.text,
             endDate: _endDateController.text,
             description: _descriptionController.text,
-            location: '${country!}, ${state!}, ',
+            location: state != null ? '${country!}, ${state!}' : '$country',
           ),
         );
     Navigator.pop(context);
@@ -148,7 +148,7 @@ class _AddCertificateState extends ConsumerState<AddCertificate> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Add Education',
+                    'Add Certification',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),

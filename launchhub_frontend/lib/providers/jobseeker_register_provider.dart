@@ -303,7 +303,9 @@ class JobSeekerRegisterProvider with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         _isRegistered = true;
+        _errorMessage = '';
         notifyListeners();
+        return response.data;
       }
     } on DioException catch (e) {
       _isRegistered = false;
