@@ -1,12 +1,5 @@
 import 'package:launchhub_frontend/data/static_data.dart';
-import 'package:launchhub_frontend/models/advisor.dart';
-import 'package:launchhub_frontend/models/certification.dart';
-import 'package:launchhub_frontend/models/education.dart';
-import 'package:launchhub_frontend/models/experience.dart';
-import 'package:launchhub_frontend/models/hobby.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
-import 'package:launchhub_frontend/models/job_seeker.dart';
-import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/models/social_media_link.dart';
 import 'package:launchhub_frontend/models/startup.dart';
 
@@ -58,40 +51,40 @@ import 'package:launchhub_frontend/models/startup.dart';
 //   Niche(id: 21, name: 'Virtual Reality Technology'),
 // ];
 
-List<Skill> mockSkills = [
-  Skill(id: 1, name: 'Software Development', specializationId: 101),
-  Skill(id: 2, name: 'Project Management', specializationId: 102),
-  Skill(id: 3, name: 'Data Analysis', specializationId: 103),
-  Skill(id: 4, name: 'Graphic Design', specializationId: 104),
-  Skill(id: 5, name: 'Digital Marketing', specializationId: 105),
-  Skill(id: 6, name: 'Cybersecurity', specializationId: 106),
-  Skill(id: 7, name: 'Machine Learning', specializationId: 107),
-  Skill(id: 8, name: 'Cloud Computing', specializationId: 108),
-  Skill(id: 9, name: 'UX/UI Design', specializationId: 109),
-  Skill(id: 10, name: 'DevOps Engineering', specializationId: 110),
-];
+// List<Skill> mockSkills = [
+//   Skill(id: 1, name: 'Software Development', specializationId: 101),
+//   Skill(id: 2, name: 'Project Management', specializationId: 102),
+//   Skill(id: 3, name: 'Data Analysis', specializationId: 103),
+//   Skill(id: 4, name: 'Graphic Design', specializationId: 104),
+//   Skill(id: 5, name: 'Digital Marketing', specializationId: 105),
+//   Skill(id: 6, name: 'Cybersecurity', specializationId: 106),
+//   Skill(id: 7, name: 'Machine Learning', specializationId: 107),
+//   Skill(id: 8, name: 'Cloud Computing', specializationId: 108),
+//   Skill(id: 9, name: 'UX/UI Design', specializationId: 109),
+//   Skill(id: 10, name: 'DevOps Engineering', specializationId: 110),
+// ];
 
-List<Hobby> mockHobbies = [
-  Hobby(id: 1, name: 'Reading'),
-  Hobby(id: 2, name: 'Creative writing'),
-  Hobby(id: 3, name: 'Painting'),
-  Hobby(id: 4, name: 'Graphic Design'),
-  Hobby(id: 5, name: 'Musical Instrument'),
-  Hobby(id: 6, name: 'Photography'),
-  Hobby(id: 7, name: ' Gardening'),
-  Hobby(id: 8, name: 'Cooking'),
-  Hobby(id: 9, name: 'Knitting'),
-  Hobby(id: 10, name: 'Hiking'),
-  Hobby(id: 11, name: 'Fishing'),
-  Hobby(id: 12, name: 'Rock Climbing'),
-  Hobby(id: 13, name: 'Cycling'),
-  Hobby(id: 14, name: 'Dancing'),
-  Hobby(id: 15, name: 'Pottery'),
-  Hobby(id: 16, name: 'Woodworking'),
-  Hobby(id: 17, name: 'Video Gaming'),
-  Hobby(id: 18, name: 'Astronomy'),
-  Hobby(id: 19, name: 'Traveling'),
-];
+// List<Hobby> mockHobbies = [
+//   Hobby(id: 1, name: 'Reading'),
+//   Hobby(id: 2, name: 'Creative writing'),
+//   Hobby(id: 3, name: 'Painting'),
+//   Hobby(id: 4, name: 'Graphic Design'),
+//   Hobby(id: 5, name: 'Musical Instrument'),
+//   Hobby(id: 6, name: 'Photography'),
+//   Hobby(id: 7, name: ' Gardening'),
+//   Hobby(id: 8, name: 'Cooking'),
+//   Hobby(id: 9, name: 'Knitting'),
+//   Hobby(id: 10, name: 'Hiking'),
+//   Hobby(id: 11, name: 'Fishing'),
+//   Hobby(id: 12, name: 'Rock Climbing'),
+//   Hobby(id: 13, name: 'Cycling'),
+//   Hobby(id: 14, name: 'Dancing'),
+//   Hobby(id: 15, name: 'Pottery'),
+//   Hobby(id: 16, name: 'Woodworking'),
+//   Hobby(id: 17, name: 'Video Gaming'),
+//   Hobby(id: 18, name: 'Astronomy'),
+//   Hobby(id: 19, name: 'Traveling'),
+// ];
 
 List<JobPost> dummyJobPosts = [
   JobPost(
@@ -138,125 +131,125 @@ List<JobPost> dummyJobPosts = [
   // Add more dummy job posts as needed
 ];
 
-List<JobSeeker> dummyJobSeekers = [
-  JobSeeker(
-    id: 1,
-    firstName: 'Ahmad',
-    lastName: 'Ahmad',
-    profilePic: 'path/to/profile1.jpg',
-    dob: '1990, 1, 1',
-    phone: '123-456-7890',
-    address: '123 Main St',
-    bio:
-        'HR Specialist: Proven expertise in talent management, employee relations, and a commitment to creating a positive workplace environment for organizational success.',
-    resume: 'path/to/resume1.pdf',
-    isAvailable: 1,
-    industryId: 2,
-    userId: 1,
-    specializationId: 24,
-  )
-  //   socialMediaLinks: [
-  //     {
-  //       "platform": 'LinkedIn',
-  //       "link": 'https://www.linkedin.com/in/johndoe/',
-  //     },
-  //     {
-  //       'platform': 'facebook',
-  //       'link': 'https://www.facebook.com/aliElchab',
-  //     }
-  //     // ... add more if needed ...
-  //   ],
-  //   educations: [
-  //     Education(
-  //       degree: 'BSc Computer Science',
-  //       organization: 'University of Example',
-  //       startDate: '2010-09-01',
-  //       endDate: '2014-06-30',
-  //       description: 'Studied computer science.',
-  //       location: 'Anytown',
-  //     ),
-  //     // ... add more if needed ...
-  //   ],
-  //   experiences: [
-  //     Experience(
-  //       position: 'Software Developer',
-  //       company: 'Tech Corp',
-  //       industryId: 2,
-  //       specializationId: 25,
-  //       type: 'Full-Time',
-  //       startDate: '2014-07-01',
-  //       endDate: '2019-08-30',
-  //       description: 'Developed software.',
-  //       location: 'Anytown',
-  //       jobSeekerId: 1,
-  //     ),
-  //     // ... add more if needed ...
-  //   ],
-  //   certifications: [
-  //     Certification(
-  //       name: 'Certified Java Programmer',
-  //       certificate: 'CJP12345',
-  //       organization: 'Java Institute',
-  //       startDate: '2015-05-01',
-  //       endDate: '2025-05-01',
-  //       description: 'Java programming certification.',
-  //       location: 'Online',
-  //       jobSeekerId: 1,
-  //     ),
-  //     // ... add more if needed ...
-  //   ],
-  //   hobbies: [
-  //     Hobby(id: 1, name: 'Cycling'),
-  //     Hobby(id: 2, name: 'Reading'),
-  //     // ... add more if needed ...
-  //   ],
-  //   skills: [
-  //     Skill(id: 1, name: 'Java', specializationId: 1),
-  //     Skill(id: 2, name: 'Python', specializationId: 2),
-  //     // ... add more if needed ...
-  //   ],
-  //   jobPosts: [dummyJobPosts[0], dummyJobPosts[1]],
-  // ),
-];
+// List<JobSeeker> dummyJobSeekers = [
+//   JobSeeker(
+//     id: 1,
+//     firstName: 'Ahmad',
+//     lastName: 'Ahmad',
+//     profilePic: 'path/to/profile1.jpg',
+//     dob: '1990, 1, 1',
+//     phone: '123-456-7890',
+//     address: '123 Main St',
+//     bio:
+//         'HR Specialist: Proven expertise in talent management, employee relations, and a commitment to creating a positive workplace environment for organizational success.',
+//     resume: 'path/to/resume1.pdf',
+//     isAvailable: 1,
+//     industryId: 2,
+//     userId: 1,
+//     specializationId: 24,
+//   )
+//   socialMediaLinks: [
+//     {
+//       "platform": 'LinkedIn',
+//       "link": 'https://www.linkedin.com/in/johndoe/',
+//     },
+//     {
+//       'platform': 'facebook',
+//       'link': 'https://www.facebook.com/aliElchab',
+//     }
+//     // ... add more if needed ...
+//   ],
+//   educations: [
+//     Education(
+//       degree: 'BSc Computer Science',
+//       organization: 'University of Example',
+//       startDate: '2010-09-01',
+//       endDate: '2014-06-30',
+//       description: 'Studied computer science.',
+//       location: 'Anytown',
+//     ),
+//     // ... add more if needed ...
+//   ],
+//   experiences: [
+//     Experience(
+//       position: 'Software Developer',
+//       company: 'Tech Corp',
+//       industryId: 2,
+//       specializationId: 25,
+//       type: 'Full-Time',
+//       startDate: '2014-07-01',
+//       endDate: '2019-08-30',
+//       description: 'Developed software.',
+//       location: 'Anytown',
+//       jobSeekerId: 1,
+//     ),
+//     // ... add more if needed ...
+//   ],
+//   certifications: [
+//     Certification(
+//       name: 'Certified Java Programmer',
+//       certificate: 'CJP12345',
+//       organization: 'Java Institute',
+//       startDate: '2015-05-01',
+//       endDate: '2025-05-01',
+//       description: 'Java programming certification.',
+//       location: 'Online',
+//       jobSeekerId: 1,
+//     ),
+//     // ... add more if needed ...
+//   ],
+//   hobbies: [
+//     Hobby(id: 1, name: 'Cycling'),
+//     Hobby(id: 2, name: 'Reading'),
+//     // ... add more if needed ...
+//   ],
+//   skills: [
+//     Skill(id: 1, name: 'Java', specializationId: 1),
+//     Skill(id: 2, name: 'Python', specializationId: 2),
+//     // ... add more if needed ...
+//   ],
+//   jobPosts: [dummyJobPosts[0], dummyJobPosts[1]],
+// ),
+// ];
 
-List<Advisor> dummyAdvisors = [
-  Advisor(
-    id: 1,
-    name: 'John Doe',
-    email: 'john.doe@financecorp.com',
-    location: 'New York, NY',
-    phone: '555-0100',
-    bio:
-        'Experienced financial advisor with a decade of successful client engagements.',
-    profilePic: 'assets/images/john_doe.png',
-    category: 'finance',
-    expertise: 'Investment Banking',
-  ),
-  Advisor(
-    id: 2,
-    name: 'Jane Smith',
-    email: 'jane.smith@marketgurus.com',
-    location: 'San Francisco, CA',
-    phone: '555-0200',
-    bio:
-        'Marketing expert specializing in digital campaigns and social media strategy.',
-    profilePic: 'assets/images/jane_smith.png',
-    category: 'marketing',
-    expertise: 'Digital Marketing',
-  ),
-  Advisor(
-    id: 3,
-    name: 'Alice Johnson',
-    email: 'alice.johnson@legalfirm.com',
-    location: 'Chicago, IL',
-    phone: '555-0300',
-    bio:
-        'Dedicated legal advisor with a focus on corporate law and compliance.',
-    profilePic: 'assets/images/alice_johnson.png',
-    category: 'legal',
-    expertise: 'Corporate Law',
-  ),
-];
+// List<Advisor> dummyAdvisors = [
+//   Advisor(
+//     id: 1,
+//     name: 'John Doe',
+//     email: 'john.doe@financecorp.com',
+//     location: 'New York, NY',
+//     phone: '555-0100',
+//     bio:
+//         'Experienced financial advisor with a decade of successful client engagements.',
+//     profilePic: 'assets/images/john_doe.png',
+//     category: 'finance',
+//     expertise: 'Investment Banking',
+//   ),
+//   Advisor(
+//     id: 2,
+//     name: 'Jane Smith',
+//     email: 'jane.smith@marketgurus.com',
+//     location: 'San Francisco, CA',
+//     phone: '555-0200',
+//     bio:
+//         'Marketing expert specializing in digital campaigns and social media strategy.',
+//     profilePic: 'assets/images/jane_smith.png',
+//     category: 'marketing',
+//     expertise: 'Digital Marketing',
+//   ),
+//   Advisor(
+//     id: 3,
+//     name: 'Alice Johnson',
+//     email: 'alice.johnson@legalfirm.com',
+//     location: 'Chicago, IL',
+//     phone: '555-0300',
+//     bio:
+//         'Dedicated legal advisor with a focus on corporate law and compliance.',
+//     profilePic: 'assets/images/alice_johnson.png',
+//     category: 'legal',
+//     expertise: 'Corporate Law',
+//   ),
+// ];
 
 List<Startup> dummyStartups = [
   Startup(

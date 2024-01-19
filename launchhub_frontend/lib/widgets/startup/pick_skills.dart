@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 
 class PickSkills extends StatefulWidget {
-  const PickSkills({super.key, this.selectedSkills});
+  const PickSkills({super.key, this.selectedSkills, this.skills});
 
   final List? selectedSkills;
+  final List<Skill>? skills;
 
   @override
   State<PickSkills> createState() => _PickSkillsState();
@@ -34,7 +34,7 @@ class _PickSkillsState extends State<PickSkills> {
             width: double.infinity,
             child: Text('Pick skills:',
                 style: Theme.of(context).textTheme.titleMedium!)),
-        ...mockSkills.map((skill) => ChoiceTag(
+        ...widget.skills!.map((skill) => ChoiceTag(
               label: skill.name,
               isSelected: widget.selectedSkills!.contains(skill),
               onSelected: () => toggleSkill(skill),

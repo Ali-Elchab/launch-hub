@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
@@ -137,8 +139,7 @@ class _PostJobState extends ConsumerState<PostJob> {
   @override
   Widget build(BuildContext context) {
     final jobboardprovider = ref.watch(jobBoardProvider);
-    final industries = ref.watch(dataProvider).industries;
-    final niches = ref.watch(dataProvider).niches;
+    final data = ref.watch(dataProvider);
     return Scaffold(
       body: SizedBox(
         height: double.infinity,
@@ -253,8 +254,15 @@ class _PostJobState extends ConsumerState<PostJob> {
                       InputField(
                         label: 'Required Skills',
                         readOnly: true,
-                        onTap: () {
-                          showModal(PickSkills(selectedSkills: selectedSkills),
+                        onTap: () async {
+                          await ref
+                              .read(dataProvider)
+                              .getSkills(_selectedNiche!);
+                          showModal(
+                              PickSkills(
+                                selectedSkills: selectedSkills,
+                                skills: data.skills,
+                              ),
                               context);
                         },
                         isDescription: true,
@@ -299,7 +307,7 @@ class _PostJobState extends ConsumerState<PostJob> {
                       ),
                       GenericDropdown<Industry>(
                         label: 'Select Industry',
-                        options: industries,
+                        options: data.industries,
                         selectedOption: _selectedIndustry,
                         optionLabel: (industry) => industry!.name,
                         onChanged: (newValue) async {
@@ -312,7 +320,7 @@ class _PostJobState extends ConsumerState<PostJob> {
                       ),
                       GenericDropdown<Niche>(
                         label: 'Select Specialization',
-                        options: niches,
+                        options: data.niches,
                         selectedOption: _selectedNiche,
                         optionLabel: (niche) => niche!.name,
                         onChanged: (newValue) {
