@@ -89,7 +89,7 @@ class ArticlesAndTemplates extends StatelessWidget {
                                 onTap: () {
                                   openLink(
                                     context,
-                                    'www.udemy.com${article['url']}',
+                                    article['url'],
                                   );
                                 });
                           },
