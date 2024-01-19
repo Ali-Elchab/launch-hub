@@ -32,8 +32,13 @@ class JobSeekerController extends Controller
 
     public function getJobSeeker($id)
     {
-        $jobSeeker = JobSeeker::find($id);
-        $user = $jobSeeker->user;
+        if ($id) {
+            $jobSeeker = JobSeeker::find($id);
+            $user = $jobSeeker->user;
+        } else {
+            $user = auth()->user();
+            $jobSeeker = $user->jobSeeker;
+        }
 
         if ($user && $user->jobSeeker) {
             $jobSeeker = $user->jobSeeker->load(['educations', 'experiences', 'certifications', 'hobbies', 'skills', 'jobPosts']);
