@@ -33,8 +33,6 @@ class JobSeekerRegisterProvider with ChangeNotifier {
   String _professionalBio = '';
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
-  // List<Industry> industries = [];
-  // List<Niche> niches = [];
   XFile? _image;
   String base64Image = '';
   String resumeName = '';

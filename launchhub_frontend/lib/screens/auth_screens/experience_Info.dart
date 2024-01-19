@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/skills.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_experience.dart';
@@ -99,8 +100,14 @@ class ExperienceInfo extends ConsumerWidget {
                       onTap: () => providerNotifier.pickFile(),
                     ),
                   ),
-                  SmallButton('Next', () {
+                  SmallButton('Next', () async {
                     if (_formKey.currentState!.validate()) {
+                      final selectedNiche = ref
+                          .read(jobSeekerRegisterProvider.notifier)
+                          .selectedNiche;
+
+                      await ref.read(dataProvider).getSkills(selectedNiche!);
+                      // ignore: use_build_context_synchronously
                       navigator(context, const Skills());
                     }
                   }),

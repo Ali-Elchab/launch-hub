@@ -20,19 +20,10 @@ class Skills extends ConsumerStatefulWidget {
 
 class _SkillsState extends ConsumerState<Skills> {
   @override
-  void initState() {
-    final selectedNiche = ref.read(jobSeekerRegisterProvider).selectedNiche;
-
-    ref.read(dataProvider).getSkills(selectedNiche!);
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final provider = ref.watch(jobSeekerRegisterProvider);
-    final providerNotifier = ref.read(jobSeekerRegisterProvider.notifier);
+    final providerNotifier = ref.watch(jobSeekerRegisterProvider.notifier);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,

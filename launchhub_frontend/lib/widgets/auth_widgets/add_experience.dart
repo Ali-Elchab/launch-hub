@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/industry.dart';
-import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
@@ -34,7 +33,6 @@ class _AddExperienceState extends ConsumerState<AddExperience> {
   String? state;
   DateTime? _selectedDate;
   Industry? _selectedIndustry;
-  Niche? _selectedNiche;
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _selectDate(BuildContext context, controller) async {
@@ -101,7 +99,7 @@ class _AddExperienceState extends ConsumerState<AddExperience> {
             company: _companyController.text,
             type: _selectJobType!,
             industryId: _selectedIndustry!.id,
-            specializationId: _selectedNiche!.id,
+            specializationId: 2,
             startDate: _startDateController.text,
             endDate: _endDateController.text,
             description: _descriptionController.text,
@@ -203,7 +201,6 @@ class _AddExperienceState extends ConsumerState<AddExperience> {
                               onChanged: (newValue) async {
                                 setState(() {
                                   _selectedIndustry = newValue!;
-                                  _selectedNiche = null;
                                 });
                               },
                             ),

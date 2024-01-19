@@ -95,30 +95,23 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                   ),
                 ),
                 SmallButton('Submit', () async {
-                  if (provider.selectedHobbies.isNotEmpty) {
-                    final response = await ref
-                        .read(jobSeekerRegisterProvider.notifier)
-                        .registerJobSeeker();
-                    if (provider.isRegistered) {
-                      final jobSeeker =
-                          JobSeeker.fromJson(response['user']['job_seeker']);
-                      ref
-                          .read(jobSeekerProfileProvider.notifier)
-                          .loadJobSeeker(jobSeeker);
-                      navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                          '/StartupHome', (Route<dynamic> route) => false);
-                    } else {
-                      // ignore: use_build_context_synchronously
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Error: ${provider.errorMessage}'),
-                        ),
-                      );
-                    }
+                  final response = await ref
+                      .read(jobSeekerRegisterProvider.notifier)
+                      .registerJobSeeker();
+                  if (provider.isRegistered) {
+                    final jobSeeker =
+                        JobSeeker.fromJson(response['user']['job_seeker']);
+                    ref
+                        .read(jobSeekerProfileProvider.notifier)
+                        .loadJobSeeker(jobSeeker);
+                    navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                        '/StartupHome', (Route<dynamic> route) => false);
                   } else {
+                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Please add at least one founder')),
+                      SnackBar(
+                        content: Text('Error: ${provider.errorMessage}'),
+                      ),
                     );
                   }
                 }, showArrow: false),
