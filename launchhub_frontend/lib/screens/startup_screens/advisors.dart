@@ -1,7 +1,7 @@
 // import 'package:launchhub_frontend/data/server_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
@@ -20,7 +20,7 @@ class Advisors extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final startupHome = ref.watch(startupProfileProvider);
+    final data = ref.watch(dataProvider);
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -40,8 +40,8 @@ class Advisors extends ConsumerWidget {
       ),
     );
 
-    if (startupHome.advisors.isNotEmpty) {
-      final advisors = startupHome.advisors
+    if (data.advisors.isNotEmpty) {
+      final advisors = data.advisors
           .where((advisor) => advisor.category.toLowerCase() == category)
           .toList();
       mainContent = ListView.builder(

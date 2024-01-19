@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:launchhub_frontend/providers/auth_provider.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/screens/auth_screens/forgot_password.dart';
 
@@ -111,17 +112,26 @@ class SignIn extends ConsumerWidget {
                               await ref
                                   .read(startupProfileProvider)
                                   .fetchStartupProfile();
+                              navigatorKey.currentState
+                                  ?.pushNamedAndRemoveUntil('/StartupHome',
+                                      (Route<dynamic> route) => false);
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Error: $e')));
                             }
-                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                                '/StartupHome',
-                                (Route<dynamic> route) => false);
                           } else if (user.typeId == 2) {
-                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                                '/JobSeekerHome',
-                                (Route<dynamic> route) => false);
+                            ref.read(jobSeekerProfileProvider).loadUser(user);
+                            try {
+                              await ref
+                                  .read(jobSeekerProfileProvider)
+                                  .fetchJobSeeker();
+                              navigatorKey.currentState
+                                  ?.pushNamedAndRemoveUntil('/JobSeekerHome',
+                                      (Route<dynamic> route) => false);
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Error: $e')));
+                            }
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

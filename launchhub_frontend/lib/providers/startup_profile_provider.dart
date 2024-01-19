@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
-import 'package:launchhub_frontend/models/advisor.dart';
 import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +41,6 @@ class StartupProfileProvider with ChangeNotifier {
   Startup startup;
   String nicheName = '';
   String industryName = '';
-  List<Advisor> advisors = [];
   StartupProfileProvider({required this.startup, required this.user});
 
   void loadUser(User user) {
@@ -89,24 +87,5 @@ class StartupProfileProvider with ChangeNotifier {
     }
     notifyListeners();
     return nicheName;
-  }
-
-  Future getAdvisors() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      final response = await myDio.get(
-        ApiRoute.getAdvisors,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
-      );
-      advisors = Advisor.parseMultipleAdvisors(response.data);
-      notifyListeners();
-    } catch (e) {
-      return 'Failed to get advisors: $e';
-    }
   }
 }

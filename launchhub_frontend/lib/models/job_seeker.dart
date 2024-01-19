@@ -1,9 +1,9 @@
-import 'job_post.dart';
-import 'education.dart';
-import 'experience.dart';
-import 'certification.dart';
-import 'hobby.dart';
-import 'skill.dart';
+// import 'job_post.dart';
+// import 'education.dart';
+// import 'experience.dart';
+// import 'certification.dart';
+// import 'hobby.dart';
+// import 'skill.dart';
 
 class JobSeeker {
   int? id;

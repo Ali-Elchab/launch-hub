@@ -1,17 +1,11 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
-import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
-import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 final dio = Dio();
 
@@ -52,5 +46,29 @@ class JobSeekerProfileProvider with ChangeNotifier {
   void loadJobSeeker(JobSeeker jobSeeker) {
     jobSeeker = jobSeeker;
     notifyListeners();
+  }
+
+  Future fetchJobSeeker() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final response = await myDio.get(
+        ApiRoute.getJobSeekerBasicProfile,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      final jobSeeker = JobSeeker.fromJson(response.data['jobSeeker']);
+      loadJobSeeker(jobSeeker);
+    } on DioException catch (e) {
+      return 'Failed to get jobSeeker profile: ${e.response?.data['message']}';
+    } catch (e) {
+      return 'Failed to get jobSeeker profile: $e';
+    }
+    notifyListeners();
+
+    return;
   }
 }

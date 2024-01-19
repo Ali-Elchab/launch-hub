@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
@@ -29,7 +30,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
   @override
   void initState() {
     ref.read(startupProfileProvider).getNicheName();
-    ref.read(startupProfileProvider).getAdvisors();
+    ref.read(dataProvider.notifier).getAdvisors();
 
     super.initState();
   }

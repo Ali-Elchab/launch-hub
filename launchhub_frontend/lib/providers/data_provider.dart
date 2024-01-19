@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
+import 'package:launchhub_frontend/models/advisor.dart';
 import 'package:launchhub_frontend/models/hobby.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dataProvider = ChangeNotifierProvider<DataProvider>((ref) {
   return DataProvider();
@@ -18,6 +20,7 @@ class DataProvider with ChangeNotifier {
   List<Niche> niches = [];
   List<Skill> skills = [];
   List<Hobby> hobbies = [];
+  List<Advisor> advisors = [];
 
   String? get errorMessage => _errorMessage;
 
@@ -101,5 +104,24 @@ class DataProvider with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future getAdvisors() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final response = await myDio.get(
+        ApiRoute.getAdvisors,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      advisors = Advisor.parseMultipleAdvisors(response.data);
+      notifyListeners();
+    } catch (e) {
+      return 'Failed to get advisors: $e';
+    }
   }
 }
