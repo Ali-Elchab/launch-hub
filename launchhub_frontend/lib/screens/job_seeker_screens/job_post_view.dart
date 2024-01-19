@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
+import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/widgets/job_seeker_widgets/startup_profile_modal.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
 class JobPostView extends StatefulWidget {
-  const JobPostView({super.key, required this.jobPost});
+  const JobPostView({super.key, required this.jobPost, required this.startup});
 
   final JobPost jobPost;
+  final Startup startup;
 
   @override
   State<JobPostView> createState() => _JobPostViewState();
@@ -25,9 +26,7 @@ class _JobPostViewState extends State<JobPostView> {
 
   @override
   Widget build(BuildContext context) {
-    final startup = dummyStartups
-        .where((startup) => startup.id == widget.jobPost.startupId)
-        .first;
+    final startup = widget.startup;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -162,7 +161,7 @@ class _JobPostViewState extends State<JobPostView> {
                                     toggleHeaderColor: _toggleHeaderColor,
                                     qualifications:
                                         widget.jobPost.jobQualification,
-                                    skills: [1, 2, 3],
+                                    skills: widget.jobPost.requiredSkills,
                                   ),
                                   context,
                                   color: Theme.of(context).colorScheme.primary,

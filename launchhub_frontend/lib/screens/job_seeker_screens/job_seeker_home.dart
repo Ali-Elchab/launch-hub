@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
@@ -59,7 +61,8 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                   description:
                       'Explore Endless Opportunities: Your Gateway to Exciting Job Offers Awaits! Discover Your Next Career Move with our Diverse Range of Job Listings.',
                   imagePath: 'assets/images/job_opportunities.png',
-                  onTap: () {
+                  onTap: () async {
+                    await jobseeker.fetchJobPosts();
                     navigator(context, const JobOpportunities());
                   },
                 ),

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
+import 'package:launchhub_frontend/widgets/job_seeker_widgets/job_opportunities_list.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
-import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
 
 class JobOpportunities extends ConsumerWidget {
   const JobOpportunities({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(jobSeekerProfileProvider.notifier);
+    final provider = ref.watch(jobSeekerProfileProvider);
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -32,7 +32,7 @@ class JobOpportunities extends ConsumerWidget {
     );
 
     if (provider.jobPosts.isNotEmpty) {
-      mainContent = JobPostsList(
+      mainContent = JobOpportunitiesList(
         jobPosts: provider.jobPosts,
       );
     }
