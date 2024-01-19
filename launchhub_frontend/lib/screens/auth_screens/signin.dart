@@ -112,26 +112,26 @@ class SignIn extends ConsumerWidget {
                               await ref
                                   .read(startupProfileProvider)
                                   .fetchStartupProfile();
-                              navigatorKey.currentState
-                                  ?.pushNamedAndRemoveUntil('/StartupHome',
-                                      (Route<dynamic> route) => false);
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Error: $e')));
                             }
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                                '/StartupHome',
+                                (Route<dynamic> route) => false);
                           } else if (user.typeId == 2) {
                             ref.read(jobSeekerProfileProvider).loadUser(user);
                             try {
                               await ref
                                   .read(jobSeekerProfileProvider)
                                   .fetchJobSeeker();
-                              navigatorKey.currentState
-                                  ?.pushNamedAndRemoveUntil('/JobSeekerHome',
-                                      (Route<dynamic> route) => false);
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Error: $e')));
                             }
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                                '/JobSeekerHome',
+                                (Route<dynamic> route) => false);
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

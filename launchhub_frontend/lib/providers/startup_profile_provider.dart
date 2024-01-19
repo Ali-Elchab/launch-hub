@@ -39,8 +39,7 @@ final startupProfileProvider = StateProvider<StartupProfileProvider>((ref) {
 class StartupProfileProvider with ChangeNotifier {
   User user;
   Startup startup;
-  String nicheName = '';
-  String industryName = '';
+
   StartupProfileProvider({required this.startup, required this.user});
 
   void loadUser(User user) {
@@ -75,17 +74,5 @@ class StartupProfileProvider with ChangeNotifier {
     notifyListeners();
 
     return;
-  }
-
-  Future<String> getNicheName() async {
-    try {
-      final response = await myDio
-          .get('${ApiRoute.getSpecializations}/${startup.specializationId}');
-      nicheName = response.data['specialization']['name'];
-    } catch (e) {
-      return 'Failed to get niche name: $e';
-    }
-    notifyListeners();
-    return nicheName;
   }
 }

@@ -38,13 +38,13 @@ class JobSeekerProfileProvider with ChangeNotifier {
   JobSeekerProfileProvider({required this.user, required this.jobSeeker});
   User user;
   JobSeeker jobSeeker;
-  void loadUser(User user) {
-    user = user;
+  void loadUser(User u) {
+    user = u;
     notifyListeners();
   }
 
-  void loadJobSeeker(JobSeeker jobSeeker) {
-    jobSeeker = jobSeeker;
+  void loadJobSeeker(JobSeeker jobseeker) {
+    jobSeeker = jobseeker;
     notifyListeners();
   }
 

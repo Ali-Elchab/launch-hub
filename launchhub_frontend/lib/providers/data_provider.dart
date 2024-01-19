@@ -21,7 +21,8 @@ class DataProvider with ChangeNotifier {
   List<Skill> skills = [];
   List<Hobby> hobbies = [];
   List<Advisor> advisors = [];
-
+  String nicheName = '';
+  String industryName = '';
   String? get errorMessage => _errorMessage;
 
   Future getIndustries() async {
@@ -123,5 +124,17 @@ class DataProvider with ChangeNotifier {
     } catch (e) {
       return 'Failed to get advisors: $e';
     }
+  }
+
+  Future<String> getNicheName(nicheId) async {
+    try {
+      final response =
+          await myDio.get('${ApiRoute.getSpecializations}/$nicheId');
+      nicheName = response.data['specialization']['name'];
+    } catch (e) {
+      return 'Failed to get niche name: $e';
+    }
+    notifyListeners();
+    return nicheName;
   }
 }

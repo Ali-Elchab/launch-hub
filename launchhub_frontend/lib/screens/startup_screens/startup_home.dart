@@ -29,7 +29,8 @@ class StartupHome extends ConsumerStatefulWidget {
 class _StartupHomeState extends ConsumerState<StartupHome> {
   @override
   void initState() {
-    ref.read(startupProfileProvider).getNicheName();
+    final nicheId = ref.read(startupProfileProvider).startup.specializationId;
+    ref.read(dataProvider.notifier).getNicheName(nicheId);
     ref.read(dataProvider.notifier).getAdvisors();
 
     super.initState();
@@ -40,6 +41,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
     final startupProfile = ref.read(startupProfileProvider);
     final hireTalent = ref.read(hireTalentProvider);
     final jobBoard = ref.read(jobBoardProvider);
+    final data = ref.watch(dataProvider);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: PreferredSize(
@@ -96,7 +98,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                           navigator(
                               context,
                               HiringGuides(
-                                niche: startupProfile.nicheName,
+                                niche: data.nicheName,
                               ));
                         },
                       ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/career_skills_hub.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_opportunities.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/trending.dart';
@@ -7,18 +10,34 @@ import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/welcome_card.dart';
 
-class JobSeekerHome extends StatelessWidget {
+class JobSeekerHome extends ConsumerStatefulWidget {
   const JobSeekerHome({super.key});
 
   @override
+  ConsumerState<JobSeekerHome> createState() => _JobSeekerHomeState();
+}
+
+class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
+  @override
+  void initState() {
+    super.initState();
+    final nicheId =
+        ref.read(jobSeekerProfileProvider).jobSeeker.specializationId;
+    ref.read(dataProvider.notifier).getNicheName(nicheId);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final jobseeker = ref.read(jobSeekerProfileProvider);
+    final data = ref.watch(dataProvider);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(180),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(180),
           child: Header(
             text: 'Unlock Your Gateway to Career Success ',
-            title: 'Ahmad Ahmad',
+            title:
+                '${jobseeker.jobSeeker.firstName} ${jobseeker.jobSeeker.lastName}',
             showBackButton: false,
           ),
         ),
@@ -54,8 +73,7 @@ class JobSeekerHome extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const CareerSkillsHub(
-                          specialization: 'software development');
+                      return CareerSkillsHub(specialization: data.nicheName);
                     }));
                   },
                 ),
@@ -67,8 +85,7 @@ class JobSeekerHome extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const Trending(
-                          specialization: 'software development');
+                      return Trending(specialization: data.nicheName);
                     }));
                   },
                 )
