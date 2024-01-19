@@ -45,26 +45,24 @@ class Trending extends StatelessWidget {
                     final List<dynamic> articles = snapshot.requireData;
                     double screenHeight = MediaQuery.of(context).size.height;
                     double customHeight = screenHeight - 59;
-                    return SizedBox(
-                      height: customHeight,
-                      child: ListView.builder(
-                        shrinkWrap: true, // Add this line
-                        itemCount: articles.length,
-                        itemBuilder: (context, index) {
-                          final article = articles[index];
-                          return FeatureCard(
-                              title: article['title'],
-                              description: article['description'],
-                              url: article['urlToImage'],
-                              external: true,
-                              onTap: () {
-                                downloadFile(
-                                  context: context,
-                                  url: article['url'],
-                                  name: article['title'],
-                                );
-                              });
-                        },
+                    return Expanded(
+                      child: SizedBox(
+                        height: customHeight,
+                        child: ListView.builder(
+                          shrinkWrap: true, // Add this line
+                          itemCount: articles.length,
+                          itemBuilder: (context, index) {
+                            final article = articles[index];
+                            return FeatureCard(
+                                title: article['title'],
+                                description: article['description'],
+                                url: article['urlToImage'],
+                                external: true,
+                                onTap: () {
+                                  openLink(context, article['url']);
+                                });
+                          },
+                        ),
                       ),
                     );
                   }

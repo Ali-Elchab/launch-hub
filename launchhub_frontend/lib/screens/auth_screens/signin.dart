@@ -18,6 +18,23 @@ import 'package:launchhub_frontend/widgets/submit_button.dart';
 class SignIn extends ConsumerWidget {
   SignIn({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  void showProfileWarning(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          title: Text('Profile Incomplete'),
+          content: Text(
+              'Your profile is incomplete. Redirecting to complete your profile.'),
+        );
+      },
+    );
+
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.pushNamed(context, '/CompanyInfo1');
+    });
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -112,13 +129,17 @@ class SignIn extends ConsumerWidget {
                               await ref
                                   .read(startupProfileProvider)
                                   .fetchStartupProfile();
+                              navigatorKey.currentState
+                                  ?.pushNamedAndRemoveUntil('/StartupHome',
+                                      (Route<dynamic> route) => false);
                             } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Error: $e')));
+                              if (e == 'Startup not found') {
+                                showProfileWarning(context);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Error: $e')));
+                              }
                             }
-                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                                '/StartupHome',
-                                (Route<dynamic> route) => false);
                           } else if (user.typeId == 2) {
                             ref.read(jobSeekerProfileProvider).loadUser(user);
                             try {

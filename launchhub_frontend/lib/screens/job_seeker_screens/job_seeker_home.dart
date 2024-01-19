@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/career_skills_hub.dart';
@@ -59,10 +60,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                       'Explore Endless Opportunities: Your Gateway to Exciting Job Offers Awaits! Discover Your Next Career Move with our Diverse Range of Job Listings.',
                   imagePath: 'assets/images/job_opportunities.png',
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const JobOpportunities();
-                    }));
+                    navigator(context, const JobOpportunities());
                   },
                 ),
                 FeatureCard(

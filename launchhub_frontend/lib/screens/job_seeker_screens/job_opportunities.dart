@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/mock_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
 
-class JobOpportunities extends StatefulWidget {
+class JobOpportunities extends ConsumerWidget {
   const JobOpportunities({super.key});
 
   @override
-  State<JobOpportunities> createState() => _JobOpportunitiesState();
-}
-
-class _JobOpportunitiesState extends State<JobOpportunities> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(jobSeekerProfileProvider.notifier);
     Widget mainContent = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -34,9 +31,9 @@ class _JobOpportunitiesState extends State<JobOpportunities> {
       ),
     );
 
-    if (dummyJobPosts.isNotEmpty) {
+    if (provider.jobPosts.isNotEmpty) {
       mainContent = JobPostsList(
-        jobPosts: dummyJobPosts,
+        jobPosts: provider.jobPosts,
       );
     }
     return Scaffold(
@@ -45,9 +42,9 @@ class _JobOpportunitiesState extends State<JobOpportunities> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(180),
         child: Header(
-          title: 'Job Board',
+          title: 'Job Opportunities',
           text:
-              'Cultivate your team and shape your company\'s future. Here in the Job board, effortlessly add, view, and manage your job listings, empowering you to connect with top talent seamlessly.',
+              'Embark on a journey of endless possibilities with our Job Opportunities page – your gateway to a world of exciting career prospects! Dive into our diverse range of job listings and discover your next professional adventure.',
         ),
       ),
       body: Center(
