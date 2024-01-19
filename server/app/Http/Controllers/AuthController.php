@@ -158,9 +158,11 @@ class AuthController extends Controller
                 'message' => $e->errors(),
             ], 422);
         }
-
+        print_r($request->profile_pic);
         try {
             $profile = uploadImage($request);
+            // print_r($profile);
+
             $resume = uploadFile($request);
             $jobseeker = new JobSeeker([
                 'user_id' => $user->id,
@@ -245,7 +247,7 @@ class AuthController extends Controller
         }
         try {
             $user = User::find(auth()->user()->id);
-            $logo = uploadImage($request);
+            $logo = uploadLogo($request);
             $startup = new Startup([
                 'user_id' => $user->id,
                 'industry_id' => $request->industry_id,
