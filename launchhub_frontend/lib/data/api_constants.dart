@@ -19,4 +19,5 @@ abstract class ApiRoute {
   static const getRelatedJobSeekers = 'jobseeker/job_seekers';
   static const getJobSeekerProfile = 'jobseeker/profile';
   static const getJobSeekerBasicProfile = 'jobseeker/basic_profile';
+  static const getRelatedJobPosts = 'jobposts/related';
 }
