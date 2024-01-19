@@ -35,12 +35,12 @@ Route::controller(DataController::class)->group(function () {
 
 Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(function () {
     Route::middleware('jobseeker')->group(function () {
-        Route::get('profile', 'getBasicProfile');
+        Route::get('basic_profile', 'getBasicProfile');
         Route::get('related_courses', 'getRelatedCourses');
         Route::delete('delete', 'deleteJobSeekerProfile');
         Route::post('update_profile', 'updateJobSeekerProfile');
     });
-    Route::get('profile/{id}', 'getJobSeeker');
+    Route::get('profile/{id?}', 'getJobSeeker');
     Route::get('', 'getAllJobSeekers');
     Route::get('job_seekers/{specialization_id}', 'getJobSeekers');
 });

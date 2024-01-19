@@ -30,7 +30,7 @@ class JobSeekerController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 
-    public function getJobSeeker($id)
+    public function getJobSeeker($id = null)
     {
         if ($id) {
             $jobSeeker = JobSeeker::find($id);

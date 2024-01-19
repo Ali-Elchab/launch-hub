@@ -116,12 +116,9 @@ class JobPostController extends Controller
 
     public function getRelatedJobPosts(Request $request, $specialization_id = null)
     {
-        if ($specialization_id) {
-            $jobPosts = JobPost::where('specialization_id', $specialization_id)->get();
-        } else {
-            $jobPosts = $request->user()->jobSeeker->jobPosts;
-        }
-
+        $specializationId = $specialization_id ? $specialization_id : $request->user()->jobSeeker->specialization_id;
+        $jobPosts = JobPost::where('specialization_id', $specializationId)->get();
+        $jobPosts->load(['requiredSkills']);
         if (!$jobPosts) {
             return response()->json(['status' => 'error', 'message' => 'Related job posts not found'], 404);
         }
