@@ -42,7 +42,7 @@ class JobBoardProvider with ChangeNotifier {
           },
         ),
       );
-      jobPosts = jobPosts = JobPost.parseMultipleJobPosts(response.data);
+      jobPosts = JobPost.parseMultipleJobPosts(response.data);
       loadJobPosts(jobPosts);
       notifyListeners();
       return;

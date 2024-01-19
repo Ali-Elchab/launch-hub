@@ -39,7 +39,7 @@ final startupProfileProvider = StateProvider<StartupProfileProvider>((ref) {
 class StartupProfileProvider with ChangeNotifier {
   User user;
   Startup startup;
-
+  String _errorMessage = '';
   StartupProfileProvider({required this.startup, required this.user});
 
   void loadUser(User user) {
@@ -67,9 +67,11 @@ class StartupProfileProvider with ChangeNotifier {
       final startup = Startup.fromJson(response.data['startup']);
       loadStartup(startup);
     } on DioException catch (e) {
-      return 'Failed to get startup profile: ${e.response?.data['message']}';
+      _errorMessage = '${e.response?.data['message']}';
+      return _errorMessage;
     } catch (e) {
-      return 'Failed to get startup profile: $e';
+      _errorMessage = 'Failed to get startup profile: $e';
+      return _errorMessage;
     }
     notifyListeners();
 

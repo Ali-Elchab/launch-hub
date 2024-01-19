@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
+import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,9 +36,12 @@ final jobSeekerProfileProvider =
 });
 
 class JobSeekerProfileProvider with ChangeNotifier {
-  JobSeekerProfileProvider({required this.user, required this.jobSeeker});
   User user;
   JobSeeker jobSeeker;
+  List<JobPost> jobPosts = [];
+  String _errorMessage = '';
+  JobSeekerProfileProvider({required this.user, required this.jobSeeker});
+
   void loadUser(User u) {
     user = u;
     notifyListeners();
@@ -70,5 +74,26 @@ class JobSeekerProfileProvider with ChangeNotifier {
     notifyListeners();
 
     return;
+  }
+
+  Future fetchJobPosts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await myDio.get(
+        ApiRoute.getRelatedJobPosts,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      jobPosts = JobPost.parseMultipleJobPosts(response.data['jobPosts']);
+      notifyListeners();
+      return;
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+    }
+    return _errorMessage;
   }
 }
