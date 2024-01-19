@@ -30,7 +30,7 @@ class SignIn extends ConsumerWidget {
       },
     );
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context, rootNavigator: true).pop();
       Navigator.pushNamed(context, '/CompanyInfo1');
     });
@@ -126,33 +126,37 @@ class SignIn extends ConsumerWidget {
                           if (user.typeId == 1) {
                             ref.read(startupProfileProvider).loadUser(user);
                             try {
-                              await ref
+                              final res = await ref
                                   .read(startupProfileProvider)
                                   .fetchStartupProfile();
-                              navigatorKey.currentState
-                                  ?.pushNamedAndRemoveUntil('/StartupHome',
-                                      (Route<dynamic> route) => false);
-                            } catch (e) {
-                              if (e == 'Startup not found') {
+                              if (res == 'Startup not found') {
                                 showProfileWarning(context);
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Error: $e')));
+                                navigatorKey.currentState
+                                    ?.pushNamedAndRemoveUntil('/StartupHome',
+                                        (Route<dynamic> route) => false);
                               }
-                            }
-                          } else if (user.typeId == 2) {
-                            ref.read(jobSeekerProfileProvider).loadUser(user);
-                            try {
-                              await ref
-                                  .read(jobSeekerProfileProvider)
-                                  .fetchJobSeeker();
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Error: $e')));
                             }
-                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                                '/JobSeekerHome',
-                                (Route<dynamic> route) => false);
+                          } else if (user.typeId == 2) {
+                            ref.read(jobSeekerProfileProvider).loadUser(user);
+                            try {
+                              final res = await ref
+                                  .read(jobSeekerProfileProvider)
+                                  .fetchJobSeeker();
+                              if (res == 'Failed to get jobSeeker profile') {
+                                showProfileWarning(context);
+                              } else {
+                                navigatorKey.currentState
+                                    ?.pushNamedAndRemoveUntil('/JobSeekerHome',
+                                        (Route<dynamic> route) => false);
+                              }
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Error: $e')));
+                            }
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
