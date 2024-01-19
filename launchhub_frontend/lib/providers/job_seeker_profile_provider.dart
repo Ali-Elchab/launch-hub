@@ -5,6 +5,7 @@ import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
+import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -82,6 +83,69 @@ class JobSeekerProfileProvider with ChangeNotifier {
     try {
       final response = await myDio.get(
         ApiRoute.getRelatedJobPosts,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      jobPosts = JobPost.parseMultipleJobPosts(response.data['jobPosts']);
+      notifyListeners();
+      return;
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+    }
+    return _errorMessage;
+  }
+
+  Future<Startup> getStartup(id) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await myDio.get(
+        '${ApiRoute.getStartup}/$id',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      final startup = Startup.fromJson(response.data['startup']);
+      notifyListeners();
+      return startup;
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to get startup: ${e.response?.data}';
+    }
+    return Startup(
+      id: 0,
+      companyName: '',
+      companyEmail: '',
+      companyPhone: '',
+      companyAddress: '',
+      companyDescription: '',
+      companyWebsiteUrl: '',
+      copmanyLogo: '',
+      registrationNumber: '',
+      foundingDate: '',
+      specializationId: 0,
+      industryId: 0,
+      founders: [],
+      ceos: [],
+      keyExcecutives: [],
+      socialMediaLinks: [],
+      userId: 0,
+    );
+  }
+
+  Future applyJobPost(JobPost jobPost) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await myDio.post(
+        ApiRoute.getRelatedJobPosts,
+        data: {
+          'jobPostId': jobPost.id,
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
