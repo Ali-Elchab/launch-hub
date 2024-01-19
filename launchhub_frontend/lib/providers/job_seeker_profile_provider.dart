@@ -137,24 +137,21 @@ class JobSeekerProfileProvider with ChangeNotifier {
     );
   }
 
-  Future applyJobPost(JobPost jobPost) async {
+  applyJobPost(id) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     try {
       final response = await myDio.post(
-        ApiRoute.getRelatedJobPosts,
-        data: {
-          'jobPostId': jobPost.id,
-        },
+        '${ApiRoute.applyForJob}/$id',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
           },
         ),
       );
-      jobPosts = JobPost.parseMultipleJobPosts(response.data['jobPosts']);
+
       notifyListeners();
-      return;
+      return response.data;
     } on DioException catch (e) {
       _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
     }

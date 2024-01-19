@@ -8,7 +8,7 @@ import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_post_view.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/job_post_card.dart';
 
-class JobOpportunitiesList extends StatelessWidget {
+class JobOpportunitiesList extends ConsumerWidget {
   const JobOpportunitiesList({
     super.key,
     required this.jobPosts,
@@ -19,7 +19,7 @@ class JobOpportunitiesList extends StatelessWidget {
   final void Function(JobPost jobPost)? onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView.builder(
       itemCount: jobPosts.length,
       itemBuilder: (context, index) => Column(
@@ -28,46 +28,42 @@ class JobOpportunitiesList extends StatelessWidget {
             key: ValueKey(jobPosts[index].id),
             direction: DismissDirection.endToStart,
             background: Container(
-              color: Colors.red,
+              color: Theme.of(context).colorScheme.primary,
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.only(right: 20),
               margin: const EdgeInsets.symmetric(
                 horizontal: 15,
                 vertical: 4,
               ),
-              child: const Icon(
-                Icons.delete,
-                color: Colors.white,
-                size: 40,
+              child: const Row(
+                children: [
+                  Text('Easy Apply',
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
+                  Icon(
+                    Icons.rocket_launch_outlined,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ],
               ),
             ),
-            confirmDismiss: (direction) {
-              return showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  title: const Text('Are you sure?'),
-                  content: const Text(
-                    'Do you want to remove the job post?',
+            onDismissed: (direction) async {
+              final res = ref
+                  .read(jobSeekerProfileProvider)
+                  .applyJobPost(jobPosts[index].id);
+              if (res == 'success') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Applied Successfully'),
                   ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop(false);
-                      },
-                      child: const Text('No'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop(true);
-                      },
-                      child: const Text('Yes'),
-                    ),
-                  ],
-                ),
-              );
-            },
-            onDismissed: (direction) {
-              // removeJobPost!(jobPosts[index], context);
+                );
+              } else if (res == 'Already Applied') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Already Applied'),
+                  ),
+                );
+              }
             },
             child: Consumer(
               builder: (context, ref, child) => JobPostCard(
