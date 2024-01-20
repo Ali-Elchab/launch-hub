@@ -121,7 +121,7 @@ class HiringGuides extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(user: 'startup'),
     );
   }
 }

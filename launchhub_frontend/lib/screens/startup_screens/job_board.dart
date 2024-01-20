@@ -100,7 +100,6 @@ class _JobBoardState extends ConsumerState<JobBoard> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

@@ -79,7 +79,6 @@ class HireTalent extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

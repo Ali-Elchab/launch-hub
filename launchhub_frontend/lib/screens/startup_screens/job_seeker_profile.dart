@@ -213,7 +213,7 @@ class _JobSeekerProfileState extends ConsumerState<JobSeekerProfile> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(user: 'startup'),
     );
   }
 }

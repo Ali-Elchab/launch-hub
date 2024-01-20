@@ -209,7 +209,6 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
               ),
             ),
           ),
-        ),
-        bottomNavigationBar: const CustomBottomNavigationBar());
+        ));
   }
 }

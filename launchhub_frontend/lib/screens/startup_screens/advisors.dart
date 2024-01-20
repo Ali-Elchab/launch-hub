@@ -98,7 +98,7 @@ class Advisors extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(user: 'startup'),
     );
   }
 }
