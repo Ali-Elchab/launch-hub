@@ -12,12 +12,24 @@ import 'package:launchhub_frontend/widgets/startup/job_posts_list.dart';
 import 'package:launchhub_frontend/widgets/startup/post_job.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
-class JobBoard extends ConsumerWidget {
+class JobBoard extends ConsumerStatefulWidget {
   const JobBoard({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final jobBoard = ref.read(jobBoardProvider);
+  ConsumerState<JobBoard> createState() => _JobBoardState();
+}
+
+class _JobBoardState extends ConsumerState<JobBoard> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(jobBoardProvider.notifier).fetchJobPosts();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final jobBoardNotifier = ref.watch(jobBoardProvider.notifier);
+    final jobBoard = ref.watch(jobBoardProvider);
     final startup = ref.read(startupProfileProvider);
     Widget mainContent = Center(
       child: Column(
@@ -40,8 +52,8 @@ class JobBoard extends ConsumerWidget {
 
     if (jobBoard.jobPosts.isNotEmpty) {
       mainContent = JobPostsList(
-        jobPosts: jobBoard.jobPosts,
-        removeJobPost: jobBoard.removeJobPost,
+        jobPosts: jobBoard.filteredJobPosts,
+        removeJobPost: jobBoardNotifier.removeJobPost,
         company: startup.startup,
       );
     }
@@ -63,7 +75,6 @@ class JobBoard extends ConsumerWidget {
             children: [
               const SizedBox(height: 25),
               SearchFilter(
-                onPressedFilter: () {},
                 onChanged: (String query) => jobBoard.updateSearchQuery(query),
               ),
               Expanded(

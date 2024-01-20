@@ -8,11 +8,13 @@ import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 class JobPostCard extends ConsumerStatefulWidget {
   final JobPost jobPost;
   final Function()? onTap;
+  final Startup? company;
 
   const JobPostCard({
     super.key,
     required this.jobPost,
     this.onTap,
+    this.company,
   });
 
   @override
@@ -20,24 +22,21 @@ class JobPostCard extends ConsumerStatefulWidget {
 }
 
 class _JobPostCardState extends ConsumerState<JobPostCard> {
-  Startup? startup;
   @override
   void initState() {
     super.initState();
     loadStartup();
   }
 
-  Future loadStartup() async {
+  void loadStartup() async {
     final startupId = widget.jobPost.startupId;
-    final startUp =
-        await ref.read(jobSeekerProfileProvider).getStartup(startupId);
-    setState(() {
-      startup = startUp;
-    });
+    await ref.read(jobSeekerProfileProvider).getStartup(startupId);
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.read(jobSeekerProfileProvider);
+    final startup = widget.company ?? provider.startup;
     return InkWell(
       onTap: widget.onTap,
       child: Card(
@@ -58,13 +57,13 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      child: startup!.copmanyLogo == null
+                      child: startup!.copmanyLogo != null
                           ? Image.asset(
                               'assets/logos/default-logo.png',
                               width: 65,
                             )
                           : Image.network(
-                              "${baseUrl}assets/logos/${startup!.copmanyLogo!}",
+                              "${baseUrl}assets/logos/${startup.copmanyLogo!}",
                               width: 65),
                     ),
                     const SizedBox(height: 5),
@@ -130,7 +129,7 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(startup?.companyName ?? 'Company Name',
+                    Text(startup.companyName,
                         style: Theme.of(context).textTheme.titleSmall!),
                     const SizedBox(height: 4),
                     Text(widget.jobPost.jobTitle,

@@ -8,19 +8,20 @@ import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final jobBoardProvider = StateProvider<JobBoardProvider>((ref) {
+final jobBoardProvider = ChangeNotifierProvider<JobBoardProvider>((ref) {
   return JobBoardProvider(jobPosts: []);
 });
 
 class JobBoardProvider with ChangeNotifier {
-  List<JobPost> jobPosts;
   String _errorMessage = '';
   Industry? _selectedIndustry;
   Niche? _selectedNiche;
   String? country;
   String? state;
   String searchQuery = '';
+  List<JobPost> jobPosts;
   List<JobPost> filteredJobPosts = [];
+
   JobBoardProvider({required this.jobPosts});
 
   String? get address => '$country $state';
@@ -29,6 +30,7 @@ class JobBoardProvider with ChangeNotifier {
   Niche? get selectedNiche => _selectedNiche;
   void loadJobPosts(List<JobPost> jobPosts) {
     jobPosts = jobPosts;
+    filteredJobPosts = jobPosts;
     notifyListeners();
   }
 
@@ -84,6 +86,7 @@ class JobBoardProvider with ChangeNotifier {
 
   Future removeJobPost(JobPost jobPost, context) async {
     jobPosts.remove(jobPost);
+    filteredJobPosts.remove(jobPost);
     try {
       final id = jobPost.id;
       final prefs = await SharedPreferences.getInstance();
@@ -154,20 +157,18 @@ class JobBoardProvider with ChangeNotifier {
   void updateSearchQuery(String query) {
     searchQuery = query;
     searchJobSeekers();
-    notifyListeners();
+    // notifyListeners();
   }
 
   void searchJobSeekers() {
     if (searchQuery.isEmpty) {
       filteredJobPosts = jobPosts;
     } else {
-      filteredJobPosts = jobPosts.where((jobseeker) {
-        return jobseeker.jobDescription
+      filteredJobPosts = jobPosts.where((jobpost) {
+        return jobpost.jobDescription
                 .toLowerCase()
                 .contains(searchQuery.toLowerCase()) ||
-            jobseeker.jobTitle
-                .toLowerCase()
-                .contains(searchQuery.toLowerCase());
+            jobpost.jobTitle.toLowerCase().contains(searchQuery.toLowerCase());
       }).toList();
     }
     notifyListeners();

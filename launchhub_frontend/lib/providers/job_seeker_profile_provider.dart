@@ -44,7 +44,7 @@ class JobSeekerProfileProvider with ChangeNotifier {
   String _errorMessage = '';
   String searchQuery = '';
   JobSeekerProfileProvider({required this.user, required this.jobSeeker});
-
+  Startup? startup;
   void loadUser(User u) {
     user = u;
     notifyListeners();
@@ -100,7 +100,7 @@ class JobSeekerProfileProvider with ChangeNotifier {
     return _errorMessage;
   }
 
-  Future<Startup> getStartup(id) async {
+  Future getStartup(id) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     try {
@@ -112,31 +112,11 @@ class JobSeekerProfileProvider with ChangeNotifier {
           },
         ),
       );
-      final startup = Startup.fromJson(response.data['startup']);
+      startup = Startup.fromJson(response.data['startup']);
       notifyListeners();
-      return startup;
     } on DioException catch (e) {
       _errorMessage = 'Failed to get startup: ${e.response?.data}';
     }
-    return Startup(
-      id: 0,
-      companyName: '',
-      companyEmail: '',
-      companyPhone: '',
-      companyAddress: '',
-      companyDescription: '',
-      companyWebsiteUrl: '',
-      copmanyLogo: '',
-      registrationNumber: '',
-      foundingDate: '',
-      specializationId: 0,
-      industryId: 0,
-      founders: [],
-      ceos: [],
-      keyExcecutives: [],
-      socialMediaLinks: [],
-      userId: 0,
-    );
   }
 
   applyJobPost(id) async {

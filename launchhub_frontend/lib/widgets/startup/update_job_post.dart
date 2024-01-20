@@ -6,7 +6,6 @@ import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/niche.dart';
-import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/widgets/generic_drop_down.dart';
@@ -38,7 +37,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
   String? _selectJobType;
   String? _selectGender;
   String? _selectJobStatus;
-  List<Skill> selectedSkills = [];
+  List selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
   final _responsibilitiesController = TextEditingController();
   final _jobSalaryController = TextEditingController();
@@ -57,6 +56,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
           .niches
           .where((element) => element.id == widget.jobPost!.specializationId)
           .first;
+      ref.read(dataProvider.notifier).getSkills(specialization);
 
       _titleController.text = widget.jobPost!.jobTitle;
       _descriptionController.text = widget.jobPost!.jobDescription;
@@ -64,6 +64,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       _jobSalaryController.text = widget.jobPost!.jobSalary.toString();
       _jobQualificationController.text = widget.jobPost!.jobQualification;
       _jobDeadlineController.text = widget.jobPost!.deadline;
+      // selectedSkills = widget.jobPost!.requiredSkills;
       _selectedIndustry = industry;
       _selectedNiche = specialization;
       _selectExperienceLevel = widget.jobPost!.experienceLevel;
@@ -127,7 +128,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       return;
     }
 
-    ref.read(jobBoardProvider).updateJobPost({
+    ref.read(jobBoardProvider.notifier).updateJobPost({
       "id": widget.jobPost!.id,
       "deadline": _jobDeadlineController.text,
       "education_level": _selectEducationceLevel!,
@@ -160,6 +161,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(jobBoardProvider);
+    final data = ref.read(dataProvider);
 
     return Scaffold(
       body: SizedBox(
@@ -288,7 +290,11 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                         label: 'Required Skills',
                         readOnly: true,
                         onTap: () {
-                          showModal(PickSkills(selectedSkills: selectedSkills),
+                          showModal(
+                              PickSkills(
+                                selectedSkills: selectedSkills,
+                                skills: data.skills,
+                              ),
                               context);
                         },
                         isDescription: true,
@@ -310,9 +316,11 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                         },
                       ),
                       LocationPicker(
-                        onCountryChanged: ref.read(jobBoardProvider).setCountry,
-                        onStateChanged:
-                            ref.read(jobBoardProvider).setStateForState,
+                        onCountryChanged:
+                            ref.read(jobBoardProvider.notifier).setCountry,
+                        onStateChanged: ref
+                            .read(jobBoardProvider.notifier)
+                            .setStateForState,
                         country: provider.country,
                         state: provider.state,
                       ),

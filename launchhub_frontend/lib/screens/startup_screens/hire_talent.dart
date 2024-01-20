@@ -56,7 +56,6 @@ class HireTalent extends ConsumerWidget {
             children: [
               const SizedBox(height: 25),
               SearchFilter(
-                onPressedFilter: () {},
                 onChanged: (String query) =>
                     hiretalentprovider.updateSearchQuery(query),
                 margin: 10,

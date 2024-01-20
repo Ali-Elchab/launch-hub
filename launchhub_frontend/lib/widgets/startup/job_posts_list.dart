@@ -77,6 +77,7 @@ class JobPostsList extends StatelessWidget {
             child: Consumer(
               builder: (context, ref, child) => JobPostCard(
                 jobPost: jobPosts[index],
+                company: company,
                 onTap: () async {
                   await ref.read(dataProvider.notifier).getIndustries();
                   final industry = ref.read(dataProvider).industries.firstWhere(

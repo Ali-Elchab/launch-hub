@@ -69,7 +69,7 @@ class AuthProvider with ChangeNotifier {
       }
     } on DioException catch (e) {
       _isSignInSuccessful = false;
-      _errorMessage = '${e.response?.data['message']['email'][0]}';
+      _errorMessage = '${e.response?.data['message']}';
       return _errorMessage;
     } catch (e) {
       _isSignUpSuccessful = false;

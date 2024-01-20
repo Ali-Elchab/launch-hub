@@ -40,7 +40,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
   Widget build(BuildContext context) {
     final startupProfile = ref.read(startupProfileProvider);
     final hireTalent = ref.read(hireTalentProvider);
-    final jobBoard = ref.read(jobBoardProvider);
+    final jobBoard = ref.read(jobBoardProvider.notifier);
     final data = ref.watch(dataProvider);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -75,7 +75,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
                         imagePath: 'assets/images/job_board.png',
                         onTap: () async {
-                          await jobBoard.fetchJobPosts();
+                          // await jobBoard.fetchJobPosts();
                           navigator(context, const JobBoard());
                         },
                       ),

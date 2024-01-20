@@ -3,10 +3,11 @@ import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/choice_chip.dart';
 
 class PickSkills extends StatefulWidget {
-  const PickSkills({super.key, this.selectedSkills, this.skills});
+  const PickSkills(
+      {super.key, required this.selectedSkills, required this.skills});
 
-  final List? selectedSkills;
-  final List<Skill>? skills;
+  final List selectedSkills;
+  final List<Skill> skills;
 
   @override
   State<PickSkills> createState() => _PickSkillsState();
@@ -15,10 +16,10 @@ class PickSkills extends StatefulWidget {
 class _PickSkillsState extends State<PickSkills> {
   void toggleSkill(Skill skill) {
     setState(() {
-      if (widget.selectedSkills!.contains(skill)) {
-        widget.selectedSkills!.remove(skill);
+      if (widget.selectedSkills.contains(skill)) {
+        widget.selectedSkills.remove(skill);
       } else {
-        widget.selectedSkills!.add(skill);
+        widget.selectedSkills.add(skill);
       }
     });
   }
@@ -34,9 +35,9 @@ class _PickSkillsState extends State<PickSkills> {
             width: double.infinity,
             child: Text('Pick skills:',
                 style: Theme.of(context).textTheme.titleMedium!)),
-        ...widget.skills!.map((skill) => ChoiceTag(
+        ...widget.skills.map((skill) => ChoiceTag(
               label: skill.name,
-              isSelected: widget.selectedSkills!.contains(skill),
+              isSelected: widget.selectedSkills.contains(skill),
               onSelected: () => toggleSkill(skill),
             )),
       ]),
