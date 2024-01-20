@@ -25,6 +25,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.reset');;
+Route::post('password/reset', [PasswordResetController::class, 'reset']);
+
 
 Route::controller(DataController::class)->group(function () {
     Route::get('skills/{specialization_id}', 'getSkillsBySpecialization');
@@ -105,7 +108,3 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::delete('jobpost/{id}', 'JobPostController@deleteJobPost');
     Route::delete('delete_application/{id}', 'ApplicationController@deleteApplication');
 }));;
-
-
-Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.reset');;
-Route::post('password/reset', [PasswordResetController::class, 'reset']);
