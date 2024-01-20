@@ -69,10 +69,12 @@ class AuthProvider with ChangeNotifier {
       }
     } on DioException catch (e) {
       _isSignInSuccessful = false;
-      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+      _errorMessage = '${e.response?.data['message']['email'][0]}';
+      return _errorMessage;
     } catch (e) {
       _isSignUpSuccessful = false;
-      _errorMessage = 'Failed to sign up: $e';
+      _errorMessage = 'Failed to sign in: $e';
+      return _errorMessage;
     }
     notifyListeners();
   }

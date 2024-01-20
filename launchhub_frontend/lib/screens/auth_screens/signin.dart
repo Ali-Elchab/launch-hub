@@ -137,8 +137,8 @@ class SignIn extends ConsumerWidget {
                                         (Route<dynamic> route) => false);
                               }
                             } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Error: $e')));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text('$e')));
                             }
                           } else if (user.typeId == 2) {
                             ref.read(jobSeekerProfileProvider).loadUser(user);
@@ -154,15 +154,16 @@ class SignIn extends ConsumerWidget {
                                         (Route<dynamic> route) => false);
                               }
                             } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Error: $e')));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text('$e')));
                             }
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                                content:
-                                    Text('Error: ${provider.errorMessage}')),
+                                content: Text('${provider.errorMessage}'),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 175, 12, 0)),
                           );
                         }
                       }
