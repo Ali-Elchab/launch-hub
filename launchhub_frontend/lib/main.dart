@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/screens/auth_screens/company_info1.dart';
 import 'package:launchhub_frontend/screens/auth_screens/personal_info.dart';
+import 'package:launchhub_frontend/screens/auth_screens/reset_password.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
@@ -61,10 +62,12 @@ class App extends StatelessWidget {
       navigatorKey: navigatorKey,
       routes: {
         '/SignUp': (context) => SignUp(),
+        '/SignIn': (context) => SignIn(),
         '/CompanyInfo1': (context) => const CompanyInfo1(),
         '/PersonalInfo': (context) => const PersonalInfo(),
         '/StartupHome': (context) => const StartupHome(),
         '/JobSeekerHome': (context) => const JobSeekerHome(),
+        '/reset-password': (context) => ResetPassword(),
       },
       theme: theme,
       home: Scaffold(

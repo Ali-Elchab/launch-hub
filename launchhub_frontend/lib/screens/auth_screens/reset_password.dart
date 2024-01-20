@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
+import 'package:launchhub_frontend/data/api_constants.dart';
+import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
@@ -10,8 +14,11 @@ class ResetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? token = ModalRoute.of(context)!.settings.arguments as String?;
+
     final passwordController = TextEditingController();
     final confirmPasswordController = TextEditingController();
+    final emailController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Forgot Password'),
@@ -48,6 +55,16 @@ class ResetPassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   InputField(
+                    label: 'Email',
+                    controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Email';
+                      }
+                      return null;
+                    },
+                  ),
+                  InputField(
                     label: 'Password',
                     isPassword: true,
                     controller: passwordController,
@@ -58,7 +75,6 @@ class ResetPassword extends StatelessWidget {
                       if (value.length < 6) {
                         return 'Password must be at least 8 characters long';
                       }
-
                       return null;
                     },
                   ),
@@ -79,10 +95,40 @@ class ResetPassword extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 40),
-                  SubmitButton('Reset Password', () {
+                  SubmitButton('Reset Password', () async {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignIn()));
+                      try {
+                        final res = await myDio.post(
+                          ApiRoute.resetPassword,
+                          data: {
+                            'token': token,
+                            'email': emailController.text,
+                            'password': passwordController.text,
+                            'password_confirmation':
+                                confirmPasswordController.text
+                          },
+                        );
+                        if (res.statusCode == 200) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              title: Text('Password Reset!'),
+                              content: Text(
+                                  'Your password has been reset. Please login with your new password.'),
+                            ),
+                          );
+                          navigatorKey.currentState!.pushNamedAndRemoveUntil(
+                              '/SignIn', (route) => false);
+                        }
+                      } on DioException catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                                'Password reset failed ${e.response!.statusCode}}'),
+                          ),
+                        );
+                      }
                     }
                   }),
                 ],

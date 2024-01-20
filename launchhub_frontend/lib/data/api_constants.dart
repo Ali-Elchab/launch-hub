@@ -22,4 +22,6 @@ abstract class ApiRoute {
   static const getRelatedJobPosts = 'jobposts/related';
   static const getStartup = 'startup/profile';
   static const applyForJob = 'apply';
+  static const emailResetLink = 'password/email';
+  static const resetPassword = 'password/reset';
 }

@@ -1,16 +1,54 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/screens/auth_screens/reset_password.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
+import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
+import 'package:uni_links/uni_links.dart';
 
-class ForgotPassword extends StatelessWidget {
-  ForgotPassword({super.key});
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({super.key});
+
+  @override
+  State<ForgotPassword> createState() => _ForgotPasswordState();
+}
+
+class _ForgotPasswordState extends State<ForgotPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    handleDeepLink();
+  }
+
+  Future<void> handleDeepLink() async {
+    try {
+      final initialLink = await getInitialLink();
+      if (initialLink != null) {
+        final uri = Uri.parse(initialLink);
+        if (uri.scheme == 'myapp') {
+          final token = uri.queryParameters['token'];
+          if (token != null && token.isNotEmpty) {
+            Navigator.pushNamed(context, '/reset-password', arguments: token);
+          } else {
+            print('Token not found in the deep link.');
+          }
+        } else {
+          print('Invalid or unsupported deep link.');
+        }
+      }
+    } on Exception catch (e) {
+      print('Error handling deep link: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Forgot Password'),
@@ -47,6 +85,7 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   InputField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     label: 'Email',
                     controller: emailController,
                     validator: (value) {
@@ -57,12 +96,40 @@ class ForgotPassword extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 40),
-                  SubmitButton('Send Reset Link', () {
+                  SubmitButton('Send Reset Link', () async {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResetPassword()));
+                      try {
+                        final response = await myDio.post(
+                            ApiRoute.emailResetLink,
+                            data: {'email': emailController.text});
+                        if (response.statusCode == 200) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              title: Text('Email Sent!'),
+                              content: Text(
+                                  'Please check your email for the reset link.'),
+                            ),
+                          );
+
+                          emailController.clear();
+                        }
+                      } on DioException catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                                'Email not found ${e.response!.statusCode}}'),
+                          ),
+                        );
+                      } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Text('Email not found'),
+                          ),
+                        );
+                      }
                     }
                   }),
                 ],
