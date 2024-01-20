@@ -6,7 +6,6 @@ import 'package:launchhub_frontend/data/static_data.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
-import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
 import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
@@ -40,7 +39,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
   Widget build(BuildContext context) {
     final startupProfile = ref.read(startupProfileProvider);
     final hireTalent = ref.read(hireTalentProvider);
-    final jobBoard = ref.read(jobBoardProvider.notifier);
+    // final jobBoard = ref.read(jobBoardProvider.notifier);
     final data = ref.watch(dataProvider);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),

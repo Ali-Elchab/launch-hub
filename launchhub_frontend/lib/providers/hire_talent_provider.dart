@@ -34,6 +34,7 @@ class HireTalentProvider with ChangeNotifier {
   String searchQuery = '';
   void loadJobSeekers(List<JobSeeker> jobSeekers) {
     jobSeekers = jobSeekers;
+    filteredJobSeekers = jobSeekers;
     notifyListeners();
   }
 
@@ -93,7 +94,6 @@ class HireTalentProvider with ChangeNotifier {
   void updateSearchQuery(String query) {
     searchQuery = query;
     searchJobSeekers();
-    notifyListeners();
   }
 
   void searchJobSeekers() {

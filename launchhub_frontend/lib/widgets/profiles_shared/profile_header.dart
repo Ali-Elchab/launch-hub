@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:launchhub_frontend/helpers/open_link.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -145,33 +145,48 @@ class ProfileHeader extends StatelessWidget {
                           ),
                           // const SizedBox(height: 10),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               for (var social in socials)
                                 if (social.platform.toLowerCase().trim() ==
                                     'facebook')
-                                  _buildSocialIcon(
-                                      context,
-                                      social.platform,
-                                      color!,
-                                      social.link,
-                                      FontAwesomeIcons.facebook)
+                                  IconButton(
+                                    alignment: Alignment.centerLeft,
+                                    icon: Icon(
+                                      FontAwesomeIcons.facebook,
+                                      color: color,
+                                      size: 15,
+                                    ),
+                                    onPressed: () async {
+                                      openLink(context, social.link);
+                                    },
+                                  )
                                 else if (social.platform.toLowerCase().trim() ==
                                     'instagram')
-                                  _buildSocialIcon(
-                                      context,
-                                      social.platform,
-                                      color!,
-                                      social.link,
-                                      FontAwesomeIcons.instagram)
+                                  IconButton(
+                                    alignment: Alignment.centerLeft,
+                                    icon: Icon(
+                                      FontAwesomeIcons.instagram,
+                                      color: color,
+                                      size: 15,
+                                    ),
+                                    onPressed: () async {
+                                      openLink(context, social.link);
+                                    },
+                                  )
                                 else if (social.platform.toLowerCase().trim() ==
                                     'linkedin')
-                                  _buildSocialIcon(
-                                      context,
-                                      social.platform,
-                                      color!,
-                                      social.link,
-                                      FontAwesomeIcons.linkedin)
+                                  IconButton(
+                                    alignment: Alignment.centerLeft,
+                                    icon: Icon(
+                                      FontAwesomeIcons.linkedin,
+                                      color: color,
+                                      size: 15,
+                                    ),
+                                    onPressed: () async {
+                                      openLink(context, social.link);
+                                    },
+                                  )
                             ],
                           )
                         ],
@@ -184,28 +199,4 @@ class ProfileHeader extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _buildSocialIcon(
-    context, String platform, Color color, String link, IconData icon) {
-  Uri uriLink = Uri.parse(link);
-  return IconButton(
-    alignment: Alignment.centerLeft,
-    icon: FaIcon(
-      icon,
-      color: color,
-      size: 15,
-    ),
-    onPressed: () async {
-      if (await canLaunchUrl(uriLink)) {
-        await launchUrl(uriLink);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Could not launch $platform'),
-          ),
-        );
-      }
-    },
-  );
 }
