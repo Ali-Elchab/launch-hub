@@ -62,11 +62,15 @@ class ProfileHeader extends StatelessWidget {
                 Container(
                   width: 80,
                   height: 80,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: NetworkImage(
-                          'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&q=70&fm=webp'),
+                      image: profilePicture == null
+                          ? AssetImage(companyName != null
+                              ? 'assets/logos/default-logo.png'
+                              : 'assets/logos/default-profile.png')
+                          : NetworkImage(profilePicture!)
+                              as ImageProvider<Object>,
                       fit: BoxFit.cover,
                     ),
                   ),
