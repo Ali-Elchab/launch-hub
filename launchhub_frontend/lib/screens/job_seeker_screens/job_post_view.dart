@@ -243,7 +243,7 @@ class _JobPostViewState extends State<JobPostView> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(user: 'jobseeker'),
     );
   }
 }

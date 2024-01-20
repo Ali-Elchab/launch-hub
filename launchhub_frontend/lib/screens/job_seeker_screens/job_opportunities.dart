@@ -65,7 +65,7 @@ class JobOpportunities extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(user: 'jobseeker'),
     );
   }
 }

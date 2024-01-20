@@ -133,7 +133,7 @@ class SignIn extends ConsumerWidget {
                                 showProfileWarning(context);
                               } else {
                                 navigatorKey.currentState
-                                    ?.pushNamedAndRemoveUntil('/StartupHome',
+                                    ?.pushNamedAndRemoveUntil('/StartupRoot',
                                         (Route<dynamic> route) => false);
                               }
                             } catch (e) {

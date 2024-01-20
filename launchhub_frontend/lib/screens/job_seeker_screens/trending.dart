@@ -72,7 +72,7 @@ class Trending extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(user: 'jobseeker'),
     );
   }
 }

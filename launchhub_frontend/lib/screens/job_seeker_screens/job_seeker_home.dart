@@ -94,6 +94,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
             ),
           ),
         ),
-        bottomNavigationBar: const CustomBottomNavigationBar());
+        bottomNavigationBar:
+            const CustomBottomNavigationBar(user: 'jobseeker'));
   }
 }
