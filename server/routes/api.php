@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\UserController;
@@ -13,6 +14,7 @@ use App\Models\Application;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
@@ -103,3 +105,7 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::delete('jobpost/{id}', 'JobPostController@deleteJobPost');
     Route::delete('delete_application/{id}', 'ApplicationController@deleteApplication');
 }));;
+
+
+Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.reset');;
+Route::post('password/reset', [PasswordResetController::class, 'reset']);

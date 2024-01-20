@@ -41,6 +41,11 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'user_type_id' => 1
             ],
+            [
+                'email' => 'alielchab01@gmail.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
 
         ]);
     }
