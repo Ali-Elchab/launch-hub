@@ -9,6 +9,7 @@ import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
+import 'package:launchhub_frontend/screens/startup_screens/startup_root_widget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,6 +67,7 @@ class App extends StatelessWidget {
         '/CompanyInfo1': (context) => const CompanyInfo1(),
         '/PersonalInfo': (context) => const PersonalInfo(),
         '/StartupHome': (context) => const StartupHome(),
+        '/StartupRoot': (context) => const StartupRootWidget(),
         '/JobSeekerHome': (context) => const JobSeekerHome(),
         '/reset-password': (context) => ResetPassword(),
       },
