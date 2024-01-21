@@ -5,7 +5,6 @@ import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/widgets/startup/skills_and_hobbies.dart';
@@ -213,7 +212,6 @@ class _JobSeekerProfileState extends ConsumerState<JobSeekerProfile> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(user: 'startup'),
     );
   }
 }

@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/providers/job_board_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/how_to_write_job_post.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
