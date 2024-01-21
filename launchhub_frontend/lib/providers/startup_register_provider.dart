@@ -193,7 +193,7 @@ class StartupRegisterProvider with ChangeNotifier {
       "company_name": _companyName,
       "registration_number": _registrationNumber,
       "founding_date": selectedDate.toString(),
-      'profilePic': base64Image,
+      'logo_url': base64Image,
       "company_description": _companyDescription,
       "industry_id": _selectedIndustry!.id,
       "specialization_id": _selectedNiche!.id,
