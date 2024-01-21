@@ -77,4 +77,31 @@ class StartupProfileProvider with ChangeNotifier {
 
     return;
   }
+
+  Future updateStartupProfile(json) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      await myDio.post(
+        ApiRoute.updateStartupProfile,
+        data: json,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      final startUp = Startup.fromJson(json);
+      loadStartup(startUp);
+      notifyListeners();
+      return 'success';
+    } on DioException catch (e) {
+      _errorMessage = '${e.response?.data}';
+      return _errorMessage;
+    } catch (e) {
+      _errorMessage = 'Failed to update startup profile: $e';
+      return _errorMessage;
+    }
+  }
 }
