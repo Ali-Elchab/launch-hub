@@ -83,20 +83,36 @@ class JobSeekerController extends Controller
 
     public function updateJobSeekerProfile(Request $request)
     {
-        $profileImagePath = uploadImage($request);
-        $resumePath = uploadFile($request);
-        $jobSeeker = $request->user()->jobSeeker;
-        if ($jobSeeker) {
-            $updateData = $request->only('first_name', 'last_name', 'phone', 'address', 'city', 'bio');
-            if ($profileImagePath) {
-                $updateData['profile_pic'] = $profileImagePath;
+        try {
+            $profileImagePath = uploadImage($request);
+            $resumePath = uploadFile($request);
+            $jobSeeker = $request->user()->jobSeeker;
+            $user = $request->user();
+            if ($jobSeeker) {
+                $updateData = $request->only('first_name', 'last_name', 'phone', 'address', 'bio');
+                if ($profileImagePath) {
+                    $updateData['profile_pic'] = $profileImagePath;
+                }
+                if ($resumePath) {
+                    $updateData['resume'] = $resumePath;
+                }
+                if (!empty($request->experiences))
+                    $jobSeeker->experiences()->createMany($request->experiences);
+                if (!empty($request->educations))
+                    $jobSeeker->educations()->createMany($request->educations);
+                if (!empty($request->certifications))
+                    $jobSeeker->certifications()->createMany($request->certifications);
+                if (!empty($request->skills))
+                    $jobSeeker->skills()->attach($request->skills);
+                if (!empty($request->hobbies))
+                    $jobSeeker->hobbies()->attach($request->hobbies);
+                if (!empty($request->social_media_links))
+                    $user->socialMediaLinks()->createMany($request->social_media_links);
+                $jobSeeker->update($updateData);
+                return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
             }
-            if ($resumePath) {
-                $updateData['resume'] = $resumePath;
-            }
-
-            $jobSeeker->update($updateData);
-            return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
 
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);

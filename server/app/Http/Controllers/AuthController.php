@@ -233,7 +233,7 @@ class AuthController extends Controller
                 'company_email' => 'required|string|email',
                 'company_phone' => 'required|string',
                 'company_description' => 'required|string',
-                'registration_number' => 'required|string',
+                'registration_number' => 'nullable|string',
                 'founding_date' => 'required|date',
                 'company_address' => 'required|string',
                 'website_url' => 'nullable|url',
@@ -246,6 +246,8 @@ class AuthController extends Controller
             ], 422);
         }
         try {
+            $user = User::find(auth()->user()->id);
+
             $logo = uploadLogo($request);
             $startup = new Startup([
                 'user_id' => $user->id,
