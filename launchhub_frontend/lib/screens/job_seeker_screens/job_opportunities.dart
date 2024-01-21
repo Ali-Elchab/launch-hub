@@ -52,10 +52,18 @@ class JobOpportunities extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              SearchFilter(onChanged: (String query) {
-                provider.searchQuery = query;
-                provider.filterJobPosts();
-              }),
+              Text(
+                'Hint: Swipe left on a job post to apply for it easily!',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).colorScheme.primary, fontSize: 11),
+              ),
+              SearchFilter(
+                onChanged: (String query) {
+                  provider.searchQuery = query;
+                  provider.filterJobPosts();
+                },
+                margin: 10,
+              ),
               Expanded(
                 child: mainContent,
               ),

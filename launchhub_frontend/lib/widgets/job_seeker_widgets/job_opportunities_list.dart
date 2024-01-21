@@ -35,36 +35,72 @@ class JobOpportunitiesList extends ConsumerWidget {
                 horizontal: 15,
                 vertical: 4,
               ),
-              child: const Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Easy Apply',
-                      style: TextStyle(color: Colors.white, fontSize: 12)),
-                  Icon(
+                  const Icon(
                     Icons.rocket_launch_outlined,
                     color: Colors.white,
                     size: 40,
                   ),
+                  const SizedBox(width: 5),
+                  Text('Easy Apply',
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          )),
                 ],
               ),
             ),
-            onDismissed: (direction) async {
-              final res = ref
-                  .read(jobSeekerProfileProvider)
-                  .applyJobPost(jobPosts[index].id);
-              if (res == 'success') {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Applied Successfully'),
+            confirmDismiss: (direction) async {
+              await showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text('Apply For Job?'),
+                  content: const Text(
+                    'Do you want to easy apply for this job?',
                   ),
-                );
-              } else if (res == 'Already Applied') {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Already Applied'),
-                  ),
-                );
-              }
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop(false);
+                      },
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        // Perform the apply job post action
+                        final res = await ref
+                            .read(jobSeekerProfileProvider)
+                            .applyJobPost(jobPosts[index].id);
+                        if (res == 'Applied successfully') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              content: const Text('Applied Successfully!'),
+                            ),
+                          );
+                        } else if (res == 'Already applied') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              content: const Text(
+                                  'Already Applied! You can only apply once, wait for the startup to contact you!'),
+                            ),
+                          );
+                        }
+                        Navigator.of(ctx).pop(false);
+                      },
+                      child: const Text('Yes'),
+                    ),
+                  ],
+                ),
+              );
+              return null;
             },
+          
             child: Consumer(
               builder: (context, ref, child) => JobPostCard(
                 jobPost: jobPosts[index],

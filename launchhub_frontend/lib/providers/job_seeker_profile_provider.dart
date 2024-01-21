@@ -133,11 +133,14 @@ class JobSeekerProfileProvider with ChangeNotifier {
       );
 
       notifyListeners();
-      return response.data;
+      print(response.data['message']);
+      return response.data['message'];
     } on DioException catch (e) {
-      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+      print(e.response!.data['message']);
+
+      _errorMessage = 'Failed to apply: ${e.response?.data['message']}';
+      return e.response?.data['message'];
     }
-    return _errorMessage;
   }
 
   void updateSearchQuery(String query) {
