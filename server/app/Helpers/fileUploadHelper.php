@@ -1,22 +1,25 @@
 <?php
 
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 function uploadImage($request)
 {
+
     if ($request->profile_pic) {
         try {
             $base64Image = $request->profile_pic;
             $imageData = base64_decode($base64Image);
-            // print_r($imageData);
             $fileName = 'image_' . time() . '.png';
-            Storage::disk(public_path('assets\images\profile_pics\\'))->put($fileName, $imageData);
+            $destinationPath = public_path('assets/images/profile_pics');
+            if (!File::isDirectory($destinationPath)) {
+                File::makeDirectory($destinationPath, 0777, true, true);
+            }
+            File::put($destinationPath . '/' . $fileName, $imageData);
             return $fileName;
         } catch (\Exception $e) {
-            return ['error' => $e->getMessage()];
+            throw ['error' => $e->getMessage()];
         }
     }
-    return null;
 }
 function uploadLogo($request)
 {
@@ -25,7 +28,11 @@ function uploadLogo($request)
             $base64Image = $request->logo_url;
             $imageData = base64_decode($base64Image);
             $fileName = 'image_' . time() . '.png';
-            Storage::disk(public_path('assets/logos'))->put($fileName, $imageData);
+            $destinationPath = public_path('assets/images/profile_pics');
+            if (!File::isDirectory($destinationPath)) {
+                File::makeDirectory($destinationPath, 0777, true, true);
+            }
+            File::put($destinationPath . '/' . $fileName, $imageData);
             return $fileName;
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
@@ -42,8 +49,11 @@ function uploadFile($request)
             $base64Image = $request->resume;
             $resumeData = base64_decode($base64Image);
             $fileName = 'resume_' . time() . '.png';
-            Storage::disk(public_path('assets/files'))->put($fileName, $resumeData);
-
+            $destinationPath = public_path('assets/images/profile_pics');
+            if (!File::isDirectory($destinationPath)) {
+                File::makeDirectory($destinationPath, 0777, true, true);
+            }
+            File::put($destinationPath . '/' . $fileName, $resumeData);
             return $fileName;
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
