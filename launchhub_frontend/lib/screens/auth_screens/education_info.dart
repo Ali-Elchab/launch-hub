@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/providers/jobseeker_register_provider.dart';
-import 'package:launchhub_frontend/screens/auth_screens/experience_Info.dart';
+import 'package:launchhub_frontend/screens/auth_screens/experience_info.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_certificate.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/bottom_text.dart';

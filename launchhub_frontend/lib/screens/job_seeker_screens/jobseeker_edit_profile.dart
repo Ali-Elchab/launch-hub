@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
@@ -550,7 +549,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                                               final token =
                                                   prefs.getString('token');
                                               final delete = await myDio.delete(
-                                                ApiRoute.deleteStartupProfile,
+                                                ApiRoute.deleteJobSeekerProfile,
                                                 options: Options(
                                                   headers: {
                                                     'Authorization':
