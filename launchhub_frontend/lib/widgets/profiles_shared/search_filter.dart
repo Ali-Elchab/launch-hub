@@ -8,7 +8,7 @@ class SearchFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: margin),
+      margin: EdgeInsets.only(bottom: margin, top: margin),
       child: TextFormField(
         decoration: InputDecoration(
             prefixIcon: InkWell(
