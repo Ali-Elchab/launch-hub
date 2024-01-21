@@ -10,7 +10,6 @@ class SocialMediaLink extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'link',
         "platform",
     ];
