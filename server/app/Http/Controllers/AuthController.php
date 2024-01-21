@@ -237,6 +237,9 @@ class AuthController extends Controller
                 'founding_date' => 'required|date',
                 'company_address' => 'required|string',
                 'website_url' => 'nullable|url',
+                'social_media_links' => 'nullable|array',
+                'social_media_links.*.platform' => 'required|string|max:255',
+                'social_media_links.*.link' => 'required|url',
 
             ],);
         } catch (ValidationException $e) {
@@ -269,11 +272,12 @@ class AuthController extends Controller
             $startup->save();
             if (!empty($request->social_media_links))
                 $user->socialMediaLinks()->createMany($request->social_media_links);
+            $startup->socialMediaLinks = $user->socialMediaLinks;
             return response()->json([
                 'status' => 'success',
                 'message' => 'startup created successfully',
-                'user' => User::with('startup')->find($user->id),
-            ]);
+                'user' => $startup //User::with('startup')->find($user->id),
+            ], 200);
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',

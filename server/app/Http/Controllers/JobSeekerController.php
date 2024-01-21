@@ -56,6 +56,11 @@ class JobSeekerController extends Controller
         if (!$jobseekers) {
             return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
         }
+        $jobseekers = $jobseekers->map(function ($jobseeker) {
+            $user = User::find($jobseeker->user_id);
+            $jobseeker->email = $user->email;
+            return $jobseeker;
+        });
         return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
     }
 
@@ -68,18 +73,6 @@ class JobSeekerController extends Controller
         return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
     }
 
-
-
-    public function getRelatedCourses(Request $request)
-    {
-        $jobSeeker = $request->user()->jobSeeker;
-        if ($jobSeeker) {
-            $courses = JobSeekerEnhaceSkillsCourse::where('specialization_id', $jobSeeker->specialization_id)->get();
-            return response()->json(['status' => 'success', 'courses' => $courses]);
-        }
-
-        return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
-    }
 
     public function updateJobSeekerProfile(Request $request)
     {
