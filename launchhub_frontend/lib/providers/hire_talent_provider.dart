@@ -33,15 +33,16 @@ class HireTalentProvider with ChangeNotifier {
   List<JobSeeker> filteredJobSeekers = [];
   String _errorMessage = '';
   String searchQuery = '';
-  bool applicants = false;
-  void toggleScreen() {
-    applicants = !applicants;
-    notifyListeners();
-  }
+  List<JobSeeker> applicants = [];
 
   void loadJobSeekers(List<JobSeeker> jobSeekers) {
     jobSeekers = jobSeekers;
     filteredJobSeekers = jobSeekers;
+    notifyListeners();
+  }
+
+  void loadApplicants(List<JobSeeker> a) {
+    applicants = a;
     notifyListeners();
   }
 
@@ -119,5 +120,59 @@ class HireTalentProvider with ChangeNotifier {
       }).toList();
     }
     notifyListeners();
+  }
+
+  Future getApplications() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await myDio.get(
+        ApiRoute.getApplicantions,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      final applications = response.data['pendingApplicants'];
+      final List<JobSeeker> applicants =
+          applications.map<JobSeeker>((application) {
+        return JobSeeker.fromJson(application['job_seeker']);
+      }).toList();
+
+      loadApplicants(applicants);
+
+      notifyListeners();
+      return;
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+    }
+    return _errorMessage;
+  }
+
+  Future respondToApplication(int id, String status, index) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await myDio.post(
+        ApiRoute.applicationResponse,
+        data: {
+          'application_id': id,
+          'status': status,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      applicants.removeAt(index);
+      print(response.data);
+      notifyListeners();
+      return;
+    } on DioException catch (e) {
+      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+    }
+    return _errorMessage;
   }
 }
