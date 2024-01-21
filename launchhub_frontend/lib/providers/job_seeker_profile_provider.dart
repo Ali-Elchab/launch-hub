@@ -133,11 +133,8 @@ class JobSeekerProfileProvider with ChangeNotifier {
       );
 
       notifyListeners();
-      print(response.data['message']);
       return response.data['message'];
     } on DioException catch (e) {
-      print(e.response!.data['message']);
-
       _errorMessage = 'Failed to apply: ${e.response?.data['message']}';
       return e.response?.data['message'];
     }
@@ -179,12 +176,9 @@ class JobSeekerProfileProvider with ChangeNotifier {
       return 'success';
     } on DioException catch (e) {
       _errorMessage = '${e.response?.data}';
-      print(_errorMessage);
       return _errorMessage;
     } catch (e) {
       _errorMessage = 'Failed to update jobseeker profile: $e';
-      print(_errorMessage);
-
       return _errorMessage;
     }
   }

@@ -26,7 +26,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     handleDeepLink();
   }
 
-  Future<void> handleDeepLink() async {
+  Future handleDeepLink() async {
     try {
       final initialLink = await getInitialLink();
       if (initialLink != null) {
@@ -35,15 +35,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           final token = uri.queryParameters['token'];
           if (token != null && token.isNotEmpty) {
             Navigator.pushNamed(context, '/reset-password', arguments: token);
-          } else {
-            print('Token not found in the deep link.');
           }
-        } else {
-          print('Invalid or unsupported deep link.');
         }
       }
     } on Exception catch (e) {
-      print('Error handling deep link: $e');
+      return e;
     }
   }
 

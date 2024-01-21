@@ -99,7 +99,8 @@ class SignIn extends ConsumerWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ForgotPassword()));
+                                  builder: (context) =>
+                                      const ForgotPassword()));
                         },
                         child: Text(
                           'Forgot Password?',
@@ -121,10 +122,7 @@ class SignIn extends ConsumerWidget {
                                 emailController.text, passwordController.text);
 
                         if (provider.isSignInSuccessful) {
-                          print(response['user']);
                           final user = User.fromJson(response['user']);
-                          print(user.typeId);
-
                           if (user.typeId == 1) {
                             ref.read(startupProfileProvider).loadUser(user);
                             try {

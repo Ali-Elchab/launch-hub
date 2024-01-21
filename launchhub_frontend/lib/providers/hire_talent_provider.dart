@@ -154,7 +154,7 @@ class HireTalentProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     try {
-      final response = await myDio.post(
+      await myDio.post(
         ApiRoute.applicationResponse,
         data: {
           'application_id': id,
@@ -167,7 +167,6 @@ class HireTalentProvider with ChangeNotifier {
         ),
       );
       applicants.removeAt(index);
-      print(response.data);
       notifyListeners();
       return;
     } on DioException catch (e) {
