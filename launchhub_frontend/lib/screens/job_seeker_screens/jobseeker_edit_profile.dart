@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -18,7 +17,6 @@ import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
 import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
 import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
-import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_experience.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';

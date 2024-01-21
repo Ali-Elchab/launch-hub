@@ -2,16 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
+import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
+import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
+import 'package:launchhub_frontend/widgets/startup/applicants_list.dart';
 import 'package:launchhub_frontend/widgets/startup/choosing_candidate.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 import 'package:launchhub_frontend/widgets/startup/job_seekers_list.dart';
 
-class HireTalent extends ConsumerWidget {
+class HireTalent extends ConsumerStatefulWidget {
   const HireTalent({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HireTalent> createState() => _HireTalent();
+}
+
+class _HireTalent extends ConsumerState<HireTalent>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final hiretalentprovider = ref.watch(hireTalentProvider);
     Widget mainContent = Center(
       child: Column(
@@ -33,9 +56,15 @@ class HireTalent extends ConsumerWidget {
     );
 
     if (hiretalentprovider.jobSeekers.isNotEmpty) {
-      mainContent = JobSeekersList(
-        jobSeekers: hiretalentprovider.filteredJobSeekers,
-      );
+      if (_tabController.index == 0) {
+        mainContent = JobSeekersList(
+          jobSeekers: hiretalentprovider.filteredJobSeekers,
+        );
+      } else if (_tabController.index == 1) {
+        mainContent = ApplicantsList(
+          jobSeekers: hiretalentprovider.jobSeekers,
+        );
+      }
     }
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -54,11 +83,6 @@ class HireTalent extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              SearchFilter(
-                onChanged: (String query) =>
-                    hiretalentprovider.updateSearchQuery(query),
-                margin: 10,
-              ),
               InkWell(
                 onTap: () {
                   showModal(const StartupCandidateArticle(), context);
@@ -69,6 +93,30 @@ class HireTalent extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.primary,
                       fontSize: 11),
                 ),
+              ),
+              SearchFilter(
+                onChanged: (String query) =>
+                    hiretalentprovider.updateSearchQuery(query),
+                margin: 10,
+              ),
+              const SizedBox(height: 10),
+              TabBar(
+                onTap: (index) {
+                  setState(() {
+                    _tabController.index = index;
+                  });
+                },
+                controller: _tabController,
+                tabs: [
+                  Text(
+                    'Suggested',
+                    style: Theme.of(context).textTheme.bodyMedium!,
+                  ),
+                  Text(
+                    'Applicants ',
+                    style: Theme.of(context).textTheme.bodyMedium!,
+                  ),
+                ],
               ),
               Expanded(
                 child: mainContent,
