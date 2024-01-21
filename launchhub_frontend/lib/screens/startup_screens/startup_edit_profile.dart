@@ -161,38 +161,68 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Align(
+                  alignment: Alignment.topRight,
+                  child: Text('Profile',
+                      style:
+                          Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                color: Colors.white,
+                              )),
+                ),
+                Align(
                   alignment: Alignment.topLeft + const Alignment(0.1, 0),
                   child: GestureDetector(
                     onTap: () async {
-                      final prefs = await SharedPreferences.getInstance();
-                      final token = prefs.getString('token');
-                      final logout = await myDio.post(ApiRoute.logout,
-                          options: Options(
-                            headers: {
-                              'Authorization': 'Bearer $token',
-                            },
-                          ));
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Log Out'),
+                              content: const Text(
+                                  'Are you sure you want to log out?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Cancel')),
+                                TextButton(
+                                  onPressed: () async {
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    final token = prefs.getString('token');
+                                    final logout =
+                                        await myDio.post(ApiRoute.logout,
+                                            options: Options(
+                                              headers: {
+                                                'Authorization':
+                                                    'Bearer $token',
+                                              },
+                                            ));
 
-                      if (logout.statusCode == 200) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '/SignIn', (route) => false);
-                      }
+                                    if (logout.statusCode == 200) {
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context, '/SignIn', (route) => false);
+                                    }
+                                  },
+                                  child: Text(
+                                    'Log Out',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall!
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                  ),
+                                ),
+                              ],
+                            );
+                          });
                     },
-                    child: Text('Profile',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
+                    child: Text('Log Out',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             )),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Text('Log Out',
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Colors.white,
-                          )),
                 ),
               ],
             ),

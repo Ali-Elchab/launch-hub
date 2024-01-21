@@ -12,14 +12,11 @@ class StartupRootWidget extends StatefulWidget {
 }
 
 class _StartupRootWidgetState extends State<StartupRootWidget> {
-  int _selectedIndex = 0; // To keep track of the active item index
-
-  // List of screens to display based on the selected index
+  int _selectedIndex = 0;
   final List<Widget> _screens = [
     const StartupHome(),
     const StartupCandidateArticle(),
     const StartupEditProfile(),
-    // Add more screens here
   ];
 
   void _onItemTapped(int index) {
@@ -32,8 +29,7 @@ class _StartupRootWidgetState extends State<StartupRootWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:
-            _screens.elementAt(_selectedIndex), // Display the selected screen
+        child: _screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
