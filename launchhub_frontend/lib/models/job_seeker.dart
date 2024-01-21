@@ -1,10 +1,3 @@
-// import 'job_post.dart';
-// import 'education.dart';
-// import 'experience.dart';
-// import 'certification.dart';
-// import 'hobby.dart';
-// import 'skill.dart';
-
 class JobSeeker {
   int? id;
   final String firstName;
@@ -19,13 +12,8 @@ class JobSeeker {
   final int industryId;
   int? userId;
   final int specializationId;
-  // final List? socialMediaLinks;
-  // final List<Education>? educations;
-  // final List<Experience>? experiences;
-  // final List<Certification>? certifications;
-  // final List<Hobby>? hobbies;
-  // final List<Skill>? skills;
-  // final List<JobPost>? jobPosts;
+  String? email;
+
   JobSeeker({
     this.id,
     required this.firstName,
@@ -40,13 +28,7 @@ class JobSeeker {
     required this.industryId,
     this.userId,
     required this.specializationId,
-    // this.socialMediaLinks,
-    // this.educations,
-    // this.experiences,
-    // this.certifications,
-    // this.hobbies,
-    // this.skills,
-    // this.jobPosts,
+    this.email,
   });
 
   factory JobSeeker.fromJson(Map json) {
@@ -64,6 +46,7 @@ class JobSeeker {
       userId: json['user_id'] as int?,
       industryId: json['industry_id'] as int,
       specializationId: json['specialization_id'] as int,
+      email: json['email'] ?? '',
       // socialMediaLinks: (json['socialMediaLinks'] as List)
       //     .map((i) => SocialMediaLink.fromJson(i))
       //     .toList(),
