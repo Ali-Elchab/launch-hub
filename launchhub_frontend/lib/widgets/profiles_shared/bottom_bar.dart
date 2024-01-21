@@ -7,10 +7,8 @@ class CustomBottomNavigationBar extends ConsumerStatefulWidget {
     this.selectedIndex,
     this.onItemSelected,
     super.key,
-    this.user,
   });
 
-  final String? user;
   final int? selectedIndex;
   final Function? onItemSelected;
   @override

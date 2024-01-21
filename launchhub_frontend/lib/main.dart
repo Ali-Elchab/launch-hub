@@ -8,6 +8,7 @@ import 'package:launchhub_frontend/screens/auth_screens/reset_password.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signin.dart';
 import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
+import 'package:launchhub_frontend/screens/job_seeker_screens/jobseeker_root_widget.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_root_widget.dart';
 
@@ -69,6 +70,7 @@ class App extends StatelessWidget {
         '/StartupHome': (context) => const StartupHome(),
         '/StartupRoot': (context) => const StartupRootWidget(),
         '/JobSeekerHome': (context) => const JobSeekerHome(),
+        '/JobSeekerRoot': (context) => const JobSeekerRootWidget(),
         '/reset-password': (context) => ResetPassword(),
       },
       theme: theme,
