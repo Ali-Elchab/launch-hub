@@ -165,11 +165,8 @@ class AuthController extends Controller
                 'message' => $e->errors(),
             ], 422);
         }
-        print_r($request->profile_pic);
         try {
             $profile = uploadImage($request);
-            // print_r($profile);
-
             $resume = uploadFile($request);
             $jobseeker = new JobSeeker([
                 'user_id' => $user->id,
@@ -186,10 +183,6 @@ class AuthController extends Controller
 
             ]);
             $jobseeker->save();
-
-            // echo $request->all();
-
-
             if (!empty($request->experiences))
                 $jobseeker->experiences()->createMany($request->experiences);
             if (!empty($request->educations))
@@ -253,7 +246,6 @@ class AuthController extends Controller
             ], 422);
         }
         try {
-            $user = User::find(auth()->user()->id);
             $logo = uploadLogo($request);
             $startup = new Startup([
                 'user_id' => $user->id,
@@ -273,7 +265,8 @@ class AuthController extends Controller
                 'key_executives' => $request->key_executives,
             ]);
             $startup->save();
-
+            if (!empty($request->social_media_links))
+                $user->socialMediaLinks()->createMany($request->social_media_links);
             return response()->json([
                 'status' => 'success',
                 'message' => 'startup created successfully',

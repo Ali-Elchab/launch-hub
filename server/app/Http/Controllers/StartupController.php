@@ -36,39 +36,49 @@ class StartupController extends Controller
 
     public function updateStartupProfile(Request $request)
     {
-        $request->validate([
-            'company_name' => 'string',
-            'company_email' => 'email',
-            'company_phone' => 'string',
-            'company_description' => 'string',
-            'registration_number' => 'string',
-            'founding_date' => 'date',
-            'company_address' => 'string',
-            'website_url' => 'string',
-            'founders' => 'array',
-            'ceos' => 'nullable|array',
-            'key_executives' => 'nullable|array',
-            'specialization_id' => 'nullable|exists:specializations,id',
-            'industry_id' => 'exists:industries,id',
-        ]);
+        try {
+            $request->validate([
+                'company_name' => 'string',
+                'company_email' => 'email',
+                'company_phone' => 'string',
+                'company_description' => 'string',
+                'registration_number' => 'string',
+                'founding_date' => 'string',
+                'company_address' => 'string',
+                'website_url' => 'string',
+                'founders' => 'array',
+                'ceos' => 'nullable|array',
+                'key_executives' => 'nullable|array',
+                'specialization_id' => 'nullable|exists:specializations,id',
+                'industry_id' => 'exists:industries,id',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+        }
 
-        $user = auth()->user();
+        $user = User::find(auth()->user()->id);
         $startup = $user->startup;
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        $logo = uploadFile($request);
-        if ($logo) {
-            $startup->logo_url = $logo;
+        try {
+            $logo = uploadLogo($request);
+            if ($logo) {
+                $startup->logo_url = $logo;
+                $startup->save();
+            }
+            $startup->update(
+                $request->only([
+                    'company_name', 'company_email', 'company_phone', 'company_description', 'registration_number', 'founding_date', 'company_address', 'website_url', 'founders', 'ceos', 'key_executives', 'specialization_id', 'industry_id',
+                ])
+            );
             $startup->save();
+            if (!empty($request->social_media_links))
+                $user->socialMediaLinks()->createMany($request->social_media_links);
+            return response()->json(['status' => 'success', 'message' => 'Startup profile updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
         }
-        $startup->update(
-            $request->only([
-                'company_name', 'company_email', 'company_phone', 'company_description', 'registration_number', 'founding_date', 'company_address', 'website_url', 'founders', 'ceos', 'key_executives', 'specialization_id', 'industry_id',
-            ])
-        );
-        $startup->save();
-        return response()->json(['status' => 'success', 'message' => 'Startup profile updated successfully']);
     }
 
 
@@ -89,7 +99,7 @@ class StartupController extends Controller
                 Storage::disk('public')->delete($logoPath);
             }
             $user->delete();
-            return response()->json(['status' => 'success', 'message' => 'Startup deleted successfully']);
+            return response()->json(['status' => 'success', 'message' => 'Startup deleted successfully'], 200);
         }
         return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
     }

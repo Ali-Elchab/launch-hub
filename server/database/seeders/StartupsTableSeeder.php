@@ -15,7 +15,7 @@ class StartupsTableSeeder extends Seeder
             'company_name' => 'Tech Innovate',
             'company_email' => 'contact@techinnovate.com',
             'company_phone' => '123-456-7890',
-            'logo_url' => 'https://example.com/logo.png',
+
             'company_description' => 'Innovative tech company working on cutting-edge solutions.',
             'registration_number' => Str::random(10),
             'founding_date' => now()->subYears(5),
@@ -36,7 +36,7 @@ class StartupsTableSeeder extends Seeder
             'company_name' => 'InnoTech Solutions',
             'company_email' => 'contact@innotechsolutions.com',
             'company_phone' => '987-654-3210',
-            'logo_url' => 'https://example.com/innotechlogo.png',
+
             'company_description' => 'Providing innovative technology solutions to businesses.',
             'registration_number' => Str::random(10),
             'founding_date' => now()->subYears(2),
@@ -57,7 +57,7 @@ class StartupsTableSeeder extends Seeder
             'company_name' => 'MediCare Solutions',
             'company_email' => 'contact@medicaresolutions.com',
             'company_phone' => '555-123-4567',
-            'logo_url' => 'https://example.com/medicarelogo.png',
+
             'company_description' => 'Healthcare solutions for a healthier world.',
             'registration_number' => Str::random(10),
             'founding_date' => now()->subYears(3),
@@ -77,7 +77,7 @@ class StartupsTableSeeder extends Seeder
             'company_name' => 'HealthTech Innovators',
             'company_email' => 'contact@healthtechinnovators.com',
             'company_phone' => '123-789-4560',
-            'logo_url' => 'https://example.com/healthtechlogo.png',
+
             'company_description' => 'Revolutionizing healthcare through technology.',
             'registration_number' => Str::random(10),
             'founding_date' => now()->subYears(4),
