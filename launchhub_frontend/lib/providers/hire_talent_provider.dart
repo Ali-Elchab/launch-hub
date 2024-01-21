@@ -23,6 +23,7 @@ class HireTalentProvider with ChangeNotifier {
   HireTalentProvider({required this.jobSeekers, required this.startup});
   Startup startup;
   List<JobSeeker> jobSeekers = [];
+  JobSeeker? jobSeeker;
   List<SocialMediaLink> socialMediaLinks = [];
   List<Education> educations = [];
   List<Experience> experiences = [];
@@ -73,7 +74,9 @@ class HireTalentProvider with ChangeNotifier {
           },
         ),
       );
+
       final data = response.data['jobSeeker'];
+      jobSeeker = JobSeeker.fromJson(data);
       socialMediaLinks = SocialMediaLink.parseMultipleSocialMediaLinks(
           data['socialMediaLinks']);
       educations = Education.parseMultipleEducations(data['educations']);

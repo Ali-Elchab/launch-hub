@@ -155,4 +155,34 @@ class JobSeekerProfileProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future updateJobSeekerProfile(json) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      await myDio.post(
+        ApiRoute.updateJobSeekerProfile,
+        data: json,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      final jobseeker = JobSeeker.fromJson(json);
+      loadJobSeeker(jobseeker);
+      notifyListeners();
+      return 'success';
+    } on DioException catch (e) {
+      _errorMessage = '${e.response?.data}';
+      print(_errorMessage);
+      return _errorMessage;
+    } catch (e) {
+      _errorMessage = 'Failed to update jobseeker profile: $e';
+      print(_errorMessage);
+
+      return _errorMessage;
+    }
+  }
 }

@@ -294,7 +294,8 @@ class Founders extends ConsumerWidget {
                             .read(startupRegisterProvider.notifier)
                             .registerStartup();
                         if (provider.isRegistered) {
-                          final startup = Startup.fromJson(response);
+                          final jsonStartup = await response['user'];
+                          final startup = Startup.fromJson(jsonStartup);
                           ref.read(startupProfileProvider).loadStartup(startup);
                           navigatorKey.currentState?.pushNamedAndRemoveUntil(
                               '/StartupRoot', (Route<dynamic> route) => false);

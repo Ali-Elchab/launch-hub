@@ -44,6 +44,8 @@ class StartupProfileProvider with ChangeNotifier {
 
   void loadUser(User user) {
     user = user;
+    print(user);
+
     notifyListeners();
   }
 
@@ -64,7 +66,10 @@ class StartupProfileProvider with ChangeNotifier {
           },
         ),
       );
-      final startup = Startup.fromJson(response.data['startup']);
+      final jsonStartup = await response.data['startup'];
+      final startup = Startup.fromJson(jsonStartup);
+      print('startup is : ${startup.companyName}');
+
       loadStartup(startup);
     } on DioException catch (e) {
       _errorMessage = '${e.response?.data['message']}';

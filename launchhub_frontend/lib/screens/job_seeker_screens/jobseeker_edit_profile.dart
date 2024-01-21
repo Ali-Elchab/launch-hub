@@ -10,13 +10,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/data/api_constants.dart';
+import 'package:launchhub_frontend/models/certification.dart';
+import 'package:launchhub_frontend/models/education.dart';
+import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
+import 'package:launchhub_frontend/models/skill.dart';
+import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
+import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/providers/startup_profile_provider.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/add_experience.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/social_media_inputs.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
+import 'package:launchhub_frontend/widgets/startup/educational_background.dart';
+import 'package:launchhub_frontend/widgets/startup/experience.dart';
+import 'package:launchhub_frontend/widgets/startup/skills_and_hobbies.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
+import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
 
 class JobSeekerEditProfile extends ConsumerStatefulWidget {
   const JobSeekerEditProfile({super.key});
@@ -28,75 +40,83 @@ class JobSeekerEditProfile extends ConsumerStatefulWidget {
 
 class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final companyDescriptionController = TextEditingController();
-  final registrationNumberController = TextEditingController();
-  final companyNameController = TextEditingController();
+
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final bioController = TextEditingController();
+  final dobController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
-  final websiteController = TextEditingController();
   final linkedinController = TextEditingController();
   final facebookController = TextEditingController();
   final instagramController = TextEditingController();
   final githubController = TextEditingController();
   final locationController = TextEditingController();
-  final foundingDateController = TextEditingController();
   String base64Image = '';
-  Uint8List? logo;
+  Uint8List? profilePic;
+  Uint8List? resume;
 
   Industry? industry;
   Niche? niche;
   List selectedSocialMedia = [];
-  List founders = [];
-  List ceos = [];
-  List keyexecutives = [];
+  List<Education> education = [];
+  List<Experience> experience = [];
+  List<Certification> certification = [];
+  List selectedSkills = [];
+  List selectedHobbies = [];
 
   bool edit = false;
 
   @override
   void initState() {
     super.initState();
-    final profileProvider = ref.read(startupProfileProvider);
     loadData();
-    companyDescriptionController.text =
-        profileProvider.startup.companyDescription;
-    registrationNumberController.text =
-        profileProvider.startup.registrationNumber!;
-    companyNameController.text = profileProvider.startup.companyName;
-    phoneController.text = profileProvider.startup.companyName;
-    emailController.text = profileProvider.startup.companyEmail;
-    selectedSocialMedia = profileProvider.startup.socialMediaLinks;
-    websiteController.text = profileProvider.startup.companyWebsiteUrl!;
-    founders = profileProvider.startup.founders!;
-    ceos = profileProvider.startup.ceos!;
-    keyexecutives = profileProvider.startup.keyExcecutives!;
-    locationController.text = profileProvider.startup.companyAddress;
-    foundingDateController.text = profileProvider.startup.foundingDate;
-    // logo = base64Decode(profileProvider.startup.copmanyLogo!);
-
-    for (var i = 0; i < selectedSocialMedia.length; i++) {
-      if (selectedSocialMedia[i]['platform'] == 'LinkedIn') {
-        linkedinController.text = selectedSocialMedia[i]['link'];
-      } else if (selectedSocialMedia[i]['platform'] == 'Facebook') {
-        facebookController.text = selectedSocialMedia[i]['link'];
-      } else if (selectedSocialMedia[i]['platform'] == 'Instagram') {
-        instagramController.text = selectedSocialMedia[i]['link'];
-      } else if (selectedSocialMedia[i]['platform'] == 'Github') {
-        githubController.text = selectedSocialMedia[i]['link'];
-      }
-    }
   }
 
   void loadData() async {
-    final profileProvider = ref.read(startupProfileProvider);
-    final industry = await myDio
-        .get('${ApiRoute.getIndustries}/${profileProvider.startup.industryId}');
+    final hiretalentProvider = ref.read(hireTalentProvider.notifier);
+    final profileProvider = ref.read(jobSeekerProfileProvider);
+    await hiretalentProvider.getJobSeekerProfile(profileProvider.jobSeeker.id);
+    final industry = await myDio.get(
+        '${ApiRoute.getIndustries}/${profileProvider.jobSeeker.industryId}');
     final specialization = await myDio.get(
-        '${ApiRoute.getSpecializations}/${profileProvider.startup.specializationId}');
+        '${ApiRoute.getSpecializations}/${profileProvider.jobSeeker.specializationId}');
     if (mounted) {
       setState(() {
         this.industry = Industry.fromJson(industry.data['industry']);
         niche = Niche.fromJson(specialization.data['specialization']);
       });
+    }
+    bioController.text = hiretalentProvider.jobSeeker!.bio;
+    firstNameController.text = hiretalentProvider.jobSeeker!.firstName;
+    lastNameController.text = hiretalentProvider.jobSeeker!.lastName;
+    dobController.text = hiretalentProvider.jobSeeker!.dob;
+    phoneController.text = hiretalentProvider.jobSeeker!.phone;
+    emailController.text = profileProvider.user.email;
+    selectedSocialMedia = hiretalentProvider.socialMediaLinks;
+    locationController.text = hiretalentProvider.jobSeeker!.address;
+    education = hiretalentProvider.educations;
+    experience = hiretalentProvider.experiences;
+    certification = hiretalentProvider.certifications;
+    selectedSkills = hiretalentProvider.skills;
+    selectedHobbies = hiretalentProvider.hobbies;
+    profilePic = profileProvider.jobSeeker.profilePic != null
+        ? base64Decode(profileProvider.jobSeeker.profilePic!)
+        : null;
+    resume = profileProvider.jobSeeker.resume != null
+        ? base64Decode(profileProvider.jobSeeker.resume!)
+        : null;
+
+    for (var i = 0; i < selectedSocialMedia.length; i++) {
+      if (selectedSocialMedia[i].platform == 'linkedIn') {
+        linkedinController.text = selectedSocialMedia[i].link;
+      } else if (selectedSocialMedia[i].platform == 'Facebook') {
+        facebookController.text = selectedSocialMedia[i].link;
+      } else if (selectedSocialMedia[i].platform == 'instagram') {
+        instagramController.text = selectedSocialMedia[i].link;
+      } else if (selectedSocialMedia[i].platform == 'github') {
+        githubController.text = selectedSocialMedia[i].link;
+      }
     }
   }
 
@@ -259,7 +279,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                       onImagePicked: () async {
                         pickImage();
                       },
-                      decodedImage: logo,
+                      decodedImage: profilePic,
                       text: 'Upload Logo'),
                 ),
                 const SizedBox(
@@ -277,7 +297,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Company Information',
+                          Text('Personal Information',
                               style: Theme.of(context)
                                   .textTheme
                                   .labelLarge!
@@ -290,30 +310,29 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                             height: 15,
                           ),
                           InputField(
-                            label: 'Company Name',
+                              label: 'First Name',
+                              validator: validator,
+                              readOnly: !edit,
+                              controller: firstNameController),
+                          InputField(
+                              label: 'Last Name',
+                              validator: validator,
+                              readOnly: !edit,
+                              controller: lastNameController),
+                          InputField(
+                            label: 'Date of Birth',
                             readOnly: !edit,
+                            icon: const Icon(Icons.calendar_today),
+                            controller: dobController,
+                            onTap: () => {},
                             validator: validator,
-                            controller: companyNameController,
                           ),
                           InputField(
-                              label: 'Founding Date',
-                              readOnly: true,
-                              icon: const Icon(Icons.calendar_today),
-                              controller: foundingDateController,
+                              label: 'Professional Biography',
+                              isDescription: true,
+                              readOnly: !edit,
+                              controller: bioController,
                               validator: validator),
-                          InputField(
-                            label: 'Registration Number',
-                            readOnly: !edit,
-                            validator: validator,
-                            controller: registrationNumberController,
-                          ),
-                          InputField(
-                            label: 'Company Description',
-                            isDescription: true,
-                            validator: validator,
-                            readOnly: !edit,
-                            controller: companyDescriptionController,
-                          ),
                           InputField(
                               label: 'Industry',
                               validator: validator,
@@ -322,7 +341,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                                 text: industry == null ? '' : industry!.name,
                               )),
                           InputField(
-                              label: 'Niche',
+                              label: 'Speciality',
                               validator: validator,
                               readOnly: true,
                               controller: TextEditingController(
@@ -346,7 +365,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                             height: 15,
                           ),
                           InputField(
-                            label: 'Business Address',
+                            label: 'Address',
                             readOnly: !edit,
                             controller: locationController,
                           ),
@@ -362,11 +381,6 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                             validator: validator,
                             controller: emailController,
                           ),
-                          InputField(
-                            label: 'Website URL',
-                            readOnly: !edit,
-                            controller: websiteController,
-                          ),
                           SocialMediaLinksDropdown(
                             linkedinController: linkedinController,
                             facebookController: facebookController,
@@ -378,7 +392,107 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                             height: 20,
                             thickness: 1,
                           ),
-                          Text('Founders & Key Team Members',
+                          Row(
+                            children: [
+                              Text('Education',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .copyWith(
+                                          color: const Color.fromARGB(
+                                              200, 158, 158, 158),
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 20)),
+                              const Spacer(),
+                              edit
+                                  ? IconButton(
+                                      onPressed: () {
+                                        showModal(
+                                          color: Theme.of(context).primaryColor,
+                                          isDismissible: true,
+                                          const AddEducation(),
+                                          context,
+                                        );
+                                      },
+                                      icon: const Icon(Icons.add),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InputField(
+                            label: 'Education',
+                            validator: validator,
+                            readOnly: true,
+                            controller: TextEditingController(
+                                text: education
+                                    .map((founder) => founder.degree)
+                                    .join(', ')),
+                            onTap: () => {
+                              showModal(
+                                color: Theme.of(context).primaryColor,
+                                isDismissible: true,
+                                EducationalBackground(
+                                  educations: education,
+                                  toggleHeaderColor: () {},
+                                ),
+                                context,
+                              )
+                            },
+                          ),
+                          Row(
+                            children: [
+                              Text('Experience',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .copyWith(
+                                          color: const Color.fromARGB(
+                                              200, 158, 158, 158),
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 20)),
+                              const Spacer(),
+                              edit
+                                  ? IconButton(
+                                      onPressed: () {
+                                        showModal(
+                                          color: Theme.of(context).primaryColor,
+                                          isDismissible: true,
+                                          const AddExperience(),
+                                          context,
+                                        );
+                                      },
+                                      icon: const Icon(Icons.add),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InputField(
+                            label: 'Experience',
+                            onTap: () => {
+                              showModal(
+                                color: Theme.of(context).primaryColor,
+                                isDismissible: true,
+                                JobSeekerExperience(
+                                  experiences: experience,
+                                  toggleHeaderColor: () {},
+                                ),
+                                context,
+                              )
+                            },
+                            validator: validator,
+                            readOnly: true,
+                            controller: TextEditingController(
+                                text: experience
+                                    .map((experience) => experience.position)
+                                    .join(', ')),
+                          ),
+                          Text('Skills',
                               style: Theme.of(context)
                                   .textTheme
                                   .labelLarge!
@@ -391,27 +505,23 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                             height: 15,
                           ),
                           InputField(
-                            label: 'Founders Names',
+                            label: 'Skills',
+                            onTap: () => {
+                              showModal(
+                                color: Theme.of(context).primaryColor,
+                                isDismissible: true,
+                                SkillsAndHobbies(
+                                  skills: selectedSkills as List<Skill>,
+                                  toggleHeaderColor: () {},
+                                ),
+                                context,
+                              )
+                            },
                             validator: validator,
-                            readOnly: true,
+                            readOnly: !edit,
                             controller: TextEditingController(
-                                text: founders
-                                    .map((founder) => founder)
-                                    .join(', ')),
-                          ),
-                          InputField(
-                            label: 'CEOs Names',
-                            readOnly: true,
-                            controller: TextEditingController(
-                                text: ceos.map((ceo) => ceo).join(', ')),
-                          ),
-                          InputField(
-                            label: 'Key Executives',
-                            validator: validator,
-                            readOnly: true,
-                            controller: TextEditingController(
-                                text: keyexecutives
-                                    .map((keyexecutive) => keyexecutive)
+                                text: selectedSkills
+                                    .map((skill) => skill.name)
                                     .join(', ')),
                           ),
                           const SizedBox(
@@ -528,30 +638,42 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                         'url': githubController.text,
                       });
                     }
-                    final data = {
-                      'user_id': ref.read(startupProfileProvider).user.id,
-                      'id': ref.read(startupProfileProvider).startup.id,
-                      'company_name': companyNameController.text,
-                      'company_description': companyDescriptionController.text,
-                      'registration_number': registrationNumberController.text,
-                      'founding_date': foundingDateController.text,
-                      'profilePic': base64Image,
-                      'company_address': locationController.text,
-                      'company_phone': phoneController.text,
-                      'company_email': emailController.text,
-                      'website_url': websiteController.text,
-                      'socialMediaLinks': selectedSocialMedia,
-                      'social_media_links': selectedSocialMedia,
-                      'founders': founders,
-                      'ceos': ceos,
-                      'key_executives': keyexecutives,
-                      'logo_url': base64Image,
+                    List<Map<String, dynamic>> educationsJson = education
+                        .map((education) => education.toJson())
+                        .toList();
+
+                    List<Map<String, dynamic>> experiencesJson = experience
+                        .map((experience) => experience.toJson())
+                        .toList();
+
+                    List<Map<String, dynamic>> certificationsJson =
+                        certification
+                            .map((certification) => certification.toJson())
+                            .toList();
+
+                    final data = <String, dynamic>{
+                      "id": ref.read(jobSeekerProfileProvider).jobSeeker.id,
+                      "user_id": ref.read(jobSeekerProfileProvider).user.id,
+                      "first_name": firstNameController.text,
+                      "last_name": lastNameController.text,
+                      "dob": dobController.text,
+                      'profilePic': base64Image.isNotEmpty ? base64Image : null,
+                      'resume': resume,
+                      "phone": phoneController.text,
+                      "address": locationController.text,
+                      "bio": bioController.text,
                       "industry_id": industry!.id,
                       "specialization_id": niche!.id,
+                      'social_media_links': selectedSocialMedia,
+                      'educations': educationsJson,
+                      'experiences': experiencesJson,
+                      'certifications': certificationsJson,
+                      'hobbies': selectedHobbies,
+                      "skills": selectedSkills,
                     };
                     final update = await ref
-                        .read(startupProfileProvider)
-                        .updateStartupProfile(data);
+                        .read(jobSeekerProfileProvider)
+                        .updateJobSeekerProfile(data);
                     if (update == 'success') {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

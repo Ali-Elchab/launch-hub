@@ -26,9 +26,10 @@ class ProfileImagePicker extends StatelessWidget {
             ? MemoryImage(decodedImage!)
             : imageFile != null
                 ? FileImage(File(imageFile!.path))
-                : const AssetImage('assets/logos/default-profile.png')
-                    as ImageProvider,
-        child: imageFile == null
+                : const AssetImage('assets/backgrounds/grey.png')
+                    as ImageProvider<Object>, // Placeholder transparent image
+
+        child: (imageFile == null && decodedImage == null)
             ? Container(
                 decoration: const BoxDecoration(
                   color:

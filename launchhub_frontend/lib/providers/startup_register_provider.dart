@@ -56,6 +56,7 @@ class StartupRegisterProvider with ChangeNotifier {
         await picker.pickImage(source: ImageSource.gallery);
 
     if (selectedImage != null) {
+      _image = selectedImage;
       var compressedBytes = await FlutterImageCompress.compressWithFile(
         selectedImage.path,
         minWidth: 200,
@@ -156,26 +157,26 @@ class StartupRegisterProvider with ChangeNotifier {
     _companyPhoneNumber = phoneNumber;
     if (linkedInUrl.isNotEmpty) {
       socialMediaLinks.add({
-        'platform': 'LinkedIn',
+        'platform': 'linkedIn',
         'link': linkedInUrl,
       });
     }
     if (facebookUrl.isNotEmpty) {
       socialMediaLinks.add({
-        'platform': 'Facebook',
+        'platform': 'facebook',
         'link': facebookUrl,
       });
     }
     if (instagramUrl.isNotEmpty) {
       socialMediaLinks.add({
-        'platform': 'Instagram',
+        'platform': 'instagram',
         'link': instagramUrl,
       });
     }
     if (gitHubUrl.isNotEmpty) {
       socialMediaLinks.add({
-        'platform': 'Github',
-        'url': gitHubUrl,
+        'platform': 'github',
+        'link': gitHubUrl,
       });
     }
   }

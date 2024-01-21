@@ -37,7 +37,7 @@ class Startup {
     this.keyExcecutives,
   });
 
-  factory Startup.fromJson(Map<String, dynamic> json) {
+  factory Startup.fromJson(Map json) {
     return Startup(
       id: json['id'],
       companyName: json['company_name'],

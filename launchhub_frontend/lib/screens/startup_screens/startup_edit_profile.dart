@@ -64,7 +64,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
     phoneController.text = profileProvider.startup.companyName;
     emailController.text = profileProvider.startup.companyEmail;
     selectedSocialMedia = profileProvider.startup.socialMediaLinks;
-    websiteController.text = profileProvider.startup.companyWebsiteUrl!;
+    websiteController.text = profileProvider.startup.companyWebsiteUrl ?? '';
     founders = profileProvider.startup.founders!;
     ceos = profileProvider.startup.ceos!;
     keyexecutives = profileProvider.startup.keyExcecutives!;
