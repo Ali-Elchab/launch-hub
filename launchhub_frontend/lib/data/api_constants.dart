@@ -29,4 +29,6 @@ abstract class ApiRoute {
   static const updateStartupProfile = 'startup/update_profile';
   static const updateJobSeekerProfile = 'jobseeker/update_profile';
   static const applyForJob = 'apply';
+  static const getApplicantions = 'pending_applications';
+  static const applicationResponse = 'application_response';
 }
