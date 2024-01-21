@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/job_seeker_widgets/job_opportunities_list.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/search_filter.dart';
 
@@ -65,7 +64,6 @@ class JobOpportunities extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(user: 'jobseeker'),
     );
   }
 }

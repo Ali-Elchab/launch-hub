@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchhub_frontend/data/articles_api.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
@@ -72,7 +71,6 @@ class Trending extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(user: 'jobseeker'),
     );
   }
 }

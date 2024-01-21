@@ -3,7 +3,6 @@ import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/startup.dart';
 import 'package:launchhub_frontend/widgets/job_seeker_widgets/startup_profile_modal.dart';
-import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/profile_header.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
 
@@ -243,7 +242,6 @@ class _JobPostViewState extends State<JobPostView> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(user: 'jobseeker'),
     );
   }
 }
