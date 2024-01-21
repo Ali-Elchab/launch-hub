@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
-import 'package:launchhub_frontend/screens/startup_screens/advisors.dart';
-import 'package:launchhub_frontend/screens/startup_screens/hiring_guides.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/startup/applicants_list.dart';
 import 'package:launchhub_frontend/widgets/startup/choosing_candidate.dart';
@@ -25,6 +23,7 @@ class _HireTalent extends ConsumerState<HireTalent>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    ref.read(hireTalentProvider).getApplications();
   }
 
   @override
@@ -62,7 +61,10 @@ class _HireTalent extends ConsumerState<HireTalent>
         );
       } else if (_tabController.index == 1) {
         mainContent = ApplicantsList(
-          jobSeekers: hiretalentprovider.jobSeekers,
+          jobSeekers: hiretalentprovider.applicants,
+          onDismissed: (id, status, index) {
+            hiretalentprovider.respondToApplication(id, status, index);
+          },
         );
       }
     }
@@ -118,6 +120,7 @@ class _HireTalent extends ConsumerState<HireTalent>
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
               Expanded(
                 child: mainContent,
               ),
