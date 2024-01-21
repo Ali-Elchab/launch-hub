@@ -188,14 +188,6 @@ class SignUp extends ConsumerWidget {
       ),
     );
   }
-
-  // @override
-  // void dispose() {
-  //   emailController.dispose();
-  //   passwordController.dispose();
-  //   confirmPasswordController.dispose();
-  //   super.dispose();
-  // }
 }
 
 class HeaderSection extends StatelessWidget {

@@ -38,12 +38,6 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
         .getNiches(ref.read(startupRegisterProvider).selectedIndustry!);
   }
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
-
   String? validator(value) {
     if (value == null || value.isEmpty) {
       return 'This field cannot be empty';
