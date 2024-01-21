@@ -33,6 +33,12 @@ class HireTalentProvider with ChangeNotifier {
   List<JobSeeker> filteredJobSeekers = [];
   String _errorMessage = '';
   String searchQuery = '';
+  bool applicants = false;
+  void toggleScreen() {
+    applicants = !applicants;
+    notifyListeners();
+  }
+
   void loadJobSeekers(List<JobSeeker> jobSeekers) {
     jobSeekers = jobSeekers;
     filteredJobSeekers = jobSeekers;
