@@ -150,7 +150,7 @@ class SignIn extends ConsumerWidget {
                                 showProfileWarning(context);
                               } else {
                                 navigatorKey.currentState
-                                    ?.pushNamedAndRemoveUntil('/JobSeekerHome',
+                                    ?.pushNamedAndRemoveUntil('/JobSeekerRoot',
                                         (Route<dynamic> route) => false);
                               }
                             } catch (e) {

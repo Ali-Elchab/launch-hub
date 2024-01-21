@@ -297,7 +297,7 @@ class Founders extends ConsumerWidget {
                           final startup = Startup.fromJson(response);
                           ref.read(startupProfileProvider).loadStartup(startup);
                           navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                              '/StartupHome', (Route<dynamic> route) => false);
+                              '/StartupRoot', (Route<dynamic> route) => false);
                         } else {
                           // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(

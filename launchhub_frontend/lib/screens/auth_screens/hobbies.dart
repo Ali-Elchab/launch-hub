@@ -105,7 +105,7 @@ class _HobbiesState extends ConsumerState<Hobbies> {
                         .read(jobSeekerProfileProvider.notifier)
                         .loadJobSeeker(jobSeeker);
                     navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                        '/StartupHome', (Route<dynamic> route) => false);
+                        '/JobSeekerRoot', (Route<dynamic> route) => false);
                   } else {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
