@@ -10,7 +10,7 @@ class Application extends Model
     use HasFactory;
 
 
-    public function job()
+    public function jobPost()
     {
         return $this->belongsTo(JobPost::class);
     }

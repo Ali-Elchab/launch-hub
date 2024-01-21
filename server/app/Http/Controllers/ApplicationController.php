@@ -33,15 +33,8 @@ class ApplicationController extends Controller
         $startup = $request->user()->startup;
         if ($startup) {
             $jobPostsIds = $startup->jobPosts()->pluck('id');
-            $pendingApplicants = JobSeeker::whereHas('jobPosts', function ($query) use ($jobPostsIds) {
-                $query->whereIn('job_posts.id', $jobPostsIds)
-                    ->where('applications.status', 'pending');
-            })->with(['jobPosts' => function ($query) use ($jobPostsIds) {
-                $query->whereIn('job_posts.id', $jobPostsIds)
-                    ->where('applications.status', 'pending');
-            }])->get();
-
-            return response()->json(['status' => 'success', 'pendingApplicants' => $pendingApplicants]);
+            $pending = Application::whereIn('job_post_id', $jobPostsIds)->where('status', 'pending')->with('jobPost', 'jobSeeker')->get();
+            return response()->json(['status' => 'success', 'pendingApplicants' => $pending]);
         }
 
         return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
