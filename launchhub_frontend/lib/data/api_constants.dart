@@ -4,6 +4,10 @@ abstract class ApiRoute {
   static const refresh = 'refresh';
   static const registerStartup = 'register_startup';
   static const registerJobseeker = 'register_jobseeker';
+  static const emailResetLink = 'password/email';
+  static const resetPassword = 'password/reset';
+  static const logout = 'logout';
+  static const deleteStartupProfile = 'startup/delete';
   static const getIndustries = 'industries';
   static const getSpecializations = 'specializations';
   static const getIndustrySpecializations = 'industry_specializations';
@@ -21,7 +25,6 @@ abstract class ApiRoute {
   static const getJobSeekerBasicProfile = 'jobseeker/basic_profile';
   static const getRelatedJobPosts = 'jobposts/related';
   static const getStartup = 'startup/profile';
+  static const updateStartupProfile = 'startup/update_profile';
   static const applyForJob = 'apply';
-  static const emailResetLink = 'password/email';
-  static const resetPassword = 'password/reset';
 }

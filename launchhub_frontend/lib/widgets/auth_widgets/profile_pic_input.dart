@@ -1,15 +1,18 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImagePicker extends StatelessWidget {
   final XFile? imageFile;
-  final Future<void> Function() onImagePicked;
+  final Future<void> Function()? onImagePicked;
+  final Uint8List? decodedImage;
   final String text;
   const ProfileImagePicker({
     super.key,
-    required this.imageFile,
-    required this.onImagePicked,
+    this.imageFile,
+    this.onImagePicked,
+    this.decodedImage,
     required this.text,
   });
 
@@ -19,8 +22,12 @@ class ProfileImagePicker extends StatelessWidget {
       onTap: onImagePicked,
       child: CircleAvatar(
         radius: 60,
-        backgroundImage:
-            imageFile != null ? FileImage(File(imageFile!.path)) : null,
+        backgroundImage: decodedImage != null
+            ? MemoryImage(decodedImage!)
+            : imageFile != null
+                ? FileImage(File(imageFile!.path))
+                : const AssetImage('assets/logos/default-profile.png')
+                    as ImageProvider,
         child: imageFile == null
             ? Container(
                 decoration: const BoxDecoration(

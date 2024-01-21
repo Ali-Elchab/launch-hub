@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
-  const SectionTitle({super.key, required this.title});
+  const SectionTitle(
+      {super.key, required this.title, this.color = Colors.black});
 
   final String title;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +16,9 @@ class SectionTitle extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: color,
+              ),
         ),
       ),
     );
