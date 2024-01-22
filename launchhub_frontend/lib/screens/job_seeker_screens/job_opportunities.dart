@@ -32,7 +32,7 @@ class JobOpportunities extends ConsumerWidget {
 
     if (provider.jobPosts.isNotEmpty) {
       mainContent = JobOpportunitiesList(
-        jobPosts: provider.jobPosts,
+        jobPosts: provider.filteredJobPosts,
       );
     }
     return Scaffold(
@@ -59,8 +59,7 @@ class JobOpportunities extends ConsumerWidget {
               ),
               SearchFilter(
                 onChanged: (String query) {
-                  provider.searchQuery = query;
-                  provider.filterJobPosts();
+                  provider.updateSearchQuery(query);
                 },
                 margin: 10,
               ),
