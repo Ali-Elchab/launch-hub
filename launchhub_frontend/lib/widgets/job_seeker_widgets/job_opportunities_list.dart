@@ -100,7 +100,6 @@ class JobOpportunitiesList extends ConsumerWidget {
               );
               return null;
             },
-          
             child: Consumer(
               builder: (context, ref, child) => JobPostCard(
                 jobPost: jobPosts[index],

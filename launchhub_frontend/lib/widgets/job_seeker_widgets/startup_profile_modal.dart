@@ -66,7 +66,7 @@ class StartupProfileModal extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Wrap(spacing: 9.0, runSpacing: 4.0, children: [
                     ...skills!.map((skill) => ChoiceTag(
-                          label: skill.name,
+                          label: skill['name'],
                           isSelected: false,
                         )),
                   ]),
