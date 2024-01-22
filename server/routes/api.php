@@ -6,11 +6,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\UserController;
 use App\Models\Application;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -85,6 +87,10 @@ Route::controller(ApplicationController::class)->group(function () {
     });
 });
 
+Route::controller(MessageController::class)->group(function () {
+    Route::get('messages', 'getUserMessages');
+    Route::post('send_message', 'sendMessage');
+});
 
 Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::controller(AdminController::class)->group(function () {
