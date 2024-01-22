@@ -14,7 +14,6 @@ import 'package:launchhub_frontend/models/experience.dart';
 import 'package:launchhub_frontend/models/industry.dart';
 import 'package:launchhub_frontend/models/niche.dart';
 import 'package:launchhub_frontend/models/skill.dart';
-import 'package:launchhub_frontend/providers/hire_talent_provider.dart';
 import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_experience.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/profile_pic_input.dart';
@@ -71,9 +70,9 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
   }
 
   void loadData() async {
-    final hiretalentProvider = ref.read(hireTalentProvider.notifier);
+    final notifier = ref.read(jobSeekerProfileProvider.notifier);
     final profileProvider = ref.read(jobSeekerProfileProvider);
-    await hiretalentProvider.getJobSeekerProfile(profileProvider.jobSeeker.id);
+    await notifier.getJobSeekerProfile(profileProvider.jobSeeker.id);
     final industry = await myDio.get(
         '${ApiRoute.getIndustries}/${profileProvider.jobSeeker.industryId}');
     final specialization = await myDio.get(
@@ -84,19 +83,19 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
         niche = Niche.fromJson(specialization.data['specialization']);
       });
     }
-    bioController.text = hiretalentProvider.jobSeeker!.bio;
-    firstNameController.text = hiretalentProvider.jobSeeker!.firstName;
-    lastNameController.text = hiretalentProvider.jobSeeker!.lastName;
-    dobController.text = hiretalentProvider.jobSeeker!.dob;
-    phoneController.text = hiretalentProvider.jobSeeker!.phone;
+    bioController.text = notifier.jobSeeker.bio;
+    firstNameController.text = notifier.jobSeeker.firstName;
+    lastNameController.text = notifier.jobSeeker.lastName;
+    dobController.text = notifier.jobSeeker.dob;
+    phoneController.text = notifier.jobSeeker.phone;
     emailController.text = profileProvider.user.email;
-    selectedSocialMedia = hiretalentProvider.socialMediaLinks;
-    locationController.text = hiretalentProvider.jobSeeker!.address;
-    education = hiretalentProvider.educations;
-    experience = hiretalentProvider.experiences;
-    certification = hiretalentProvider.certifications;
-    selectedSkills = hiretalentProvider.skills;
-    selectedHobbies = hiretalentProvider.hobbies;
+    selectedSocialMedia = notifier.socialMediaLinks;
+    locationController.text = notifier.jobSeeker.address;
+    education = notifier.educations;
+    experience = notifier.experiences;
+    certification = notifier.certifications;
+    selectedSkills = notifier.skills;
+    selectedHobbies = notifier.hobbies;
     profilePic = profileProvider.jobSeeker.profilePic != null
         ? base64Decode(profileProvider.jobSeeker.profilePic!)
         : null;
