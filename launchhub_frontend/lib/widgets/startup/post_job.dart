@@ -120,7 +120,7 @@ class _PostJobState extends ConsumerState<PostJob> {
           educationLevel: _selectEducationceLevel!,
           preferredGender: _selectGender!,
           deadline: _jobDeadlineController.text,
-          requiredSkills: selectedSkills.map((skill) => skill['id']).toList(),
+          requiredSkills: selectedSkills.map((skill) => skill.id).toList(),
           jobStatus: 'open',
           industryId: _selectedIndustry!.id,
           specializationId: _selectedNiche!.id,
@@ -251,6 +251,30 @@ class _PostJobState extends ConsumerState<PostJob> {
                           });
                         },
                       ),
+                      GenericDropdown<Industry>(
+                        label: 'Select Industry',
+                        options: data.industries,
+                        selectedOption: _selectedIndustry,
+                        optionLabel: (industry) => industry!.name,
+                        onChanged: (newValue) async {
+                          setState(() {
+                            _selectedIndustry = newValue;
+                            _selectedNiche = null;
+                          });
+                          await getNiches();
+                        },
+                      ),
+                      GenericDropdown<Niche>(
+                        label: 'Select Specialization',
+                        options: data.niches,
+                        selectedOption: _selectedNiche,
+                        optionLabel: (niche) => niche!.name,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedNiche = newValue;
+                          });
+                        },
+                      ),
                       InputField(
                         label: 'Required Skills',
                         readOnly: true,
@@ -268,7 +292,7 @@ class _PostJobState extends ConsumerState<PostJob> {
                         isDescription: true,
                         controller: TextEditingController(
                             text: selectedSkills
-                                .map((skill) => skill['name'])
+                                .map((skill) => skill.name)
                                 .join(', ')),
                         icon: const Icon(Icons.add_circle_outline),
                       ),
@@ -302,30 +326,6 @@ class _PostJobState extends ConsumerState<PostJob> {
                         onChanged: (newValue) {
                           setState(() {
                             _selectGender = newValue;
-                          });
-                        },
-                      ),
-                      GenericDropdown<Industry>(
-                        label: 'Select Industry',
-                        options: data.industries,
-                        selectedOption: _selectedIndustry,
-                        optionLabel: (industry) => industry!.name,
-                        onChanged: (newValue) async {
-                          setState(() {
-                            _selectedIndustry = newValue;
-                            _selectedNiche = null;
-                          });
-                          await getNiches();
-                        },
-                      ),
-                      GenericDropdown<Niche>(
-                        label: 'Select Specialization',
-                        options: data.niches,
-                        selectedOption: _selectedNiche,
-                        optionLabel: (niche) => niche!.name,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedNiche = newValue;
                           });
                         },
                       ),

@@ -57,13 +57,13 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      child: startup!.copmanyLogo != null
+                      child: startup!.copmanyLogo == null
                           ? Image.asset(
                               'assets/logos/default-logo.png',
                               width: 65,
                             )
                           : Image.network(
-                              "${baseUrl}assets/logos/${startup.copmanyLogo!}",
+                              "${baseUrl}assets/images/profile_pics/${startup.copmanyLogo!}",
                               width: 65),
                     ),
                     const SizedBox(height: 5),

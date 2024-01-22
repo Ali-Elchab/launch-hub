@@ -275,7 +275,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                       onImagePicked: () async {
                         pickImage();
                       },
-                      decodedImage: profilePic,
+                      // decodedImage: profilePic,
                       text: 'Upload Logo'),
                 ),
                 const SizedBox(

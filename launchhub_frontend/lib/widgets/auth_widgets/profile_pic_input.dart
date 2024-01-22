@@ -1,18 +1,17 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
 
 class ProfileImagePicker extends StatelessWidget {
   final XFile? imageFile;
   final Future<void> Function()? onImagePicked;
-  final Uint8List? decodedImage;
+  final String? image;
   final String text;
   const ProfileImagePicker({
     super.key,
     this.imageFile,
     this.onImagePicked,
-    this.decodedImage,
+    this.image,
     required this.text,
   });
 
@@ -21,15 +20,16 @@ class ProfileImagePicker extends StatelessWidget {
     return GestureDetector(
       onTap: onImagePicked,
       child: CircleAvatar(
+        backgroundColor: Colors.transparent,
         radius: 60,
-        backgroundImage: decodedImage != null
-            ? MemoryImage(decodedImage!)
-            : imageFile != null
-                ? FileImage(File(imageFile!.path))
-                : const AssetImage('assets/backgrounds/grey.png')
-                    as ImageProvider<Object>, // Placeholder transparent image
-
-        child: (imageFile == null && decodedImage == null)
+        onBackgroundImageError: (exception, stackTrace) {
+          print(exception);
+        },
+        backgroundImage: image != null
+            ? NetworkImage("${baseUrl}assets/images/profile_pics/$image")
+            : const AssetImage('assets/logos/default-logo.png')
+                as ImageProvider,
+        child: (imageFile == null && image == null)
             ? Container(
                 decoration: const BoxDecoration(
                   color:

@@ -1,8 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -40,7 +38,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
   final locationController = TextEditingController();
   final foundingDateController = TextEditingController();
   String base64Image = '';
-  Uint8List? logo;
+  String? logo;
 
   Industry? industry;
   Niche? niche;
@@ -70,7 +68,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
     keyexecutives = profileProvider.startup.keyExcecutives!;
     locationController.text = profileProvider.startup.companyAddress;
     foundingDateController.text = profileProvider.startup.foundingDate;
-    // logo = base64Decode(profileProvider.startup.copmanyLogo!);
+    logo = profileProvider.startup.copmanyLogo!;
 
     for (var i = 0; i < selectedSocialMedia.length; i++) {
       if (selectedSocialMedia[i]['platform'] == 'LinkedIn') {
@@ -258,7 +256,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                       onImagePicked: () async {
                         pickImage();
                       },
-                      decodedImage: logo,
+                      image: logo,
                       text: 'Upload Logo'),
                 ),
                 const SizedBox(
