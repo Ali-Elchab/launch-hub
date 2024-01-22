@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,18 +7,16 @@ import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:launchhub_frontend/models/message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final dio = Dio();
-
 final messagesProvider = ChangeNotifierProvider<MessagesProvider>((ref) {
   return MessagesProvider();
 });
 
 class MessagesProvider with ChangeNotifier {
-  List<Message> _messages = [];
+  final StreamController<List<Message>> _messagesController =
+      StreamController.broadcast();
+  Stream<List<Message>> get messagesStream => _messagesController.stream;
 
-  List<Message> get messages {
-    return [..._messages];
-  }
+  List<Message> messages = [];
 
   Future fetchMessages() async {
     try {
@@ -31,16 +30,21 @@ class MessagesProvider with ChangeNotifier {
           },
         ),
       );
-      final List<Message> loadedMessages = Message.fromJsonList(response.data);
-      _messages = loadedMessages;
+      final List<Message> loadedmessages = Message.fromJsonList(response.data);
+      loadedmessages.sort((b, a) => a.createdAt.compareTo(b.createdAt));
+      messages = loadedmessages;
+      _messagesController.add(loadedmessages);
       notifyListeners();
-      return _messages;
     } on DioException catch (e) {
-      print(e.response!.data);
       return e.response!.data;
     } catch (e) {
-      print(e);
       return e;
     }
+  }
+
+  @override
+  void dispose() {
+    _messagesController.close(); // Close the StreamController
+    super.dispose();
   }
 }
