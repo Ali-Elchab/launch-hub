@@ -90,6 +90,7 @@ Route::controller(ApplicationController::class)->group(function () {
 Route::controller(MessageController::class)->group(function () {
     Route::get('messages', 'getUserMessages');
     Route::post('send_message', 'sendMessage');
+    Route::delete('clear_messages', 'clearMessages');
 });
 
 Route::prefix('admin/')->middleware(['admin'])->group((function () {

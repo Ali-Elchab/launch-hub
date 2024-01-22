@@ -13,7 +13,7 @@ class MessageController extends Controller
     public function getUserMessages()
     {
         $user = auth()->user();
-        $messages = $user->messages->sortByDesc('created_at');
+        $messages = $user->messages;
         return response()->json($messages);
     }
 
@@ -38,13 +38,18 @@ class MessageController extends Controller
             $industry = $startup->industry->name;
             $specialization = $startup->specialization->name;
 
-            $prompt = "\n I started a startup company in the $industry industry, $specialization niche, my company name is $company, ";
-            $prompt .= "\nthe company's description is the following $description, ";
-            $prompt .= "\nthe company founding date is $foundingDate, ";
-            $prompt .= "\nlocated in $address, ";
-            $prompt .= "\n I am seeking help with the following: ";
-            $prompt .= "\n $message->text.";
-            $prompt .= "\n Please return as plain text, dont add anything before or after the answer";
+            $prompt = "I am an AI assistant providing specific advice to startups. ";
+            $prompt .= "I specialize in offering guidance based on the startup's profile and the nature of the inquiries. ";
+            $prompt .= "Here are the details of the startup I am assisting: ";
+            $prompt .= "Industry: $industry, Specialization: $specialization, Company Name: $company, ";
+            $prompt .= "Description: $description, Founding Date: $foundingDate, Location: $address. ";
+            $prompt .= "I need to provide concise, relevant, and practical advice based on the inquiries made. ";
+            $prompt .= "For short or unclear questions, I should ask for clarification to give the best possible response. ";
+            $prompt .= "Question: $message->text. ";
+            $prompt .= "Response should be in plain text, focused, and directly related to the startup's context. ";
+            if (strlen(trim($message->text)) < 3) {
+                $prompt = "return this as plain text: The question seems too short. Could you please provide more details or specify your query?";
+            }
         }
         if ($user->jobSeeker) {
             $jobSeeker = $user->jobSeeker;
@@ -54,13 +59,17 @@ class MessageController extends Controller
             $address = $jobSeeker->address;
             $industry = $jobSeeker->industry->name;
             $specialization = $jobSeeker->specialization->name;
-
-            $prompt = "\n My name is $name I am a job seeker in the $industry industry, specializing in $specialization, I was born in $dob.";
-            $prompt .= "\nhere is my professional biography: $bio";
-            $prompt .= "\ni am located in $address, ";
-            $prompt .= "\n I am seeking ai assistance with the following: ";
-            $prompt .= "\n $message->text.";
-            $prompt .= "\n Please return as plain text, dont add anything before or after the answer";
+            $prompt = "I am an AI assistant providing career and professional advice to individuals. ";
+            $prompt .= "I specialize in offering personalized guidance based on each person's professional background and their specific questions. ";
+            $prompt .= "Here are the details of the individual seeking advice: ";
+            $prompt .= "Name: $name, Industry: $industry, Specialization: $specialization, Date of Birth: $dob, ";
+            $prompt .= "Professional Biography: $bio, Location: $address. ";
+            $prompt .= "The individual is seeking advice on the following: $message->text. ";
+            $prompt .= "My response should be in plain text, directly addressing the individual's query, and tailored to their professional background. ";
+            $prompt .= "In case the query is unclear or too general, I should ask for more specific details to provide the most helpful response. ";
+            if (strlen(trim($message->text)) < 3) {
+                $prompt = "return this as plain text: The question seems too short. Could you please provide more details or specify your query?";
+            }
         }
 
         $result = OpenAI::completions()->create([
@@ -69,7 +78,7 @@ class MessageController extends Controller
             'max_tokens' => 3700,
         ]);
 
-        $response = $result['choices'][0]['text'];
+        $response = ltrim($result['choices'][0]['text'], "\n");
 
         $aiMessage = new Message();
         $aiMessage->text = $response;
@@ -77,6 +86,16 @@ class MessageController extends Controller
         $aiMessage->sender = 'bot';
         $aiMessage->save();
 
-        return response($response, 200);
+        return response()->json($aiMessage);
+    }
+
+    public function clearMessages()
+    {
+        $user = auth()->user();
+        $messages = $user->messages;
+        foreach ($messages as $message) {
+            $message->delete();
+        }
+        return response()->json(['status' => 'success', 'message' => 'Messages cleared successfully']);
     }
 }
