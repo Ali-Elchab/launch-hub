@@ -53,8 +53,9 @@ class ProfileHeader extends StatelessWidget {
                 : '${firstName!} ${lastName!}',
             textColor: color,
           ),
-          SizedBox(
-            width: 320,
+          Container(
+            // width: 320,
+            padding: const EdgeInsets.only(left: 45),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,139 +63,150 @@ class ProfileHeader extends StatelessWidget {
                 Container(
                   width: 80,
                   height: 80,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: profilePicture == null
-                          ? AssetImage(companyName != null
-                              ? 'assets/logos/default-logo.png'
-                              : 'assets/logos/default-profile.png')
-                          : NetworkImage(profilePicture!)
-                              as ImageProvider<Object>,
+                      image: AssetImage('assets/logos/default-logo.png'),
+                      // image: profilePicture == null
+                      //     ? AssetImage(companyName != null
+                      //         ? 'assets/logos/default-logo.png'
+                      //         : 'assets/logos/default-profile.png')
+                      //     : NetworkImage(profilePicture!)
+                      //         as ImageProvider<Object>,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                const SizedBox(width: 40),
+                const SizedBox(width: 25),
                 Expanded(
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      physics: const ClampingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.phone_enabled_outlined,
-                                color: color,
-                                size: 15,
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  phoneNumber!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 13,
-                                        color: color,
-                                      ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 7),
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.email_outlined,
-                                color: color,
-                                size: 15,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                email!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 13,
-                                      color: color,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 7),
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.location_on_outlined,
-                                color: color,
-                                size: 15,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                city!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 13,
-                                      color: color,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          // const SizedBox(height: 10),
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(
+                    children: [
+                      SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          physics: const ClampingScrollPhysics(),
+                          child: Column(
                             children: [
-                              for (var social in socials)
-                                if (social.platform.toLowerCase().trim() ==
-                                    'facebook')
-                                  IconButton(
-                                    alignment: Alignment.centerLeft,
-                                    icon: Icon(
-                                      FontAwesomeIcons.facebook,
-                                      color: color,
-                                      size: 15,
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.phone_enabled_outlined,
+                                    color: color,
+                                    size: 15,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      phoneNumber!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontSize: 13,
+                                            color: color,
+                                          ),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    onPressed: () async {
-                                      openLink(context, social.link);
-                                    },
-                                  )
-                                else if (social.platform.toLowerCase().trim() ==
-                                    'instagram')
-                                  IconButton(
-                                    alignment: Alignment.centerLeft,
-                                    icon: Icon(
-                                      FontAwesomeIcons.instagram,
-                                      color: color,
-                                      size: 15,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 7),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.email_outlined,
+                                    color: color,
+                                    size: 15,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Flexible(
+                                    child: Text(
+                                      email!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontSize: 13,
+                                            color: color,
+                                          ),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    onPressed: () async {
-                                      openLink(context, social.link);
-                                    },
-                                  )
-                                else if (social.platform.toLowerCase().trim() ==
-                                    'linkedin')
-                                  IconButton(
-                                    alignment: Alignment.centerLeft,
-                                    icon: Icon(
-                                      FontAwesomeIcons.linkedin,
-                                      color: color,
-                                      size: 15,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 7),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.location_on_outlined,
+                                    color: color,
+                                    size: 15,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Flexible(
+                                    child: Text(
+                                      city!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontSize: 13,
+                                            color: color,
+                                          ),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    onPressed: () async {
-                                      openLink(context, social.link);
-                                    },
-                                  )
+                                  ),
+                                ],
+                              ),
+                              // const SizedBox(height: 10),
                             ],
-                          )
+                          )),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          for (var social in socials)
+                            if (social.platform.toLowerCase().trim() ==
+                                'facebook')
+                              IconButton(
+                                alignment: Alignment.centerLeft,
+                                icon: Icon(
+                                  FontAwesomeIcons.facebook,
+                                  color: color,
+                                  size: 15,
+                                ),
+                                onPressed: () async {
+                                  openLink(context, social.link);
+                                },
+                              )
+                            else if (social.platform.toLowerCase().trim() ==
+                                'instagram')
+                              IconButton(
+                                alignment: Alignment.centerLeft,
+                                icon: Icon(
+                                  FontAwesomeIcons.instagram,
+                                  color: color,
+                                  size: 15,
+                                ),
+                                onPressed: () async {
+                                  openLink(context, social.link);
+                                },
+                              )
+                            else if (social.platform.toLowerCase().trim() ==
+                                'linkedin')
+                              IconButton(
+                                alignment: Alignment.centerLeft,
+                                icon: Icon(
+                                  FontAwesomeIcons.linkedin,
+                                  color: color,
+                                  size: 15,
+                                ),
+                                onPressed: () async {
+                                  openLink(context, social.link);
+                                },
+                              )
                         ],
-                      )),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

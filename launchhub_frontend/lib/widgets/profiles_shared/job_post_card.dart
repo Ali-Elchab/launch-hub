@@ -35,7 +35,7 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.read(jobSeekerProfileProvider);
+    final provider = ref.watch(jobSeekerProfileProvider);
     final startup = widget.company ?? provider.startup;
     return InkWell(
       onTap: widget.onTap,
