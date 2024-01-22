@@ -112,8 +112,10 @@ class JobSeekerProfileProvider with ChangeNotifier {
           },
         ),
       );
-      startup = Startup.fromJson(response.data['startup']);
+      final jsonStartup = response.data['startup'];
+      startup = Startup.fromJson(jsonStartup);
       notifyListeners();
+      return startup;
     } on DioException catch (e) {
       _errorMessage = 'Failed to get startup: ${e.response?.data}';
     }
