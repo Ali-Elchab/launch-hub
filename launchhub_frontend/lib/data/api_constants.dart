@@ -31,4 +31,5 @@ abstract class ApiRoute {
   static const applyForJob = 'apply';
   static const getApplicantions = 'pending_applications';
   static const applicationResponse = 'application_response';
+  static const getMessages = 'messages';
 }
