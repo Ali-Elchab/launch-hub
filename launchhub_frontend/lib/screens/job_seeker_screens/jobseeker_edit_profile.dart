@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +22,7 @@ import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/startup/educational_background.dart';
 import 'package:launchhub_frontend/widgets/startup/experience.dart';
 import 'package:launchhub_frontend/widgets/startup/skills_and_hobbies.dart';
+import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:launchhub_frontend/helpers/show_modal_sheet.dart';
 import 'package:launchhub_frontend/widgets/auth_widgets/add_education.dart';
@@ -49,8 +50,12 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
   final githubController = TextEditingController();
   final locationController = TextEditingController();
   String base64Image = '';
-  Uint8List? profilePic;
-  Uint8List? resume;
+  String? profilePic;
+  XFile? selectedImage;
+
+  String? resumeName;
+  XFile? selectedResume;
+  String base64Resume = '';
 
   Industry? industry;
   Niche? niche;
@@ -67,6 +72,15 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
   void initState() {
     super.initState();
     loadData();
+  }
+
+  Future<void> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    resumeName = result!.files.first.name;
+    if (result.files.single.bytes != null) {
+      final bytes = result.files.single.bytes!;
+      base64Resume = base64Encode(bytes);
+    } else {}
   }
 
   void loadData() async {
@@ -96,12 +110,8 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
     certification = notifier.certifications;
     selectedSkills = notifier.skills;
     selectedHobbies = notifier.hobbies;
-    profilePic = profileProvider.jobSeeker.profilePic != null
-        ? base64Decode(profileProvider.jobSeeker.profilePic!)
-        : null;
-    resume = profileProvider.jobSeeker.resume != null
-        ? base64Decode(profileProvider.jobSeeker.resume!)
-        : null;
+    profilePic = notifier.jobSeeker.profilePic;
+    resumeName = notifier.jobSeeker.resume;
 
     for (var i = 0; i < selectedSocialMedia.length; i++) {
       if (selectedSocialMedia[i].platform == 'linkedIn') {
@@ -121,6 +131,9 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
     final XFile? selectedImage =
         await picker.pickImage(source: ImageSource.gallery);
     if (selectedImage != null) {
+      setState(() {
+        this.selectedImage = selectedImage;
+      });
       var compressedBytes = await FlutterImageCompress.compressWithFile(
         selectedImage.path,
         minWidth: 200,
@@ -275,7 +288,8 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                       onImagePicked: () async {
                         pickImage();
                       },
-                      // decodedImage: profilePic,
+                      image: profilePic,
+                      imageFile: selectedImage,
                       text: 'Upload Logo'),
                 ),
                 const SizedBox(
@@ -520,6 +534,14 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                                     .map((skill) => skill.name)
                                     .join(', ')),
                           ),
+                          InputField(
+                            label: 'Upload Resume Here',
+                            readOnly: true,
+                            controller: TextEditingController(
+                                text: path.basename(selectedResume!.path)),
+                            icon: const Icon(Icons.upload_file),
+                            onTap: () => pickFile(),
+                          ),
                           const SizedBox(
                             height: 30,
                           ),
@@ -654,7 +676,8 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                       "last_name": lastNameController.text,
                       "dob": dobController.text,
                       'profilePic': base64Image.isNotEmpty ? base64Image : null,
-                      'resume': resume,
+                      'resume':
+                          base64Resume.isNotEmpty ? base64Resume : resumeName,
                       "phone": phoneController.text,
                       "address": locationController.text,
                       "bio": bioController.text,
