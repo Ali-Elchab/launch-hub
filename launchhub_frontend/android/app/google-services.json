@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "809995362596",
+    "project_id": "launchhub-alielchab",
+    "storage_bucket": "launchhub-alielchab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809995362596:android:146ae24bd32432b11013b1",
+        "android_client_info": {
+          "package_name": "com.example.launchhub_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD53dtbZ6qUOPsqbrSy09_5TRWJbK6urmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
