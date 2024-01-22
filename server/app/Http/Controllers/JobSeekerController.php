@@ -21,7 +21,7 @@ class JobSeekerController extends Controller
 
     public function getBasicProfile(Request $request)
     {
-        $user = $request->user();
+        $user = auth()->user();
         if ($user && $user->jobSeeker) {
             $jobSeeker = $user->jobSeeker;
             return response()->json(['status' => 'success', 'jobSeeker' => $jobSeeker]);
