@@ -73,7 +73,6 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Empower Your Team\'s Growth: Effortlessly Add, View, and Manage Job Listings to Connect with Top Talent and Shape Your Company\'s Future.',
                         imagePath: 'assets/images/job_board.png',
                         onTap: () async {
-                          // await jobBoard.fetchJobPosts();
                           navigator(context, const JobBoard());
                         },
                       ),
