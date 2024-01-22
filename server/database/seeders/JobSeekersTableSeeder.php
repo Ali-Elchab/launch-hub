@@ -16,7 +16,7 @@ class JobSeekersTableSeeder extends Seeder
             [
                 'first_name' => 'John',
                 'last_name' => 'Doe',
-                'profile_pic' => null,
+                'profile_pic' => 'picture.png',
                 'dob' => '1990-01-01',
                 'phone' => '555-1234',
                 'address' => '123 Main St',
@@ -32,7 +32,8 @@ class JobSeekersTableSeeder extends Seeder
             [
                 'first_name' => 'Jane',
                 'last_name' => 'Smith',
-                'profile_pic' => null,
+                'profile_pic' => 'picture1.png',
+
                 'dob' => '1985-03-15',
                 'phone' => '555-5678',
                 'address' => '456 Tech Blvd',
@@ -48,7 +49,8 @@ class JobSeekersTableSeeder extends Seeder
             [
                 'first_name' => 'Sarah',
                 'last_name' => 'Johnson',
-                'profile_pic' => null,
+                'profile_pic' => 'picture2.png',
+
                 'dob' => '1988-05-20',
                 'phone' => '555-9876',
                 'address' => '789 Health Lane',
