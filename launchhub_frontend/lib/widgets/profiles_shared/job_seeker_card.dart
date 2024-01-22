@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/helpers/navigator.dart';
 import 'package:launchhub_frontend/models/job_seeker.dart';
 import 'package:launchhub_frontend/providers/data_provider.dart';
@@ -55,9 +56,11 @@ class _JobSeekerCard extends ConsumerState<JobSeekerCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        alignment: Alignment.topLeft,
-                        child: Image.asset('assets/logos/default-profile.png',
-                            width: 65)),
+                      alignment: Alignment.topLeft,
+                      child: Image.network(
+                          "${baseUrl}assets/images/profile_pics/${jobSeeker.profilePic!}",
+                          width: 65),
+                    ),
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[

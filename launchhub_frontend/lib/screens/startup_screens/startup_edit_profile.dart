@@ -46,7 +46,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
   List founders = [];
   List ceos = [];
   List keyexecutives = [];
-
+  XFile? selectedImage;
   bool edit = false;
 
   @override
@@ -99,11 +99,13 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
 
   Future pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
+    selectedImage = await picker.pickImage(source: ImageSource.gallery);
     if (selectedImage != null) {
+      setState(() {
+        selectedImage = selectedImage;
+      });
       var compressedBytes = await FlutterImageCompress.compressWithFile(
-        selectedImage.path,
+        selectedImage!.path,
         minWidth: 200,
         minHeight: 200,
         quality: 75,
@@ -257,6 +259,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                         pickImage();
                       },
                       image: logo,
+                      imageFile: selectedImage,
                       text: 'Upload Logo'),
                 ),
                 const SizedBox(
@@ -542,7 +545,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                       'founders': founders,
                       'ceos': ceos,
                       'key_executives': keyexecutives,
-                      'logo_url': base64Image,
+                      'logo_url': base64Image.isNotEmpty ? base64Image : logo,
                       "industry_id": industry!.id,
                       "specialization_id": niche!.id,
                     };

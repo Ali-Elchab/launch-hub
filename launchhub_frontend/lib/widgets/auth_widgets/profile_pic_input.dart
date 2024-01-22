@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
@@ -22,13 +24,13 @@ class ProfileImagePicker extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 60,
-        onBackgroundImageError: (exception, stackTrace) {
-          print(exception);
-        },
-        backgroundImage: image != null
-            ? NetworkImage("${baseUrl}assets/images/profile_pics/$image")
-            : const AssetImage('assets/logos/default-logo.png')
-                as ImageProvider,
+        onBackgroundImageError: (exception, stackTrace) {},
+        backgroundImage: imageFile != null
+            ? FileImage(File(imageFile!.path))
+            : image != null
+                ? NetworkImage("${baseUrl}assets/images/profile_pics/$image")
+                : const AssetImage('assets/logos/default-logo.png')
+                    as ImageProvider,
         child: (imageFile == null && image == null)
             ? Container(
                 decoration: const BoxDecoration(

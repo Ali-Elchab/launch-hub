@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 
@@ -63,16 +64,12 @@ class ProfileHeader extends StatelessWidget {
                 Container(
                   width: 80,
                   height: 80,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage('assets/logos/default-logo.png'),
-                      // image: profilePicture == null
-                      //     ? AssetImage(companyName != null
-                      //         ? 'assets/logos/default-logo.png'
-                      //         : 'assets/logos/default-profile.png')
-                      //     : NetworkImage(profilePicture!)
-                      //         as ImageProvider<Object>,
+                      image: NetworkImage(
+                        "${baseUrl}assets/images/profile_pics/$profilePicture",
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
