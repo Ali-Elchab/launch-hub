@@ -37,6 +37,9 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
   Widget build(BuildContext context) {
     final provider = ref.watch(jobSeekerProfileProvider);
     final startup = widget.company ?? provider.startup;
+    if (startup == null) {
+      return const CircularProgressIndicator(); // Or any other loading widget
+    }
     return InkWell(
       onTap: widget.onTap,
       child: Card(
@@ -56,16 +59,15 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      alignment: Alignment.topLeft,
-                      child: startup!.copmanyLogo == null
-                          ? Image.asset(
-                              'assets/logos/default-logo.png',
-                              width: 65,
-                            )
-                          : Image.network(
-                              "${baseUrl}assets/images/profile_pics/${startup.copmanyLogo!}",
-                              width: 65),
-                    ),
+                        alignment: Alignment.topLeft,
+                        child: startup.copmanyLogo == null
+                            ? Image.asset(
+                                'assets/logos/default-logo.png',
+                                width: 65,
+                              )
+                            : Image.network(
+                                "${baseUrl}assets/images/profile_pics/${startup.copmanyLogo!}",
+                                width: 65)),
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
