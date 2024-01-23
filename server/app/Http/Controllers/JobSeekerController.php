@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobPost;
 use App\Models\JobSeeker;
-use App\Models\JobSeekerEnhaceSkillsCourse;
-use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use OpenAI\Laravel\Facades\OpenAI;
+use stdClass;
 
 class JobSeekerController extends Controller
 {
@@ -50,19 +49,68 @@ class JobSeekerController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
     }
 
-    public function getJobSeekers($specialization_id)
+    public function getJobSeekers($specialization_id = null)
     {
-        $jobseekers = JobSeeker::where('specialization_id', $specialization_id)->get();
-        if (!$jobseekers) {
-            return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
+        try {
+            $user = auth()->user();
+            if (!$user) {
+                return response()->json(['status' => 'error', 'message' => 'Authentication required'], 401);
+            }
+
+            $jobseekers = JobSeeker::get();
+            if ($jobseekers->isEmpty()) {
+                return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
+            }
+
+            $startup = $user->startup;
+            if (!$startup) {
+                return response()->json(['status' => 'error', 'message' => 'Startup details not found'], 404);
+            }
+
+            $company = $startup->company_name;
+            $description = $startup->company_description;
+            $foundingDate = $startup->founding_date;
+            $address = $startup->company_address;
+            $industry = $startup->industry->name;
+            $specialization = $startup->specialization->name;
+
+            $prompt = "I am an AI assistant providing specific advice to startups, particularly in matching them with ideal job candidates. ";
+            $prompt .= "I am assisting a startup with the following profile: ";
+            $prompt .= "Industry: $industry, Specialization: $specialization, Company Name: $company, ";
+            $prompt .= "Description: $description, Founded On: $foundingDate, Location: $address. ";
+            $prompt .= "This startup's core focus is on $industry and $specialization. In line with this, they need talented individuals for roles essential to a technology startup's ecosystem. These roles include but are not limited to accounting, finance, marketing, HR, legal, IT, and customer support. ";
+            $prompt .= "It's critical to match the startup with candidates whose expertise aligns specifically with these domains. Please avoid suggesting candidates from unrelated fields such as healthcare, as they do not meet the startup's current operational needs. ";
+            $prompt .= "Based on this startup's profile and operational requirements, analyze the following list of job seekers and identify those who are the most suitable: $jobseekers ";
+            $prompt .= "Your response should list the IDs of the suggested job seekers in the following format: [id1, id2, ...]. ";
+            $prompt .= "Ensure the response contains only the list of IDs, formatted as an array, without any additional text or commentary.";
+            try {
+                $result = OpenAI::completions()->create([
+                    'model' => 'gpt-3.5-turbo-instruct',
+                    'prompt' => $prompt,
+                    'max_tokens' => 100,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json(['status' => 'error', 'message' => 'Failed to communicate with AI service', 'error' => $e->getMessage()], 500);
+            }
+
+            $response = $result['choices'][0]['text'];
+            $idsString = trim($response, " \n[]");
+            $idsArray = explode(", ", $idsString);
+            $idsArray = array_map('intval', $idsArray);
+
+            $jobSeekers = JobSeeker::whereIn('id', $idsArray)->get();
+            $jobSeekers = $jobSeekers->map(function ($jobSeeker) {
+                $user = User::find($jobSeeker->user_id);
+                $jobSeeker->email = $user->email;
+                return $jobSeeker;
+            });
+
+            return response()->json(['status' => 'success', 'jobseekers' => $jobSeekers]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'An unexpected error occurred', 'error' => $e->getMessage()], 500);
         }
-        $jobseekers = $jobseekers->map(function ($jobseeker) {
-            $user = User::find($jobseeker->user_id);
-            $jobseeker->email = $user->email;
-            return $jobseeker;
-        });
-        return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
     }
+
 
     public function getAllJobSeekers()
     {

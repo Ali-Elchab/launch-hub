@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobPost;
 use Illuminate\Http\Request;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class JobPostController extends Controller
 {
@@ -116,6 +117,8 @@ class JobPostController extends Controller
 
     public function getRelatedJobPosts(Request $request, $specialization_id = null)
     {
+
+
         $specializationId = $specialization_id ? $specialization_id : $request->user()->jobSeeker->specialization_id;
         $jobPosts = JobPost::where('specialization_id', $specializationId)->get();
         $jobPosts->load(['requiredSkills']);
