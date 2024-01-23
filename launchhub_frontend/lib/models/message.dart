@@ -1,14 +1,14 @@
 class Message {
   final int id;
   final String text;
-  final int userId;
+  final int? userId;
   final String sender;
   final String createdAt;
 
   Message({
     required this.id,
     required this.text,
-    required this.userId,
+    this.userId,
     required this.sender,
     required this.createdAt,
   });
