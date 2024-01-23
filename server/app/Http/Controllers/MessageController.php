@@ -65,7 +65,7 @@ class MessageController extends Controller
             $prompt .= "Name: $name, Industry: $industry, Specialization: $specialization, Date of Birth: $dob, ";
             $prompt .= "Professional Biography: $bio, Location: $address. ";
             $prompt .= "The individual is seeking advice on the following: $message->text. ";
-            $prompt .= "My response should be in plain text, directly addressing the individual's query, and tailored to their professional background. ";
+            $prompt .= "response should be in plain text(not email format), directly addressing the individual's query, and tailored to their professional background. ";
             $prompt .= "In case the query is unclear or too general, I should ask for more specific details to provide the most helpful response. ";
             if (strlen(trim($message->text)) < 3) {
                 $prompt = "return this as plain text: The question seems too short. Could you please provide more details or specify your query?";

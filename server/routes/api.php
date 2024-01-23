@@ -49,7 +49,7 @@ Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(funct
     });
     Route::get('profile/{id?}', 'getJobSeeker');
     Route::get('', 'getAllJobSeekers');
-    Route::get('job_seekers/{specialization_id}', 'getJobSeekers');
+    Route::get('job_seekers', 'getJobSeekers');
 });
 
 Route::prefix('startup/')->controller(StartupController::class)->group(function () {
