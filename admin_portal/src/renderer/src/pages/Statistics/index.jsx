@@ -1,7 +1,7 @@
 import React from "react";
 
 const Statistics = () => {
-  return <div>Statistics</div>;
+  return <div className="">Statistics</div>;
 };
 
 export default Statistics;

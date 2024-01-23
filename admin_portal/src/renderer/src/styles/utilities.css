@@ -62,6 +62,7 @@
 .page {
   justify-content: center;
   align-items: center;
+  background-color: rgba(227, 227, 227, 0.808);
 }
 
 .content-container {
