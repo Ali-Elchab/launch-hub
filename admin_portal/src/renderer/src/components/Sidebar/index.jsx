@@ -9,7 +9,7 @@ export const Sidebar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname == "/") {
+    if (location.pathname == "/s") {
       setDisplay(false);
     } else setDisplay(true);
   }, [location.pathname]);
@@ -17,10 +17,12 @@ export const Sidebar = () => {
     <div className="sidebar flex column">
       <ul className="main-list">
         <li>
-          Dashboards
+          LaunchHub
           <ul className="sub-list">
-            <li onClick={() => navigate("/drivers")}>Drivers</li>
-            <li onClick={() => navigate("/passengers")}>Passengers</li>
+            <li onClick={() => navigate("/statistics")}>Dashboard</li>
+            <li onClick={() => navigate("/passengers")}>User Management</li>
+            <li onClick={() => navigate("/passengers")}>Job Post Management</li>
+            <li onClick={() => navigate("/passengers")}>Content Management</li>
           </ul>
         </li>
       </ul>

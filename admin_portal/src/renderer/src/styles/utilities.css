@@ -45,8 +45,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  right: 0;
-  position: absolute;
+  padding: 80px;
   width: 100%;
   height: 100%;
 }

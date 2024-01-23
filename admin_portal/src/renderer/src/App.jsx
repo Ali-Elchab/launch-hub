@@ -6,15 +6,15 @@ import { Sidebar } from "./components/Sidebar";
 
 function App() {
   return (
-    <div className="content flex row">
+    <div className=" flex row">
       <Sidebar />
       <div className="main">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Statistics />} />
           <Route path="/statistics" element={<Statistics />} />
         </Routes>
       </div>
-      //{" "}
+      
     </div>
   );
 }
