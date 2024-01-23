@@ -104,6 +104,7 @@ class JobSeekerProfileProvider with ChangeNotifier {
         ),
       );
       jobPosts = JobPost.parseMultipleJobPosts(response.data['jobPosts']);
+      filteredJobPosts = jobPosts;
       notifyListeners();
       return;
     } on DioException catch (e) {
