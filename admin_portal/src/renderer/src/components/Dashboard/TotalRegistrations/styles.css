@@ -1,0 +1,11 @@
+.total-registrations {
+  justify-content: space-around;
+  height: 150px;
+  border-radius: 24px;
+  background-color: #16384d;
+}
+
+.total-registrations_this_month {
+  gap: 20px;
+  color: aliceblue;
+}
