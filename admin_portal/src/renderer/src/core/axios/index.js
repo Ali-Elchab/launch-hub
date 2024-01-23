@@ -6,7 +6,7 @@ axios.defaults.baseURL = "http://192.168.0.106:8000/api/";
 export const requestData = async (route, method, data, headers = {}) =>
   await axios
     .request({
-      url: `${baseURL}${route}`,
+      url: `${route}`,
       method,
       data,
       headers: {
