@@ -1,0 +1,13 @@
+.logo {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  padding: 0% 0 3% 0;
+}
+
+.login {
+  background-image: url("../../assets/images/login-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
