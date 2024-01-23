@@ -1,0 +1,35 @@
+.login-form {
+  border-radius: 30px;
+  box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.1);
+  padding: 40px 40px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15%;
+}
+.form-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 15px;
+}
+.form-body {
+  margin-block: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.btn-wrapper {
+  margin-top: 40px;
+}
+.btn-wrapper p {
+  padding-left: 3px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.forgot-pass {
+  padding: 10px 15px;
+  font-size: 14px;
+  margin: 1px 0;
+  position: absolute;
+}
