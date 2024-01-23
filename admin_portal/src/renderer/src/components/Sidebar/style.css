@@ -28,12 +28,11 @@
 .sub-list {
   list-style: none;
   margin-top: 30px;
-
 }
 
 .sub-list > li {
   margin-top: 10px;
-  color:antiquewhite;
+  color: antiquewhite;
   padding: 10px 10px;
   border-radius: 10px;
 }
@@ -44,13 +43,10 @@ li {
   transition: color 0.5s;
 }
 
-
-
-.sub-list li:active{
+.sub-list li:active {
   background-color: var(--secondary-color);
 }
 
-.clicked {
+.active {
   background-color: var(--secondary-color);
 }
-

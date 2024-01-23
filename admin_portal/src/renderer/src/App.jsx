@@ -10,11 +10,10 @@ function App() {
       <Sidebar />
       <div className="main">
         <Routes>
-          <Route path="/" element={<Statistics />} />
+          <Route path="/" element={<Login />} />
           <Route path="/statistics" element={<Statistics />} />
         </Routes>
       </div>
-      
     </div>
   );
 }
