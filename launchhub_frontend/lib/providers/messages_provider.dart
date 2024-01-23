@@ -42,9 +42,70 @@ class MessagesProvider with ChangeNotifier {
     }
   }
 
+  Future sendMessage(String message) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final response = await myDio.post(
+        ApiRoute.sendMessage,
+        data: {
+          'text': message,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      final res = response.data;
+      // final Message userMessage = Message(
+      //     createdAt: res['created_at'],
+      //     id: res['id'],
+      //     sender: 'user',
+      //     text: message,
+      //     userId: res['user_id']);
+      // messages.insert(0, userMessage);
+      // _messagesController.add(messages);
+      final Message loadedMessage = Message.fromJson(res);
+      messages.insert(0, loadedMessage);
+      _messagesController.add(messages);
+      notifyListeners();
+    } on DioException catch (e) {
+      return e.response!.data;
+    } catch (e) {
+      return e;
+    }
+  }
+
+  void insertMessage(Message message) async {
+    messages.insert(0, message);
+    _messagesController.add(messages);
+    notifyListeners();
+  }
+
+  Future clearMessages() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      messages = [];
+      myDio.delete(
+        ApiRoute.clearMessages,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      fetchMessages();
+      notifyListeners();
+    } catch (e) {
+      return e;
+    }
+  }
+
   @override
   void dispose() {
-    _messagesController.close(); // Close the StreamController
+    _messagesController.close();
     super.dispose();
   }
 }
