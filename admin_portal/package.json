@@ -18,7 +18,9 @@
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
-    "@electron-toolkit/utils": "^3.0.0"
+    "@electron-toolkit/utils": "^3.0.0",
+    "react-router-dom": "^6.21.3",
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
