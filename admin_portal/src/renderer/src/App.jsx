@@ -6,7 +6,7 @@ import { Sidebar } from "./components/Sidebar";
 
 function App() {
   return (
-    <div className=" flex row">
+    <div className="page flex row">
       <Sidebar />
       <div className="main">
         <Routes>
