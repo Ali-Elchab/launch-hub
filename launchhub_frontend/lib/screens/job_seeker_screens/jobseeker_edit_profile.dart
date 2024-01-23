@@ -502,18 +502,6 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                                     .map((experience) => experience.position)
                                     .join(', ')),
                           ),
-                          Text('Skills',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .copyWith(
-                                      color: const Color.fromARGB(
-                                          200, 158, 158, 158),
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 20)),
-                          const SizedBox(
-                            height: 15,
-                          ),
                           InputField(
                             label: 'Skills',
                             onTap: () => {
@@ -535,10 +523,12 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                                     .join(', ')),
                           ),
                           InputField(
-                            label: 'Upload Resume Here',
+                            label: 'Resume',
                             readOnly: true,
                             controller: TextEditingController(
-                                text: path.basename(selectedResume!.path)),
+                                text: selectedResume != null
+                                    ? path.basename(selectedResume!.path)
+                                    : resumeName),
                             icon: const Icon(Icons.upload_file),
                             onTap: () => pickFile(),
                           ),
