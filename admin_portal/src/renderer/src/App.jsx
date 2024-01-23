@@ -2,10 +2,12 @@ import "./styles/index.css";
 import Login from "./pages/Login";
 import { Route, Routes } from "react-router";
 import Statistics from "./pages/Statistics";
+import { Sidebar } from "./components/Sidebar";
 
 function App() {
   return (
-    <div className="page flex row">
+    <div className="content flex row">
+      <Sidebar />
       <div className="main">
         <Routes>
           <Route path="/" element={<Login />} />
