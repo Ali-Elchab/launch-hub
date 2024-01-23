@@ -2,21 +2,15 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Auth\GoogleAuthController as AuthGoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PasswordResetController;
-use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\StartupController;
-use App\Http\Controllers\UserController;
-use App\Models\Application;
-use App\Models\Message;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
@@ -29,6 +23,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.reset');;
 Route::post('password/reset', [PasswordResetController::class, 'reset']);
+
 
 
 Route::controller(DataController::class)->group(function () {
@@ -64,8 +59,8 @@ Route::prefix('startup/')->controller(StartupController::class)->group(function 
 
 Route::prefix('jobposts/')->controller(JobPostController::class)->group(function () {
     Route::get('', 'getAllJobPosts');
-    Route::get('/{id}', 'getJobPost')->where('id', '[0-9]+');
-    Route::middleware('jobseeker')->get('related/{specialization_id?}', 'getRelatedJobPosts');
+    Route::get('/{id}', 'getJobPost');
+    Route::middleware('jobseeker')->get('jobseeker/related', 'getRelatedJobPosts');
 
     Route::middleware('startup')->group(function () {
         Route::get('startup', 'getStartupJobPosts');
