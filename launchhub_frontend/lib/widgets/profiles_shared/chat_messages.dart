@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launchhub_frontend/providers/messages_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/message_bubble.dart';
 
@@ -9,7 +10,7 @@ class ChatMessages extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StreamBuilder(
-      stream: ref.read(messagesProvider).messagesStream,
+      stream: ref.read(messagesProvider.notifier).messagesStream,
       builder: (ctx, chatSnapshots) {
         if (chatSnapshots.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -17,9 +18,38 @@ class ChatMessages extends ConsumerWidget {
           );
         }
 
-        if (!chatSnapshots.hasData) {
-          return const Center(
-            child: Text('No messages found.'),
+        if (chatSnapshots.data!.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  FontAwesomeIcons.robot,
+                  size: 80,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                const SizedBox(height: 25),
+                Text('LaunchPal',
+                    style: Theme.of(context).textTheme.headlineMedium!),
+                const SizedBox(height: 25),
+                Text(
+                  'Hi, I\'m LaunchPal, your AI assistant. I\'m here to help you with whatever you need, from answering questions to providing recommendations.\n Let\'s chat!.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                const SizedBox(height: 25),
+                Text(
+                  'Example: Can you provide guidance on creating a business plan for my startup?',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           );
         }
 

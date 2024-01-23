@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:launchhub_frontend/screens/ai_assistant.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/jobseeker_edit_profile.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/bottom_bar.dart';
-import 'package:launchhub_frontend/widgets/startup/choosing_candidate.dart';
 
 class JobSeekerRootWidget extends StatefulWidget {
   const JobSeekerRootWidget({super.key});
@@ -16,7 +16,7 @@ class _JobSeekerRootWidgetState extends State<JobSeekerRootWidget> {
 
   final List<Widget> _screens = [
     const JobSeekerHome(),
-    const StartupCandidateArticle(),
+    const AiAssistant(),
     const JobSeekerEditProfile(),
   ];
 
