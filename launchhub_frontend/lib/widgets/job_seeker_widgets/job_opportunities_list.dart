@@ -69,7 +69,6 @@ class JobOpportunitiesList extends ConsumerWidget {
                     ),
                     TextButton(
                       onPressed: () async {
-                        // Perform the apply job post action
                         final res = await ref
                             .read(jobSeekerProfileProvider)
                             .applyJobPost(jobPosts[index].id);

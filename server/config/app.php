@@ -3,8 +3,16 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
-return [
 
+return [
+    'providers' => [
+
+        Laravel\Socialite\SocialiteServiceProvider::class,
+    ],
+    'aliases' => [
+
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Name
