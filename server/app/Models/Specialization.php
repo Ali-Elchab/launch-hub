@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Specialization extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     public function industry()
     {
@@ -32,10 +34,5 @@ class Specialization extends Model
     public function skills()
     {
         return $this->hasMany(Skill::class);
-    }
-
-    public function courses()
-    {
-        return $this->hasMany(JobSeekerEnhaceSkillsCourse::class);
     }
 }
