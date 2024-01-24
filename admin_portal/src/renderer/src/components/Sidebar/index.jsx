@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useLocation, useNavigate } from "react-router";
+import logo from "../../assets/images/logo-white.png";
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -20,7 +21,18 @@ export const Sidebar = () => {
   return display ? (
     <div className="sidebar flex column">
       <ul className="main-list">
-        <li>
+        <li className="flex column">
+          <img
+            src={logo}
+            alt="logo"
+            className="logo"
+            style={{
+              width: 120,
+              height: 120,
+              alignSelf: "center",
+              objectFit: "fill",
+            }}
+          />
           LaunchHub
           <ul className="sub-list">
             <li
