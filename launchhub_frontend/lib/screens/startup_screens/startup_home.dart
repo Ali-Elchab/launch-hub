@@ -82,7 +82,6 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                             'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
                         imagePath: 'assets/images/hire_talent.png',
                         onTap: () async {
-                          await hireTalent.fetchJobSeekers();
                           navigator(context, const HireTalent());
                         },
                       ),
@@ -177,11 +176,13 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                         onTap: () {
                           navigator(
                             context,
-                            const Advisors(
-                                category: 'marketing',
-                                title: 'Content Creators',
-                                text:
-                                    "Explore our Content Creators Page—a hub connecting startups with talented content professionals. Elevate your brand with engaging content and strategic marketing. Find the perfect creator to bring your vision to life."),
+                            ArticlesAndTemplates(
+                              templates: legalTemplates,
+                              query: 'legal for startup businesses',
+                              title: 'Legal Guides',
+                              text:
+                                  'Explore our Financial Planning page for budgeting, forecasting, and financial analysis tools. Empower your startup\'s fiscal planning with streamlined templates and checklists.',
+                            ),
                           );
                         },
                       ),
