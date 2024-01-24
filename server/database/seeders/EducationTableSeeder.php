@@ -29,7 +29,7 @@ class EducationTableSeeder extends Seeder
                 'end_date' => Carbon::create('2019', '06', '30'),
                 'description' => 'Specialized in business management and entrepreneurship.',
                 'location' => 'San Francisco, CA',
-                'job_seeker_id' => 2, // Assuming you have this ID available
+                'job_seeker_id' => 1, // Assuming you have this ID available
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

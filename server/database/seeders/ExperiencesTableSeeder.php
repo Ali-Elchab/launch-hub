@@ -35,7 +35,7 @@ class ExperiencesTableSeeder extends Seeder
                 'end_date' => Carbon::create('2021', '05', '30'),
                 'description' => 'Led project teams to deliver high-quality software solutions on time and on budget.',
                 'location' => 'New York, NY',
-                'job_seeker_id' => 2, // Replace with an actual job_seeker_id from your database
+                'job_seeker_id' => 1, // Replace with an actual job_seeker_id from your database
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

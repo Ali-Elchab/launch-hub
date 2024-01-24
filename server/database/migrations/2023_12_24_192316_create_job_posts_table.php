@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
             $table->string('job_title');
-            $table->string('job_description');
+            $table->text('job_description');
             $table->string('job_location');
             $table->enum('job_type', ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship']);
             $table->integer('job_salary');
-            $table->string('job_qualification');
+            $table->text('job_qualification');
             $table->string('experience_level');
             $table->string('education_level');
             $table->text('responsibilities');

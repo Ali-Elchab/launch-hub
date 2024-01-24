@@ -31,7 +31,7 @@ class CertificationsTableSeeder extends Seeder
                 'end_date' => Carbon::create('2024', '06', '15'),
                 'description' => 'Certification for those who wish to lead agile teams effectively.',
                 'location' => 'Remote',
-                'job_seeker_id' => 2, // Replace with an actual job_seeker_id from your database
+                'job_seeker_id' => 1, // Replace with an actual job_seeker_id from your database
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

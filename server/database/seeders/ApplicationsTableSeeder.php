@@ -22,8 +22,15 @@ class ApplicationsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'job_post_id' => 2, // Replace with the appropriate job post ID
-                'job_seeker_id' => 2, // Replace with the appropriate job seeker ID
+                'job_post_id' => 1, // Replace with the appropriate job post ID
+                'job_seeker_id' => 4, // Replace with the appropriate job seeker ID
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'job_post_id' => 1, // Replace with the appropriate job post ID
+                'job_seeker_id' => 6, // Replace with the appropriate job seeker ID
                 'status' => 'pending',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -31,6 +38,27 @@ class ApplicationsTableSeeder extends Seeder
             [
                 'job_post_id' => 3, // Replace with the appropriate job post ID
                 'job_seeker_id' => 3, // Replace with the appropriate job seeker ID
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'job_post_id' => 3, // Replace with the appropriate job post ID
+                'job_seeker_id' => 1, // Replace with the appropriate job seeker ID
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'job_post_id' => 4, // Replace with the appropriate job post ID
+                'job_seeker_id' => 9, // Replace with the appropriate job seeker ID
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'job_post_id' => 4, // Replace with the appropriate job post ID
+                'job_seeker_id' => 2, // Replace with the appropriate job seeker ID
                 'status' => 'pending',
                 'created_at' => now(),
                 'updated_at' => now(),
