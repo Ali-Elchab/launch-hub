@@ -535,7 +535,6 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                       'company_description': companyDescriptionController.text,
                       'registration_number': registrationNumberController.text,
                       'founding_date': foundingDateController.text,
-                      'profilePic': base64Image,
                       'company_address': locationController.text,
                       'company_phone': phoneController.text,
                       'company_email': emailController.text,
