@@ -66,15 +66,55 @@ class UsersTableSeeder extends Seeder
                 'user_type_id' => 1
             ],
             [
-                'email' => 'jobseeker@example.com',
+                'email' => 'alielchab@gmail.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 2
             ],
             [
-                'email' => 'jobseeker2@example.com',
+                'email' => 'emma.brown@example.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 2
             ],
+            [
+                'email' => 'sophia.williams@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'michael.jones@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'olivia.smith@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'william.johnson@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'ava.davis@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'james.martin@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'isabella.thomas@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'lucas.moore@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ]
 
 
         ]);
