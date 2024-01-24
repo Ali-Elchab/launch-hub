@@ -34,6 +34,7 @@ Route::controller(DataController::class)->group(function () {
     Route::get('industry_specializations/{industry_id}', 'getSpecializationsByIndustry');
     Route::get('specializations/{id?}', 'getSpecializations');
     Route::get('udemy_courses/{searchQuery}', 'fetchUdemyCourses');
+    Route::get('articles/{searchQuery}', 'fetchArticles');
 });
 
 Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(function () {

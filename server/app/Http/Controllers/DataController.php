@@ -8,6 +8,7 @@ use App\Models\Skill;
 use App\Models\Specialization;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DataController extends Controller
 {
@@ -77,6 +78,24 @@ class DataController extends Controller
             return $data;
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function fetchArticles($searchQuery)
+    {
+        $apiKey = env('NEWS_API_KEY');
+
+        $response = Http::get("https://newsapi.org/v2/everything", [
+            'q' => $searchQuery,
+            'pageSize' => 8,
+            'sortBy' => 'popularity',
+            'apiKey' => $apiKey
+        ]);
+
+        if ($response->successful()) {
+            $articles = $response->json()['articles'];
+            return response()->json($articles);
+        } else {
+            return response()->json(['error' => 'Failed to load Articles'], $response->status());
         }
     }
 }
