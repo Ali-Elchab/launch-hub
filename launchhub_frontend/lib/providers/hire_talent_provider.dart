@@ -46,12 +46,18 @@ class HireTalentProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearJobSeekers() {
+    jobSeekers = [];
+    filteredJobSeekers = [];
+    notifyListeners();
+  }
+
   Future fetchJobSeekers() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     try {
       final response = await myDio.get(
-        '${ApiRoute.getRelatedJobSeekers}/${startup.specializationId}',
+        ApiRoute.getRelatedJobSeekers,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -64,7 +70,8 @@ class HireTalentProvider with ChangeNotifier {
       notifyListeners();
       return;
     } on DioException catch (e) {
-      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+      _errorMessage = 'Failed to fetch job seekers: ${e.response}';
+      print(_errorMessage);
     }
     return _errorMessage;
   }
@@ -170,7 +177,8 @@ class HireTalentProvider with ChangeNotifier {
       notifyListeners();
       return;
     } on DioException catch (e) {
-      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+      _errorMessage =
+          'Failed to reject applicant: ${e.response?.data['message']}';
     }
     return _errorMessage;
   }

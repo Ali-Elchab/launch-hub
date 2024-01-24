@@ -18,46 +18,62 @@ class HireTalent extends ConsumerStatefulWidget {
 class _HireTalent extends ConsumerState<HireTalent>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    ref.read(hireTalentProvider).getApplications();
+    _tabController.index = 0;
+    loadData();
+  }
+
+  Future loadData() async {
+    await ref.read(hireTalentProvider).fetchJobSeekers();
+    await ref.read(hireTalentProvider).getApplications();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final hiretalentprovider = ref.watch(hireTalentProvider);
-    Widget mainContent = Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.clear_rounded,
-            size: 80,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
-          const SizedBox(height: 30),
-          Text('No Job seekers found',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-              textAlign: TextAlign.center),
-        ],
-      ),
-    );
+    final hiretalentprovider = ref.read(hireTalentProvider.notifier);
 
-    if (hiretalentprovider.jobSeekers.isNotEmpty) {
+    Widget mainContent = _isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.clear_rounded,
+                  size: 80,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                const SizedBox(height: 30),
+                Text('No Job seekers suggested at the moment.',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                    textAlign: TextAlign.center),
+              ],
+            ),
+          );
+
+    if (ref.read(hireTalentProvider).jobSeekers.isNotEmpty) {
       if (_tabController.index == 0) {
+        print(
+            'filtered job seekers: ${ref.watch(hireTalentProvider.notifier).filteredJobSeekers.length}');
         mainContent = JobSeekersList(
-          jobSeekers: hiretalentprovider.filteredJobSeekers,
+          jobSeekers: ref.watch(hireTalentProvider.notifier).filteredJobSeekers,
         );
       } else if (_tabController.index == 1) {
         mainContent = ApplicantsList(
@@ -68,6 +84,7 @@ class _HireTalent extends ConsumerState<HireTalent>
         );
       }
     }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
