@@ -34,4 +34,6 @@ abstract class ApiRoute {
   static const getMessages = 'messages';
   static const sendMessage = 'send_message';
   static const clearMessages = 'clear_messages';
+  static const getUdemyCourses = 'udemy_courses';
+  static const getArticles = 'articles';
 }
