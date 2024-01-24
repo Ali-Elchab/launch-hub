@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advisor;
+use App\Models\Application;
+use App\Models\Industry;
 use App\Models\JobPost;
+use App\Models\JobSeeker;
 use App\Models\Startup;
 use Illuminate\Http\Request;
 
@@ -15,6 +18,20 @@ class AdminController extends Controller
         $this->middleware('auth:api');
     }
 
+    public function getStatistics()
+    {
+        $startups = Startup::count();
+        $jobSeekers = JobSeeker::count();
+        $pendingApplications = Application::where('status', 'pending')->get()->count();
+        $rejectedApplications = Application::where('status', 'rejected')->get()->count();
+        $totalRegisteredUsers = $startups + $jobSeekers;
+        $leadingIndustry = Startup::selectRaw('industry_id, COUNT(*) ')
+            ->groupBy('industry_id')
+            ->orderByRaw('COUNT(*) DESC')
+            ->first()->industry_id;
+        $leadingIndustry = Industry::find($leadingIndustry)->name;
+        return response()->json(['startups' => $startups, 'jobSeekers' => $jobSeekers, 'pendingApplications' => $pendingApplications, 'rejectedApplications' => $rejectedApplications, 'totalRegisteredUsers' => $totalRegisteredUsers, 'leadingIndustry' => $leadingIndustry], 200);
+    }
     public function getAllStartups()
     {
         $startups = Startup::all();

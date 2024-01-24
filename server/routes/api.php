@@ -90,6 +90,7 @@ Route::controller(MessageController::class)->group(function () {
 
 Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::controller(AdminController::class)->group(function () {
+        Route::get('statistics', 'getStatistics');
         Route::get('startups', 'getAllStartups');
         Route::get('applications', 'getAllApplications');
         Route::get('active_jobposts', 'activeJobPosts');
