@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('location');
             $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

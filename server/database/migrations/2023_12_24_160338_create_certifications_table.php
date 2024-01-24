@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('location');
             $table->timestamps();
             $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

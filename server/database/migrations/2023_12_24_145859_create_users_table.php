@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('user_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

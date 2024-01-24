@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('specialization_id')->nullable()->default(null)->constrained()->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

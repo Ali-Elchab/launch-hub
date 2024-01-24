@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('token')->nullable();
             $table->timestamp('expires_at')->nullable();
+            $table->softDeletes();
         });
     }
 

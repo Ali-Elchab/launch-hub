@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

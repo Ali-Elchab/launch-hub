@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('category', ['marketing', 'legal', 'finance']);
             $table->string('expertise')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

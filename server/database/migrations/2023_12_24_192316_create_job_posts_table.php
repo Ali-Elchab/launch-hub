@@ -29,6 +29,7 @@ return new class extends Migration
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
             $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('startup_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

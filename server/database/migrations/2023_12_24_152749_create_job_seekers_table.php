@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('specialization_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
