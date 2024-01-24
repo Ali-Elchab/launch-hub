@@ -6,6 +6,7 @@ use App\Models\Hobby;
 use App\Models\Industry;
 use App\Models\Skill;
 use App\Models\Specialization;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class DataController extends Controller
@@ -53,5 +54,29 @@ class DataController extends Controller
         $industry = $request->industry_id;
         $specializations = Specialization::where('industry_id', $industry)->get();
         return response()->json(['status' => 'success', 'specializations' => $specializations]);
+    }
+
+
+    public function fetchUdemyCourses($searchQuery)
+    {
+        $client = new Client();
+
+        $clientId = env('UDEMY_CLIENT_ID');
+        $clientSecret = env('UDEMY_CLIENT_SECRET');
+        $url = "https://www.udemy.com/api-2.0/courses/?page=1&page_size=15&search=" . urlencode($searchQuery);
+
+        try {
+            $response = $client->request('GET', $url, [
+                'auth' => [$clientId, $clientSecret],
+                'headers' => [
+                    'Accept' => 'application/json, text/plain, */*',
+                ],
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+            return $data;
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

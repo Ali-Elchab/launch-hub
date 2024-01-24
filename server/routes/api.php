@@ -33,12 +33,12 @@ Route::controller(DataController::class)->group(function () {
     Route::get('industries/{id?}', 'getIndustries');
     Route::get('industry_specializations/{industry_id}', 'getSpecializationsByIndustry');
     Route::get('specializations/{id?}', 'getSpecializations');
+    Route::get('udemy_courses/{searchQuery}', 'fetchUdemyCourses');
 });
 
 Route::prefix('jobseeker/')->controller(JobSeekerController::class)->group(function () {
     Route::middleware('jobseeker')->group(function () {
         Route::get('basic_profile', 'getBasicProfile');
-        Route::get('related_courses', 'getRelatedCourses');
         Route::delete('delete', 'deleteJobSeekerProfile');
         Route::post('update_profile', 'updateJobSeekerProfile');
     });
