@@ -29,11 +29,9 @@ class SignIn extends ConsumerWidget {
         );
       },
     );
-
-    Future.delayed(const Duration(seconds: 4), () {
-      Navigator.of(context, rootNavigator: true).pop();
-      Navigator.pushNamed(context, '/CompanyInfo1');
-    });
+    Future.delayed(const Duration(seconds: 4));
+    Navigator.of(context, rootNavigator: true).pop();
+    Navigator.pushNamed(context, '/CompanyInfo1');
   }
 
   @override
