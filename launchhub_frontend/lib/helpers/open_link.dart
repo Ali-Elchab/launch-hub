@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -33,8 +34,12 @@ downloadFile({required BuildContext context, String? url, String? name}) async {
               label: 'Open',
               onPressed: () async {
                 // Determine the file type based on the file's extension
+                // await Future.delayed(const Duration(seconds: 5));
                 String fileType = getFileTypeFromExtension(path);
-                await OpenFile.open(path, type: fileType);
+                String? destination =
+                    await FilePicker.platform.getDirectoryPath();
+                String dir = "$destination/$name";
+                await OpenFile.open(dir, type: fileType);
               },
             ),
           ),
@@ -60,7 +65,6 @@ String getFileTypeFromExtension(String filePath) {
   // Extract the file extension from the file path
   String extension = filePath.split('.').last.toLowerCase();
 
-  // Map file extensions to MIME types or types recognized by OpenFile
   Map<String, String> extensionToType = {
     'pdf': 'application/pdf',
     'doc': 'application/msword',
