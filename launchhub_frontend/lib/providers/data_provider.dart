@@ -137,4 +137,23 @@ class DataProvider with ChangeNotifier {
     notifyListeners();
     return nicheName;
   }
+
+  Future<List<dynamic>> fetchUdemyCourses(String searchQuery) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final response = await myDio.get(
+        '${ApiRoute.getUdemyCourses}/$searchQuery',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      final List<dynamic> courses = response.data['results'];
+      return courses;
+    } catch (e) {
+      return [];
+    }
+  }
 }
