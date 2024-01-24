@@ -156,4 +156,23 @@ class DataProvider with ChangeNotifier {
       return [];
     }
   }
+
+  Future<List<dynamic>> fetchArticles(query) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await myDio.get(
+      '${ApiRoute.getArticles}/$query',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> articles = response.data;
+      return articles;
+    } else {
+      throw Exception('Failed to load Articles');
+    }
+  }
 }

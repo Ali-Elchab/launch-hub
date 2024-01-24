@@ -41,21 +41,27 @@ const Statistics = () => {
   useEffect(() => {
     getStatistics();
   }, []);
-  !isLoading ? (
-    <div className="content-container ">
-      <TotalRegistrations totalRegisteredUsers={values.totalRegisteredUsers} />
-      <div className="flex row " style={{ gap: 30 }}>
-        <div className="userStats" style={{ height: 500, width: "40%" }}>
-          <h2 style={{ color: "#326789" }}>Number of Users</h2>
-          <MyResponsivePie jobSeekers={13} startups={50} />
-        </div>
-        <div className="userStats" style={{ height: 500, width: " 60% " }}>
-          <h2 style={{ color: "#326789" }}>Number of Applications</h2>
-          <MyResponsiveBar pending={55} rejected={9} />
+  if (!isLoading) {
+    return (
+      <div className="content-container ">
+        <TotalRegistrations
+          totalRegisteredUsers={values.totalRegisteredUsers}
+        />
+        <div className="flex row " style={{ gap: 30 }}>
+          <div className="userStats" style={{ height: 500, width: "40%" }}>
+            <h2 style={{ color: "#326789" }}>Number of Users</h2>
+            <MyResponsivePie jobSeekers={13} startups={50} />
+          </div>
+          <div className="userStats" style={{ height: 500, width: " 60% " }}>
+            <h2 style={{ color: "#326789" }}>Number of Applications</h2>
+            <MyResponsiveBar pending={55} rejected={9} />
+          </div>
         </div>
       </div>
-    </div>
-  ) : null;
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Statistics;

@@ -120,6 +120,7 @@ class _HireTalent extends ConsumerState<HireTalent>
               ),
               const SizedBox(height: 10),
               TabBar(
+                indicatorSize: TabBarIndicatorSize.label,
                 onTap: (index) {
                   setState(() {
                     _tabController.index = index;

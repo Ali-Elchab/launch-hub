@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/articles_api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
@@ -29,43 +30,48 @@ class Trending extends StatelessWidget {
             children: [
               const SizedBox(height: 45),
               const SectionTitle(title: 'Trending Articles'),
-              FutureBuilder<List<dynamic>>(
-                future: fetchArticles('job seeker $specialization'),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Align(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                      ),
-                    ); // Show loading indicator
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    final List<dynamic> articles = snapshot.requireData;
-                    double screenHeight = MediaQuery.of(context).size.height;
-                    double customHeight = screenHeight - 59;
-                    return Expanded(
-                      child: SizedBox(
-                        height: customHeight,
-                        child: ListView.builder(
-                          shrinkWrap: true, // Add this line
-                          itemCount: articles.length,
-                          itemBuilder: (context, index) {
-                            final article = articles[index];
-                            return FeatureCard(
-                                title: article['title'],
-                                description: article['description'],
-                                url: article['urlToImage'],
-                                external: true,
-                                onTap: () {
-                                  openLink(context, article['url']);
-                                });
-                          },
+              Consumer(
+                builder: (context, ref, child) => FutureBuilder<List<dynamic>>(
+                  future: ref
+                      .read(dataProvider)
+                      .fetchArticles('job seeker $specialization'),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Align(
+                        child: CircularProgressIndicator(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                         ),
-                      ),
-                    );
-                  }
-                },
+                      ); // Show loading indicator
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      final List<dynamic> articles = snapshot.requireData;
+                      double screenHeight = MediaQuery.of(context).size.height;
+                      double customHeight = screenHeight - 59;
+                      return Expanded(
+                        child: SizedBox(
+                          height: customHeight,
+                          child: ListView.builder(
+                            shrinkWrap: true, // Add this line
+                            itemCount: articles.length,
+                            itemBuilder: (context, index) {
+                              final article = articles[index];
+                              return FeatureCard(
+                                  title: article['title'],
+                                  description: article['description'],
+                                  url: article['urlToImage'],
+                                  external: true,
+                                  onTap: () {
+                                    openLink(context, article['url']);
+                                  });
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),

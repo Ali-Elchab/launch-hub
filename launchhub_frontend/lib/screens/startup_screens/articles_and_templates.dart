@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/articles_api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
@@ -57,45 +58,49 @@ class ArticlesAndTemplates extends StatelessWidget {
                 const SizedBox(height: 25),
                 const SectionTitle(title: 'Related Articles'),
                 const SizedBox(height: 10),
-                FutureBuilder<List<dynamic>>(
-                  future: fetchArticles(query),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Align(
-                        child: CircularProgressIndicator(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                        ),
-                      ); // Show loading indicator
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      final List<dynamic> articles = snapshot.requireData;
-                      double screenHeight = MediaQuery.of(context).size.height;
-                      double customHeight = screenHeight - 500;
-                      return SizedBox(
-                        height: customHeight,
-                        child: ListView.builder(
-                          shrinkWrap: true, // Add this line
-                          itemCount: articles.length,
-                          itemBuilder: (context, index) {
-                            final article = articles[index];
-                            return FeatureCard(
-                                title: article['title'],
-                                description: article['description'],
-                                url: article['urlToImage'],
-                                external: true,
-                                onTap: () {
-                                  openLink(
-                                    context,
-                                    article['url'],
-                                  );
-                                });
-                          },
-                        ),
-                      );
-                    }
-                  },
+                Consumer(
+                  builder: (context, ref, child) =>
+                      FutureBuilder<List<dynamic>>(
+                    future: ref.read(dataProvider).fetchArticles(query),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Align(
+                          child: CircularProgressIndicator(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                          ),
+                        ); // Show loading indicator
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        final List<dynamic> articles = snapshot.requireData;
+                        double screenHeight =
+                            MediaQuery.of(context).size.height;
+                        double customHeight = screenHeight - 500;
+                        return SizedBox(
+                          height: customHeight,
+                          child: ListView.builder(
+                            shrinkWrap: true, // Add this line
+                            itemCount: articles.length,
+                            itemBuilder: (context, index) {
+                              final article = articles[index];
+                              return FeatureCard(
+                                  title: article['title'],
+                                  description: article['description'],
+                                  url: article['urlToImage'],
+                                  external: true,
+                                  onTap: () {
+                                    openLink(
+                                      context,
+                                      article['url'],
+                                    );
+                                  });
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
