@@ -116,7 +116,7 @@ class JobSeekersTableSeeder extends Seeder
             [
                 'first_name' => 'Ava',
                 'last_name' => 'Davis',
-                'profile_pic' => 'profile7.jpeg',
+                'profile_pic' => 'profile11.jpeg',
                 'dob' => '1991-11-25',
                 'phone' => '555-4567',
                 'address' => '404 Innovation Rd',

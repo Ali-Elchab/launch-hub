@@ -63,7 +63,7 @@ Route::prefix('jobposts/')->controller(JobPostController::class)->group(function
     Route::middleware('jobseeker')->get('jobseeker/related', 'getRelatedJobPosts');
 
     Route::middleware('startup')->group(function () {
-        Route::get('startup', 'getStartupJobPosts');
+        Route::get('startup/posts', 'getStartupJobPosts');
         Route::post('update/{id?}', 'updateJobPost');
         Route::post('post', 'postJob');
         Route::delete('delete/{id}', 'deleteJobPost');
