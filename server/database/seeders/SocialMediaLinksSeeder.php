@@ -15,32 +15,32 @@ class SocialMediaLinksSeeder extends Seeder
         DB::table('social_media_links')->insert([
             [
                 'platform' => 'linkedIn',
-                'link' => 'https://www.linkedin.com/in/jobseeker2/',
-                'user_id' => 1
+                'link' => 'https://www.linkedin.com/in/ali-elchab/',
+                'user_id' => 11
             ],
             [
                 'platform' => 'github',
-                'link' => 'https://www.github.com/jobseeker2/',
-                'user_id' => 1
+                'link' => 'https://github.com/Ali-Elchab',
+                'user_id' => 11
             ],
             [
                 'platform' => 'Facebook',
-                'link' => 'https://www.facebook.com/jobseeker2/',
-                'user_id' => 1
+                'link' => 'https://www.facebook.com/AliElchab01/',
+                'user_id' => 11
             ],
             [
                 'platform' => 'linkedIn',
-                'link' => 'https://www.linkedin.com/in/jobseeker2/',
+                'link' => 'https://www.linkedin.com/in/ali-elchab/',
                 'user_id' => 2
             ],
             [
                 'platform' => 'github',
-                'link' => 'https://www.github.com/jobseeker2/',
+                'link' => 'https://github.com/Ali-Elchab',
                 'user_id' => 2
             ],
             [
                 'platform' => 'Facebook',
-                'link' => 'https://www.facebook.com/jobseeker2/',
+                'link' => 'https://www.facebook.com/AliElchab01/',
                 'user_id' => 2
             ],
             [
