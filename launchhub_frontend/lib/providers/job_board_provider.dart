@@ -51,7 +51,8 @@ class JobBoardProvider with ChangeNotifier {
       notifyListeners();
       return;
     } on DioException catch (e) {
-      _errorMessage = 'Failed to sign up: ${e.response?.data['message']}';
+      _errorMessage = 'Failed to fetch job posts: ${e.response?.data}';
+      print(_errorMessage);
     }
     return _errorMessage;
   }

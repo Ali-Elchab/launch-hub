@@ -19,10 +19,18 @@ class JobBoard extends ConsumerStatefulWidget {
 }
 
 class _JobBoardState extends ConsumerState<JobBoard> {
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
-    ref.read(jobBoardProvider.notifier).fetchJobPosts();
+    loadData();
+  }
+
+  Future loadData() async {
+    await ref.read(jobBoardProvider.notifier).fetchJobPosts();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -30,24 +38,26 @@ class _JobBoardState extends ConsumerState<JobBoard> {
     final jobBoardNotifier = ref.watch(jobBoardProvider.notifier);
     final jobBoard = ref.watch(jobBoardProvider);
     final startup = ref.read(startupProfileProvider);
-    Widget mainContent = Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            FontAwesomeIcons.folderOpen,
-            size: 80,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
-          const SizedBox(height: 30),
-          Text('NO JOB POSTS YET\nSTART ADDING SOME!',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-              textAlign: TextAlign.center),
-        ],
-      ),
-    );
+    Widget mainContent = _isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  FontAwesomeIcons.folderOpen,
+                  size: 80,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                const SizedBox(height: 30),
+                Text('NO JOB POSTS YET\nSTART ADDING SOME!',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                    textAlign: TextAlign.center),
+              ],
+            ),
+          );
 
     if (jobBoard.jobPosts.isNotEmpty) {
       mainContent = JobPostsList(
