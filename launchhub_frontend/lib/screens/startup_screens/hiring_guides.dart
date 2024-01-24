@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:launchhub_frontend/data/udemy_api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/helpers/open_link.dart';
+import 'package:launchhub_frontend/providers/data_provider.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/feature_card.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/header.dart';
 import 'package:launchhub_frontend/widgets/profiles_shared/section_title.dart';
@@ -75,45 +76,49 @@ class HiringGuides extends StatelessWidget {
                 const SizedBox(height: 25),
                 const SectionTitle(title: 'Related Courses'),
                 const SizedBox(height: 10),
-                FutureBuilder<List<dynamic>>(
-                  future: fetchUdemyCourses(niche),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Align(
-                        child: CircularProgressIndicator(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                        ),
-                      ); // Show loading indicator
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      final List<dynamic> courses = snapshot.requireData;
-                      double screenHeight = MediaQuery.of(context).size.height;
-                      double customHeight = screenHeight - 500;
-                      return SizedBox(
-                        height: customHeight,
-                        child: ListView.builder(
-                          shrinkWrap: true, // Add this line
-                          itemCount: courses.length,
-                          itemBuilder: (context, index) {
-                            final course = courses[index];
-                            return FeatureCard(
-                                title: course['title'],
-                                description: course['headline'],
-                                url: course['image_240x135'],
-                                external: true,
-                                onTap: () {
-                                  openLink(
-                                    context,
-                                    'https://www.udemy.com${course['url']}',
-                                  );
-                                });
-                          },
-                        ),
-                      );
-                    }
-                  },
+                Consumer(
+                  builder: (context, ref, child) =>
+                      FutureBuilder<List<dynamic>>(
+                    future: ref.read(dataProvider).fetchUdemyCourses(niche),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Align(
+                          child: CircularProgressIndicator(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                          ),
+                        ); // Show loading indicator
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        final List<dynamic> courses = snapshot.requireData;
+                        double screenHeight =
+                            MediaQuery.of(context).size.height;
+                        double customHeight = screenHeight - 500;
+                        return SizedBox(
+                          height: customHeight,
+                          child: ListView.builder(
+                            shrinkWrap: true, // Add this line
+                            itemCount: courses.length,
+                            itemBuilder: (context, index) {
+                              final course = courses[index];
+                              return FeatureCard(
+                                  title: course['title'],
+                                  description: course['headline'],
+                                  url: course['image_240x135'],
+                                  external: true,
+                                  onTap: () {
+                                    openLink(
+                                      context,
+                                      'https://www.udemy.com${course['url']}',
+                                    );
+                                  });
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
