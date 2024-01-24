@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      titleSpacing: 0,
+      // titleSpacing: 0,
       title: Stack(
         alignment: Alignment.center,
         children: [
@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Text(title,
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                         color: textColor ?? Colors.black,
-                        fontSize: showBackButton ? 30 : 36,
+                        fontSize: showBackButton ? 28 : 28,
                       )),
             ),
           ),
