@@ -9,6 +9,8 @@ use App\Models\JobPost;
 use App\Models\JobSeeker;
 use App\Models\Startup;
 use Illuminate\Http\Request;
+use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\StartupController;
 
 class AdminController extends Controller
 {
@@ -37,6 +39,23 @@ class AdminController extends Controller
         $startups = Startup::all();
         $count = Startup::count();
         return response()->json(['startups' => $startups, 'count' => $count]);
+    }
+
+    public function getAllJobSeekers()
+    {
+        $jobseekers = JobSeeker::all();
+        if (!$jobseekers) {
+            return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
+        }
+        return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
+    }
+    public function getAllJobPosts()
+    {
+        $jobPosts = JobPost::all();
+        if (!$jobPosts) {
+            return response()->json(['status' => 'error', 'message' => 'jobPosts not found'], 404);
+        }
+        return response()->json(['status' => 'success', 'jobseekers' => $jobPosts]);
     }
 
     public function getAllApplications()

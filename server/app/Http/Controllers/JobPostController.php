@@ -10,11 +10,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class JobPostController extends Controller
 {
-    public function getAllJobPosts()
-    {
-        $jobposts = JobPost::all();
-        return response()->json($jobposts);
-    }
+
 
     public function getJobPost($id)
     {

@@ -112,14 +112,6 @@ class JobSeekerController extends Controller
     }
 
 
-    public function getAllJobSeekers()
-    {
-        $jobseekers = JobSeeker::all();
-        if (!$jobseekers) {
-            return response()->json(['status' => 'error', 'message' => 'Related jobseekers not found'], 404);
-        }
-        return response()->json(['status' => 'success', 'jobseekers' => $jobseekers]);
-    }
 
 
     public function updateJobSeekerProfile(Request $request)
