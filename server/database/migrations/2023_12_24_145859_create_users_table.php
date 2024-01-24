@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
+            $table->string('token')->nullable();
+            $table->timestamp('expires_at')->nullable();
         });
     }
 

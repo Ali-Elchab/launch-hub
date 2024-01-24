@@ -16,11 +16,55 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'email' => 'admin@example.com',
+                'email' => 'admin@launchHub.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 3
             ],
-
+            [
+                'email' => 'innovateTech@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'greenSolutions@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'cloudAnalytics@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'aiFrontiers@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'nextGenRobotics@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'oceonTech@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'virtualRealityLab@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'spaceExplorers@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
+            [
+                'email' => 'biotechPioneers@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 1
+            ],
             [
                 'email' => 'jobseeker@example.com',
                 'password' => Hash::make('password'),
@@ -31,21 +75,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'user_type_id' => 2
             ],
-            [
-                'email' => 'startup@example.com',
-                'password' => Hash::make('password'),
-                'user_type_id' => 1
-            ],
-            [
-                'email' => 'startup2@example.com',
-                'password' => Hash::make('password'),
-                'user_type_id' => 1
-            ],
-            [
-                'email' => 'alielchab01@gmail.com',
-                'password' => Hash::make('password'),
-                'user_type_id' => 1
-            ],
+
 
         ]);
     }
