@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import { FiArrowUpCircle } from "react-icons/fi";
 
-const TotalRegistrations = ({ totalRegisteredUsers }) => {
+const TotalRegistrations = ({ totalRegisteredUsers, leadingIndustry }) => {
   return (
     <div className="total-registrations flex center ">
       <div className="total-registrations_this_month flex row ">
@@ -22,7 +22,7 @@ const TotalRegistrations = ({ totalRegisteredUsers }) => {
         <div className="flex column ">
           <h2>The Leading Industry</h2>
           <h6>Startups' Top Choice</h6>
-          <h2 style={{ marginTop: "20px" }}>Technology</h2>
+          <h2 style={{ marginTop: "20px" }}>{leadingIndustry}</h2>
         </div>
       </div>
     </div>

@@ -23,17 +23,14 @@ const Statistics = () => {
       Authorization: token,
     };
     try {
-      const res = await requestData(
-        "admin/statistics",
-        "get",
-        null,
-        headers,
-      ).then((res) => {
-        setIsLoading(false);
+      await requestData("admin/statistics", "get", null, headers).then(
+        (res) => {
+          setIsLoading(false);
 
-        console.log(values.totalRegisteredUsers);
-        setValues(res);
-      });
+          console.log(values.totalRegisteredUsers);
+          setValues(res);
+        },
+      );
     } catch (err) {
       console.log(err);
     }
@@ -46,15 +43,22 @@ const Statistics = () => {
       <div className="content-container ">
         <TotalRegistrations
           totalRegisteredUsers={values.totalRegisteredUsers}
+          leadingIndustry={values.leadingIndustry}
         />
         <div className="flex row " style={{ gap: 30 }}>
           <div className="userStats" style={{ height: 500, width: "40%" }}>
             <h2 style={{ color: "#326789" }}>Number of Users</h2>
-            <MyResponsivePie jobSeekers={13} startups={50} />
+            <MyResponsivePie
+              jobSeekers={values.jobSeekers}
+              startups={values.startups}
+            />
           </div>
           <div className="userStats" style={{ height: 500, width: " 60% " }}>
             <h2 style={{ color: "#326789" }}>Number of Applications</h2>
-            <MyResponsiveBar pending={55} rejected={9} />
+            <MyResponsiveBar
+              pending={values.pendingApplications}
+              rejected={values.rejectedApplications}
+            />
           </div>
         </div>
       </div>
