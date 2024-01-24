@@ -5,6 +5,7 @@ const Login = () => {
   return (
     <div className=" flex column login">
       <img src={logo} alt="logo" className="logo" />
+      <h2 className="admin-login-title">LaunchHub</h2>
       <LoginForm />
     </div>
   );
