@@ -22,7 +22,6 @@ const LoginForm = () => {
       const res = await requestData("login", "post", values);
       if (res.status == "success") {
         localStorage.setItem("token", `Bearer ${res.authorisation.token}`);
-        console.log(res.user);
         if (res.user["user_type_id"] == 3) {
           dispatch(setUser(res.user));
           navigate("/statistics");
