@@ -44,7 +44,7 @@ class _HobbiesState extends ConsumerState<Hobbies> {
         ),
         child: Center(
           child: SizedBox(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Column(
               children: <Widget>[
                 Align(

@@ -51,7 +51,7 @@ class CompanyInfo2 extends ConsumerWidget {
         ),
         child: Center(
           child: SizedBox(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Form(
               key: _formKey,
               child: Column(

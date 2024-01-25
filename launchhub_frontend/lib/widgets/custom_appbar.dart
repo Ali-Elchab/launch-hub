@@ -16,26 +16,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      // titleSpacing: 0,
-      title: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            width: 300,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(title,
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        color: textColor ?? Colors.black,
-                        fontSize: showBackButton ? 28 : 28,
-                      )),
-            ),
-          ),
-          Align(
+      title: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.73,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Align(
               alignment: Alignment.centerLeft,
               child: showBackButton
                   ? IconButton(
-                      padding: const EdgeInsets.only(right: 25),
+                      padding: const EdgeInsets.only(right: 15),
                       icon: Icon(
                         Icons.arrow_circle_left_outlined,
                         color: textColor ?? Colors.black,
@@ -43,8 +33,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       onPressed: () => Navigator.pop(context),
                     )
-                  : const SizedBox(width: 79)),
-        ],
+                  : const SizedBox(width: 79),
+            ),
+            Flexible(
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: textColor ?? Colors.black,
+                      fontSize: showBackButton ? 28 : 28,
+                    ),
+                overflow: TextOverflow.visible,
+              ),
+            ),
+          ],
+        ),
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,

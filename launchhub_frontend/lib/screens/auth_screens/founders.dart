@@ -39,7 +39,7 @@ class Founders extends ConsumerWidget {
       appBar: const CustomAppBar(title: 'Startup Profile'),
       backgroundColor: Colors.white,
       body: Container(
-        padding: const EdgeInsets.only(top: 85),
+        padding: const EdgeInsets.only(top: 75),
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/backgrounds/auth_bg.png'),
@@ -47,7 +47,7 @@ class Founders extends ConsumerWidget {
         ),
         child: Center(
           child: SizedBox(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Form(
               key: _formKey,
               child: Column(
@@ -103,7 +103,7 @@ class Founders extends ConsumerWidget {
                     )
                   ]),
                   SizedBox(
-                    height: 45,
+                    height: 40,
                     width: MediaQuery.of(context).size.width * 0.61,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
@@ -167,7 +167,7 @@ class Founders extends ConsumerWidget {
                     )
                   ]),
                   SizedBox(
-                    height: 45,
+                    height: 40,
                     width: MediaQuery.of(context).size.width * 0.61,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
@@ -238,7 +238,7 @@ class Founders extends ConsumerWidget {
                     )
                   ]),
                   SizedBox(
-                    height: 45,
+                    height: 40,
                     width: MediaQuery.of(context).size.width * 0.61,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
@@ -285,7 +285,7 @@ class Founders extends ConsumerWidget {
                       },
                     ),
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   Align(
                     alignment: Alignment.center,
                     child: SmallButton('Submit', () async {

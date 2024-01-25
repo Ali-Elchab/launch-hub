@@ -47,8 +47,9 @@ class SignUp extends ConsumerWidget {
             ),
           ),
           Center(
-            child: SizedBox(
-              width: 300,
+            child: Container(
+              padding: const EdgeInsets.only(top: 50),
+              width: MediaQuery.of(context).size.width * 0.73,
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -79,7 +80,7 @@ class SignUp extends ConsumerWidget {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
                         }
-                        if (value.length < 3) {
+                        if (value.length < 6) {
                           return 'Password must be at least 6 characters long';
                         }
 

@@ -41,7 +41,7 @@ class EducationInfo extends ConsumerWidget {
         child: Center(
           child: Container(
             padding: const EdgeInsets.only(top: 80),
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Form(
               key: _formKey,
               child: Column(

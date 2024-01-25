@@ -54,7 +54,7 @@ class SignIn extends ConsumerWidget {
           ),
           Center(
             child: SizedBox(
-              width: 300,
+              width: MediaQuery.of(context).size.width * 0.73,
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -191,8 +191,7 @@ class SignIn extends ConsumerWidget {
                                     fontSize: 14, color: colorScheme.primary),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                navigatorKey.currentState
-                                    ?.popAndPushNamed('/SignUp');
+                                navigatorKey.currentState?.pushNamed('/SignUp');
                               },
                           ),
                         ],

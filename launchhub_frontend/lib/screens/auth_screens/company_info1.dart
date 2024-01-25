@@ -65,7 +65,7 @@ class _CompanyInfo1State extends ConsumerState<CompanyInfo1> {
         ),
         child: Center(
           child: SizedBox(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Form(
               key: _formKey,
               child: Column(

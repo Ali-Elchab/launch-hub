@@ -18,22 +18,23 @@ class StartScreen extends StatelessWidget {
         ),
         child: Center(
           child: SizedBox(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/splashscreen-img.png', width: 300),
                 const SizedBox(height: 15),
                 Text('Welcome To LunchHub',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(color: Colors.white)),
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: 22,
+                        )),
                 const SizedBox(height: 15),
                 Text(
                   'Launch your startup journey with a fresh perspective',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontSize: 18,
                         color: const Color.fromARGB(204, 232, 232, 232),
                       ),
                 ),
