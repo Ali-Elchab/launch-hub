@@ -11,6 +11,8 @@ use App\Models\Startup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\StartupController;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -95,17 +97,16 @@ class AdminController extends Controller
 
     public function editAdminProfile(Request $request)
     {
-        $user = auth()->user;
-        if ($user) {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-                'password' => 'sometimes|string|min:6|confirmed',
-            ]);
-            $user->update($request->only(['name', 'email']));
-            return response()->json(['status' => 'success', 'message' => 'Profile updated successfully', 'user' => $user]);
-        }
-        return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
+        $user = User::find(auth()->user()->id);
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'sometimes|string|min:6',
+        ]);
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+        return response()->json(['status' => 'success', 'message' => 'Profile updated successfully', 'user' => $user], 200);
     }
 
     public function deleteAdminProfile(Request $request)
