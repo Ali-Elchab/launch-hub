@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-const InputField = ({
-  value,
-  handleChange,
-  type,
-  text,
-  name,
-  disabled = false,
-}) => {
+const InputField = ({ value, handleChange, type, text, name }) => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -22,7 +15,6 @@ const InputField = ({
   return (
     <div className="form-input-wrapper">
       <input
-        disabled={disabled}
         type={type}
         name={name}
         id={text}

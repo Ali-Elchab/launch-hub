@@ -33,7 +33,6 @@
 .form-input:focus + .form-label {
   opacity: 0;
   transform: translateY(-100%);
-  visibility: hidden;
 }
 .visible-value {
   opacity: 0;
