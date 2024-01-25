@@ -7,7 +7,7 @@ export const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [display, setDisplay] = useState(true);
-  const [activeItem, setActiveItem] = useState("statistics");
+  const [activeItem, setActiveItem] = useState(location.pathname);
 
   useEffect(() => {
     setDisplay(location.pathname !== "/");
@@ -60,6 +60,12 @@ export const Sidebar = () => {
               Content Management
             </li>
           </ul>
+          <div
+            className={activeItem === "profile" ? "active profile" : "profile"}
+            onClick={() => handleItemClick("profile")}
+          >
+            <span>Profile</span>{" "}
+          </div>
         </li>
       </ul>
     </div>

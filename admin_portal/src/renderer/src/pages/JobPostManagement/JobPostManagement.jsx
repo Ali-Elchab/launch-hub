@@ -4,10 +4,7 @@ import "./styles.css";
 import { FaArrowRight } from "react-icons/fa";
 import { JobPostModal } from "../../components/JobPostModal/JobPostModal";
 import { ApplicationModal } from "../../components/ApplicationModal/ApplicationModal";
-
-// import { StartupModal } from "../../components/StartupModal/StartupModal";
-// import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
-// import { BaseURL } from "../../core/helpers/BaseImageURL";
+import Spinner from "../../components/Spinnes";
 
 const JobPostManagement = () => {
   const [jobPosts, setJobPosts] = useState([]);
@@ -28,7 +25,7 @@ const JobPostManagement = () => {
         setJobPosts(res);
       });
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
       setIsError(true);
     }
   };
@@ -46,7 +43,7 @@ const JobPostManagement = () => {
         },
       );
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
       setIsError(true);
     }
   };
@@ -131,7 +128,7 @@ const JobPostManagement = () => {
         return res.startup;
       });
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
       setIsError(true);
     }
   };
@@ -189,7 +186,7 @@ const JobPostManagement = () => {
       </div>
     );
   } else {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 };
 

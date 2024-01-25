@@ -5,6 +5,7 @@ import "./styles.css";
 import TotalRegistrations from "../../components/Dashboard/TotalRegistrations";
 import MyResponsivePie from "../../components/Dashboard/UserDemographics";
 import MyResponsiveBar from "../../components/Dashboard/ApplicationsStats";
+import Spinner from "../../components/Spinnes";
 
 const Statistics = () => {
   const [values, setValues] = useState({
@@ -30,7 +31,7 @@ const Statistics = () => {
         },
       );
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
     }
   };
   useEffect(() => {
@@ -62,7 +63,7 @@ const Statistics = () => {
       </div>
     );
   } else {
-    return null;
+    return <Spinner />;
   }
 };
 

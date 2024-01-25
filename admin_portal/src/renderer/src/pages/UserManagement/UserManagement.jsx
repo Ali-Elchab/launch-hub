@@ -3,6 +3,7 @@ import { requestData } from "../../core/axios";
 import "./styles.css";
 import { StartupModal } from "../../components/StartupModal/StartupModal";
 import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
+import Spinner from "../../components/Spinnes";
 const baseURL = "http://192.168.0.106:8000/";
 
 const UserManagement = () => {
@@ -24,7 +25,8 @@ const UserManagement = () => {
         setStartups(res.startups);
       });
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
+
       setIsError(true);
     }
   };
@@ -42,7 +44,8 @@ const UserManagement = () => {
         },
       );
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
+
       setIsError(true);
     }
   };
@@ -84,7 +87,7 @@ const UserManagement = () => {
         setSelectedStartup(null);
       });
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
       setIsError(true);
     }
   };
@@ -108,7 +111,7 @@ const UserManagement = () => {
         setSelectedJobSeeker(null);
       });
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
       setIsError(true);
     }
   };
@@ -172,7 +175,7 @@ const UserManagement = () => {
       </div>
     );
   } else {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 };
 
