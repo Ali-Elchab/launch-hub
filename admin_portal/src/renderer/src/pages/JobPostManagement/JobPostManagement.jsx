@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { requestData } from "../../core/axios";
 import "./styles.css";
-import { StartupModal } from "../../components/StartupModal/StartupModal";
-import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
-import { BaseURL } from "../../core/helpers/BaseImageURL";
+import { FaArrowRight } from "react-icons/fa";
+
+// import { StartupModal } from "../../components/StartupModal/StartupModal";
+// import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
+// import { BaseURL } from "../../core/helpers/BaseImageURL";
 
 const JobPostManagement = () => {
   const [jobPosts, setJobPosts] = useState([]);
@@ -48,8 +50,8 @@ const JobPostManagement = () => {
   };
 
   useEffect(() => {
-    getApplications();
     getJobPosts();
+    getApplications();
   }, []);
 
   const showJobPost = (JobPost) => {
@@ -141,43 +143,38 @@ const JobPostManagement = () => {
         <div className="flex row user-management-container">
           <div className="flex column table">
             <h2 style={{ color: "#326789" }}>Job Posts</h2>
-
-            {jobPosts.map(async (jobPost, index) => {
-              const startup = await getStartup(jobPost["startup_id"]);
-              return (
-                <div
-                  key={index}
-                  className="table-row flex row"
-                  onClick={() => showJobPost(jobPost)}
-                >
-                  <img
-                    src={`${BaseURL}assets/images/profile_pics/${startup["logo_url"]}`}
-                    alt="Network Image"
-                    className="profile-pic"
-                  />
-                  {jobPost["company_name"]}
-                </div>
-              );
-            })}
-          </div>
-          {/* <div className="flex column table">
-            <h2 style={{ color: "#326789" }}>Job Seekers</h2>
-
-            {jobSeekers.map((jobSeeker, index) => (
+            {jobPosts.map((jobPost, index) => (
               <div
                 key={index}
-                className="table-row flex row"
-                onClick={() => showJobSeeker(jobSeeker)}
+                className="table-row flex row "
+                onClick={() => showJobPost(jobPost)}
               >
-                <img
-                  src={`${BaseURL}assets/images/profile_pics/${jobSeeker["profile_pic"]}`}
-                  alt="Network Image"
-                  className="profile-pic"
-                />
-                {jobSeeker["first_name"] + " " + jobSeeker["last_name"]}
+                {jobPost["job_title"]}
+
+                <p style={{ fontSize: 10 }}>Deadline:{jobPost["deadline"]}</p>
               </div>
             ))}
-          </div> */}
+          </div>
+          <div className="flex column table">
+            <h2 style={{ color: "#326789" }}>Applications</h2>
+            {applications.map((app, index) =>
+              app["job_seekers"].map((jobSeeker, index) => (
+                <div
+                  key={index}
+                  className="table-row flex row space-between"
+                  onClick={() => showApplication(app)}
+                >
+                  <h4>
+                    {jobSeeker["first_name"] + " " + jobSeeker["last_name"]}
+                  </h4>
+                  <h4>
+                    <FaArrowRight />
+                  </h4>
+                  <h4> {app["job_title"]}</h4>
+                </div>
+              )),
+            )}
+          </div>
           {selectedJobPost && (
             <StartupModal
               startup={selectedStartup}

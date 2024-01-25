@@ -23,8 +23,10 @@
 
 .table-row {
   width: 100%;
+  color: #333;
+  font-weight: 600;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   height: 4rem;
   margin-top: 2rem;
