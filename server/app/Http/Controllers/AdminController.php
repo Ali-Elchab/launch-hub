@@ -60,7 +60,7 @@ class AdminController extends Controller
 
     public function getAllApplications()
     {
-        $applications = JobPost::with('jobSeekers')->get();
+        $applications = Application::with('jobSeeker', 'jobPost')->get();
         return response()->json($applications);
     }
 
@@ -80,6 +80,17 @@ class AdminController extends Controller
     {
         $jobPosts = JobPost::orderBy('created_at', 'desc')->take(5)->get();
         return response()->json($jobPosts);
+    }
+
+
+    public function deleteApplication($id)
+    {
+        $application = Application::find($id);
+        if (!$application) {
+            return response()->json(['status' => 'error', 'message' => 'Application not found'], 404);
+        }
+        $application->delete();
+        return response()->json(['status' => 'success', 'message' => 'Application deleted successfully']);
     }
 
     public function editAdminProfile(Request $request)

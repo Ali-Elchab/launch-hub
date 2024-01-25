@@ -96,6 +96,7 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
         Route::get('applications', 'getAllApplications');
         Route::get('jobposts', 'getAllJobPosts');
         Route::get('jobSeekers', 'getAllJobSeekers');
+        Route::delete('application/{id}', 'deleteApplication');
         Route::post('add_advisor', 'addAdvisor');
         Route::post('edit_profile', 'editAdminProfile');
         Route::delete('delete_profile', 'deleteAdminProfile');
@@ -107,5 +108,4 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::delete('jobseeker/{id}', [JobSeekerController::class, 'deleteJobSeekerProfile']);
     Route::delete('startup/{id}', [StartupController::class, 'deleteStartupProfile']);
     Route::delete('jobpost/{id}', [JobPostController::class, 'deleteJobPost']);
-    Route::delete('delete_application/{id}', [ApplicationController::class, 'deleteApplication']);
 }));;
