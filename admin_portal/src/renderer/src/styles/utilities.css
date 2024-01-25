@@ -10,7 +10,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  padding: 80px;
+  padding: 50px;
   width: calc(100% - 300px);
   height: 100vh;
   left: 300px;
