@@ -55,7 +55,7 @@ class AdminController extends Controller
         if (!$jobPosts) {
             return response()->json(['status' => 'error', 'message' => 'jobPosts not found'], 404);
         }
-        return response()->json(['status' => 'success', 'jobseekers' => $jobPosts]);
+        return response()->json($jobPosts);
     }
 
     public function getAllApplications()
