@@ -186,7 +186,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                   child: Column(
                     children: [
                       SizedBox(
-                        width: 300,
+                        width: MediaQuery.of(context).size.width * 0.73,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -210,7 +210,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                         ),
                       ),
                       SizedBox(
-                        width: 300,
+                        width: MediaQuery.of(context).size.width * 0.73,
                         child: Text(
                           textAlign: TextAlign.justify,
                           'Update your job post to attract the best talent.',
@@ -229,7 +229,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                width: 300,
+                width: MediaQuery.of(context).size.width * 0.73,
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -380,7 +380,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
               ),
             ),
             SizedBox(
-                width: 300,
+                width: MediaQuery.of(context).size.width * 0.73,
                 child: SubmitButton('Update Job Post', _submitJobData)),
             const SizedBox(height: 25),
           ],

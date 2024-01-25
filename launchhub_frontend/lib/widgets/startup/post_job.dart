@@ -162,7 +162,7 @@ class _PostJobState extends ConsumerState<PostJob> {
                   child: Column(
                     children: [
                       SizedBox(
-                        width: 300,
+                        width: MediaQuery.of(context).size.width * 0.73,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -186,7 +186,7 @@ class _PostJobState extends ConsumerState<PostJob> {
                         ),
                       ),
                       SizedBox(
-                        width: 300,
+                        width: MediaQuery.of(context).size.width * 0.73,
                         child: Text(
                           textAlign: TextAlign.justify,
                           'Ready to grow your team? Post a job for free and reach potential candidates easily.Your company details and logo will be showcased for job seekers to preview in the listing',
@@ -205,11 +205,12 @@ class _PostJobState extends ConsumerState<PostJob> {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                width: 300,
+                width: MediaQuery.of(context).size.width * 0.73,
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      const SizedBox(height: 5),
                       InputField(
                         label: 'Job Title',
                         controller: _titleController,
@@ -342,7 +343,9 @@ class _PostJobState extends ConsumerState<PostJob> {
                 ),
               ),
             ),
-            SizedBox(width: 300, child: SubmitButton('Submit', _submitJobData)),
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.73,
+                child: SubmitButton('Submit', _submitJobData)),
             const SizedBox(height: 25),
           ],
         ),

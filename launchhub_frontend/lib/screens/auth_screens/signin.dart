@@ -18,6 +18,8 @@ import 'package:launchhub_frontend/widgets/submit_button.dart';
 class SignIn extends ConsumerWidget {
   SignIn({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   void showProfileWarning(BuildContext context) {
     showDialog(
       context: context,
@@ -38,8 +40,7 @@ class SignIn extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Sign In'),
@@ -85,8 +86,8 @@ class SignIn extends ConsumerWidget {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
                           }
-                          if (value.length < 3) {
-                            return 'Password must be at least 6 characters long';
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
                           }
                           return null;
                         }),

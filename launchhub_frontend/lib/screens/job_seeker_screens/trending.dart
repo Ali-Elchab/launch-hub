@@ -24,7 +24,7 @@ class Trending extends StatelessWidget {
       ),
       body: Center(
         child: SizedBox(
-          width: 300,
+          width: MediaQuery.of(context).size.width * 0.73,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,9 +32,8 @@ class Trending extends StatelessWidget {
               const SectionTitle(title: 'Trending Articles'),
               Consumer(
                 builder: (context, ref, child) => FutureBuilder<List<dynamic>>(
-                  future: ref
-                      .read(dataProvider)
-                      .fetchArticles('job seeker $specialization'),
+                  future:
+                      ref.read(dataProvider).fetchArticles('specialization'),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Align(

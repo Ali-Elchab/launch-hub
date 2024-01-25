@@ -83,7 +83,6 @@ class _JobSeekerProfileState extends ConsumerState<JobSeekerProfile> {
                     Text(
                       widget.jobSeeker.bio,
                       style: Theme.of(context).textTheme.bodyMedium,
-                      textAlign: TextAlign.justify,
                     ),
                     const Spacer(),
                     Container(

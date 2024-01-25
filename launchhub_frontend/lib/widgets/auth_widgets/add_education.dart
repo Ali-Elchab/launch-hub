@@ -130,7 +130,7 @@ class _AddEducationState extends ConsumerState<AddEducation> {
         ),
         child: Center(
           child: Container(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             padding: const EdgeInsets.fromLTRB(16, 58, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,7 +154,7 @@ class _AddEducationState extends ConsumerState<AddEducation> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                    width: 300,
+                    width: MediaQuery.of(context).size.width * 0.73,
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -204,7 +204,8 @@ class _AddEducationState extends ConsumerState<AddEducation> {
                   ),
                 ),
                 SizedBox(
-                    width: 300, child: SubmitButton('Submit', _submitJobData)),
+                    width: MediaQuery.of(context).size.width * 0.73,
+                    child: SubmitButton('Submit', _submitJobData)),
                 const SizedBox(height: 25),
               ],
             ),

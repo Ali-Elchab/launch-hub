@@ -43,52 +43,61 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
           showBackButton: false,
         ),
       ),
-      body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.73,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 35),
-              const WelcomeCard(
-                  imageUrl: 'assets/images/jobseeker_home_main.png',
-                  text:
-                      'Welcome to Career Advancement Hub – Your resource for professional success. Explore our features to enhance your career journey.'),
-              const SizedBox(height: 25),
-              FeatureCard(
-                title: 'Job Opportunities',
-                description:
-                    'Explore Endless Opportunities: Your Gateway to Exciting Job Offers Awaits! Discover Your Next Career Move with our Diverse Range of Job Listings.',
-                imagePath: 'assets/images/job_opportunities.png',
-                onTap: () async {
-                  await jobseeker.fetchJobPosts();
-                  navigator(context, const JobOpportunities());
-                },
-              ),
-              FeatureCard(
-                title: 'Career Skills Hub',
-                description:
-                    'Boost Your Skills: Tailored Courses for Job Seekers Ready to Elevate Their Careers. Take the Next Step Toward Professional Growth and Success.',
-                imagePath: 'assets/images/career-skills.png',
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CareerSkillsHub(specialization: data.nicheName);
-                  }));
-                },
-              ),
-              FeatureCard(
-                title: 'Trending',
-                description:
-                    'Navigate Your Career Journey: Essential Guides and Articles for Job Seekers, Covering Interviews, Resumes, and Beyond. Empowering You with Expert Insights for Success.',
-                imagePath: 'assets/images/trending.png',
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Trending(specialization: data.nicheName);
-                  }));
-                },
-              )
-            ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.73,
+            // height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 35),
+                const WelcomeCard(
+                    imageUrl: 'assets/images/jobseeker_home_main.png',
+                    text:
+                        'Welcome to Career Advancement Hub – Your resource for professional success. Explore our features to enhance your career journey.'),
+                const SizedBox(height: 25),
+                Column(
+                  children: [
+                    FeatureCard(
+                      title: 'Job Opportunities',
+                      description:
+                          'Explore Endless Opportunities: Your Gateway to Exciting Job Offers Awaits! Discover Your Next Career Move with our Diverse Range of Job Listings.',
+                      imagePath: 'assets/images/job_opportunities.png',
+                      onTap: () async {
+                        await jobseeker.fetchJobPosts();
+                        navigator(context, const JobOpportunities());
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Career Skills Hub',
+                      description:
+                          'Boost Your Skills: Tailored Courses for Job Seekers Ready to Elevate Their Careers. Take the Next Step Toward Professional Growth and Success.',
+                      imagePath: 'assets/images/career-skills.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CareerSkillsHub(
+                              specialization: data.nicheName);
+                        }));
+                      },
+                    ),
+                    FeatureCard(
+                      title: 'Trending',
+                      description:
+                          'Navigate Your Career Journey: Essential Guides and Articles for Job Seekers, Covering Interviews, Resumes, and Beyond. Empowering You with Expert Insights for Success.',
+                      imagePath: 'assets/images/trending.png',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Trending(specialization: data.nicheName);
+                        }));
+                      },
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

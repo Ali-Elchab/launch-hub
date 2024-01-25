@@ -58,8 +58,10 @@ class _JobSeekerCard extends ConsumerState<JobSeekerCard> {
                     Container(
                       alignment: Alignment.topLeft,
                       child: Image.network(
-                          "${baseUrl}assets/images/profile_pics/${jobSeeker.profilePic!}",
-                          width: 65),
+                        "${baseUrl}assets/images/profile_pics/${jobSeeker.profilePic!}",
+                        width: 65,
+                        height: 65,
+                      ),
                     ),
                     const SizedBox(height: 5),
                     Row(

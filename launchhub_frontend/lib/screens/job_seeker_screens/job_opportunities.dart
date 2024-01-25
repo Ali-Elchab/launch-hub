@@ -43,12 +43,12 @@ class JobOpportunities extends ConsumerWidget {
         child: Header(
           title: 'Job Opportunities',
           text:
-              'Embark on a journey of endless possibilities with our Job Opportunities page – your gateway to a world of exciting career prospects! Dive into our diverse range of job listings and discover your next professional adventure.',
+              'Explore endless career possibilities on our Job Opportunities page! Discover a diverse range of exciting job listings and find your next professional adventure.',
         ),
       ),
       body: Center(
         child: SizedBox(
-          width: 300,
+          width: MediaQuery.of(context).size.width * 0.73,
           child: Column(
             children: [
               const SizedBox(height: 25),

@@ -17,15 +17,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       titleSpacing: 0,
-      title: Flexible(
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                color: textColor ?? Colors.black,
-                fontSize: showBackButton ? 28 : 32,
-              ),
-          overflow: TextOverflow.visible,
-        ),
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              color: textColor ?? Colors.black,
+              fontSize: showBackButton ? 28 : 32,
+            ),
+        overflow: TextOverflow.visible,
       ),
       leading: showBackButton
           ? IconButton(

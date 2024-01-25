@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
@@ -46,21 +47,44 @@ class MessageBubble extends StatelessWidget {
                   if (!isMe)
                     Align(
                       alignment: Alignment.topRight,
-                      child: IconButton(
-                        onPressed: () {
-                          Clipboard.setData(ClipboardData(text: message))
-                              .then((_) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Copied to clipboard')),
-                            );
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.copy,
-                          color: Colors.white,
-                          size: 16,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Row(
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.robot,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 12),
+                              Text(
+                                'LaunchPal',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: message))
+                                  .then((_) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Copied to clipboard')),
+                                );
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.copy,
+                              color: Colors.white,
+                              size: 16,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   Text(

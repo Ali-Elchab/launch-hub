@@ -52,7 +52,7 @@ class _JobPostViewState extends ConsumerState<JobPostView> {
       ),
       body: Center(
         child: SizedBox(
-          width: 300,
+          width: MediaQuery.of(context).size.width * 0.73,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,7 +161,7 @@ class _JobPostViewState extends ConsumerState<JobPostView> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 75),
+                margin: const EdgeInsets.only(bottom: 35),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

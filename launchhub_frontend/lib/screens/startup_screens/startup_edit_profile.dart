@@ -181,28 +181,18 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                                   'Are you sure you want to log out?'),
                               actions: [
                                 TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Cancel')),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
                                 TextButton(
                                   onPressed: () async {
-                                    final prefs =
+                                    final SharedPreferences prefs =
                                         await SharedPreferences.getInstance();
-                                    final token = prefs.getString('token');
-                                    final logout =
-                                        await myDio.post(ApiRoute.logout,
-                                            options: Options(
-                                              headers: {
-                                                'Authorization':
-                                                    'Bearer $token',
-                                              },
-                                            ));
-
-                                    if (logout.statusCode == 200) {
-                                      Navigator.pushNamedAndRemoveUntil(
-                                          context, '/SignIn', (route) => false);
-                                    }
+                                    await prefs.remove('token');
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context, '/SignIn', (route) => false);
                                   },
                                   child: Text(
                                     'Log Out',

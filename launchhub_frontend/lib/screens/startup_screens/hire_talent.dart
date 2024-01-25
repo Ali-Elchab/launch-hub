@@ -70,18 +70,37 @@ class _HireTalent extends ConsumerState<HireTalent>
 
     if (ref.read(hireTalentProvider).jobSeekers.isNotEmpty) {
       if (_tabController.index == 0) {
-        print(
-            'filtered job seekers: ${ref.watch(hireTalentProvider.notifier).filteredJobSeekers.length}');
         mainContent = JobSeekersList(
           jobSeekers: ref.watch(hireTalentProvider.notifier).filteredJobSeekers,
         );
       } else if (_tabController.index == 1) {
-        mainContent = ApplicantsList(
-          jobSeekers: hiretalentprovider.applicants,
-          onDismissed: (id, status, index) {
-            hiretalentprovider.respondToApplication(id, status, index);
-          },
-        );
+        if (hiretalentprovider.applicants.isEmpty) {
+          mainContent = Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.clear_rounded,
+                  size: 80,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                const SizedBox(height: 30),
+                Text('No Job seekers applied at the moment.',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                    textAlign: TextAlign.center),
+              ],
+            ),
+          );
+        } else if (hiretalentprovider.applicants.isNotEmpty) {
+          mainContent = ApplicantsList(
+            jobSeekers: hiretalentprovider.applicants,
+            onDismissed: (id, status, index) {
+              hiretalentprovider.respondToApplication(id, status, index);
+            },
+          );
+        }
       }
     }
 
