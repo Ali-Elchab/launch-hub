@@ -1,0 +1,56 @@
+.table {
+  width: 40%;
+  height: 80vh;
+  border-collapse: collapse;
+  background-color: white;
+  overflow-y: scroll;
+  border-radius: 2rem;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  padding: 2.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table::-webkit-scrollbar {
+  display: none;
+}
+
+.user-management-container {
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.users-table-row {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 4rem;
+  margin-top: 2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.table-row:hover {
+  background-color: #3268893d;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+  margin-right: 25px;
+}
+
+.add-button {
+  background-color: #326889;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
