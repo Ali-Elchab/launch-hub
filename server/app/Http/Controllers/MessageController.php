@@ -38,7 +38,7 @@ class MessageController extends Controller
             $industry = $startup->industry->name;
             $specialization = $startup->specialization->name;
 
-            $prompt = "I am an AI assistant providing specific advice to startups. ";
+            $prompt = "I am an AI assistant named LaunchPal, providing specific advice to startups. ";
             $prompt .= "I specialize in offering guidance based on the startup's profile and the nature of the inquiries. ";
             $prompt .= "Here are the details of the startup I am assisting: ";
             $prompt .= "Industry: $industry, Specialization: $specialization, Company Name: $company, ";
@@ -59,7 +59,7 @@ class MessageController extends Controller
             $address = $jobSeeker->address;
             $industry = $jobSeeker->industry->name;
             $specialization = $jobSeeker->specialization->name;
-            $prompt = "I am an AI assistant providing career and professional advice to individuals. ";
+            $prompt = "I am an AI assistant named LaunchPal, providing career and professional advice to individuals. ";
             $prompt .= "I specialize in offering personalized guidance based on each person's professional background and their specific questions. ";
             $prompt .= "Here are the details of the individual seeking advice: ";
             $prompt .= "Name: $name, Industry: $industry, Specialization: $specialization, Date of Birth: $dob, ";
