@@ -124,7 +124,7 @@ const UserManagement = () => {
             {startups.map((startup, index) => (
               <div
                 key={index}
-                className="table-row flex row"
+                className="users-table-row flex row"
                 onClick={() => showStartup(startup)}
               >
                 <img
@@ -142,7 +142,7 @@ const UserManagement = () => {
             {jobSeekers.map((jobSeeker, index) => (
               <div
                 key={index}
-                className="table-row flex row"
+                className="users-table-row flex row"
                 onClick={() => showJobSeeker(jobSeeker)}
               >
                 <img

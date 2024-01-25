@@ -3,6 +3,7 @@ import { requestData } from "../../core/axios";
 import "./styles.css";
 import { FaArrowRight } from "react-icons/fa";
 import { JobPostModal } from "../../components/JobPostModal/JobPostModal";
+import { ApplicationModal } from "../../components/ApplicationModal/ApplicationModal";
 
 // import { StartupModal } from "../../components/StartupModal/StartupModal";
 // import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
@@ -87,7 +88,6 @@ const JobPostManagement = () => {
         setSelectedJobPost(null);
       });
     } catch (err) {
-      console.log(err);
       setIsError(true);
     }
   };
@@ -111,7 +111,6 @@ const JobPostManagement = () => {
         setSelectedApplication(null);
       });
     } catch (err) {
-      console.log(err);
       setIsError(true);
     }
   };
@@ -158,23 +157,19 @@ const JobPostManagement = () => {
           </div>
           <div className="flex column table">
             <h2 style={{ color: "#326789" }}>Applications</h2>
-            {applications.map((app, index) =>
-              app["job_seekers"].map((jobSeeker, index) => (
-                <div
-                  key={index}
-                  className="table-row flex row space-between"
-                  onClick={() => showApplication(app)}
-                >
-                  <h4>
-                    {jobSeeker["first_name"] + " " + jobSeeker["last_name"]}
-                  </h4>
-                  <h4>
-                    <FaArrowRight />
-                  </h4>
-                  <h4> {app["job_title"]}</h4>
-                </div>
-              )),
-            )}
+            {applications.map((app, index) => (
+              <div
+                key={index}
+                className="table-row flex row space-between"
+                onClick={() => showApplication(app)}
+              >
+                {app.job_seeker && <h4>{app.job_seeker.first_name}</h4>}
+                <h4>
+                  <FaArrowRight />
+                </h4>
+                <h4> {app["job_post"]["job_title"]}</h4>
+              </div>
+            ))}
           </div>
           {selectedJobPost && (
             <JobPostModal
@@ -184,8 +179,8 @@ const JobPostManagement = () => {
             />
           )}
           {selectedApplication && (
-            <JobSeekerModal
-              jobSeeker={selectedJobSeeker}
+            <ApplicationModal
+              app={selectedApplication}
               onClose={closeModal}
               onDelete={() => deleteApplication(selectedApplication)}
             />
