@@ -79,7 +79,7 @@ class _JobBoardState extends ConsumerState<JobBoard> {
       ),
       body: Center(
         child: SizedBox(
-          width: 300,
+          width: MediaQuery.of(context).size.width * 0.73,
           child: Column(
             children: [
               const SizedBox(height: 25),

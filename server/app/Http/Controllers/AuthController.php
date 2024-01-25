@@ -157,7 +157,7 @@ class AuthController extends Controller
 
                 'social_media_links' => 'nullable|array',
                 'social_media_links.*.platform' => 'required|string|max:255',
-                'social_media_links.*.link' => 'required|url',
+                'social_media_links.*.link' => 'required|string',
             ],);
         } catch (ValidationException $e) {
             return response()->json([
@@ -239,7 +239,7 @@ class AuthController extends Controller
                 'website_url' => 'nullable|url',
                 'social_media_links' => 'nullable|array',
                 'social_media_links.*.platform' => 'required|string|max:255',
-                'social_media_links.*.link' => 'required|url',
+                'social_media_links.*.link' => 'required|string',
 
             ],);
         } catch (ValidationException $e) {

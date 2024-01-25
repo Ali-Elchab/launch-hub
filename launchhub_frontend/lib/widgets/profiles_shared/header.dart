@@ -42,7 +42,7 @@ class Header extends StatelessWidget {
           ),
           Expanded(
             child: SizedBox(
-              width: 300,
+              width: MediaQuery.of(context).size.width * 0.73,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: const ClampingScrollPhysics(),

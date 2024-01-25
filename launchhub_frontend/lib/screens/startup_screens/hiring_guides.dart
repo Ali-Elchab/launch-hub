@@ -27,7 +27,7 @@ class HiringGuides extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         child: Center(
           child: SizedBox(
-            width: 300,
+            width: MediaQuery.of(context).size.width * 0.73,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
