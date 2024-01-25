@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { requestData } from "../../core/axios";
 import "./styles.css";
 import { FaArrowRight } from "react-icons/fa";
+import { JobPostModal } from "../../components/JobPostModal/JobPostModal";
 
 // import { StartupModal } from "../../components/StartupModal/StartupModal";
 // import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
@@ -73,7 +74,7 @@ const JobPostManagement = () => {
     };
     try {
       await requestData(
-        `admin/jobPost/${jobPost["id"]}`,
+        `admin/jobpost/${jobPost["id"]}`,
         "delete",
         null,
         headers,
@@ -176,17 +177,17 @@ const JobPostManagement = () => {
             )}
           </div>
           {selectedJobPost && (
-            <StartupModal
-              startup={selectedStartup}
+            <JobPostModal
+              jobpost={selectedJobPost}
               onClose={closeModal}
-              onDelete={() => deleteStartup(selectedStartup)}
+              onDelete={() => deleteJobPost(selectedJobPost)}
             />
           )}
           {selectedApplication && (
             <JobSeekerModal
               jobSeeker={selectedJobSeeker}
               onClose={closeModal}
-              onDelete={() => deleteJobSeeker(selectedJobSeeker)}
+              onDelete={() => deleteApplication(selectedApplication)}
             />
           )}
         </div>
