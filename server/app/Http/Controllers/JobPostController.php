@@ -166,9 +166,11 @@ class JobPostController extends Controller
             $idsArray = explode(", ", $idsString);
             $idsArray = array_map('intval', $idsArray);
 
-            $jobPosts = JobPost::whereIn('id', $idsArray)->get();
-            $jobPosts->load(['requiredSkills']);
-            $jobPosts = $jobPosts->toArray();
+            $jobPosts = JobPost::whereIn('id', $idsArray)
+                ->with(['requiredSkills', 'startup'])
+                ->get();
+            // $jobPosts->load(['requiredSkills']);
+            // $jobPosts = $$jobPosts->with('industry,specialization');
 
             return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
         } catch (\Exception $e) {

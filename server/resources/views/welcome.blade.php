@@ -130,7 +130,7 @@
         [type=reset],
         [type=submit],
         button {
-            -webkit-appearance: button;
+            /* -webkit-appearance: button; */
             background-color: transparent;
             background-image: none
         }
@@ -153,7 +153,7 @@
         }
 
         [type=search] {
-            -webkit-appearance: textfield;
+            /* -webkit-appearance: textfield; */
             outline-offset: -2px
         }
 
@@ -231,7 +231,7 @@
         svg,
         video {
             display: block;
-            vertical-align: middle
+            /* vertical-align: middle */
         }
 
         img,
