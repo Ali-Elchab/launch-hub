@@ -7,7 +7,7 @@ export const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [display, setDisplay] = useState(true);
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState("statistics");
 
   useEffect(() => {
     setDisplay(location.pathname !== "/");
@@ -42,14 +42,14 @@ export const Sidebar = () => {
               Dashboard
             </li>
             <li
-              className={activeItem === "passengers" ? "active" : ""}
-              onClick={() => handleItemClick("passengers")}
+              className={activeItem === "user-management" ? "active" : ""}
+              onClick={() => handleItemClick("user-management")}
             >
               User Management
             </li>
             <li
-              className={activeItem === "jobs" ? "active" : ""}
-              onClick={() => handleItemClick("jobs")}
+              className={activeItem === "job-posts" ? "active" : ""}
+              onClick={() => handleItemClick("job-posts")}
             >
               Job Post Management
             </li>
