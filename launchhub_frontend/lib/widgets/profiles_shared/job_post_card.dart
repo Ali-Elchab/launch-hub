@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
 import 'package:launchhub_frontend/models/job_post.dart';
 import 'package:launchhub_frontend/models/startup.dart';
-import 'package:launchhub_frontend/providers/job_seeker_profile_provider.dart';
 
-class JobPostCard extends ConsumerStatefulWidget {
+class JobPostCard extends ConsumerWidget {
   final JobPost jobPost;
   final Function()? onTap;
   final Startup? company;
@@ -18,33 +17,16 @@ class JobPostCard extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<JobPostCard> createState() => _JobPostCardState();
-}
-
-class _JobPostCardState extends ConsumerState<JobPostCard> {
-  @override
-  void initState() {
-    super.initState();
-    loadStartup();
-  }
-
-  void loadStartup() async {
-    final startupId = widget.jobPost.startupId;
-    await ref.read(jobSeekerProfileProvider).getStartup(startupId);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final provider = ref.watch(jobSeekerProfileProvider);
-    final startup = widget.company ?? provider.startup;
-    if (startup == null) {
-      return const CircularProgressIndicator(); // Or any other loading widget
+  Widget build(BuildContext context, WidgetRef ref) {
+    final startup = company;
+    if (startup == null && jobPost.startupName == '') {
+      return const CircularProgressIndicator();
     }
     return InkWell(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: Card(
         elevation: 0,
-        color: const Color.fromARGB(255, 251, 251, 251),
+        color: const Color.fromARGB(255, 230, 229, 229),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
@@ -60,14 +42,9 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                   children: [
                     Container(
                         alignment: Alignment.topLeft,
-                        child: startup.copmanyLogo == null
-                            ? Image.asset(
-                                'assets/logos/default-logo.png',
-                                width: 65,
-                              )
-                            : Image.network(
-                                "${baseUrl}assets/images/profile_pics/${startup.copmanyLogo!}",
-                                width: 65)),
+                        child: Image.network(
+                            "${baseUrl}assets/images/profile_pics/${jobPost.startupLogo}",
+                            width: 65)),
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
@@ -79,7 +56,7 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                         const SizedBox(width: 3),
                         Expanded(
                           child: Text(
-                            widget.jobPost.jobLocation,
+                            jobPost.jobLocation,
                             style: Theme.of(context).textTheme.bodySmall!,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -96,7 +73,7 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                         ),
                         const SizedBox(width: 3),
                         Text(
-                          widget.jobPost.jobType.toString().split('.').last,
+                          jobPost.jobType.toString().split('.').last,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 11,
@@ -114,7 +91,7 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                         ),
                         const SizedBox(width: 3),
                         Text(
-                          widget.jobPost.deadline,
+                          jobPost.deadline,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -131,16 +108,16 @@ class _JobPostCardState extends ConsumerState<JobPostCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(startup.companyName,
+                    Text(jobPost.startupName!,
                         style: Theme.of(context).textTheme.titleSmall!),
                     const SizedBox(height: 4),
-                    Text(widget.jobPost.jobTitle,
+                    Text(jobPost.jobTitle,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               fontWeight: FontWeight.bold,
                             )),
                     const SizedBox(height: 4),
                     Text(
-                      widget.jobPost.jobDescription,
+                      jobPost.jobDescription,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontSize: 10,
                           ),

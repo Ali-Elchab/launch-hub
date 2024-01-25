@@ -41,7 +41,7 @@ class _JobSeekerCard extends ConsumerState<JobSeekerCard> {
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 10),
         elevation: 0,
-        color: const Color.fromARGB(255, 251, 251, 251),
+        color: const Color.fromARGB(255, 230, 229, 229),
         child: Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,

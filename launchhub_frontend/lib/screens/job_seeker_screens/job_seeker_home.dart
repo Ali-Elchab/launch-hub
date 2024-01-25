@@ -47,7 +47,6 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         child: Center(
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.73,
-            // height: MediaQuery.of(context).size.height,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

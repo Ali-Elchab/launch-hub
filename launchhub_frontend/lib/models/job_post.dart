@@ -17,6 +17,8 @@ class JobPost {
     required this.industryId,
     required this.specializationId,
     required this.startupId,
+    this.startupName,
+    this.startupLogo,
   });
   final int id;
   final String jobTitle;
@@ -35,6 +37,8 @@ class JobPost {
   final int industryId;
   final int specializationId;
   final int startupId;
+  final String? startupName;
+  final String? startupLogo;
   factory JobPost.fromJson(Map json) {
     return JobPost(
       id: json['id'] as int,
@@ -54,6 +58,8 @@ class JobPost {
       industryId: json['industry_id'] as int,
       specializationId: json['specialization_id'] as int,
       startupId: json['startup_id'] as int,
+      startupName: json['startup']['company_name'] as String?,
+      startupLogo: json['startup']['logo_url'] as String?,
     );
   }
   Map<String, dynamic> toJson() {
