@@ -174,6 +174,7 @@ class JobSeekerController extends Controller
             }
 
             $user->delete();
+            $jobSeeker->delete();
             return response()->json(['status' => 'success', 'message' => 'Job seeker deleted successfully']);
         }
         return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);

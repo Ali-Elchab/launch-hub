@@ -104,8 +104,8 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::get('jobseeker/{id}', [JobSeekerController::class, 'getJobSeeker']);
     Route::get('startup/{id}', [StartupController::class, 'getStartup']);
     Route::get('jobpost/{id}', [JobPostController::class, 'getJobPost']);
-    Route::delete('jobseeker/{id}', [JobSeekerController::class, 'deleteJobSeeker']);
-    Route::delete('startup/{id}', [StartupController::class, 'deleteStartup']);
+    Route::delete('jobseeker/{id}', [JobSeekerController::class, 'deleteJobSeekerProfile']);
+    Route::delete('startup/{id}', [StartupController::class, 'deleteStartupProfile']);
     Route::delete('jobpost/{id}', [JobPostController::class, 'deleteJobPost']);
     Route::delete('delete_application/{id}', [ApplicationController::class, 'deleteApplication']);
 }));;

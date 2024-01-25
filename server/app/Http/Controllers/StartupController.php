@@ -99,6 +99,7 @@ class StartupController extends Controller
                 Storage::disk('public')->delete($logoPath);
             }
             $user->delete();
+            $startup->delete();
             return response()->json(['status' => 'success', 'message' => 'Startup deleted successfully'], 200);
         }
         return response()->json(['status' => 'error', 'message' => 'Startup not found'], 404);
