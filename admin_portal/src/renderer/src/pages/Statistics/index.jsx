@@ -26,8 +26,6 @@ const Statistics = () => {
       await requestData("admin/statistics", "get", null, headers).then(
         (res) => {
           setIsLoading(false);
-
-          console.log(values.totalRegisteredUsers);
           setValues(res);
         },
       );
