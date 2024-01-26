@@ -54,7 +54,7 @@ class ApplicantsList extends StatelessWidget {
                           size: 30,
                         ),
                         const SizedBox(width: 5),
-                        Text('Easy Apply',
+                        Text('Reject Applicant',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -83,7 +83,7 @@ class ApplicantsList extends StatelessWidget {
                           size: 30,
                         ),
                         const SizedBox(width: 5),
-                        Text('Easy Apply',
+                        Text('Contact',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
