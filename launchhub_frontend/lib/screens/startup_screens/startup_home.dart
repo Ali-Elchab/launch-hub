@@ -137,11 +137,11 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                           navigator(
                             context,
                             ArticlesAndTemplates(
-                              templates: marketingTemplates,
-                              query: 'marketing startup business',
-                              title: 'Marketing Guides',
+                              templates: financeTemplates,
+                              query: 'finance',
+                              title: 'Financial Planning',
                               text:
-                                  'Empower your startup\'s brand identity with essential resources on our Branding page, offering insightful articles and practical templates. Craft and elevate your brand with ease.',
+                                  'Access essential articles and templates covering diverse legal aspects to guide your startup through various challenges, ensuring a secure and compliant business journey.',
                             ),
                           );
                         },

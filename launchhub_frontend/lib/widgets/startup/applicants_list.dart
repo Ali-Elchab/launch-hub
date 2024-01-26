@@ -40,29 +40,59 @@ class ApplicantsList extends StatelessWidget {
                   secondaryBackground: Container(
                     color: const Color.fromARGB(255, 165, 11, 0),
                     alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: 20),
+                    padding: const EdgeInsets.only(right: 10),
                     margin: const EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 12,
                     ),
-                    child: const Icon(
-                      Icons.thumb_down_rounded,
-                      color: Colors.white,
-                      size: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.thumb_down_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        const SizedBox(width: 5),
+                        Text('Easy Apply',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                )),
+                      ],
                     ),
                   ),
                   background: Container(
                     color: Theme.of(context).primaryColor,
                     alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 10),
                     margin: const EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 12,
                     ),
-                    child: const Icon(
-                      Icons.contact_page_outlined,
-                      color: Colors.white,
-                      size: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.contact_page_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        const SizedBox(width: 5),
+                        Text('Easy Apply',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                )),
+                      ],
                     ),
                   ),
                   confirmDismiss: (direction) async {
