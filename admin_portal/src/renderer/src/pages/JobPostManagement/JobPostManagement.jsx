@@ -160,10 +160,12 @@ const JobPostManagement = () => {
                 className="table-row flex row space-between"
                 onClick={() => showApplication(app)}
               >
-                {app.job_seeker && <h4>{app.job_seeker.first_name}</h4>}
-                <h4>
-                  <FaArrowRight />
-                </h4>
+                {app.job_seeker && (
+                  <h4>
+                    {app.job_seeker.first_name} {app.job_seeker.last_name}
+                  </h4>
+                )}
+                <h4>applied to: </h4>
                 <h4> {app["job_post"]["job_title"]}</h4>
               </div>
             ))}

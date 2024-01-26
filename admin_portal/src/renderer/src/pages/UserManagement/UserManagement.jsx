@@ -4,7 +4,7 @@ import "./styles.css";
 import { StartupModal } from "../../components/StartupModal/StartupModal";
 import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
 import Spinner from "../../components/Spinnes";
-const baseURL = "http://192.168.0.106:8000/";
+import { BaseURL } from "../../core/helpers/BaseImageURL";
 
 const UserManagement = () => {
   const [startups, setStartups] = useState([]);
@@ -131,7 +131,7 @@ const UserManagement = () => {
                 onClick={() => showStartup(startup)}
               >
                 <img
-                  src={`${baseURL}assets/images/profile_pics/${startup["logo_url"]}`}
+                  src={`${BaseURL}assets/images/profile_pics/${startup["logo_url"]}`}
                   alt="Network Image"
                   className="profile-pic"
                 />
@@ -149,7 +149,7 @@ const UserManagement = () => {
                 onClick={() => showJobSeeker(jobSeeker)}
               >
                 <img
-                  src={`${baseURL}assets/images/profile_pics/${jobSeeker["profile_pic"]}`}
+                  src={`${BaseURL}assets/images/profile_pics/${jobSeeker["profile_pic"]}`}
                   alt="Network Image"
                   className="profile-pic"
                 />
