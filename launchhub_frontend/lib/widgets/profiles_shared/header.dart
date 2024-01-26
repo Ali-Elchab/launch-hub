@@ -40,20 +40,19 @@ class Header extends StatelessWidget {
             textColor: textColor,
             showBackButton: showBackButton ? true : false,
           ),
-          Expanded(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.73,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: const ClampingScrollPhysics(),
-                child: Text(
-                  textAlign: TextAlign.left,
-                  text,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: textColor,
-                        fontSize: showBackButton ? 14 : 16,
-                      ),
-                ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.73,
+            height: 80,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: const ClampingScrollPhysics(),
+              child: Text(
+                textAlign: TextAlign.left,
+                text,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: textColor,
+                      fontSize: showBackButton ? 14 : 16,
+                    ),
               ),
             ),
           ),
