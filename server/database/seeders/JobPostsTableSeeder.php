@@ -88,7 +88,7 @@ class JobPostsTableSeeder extends Seeder
                 'job_status' => 'Open',
                 'industry_id' => 1,
                 'specialization_id' => 3,
-                'startup_id' => 1,
+                'startup_id' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

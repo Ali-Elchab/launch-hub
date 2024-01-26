@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
                 'user_type_id' => 3
             ],
             [
-                'email' => 'innovateTech@example.com',
+                'email' => 'sefactory@gmail.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 1
             ],
@@ -114,7 +114,32 @@ class UsersTableSeeder extends Seeder
                 'email' => 'lucas.moore@example.com',
                 'password' => Hash::make('password'),
                 'user_type_id' => 2
+            ], [
+                'email' => 'charlotte.taylor@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'ethan.anderson@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'amelia.harris@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'mason.wilson@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
+            ],
+            [
+                'email' => 'mia.martinez@example.com',
+                'password' => Hash::make('password'),
+                'user_type_id' => 2
             ]
+
 
 
         ]);
