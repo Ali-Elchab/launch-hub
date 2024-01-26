@@ -29,9 +29,11 @@ class JobPostController extends Controller
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        $jobposts = $startup->jobposts()->with('requiredSkills')->get();
-
-        return response()->json($jobposts);
+        // $jobPosts = $startup->jobposts()->with('requiredSkills')->get();
+        $jobPosts = JobPost::where('startup_id', $startup->id)
+            ->with(['requiredSkills', 'startup'])
+            ->get();
+        return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
     }
 
     public function updateJobPost(Request $request, $id)
