@@ -22,7 +22,7 @@ class JobPostCard extends ConsumerWidget {
     if (startup == null && jobPost.startupName == '') {
       return const CircularProgressIndicator();
     }
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Card(
         elevation: 0,
@@ -42,9 +42,13 @@ class JobPostCard extends ConsumerWidget {
                   children: [
                     Container(
                         alignment: Alignment.topLeft,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                         child: Image.network(
-                            "${baseUrl}assets/images/profile_pics/${jobPost.startupLogo}",
-                            width: 65)),
+                          "${baseUrl}assets/images/profile_pics/${jobPost.startupLogo}",
+                          width: 65,
+                        )),
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[
