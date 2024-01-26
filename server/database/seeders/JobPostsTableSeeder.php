@@ -105,7 +105,7 @@ class JobPostsTableSeeder extends Seeder
                 Analyze financial data to identify trends and financial performance.
                 Provide recommendations to improve financial health and processes.',
                 'job_qualification' => 'Bachelor’s Degree in Accounting or Finance',
-                'experience_level' => '2-4 years',
+                'experience_level' => '1-3 years',
                 'education_level' => 'Bachelor’s Degree',
                 'preferred_gender' => 'any',
                 'deadline' => now()->addWeeks(3),
@@ -128,7 +128,7 @@ class JobPostsTableSeeder extends Seeder
                 Provide assistance in financial audits and tax preparation.
                 Collaborate with the accounting team to improve financial procedures.',
                 'job_qualification' => 'Bachelor’s Degree in Accounting or related field',
-                'experience_level' => '1-2 years',
+                'experience_level' => '1-3 years',
                 'education_level' => 'Bachelor’s Degree',
                 'preferred_gender' => 'any',
                 'deadline' => now()->addWeeks(4),
@@ -150,7 +150,7 @@ class JobPostsTableSeeder extends Seeder
                 Collaborate with the team to improve customer service procedures.
                 Keep records of customer interactions and transactions.',
                 'job_qualification' => 'High school diploma; additional qualifications in customer service are a plus',
-                'experience_level' => 'No experience required',
+                'experience_level' => '1-3 years',
                 'education_level' => 'High School',
                 'preferred_gender' => 'any',
                 'deadline' => now()->addMonths(1),
