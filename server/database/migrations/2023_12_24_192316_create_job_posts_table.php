@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('experience_level');
             $table->string('education_level');
             $table->text('responsibilities');
-            $table->enum('preferred_gender', ['male', 'female', 'any']);
             $table->date('deadline');
             $table->enum('job_status', ['open', 'closed'])->default('open');
             $table->timestamps();

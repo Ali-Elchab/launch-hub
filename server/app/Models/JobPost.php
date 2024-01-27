@@ -21,7 +21,6 @@ class JobPost extends Model
         'experience_level',
         'responsibilities',
         'education_level',
-        'preferred_gender',
         'deadline',
         'job_status',
         'industry_id',

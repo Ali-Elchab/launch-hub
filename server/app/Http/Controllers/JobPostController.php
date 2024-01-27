@@ -29,7 +29,6 @@ class JobPostController extends Controller
         if (!$user || !$startup) {
             return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
         }
-        // $jobPosts = $startup->jobposts()->with('requiredSkills')->get();
         $jobPosts = JobPost::where('startup_id', $startup->id)
             ->with(['requiredSkills', 'startup'])
             ->get();
@@ -47,7 +46,6 @@ class JobPostController extends Controller
                 'job_qualification' => 'string',
                 'experience_level' => 'string',
                 'education_level' => 'string',
-                'preferred_gender' => 'string',
                 'job_status' => 'string',
                 'deadline' => 'string',
                 'specialization_id' => 'integer',
@@ -84,7 +82,6 @@ class JobPostController extends Controller
                 'experience_level' => 'required|string',
                 'education_level' => 'required|string',
                 'responsibilities' => 'required|string',
-                'preferred_gender' => 'required|string',
                 'required_skills' => 'required|array',
                 'job_status' => 'required|string',
                 'deadline' => 'required|string',
@@ -171,8 +168,7 @@ class JobPostController extends Controller
             $jobPosts = JobPost::whereIn('id', $idsArray)
                 ->with(['requiredSkills', 'startup'])
                 ->get();
-            // $jobPosts->load(['requiredSkills']);
-            // $jobPosts = $$jobPosts->with('industry,specialization');
+
 
             return response()->json(['status' => 'success', 'jobPosts' => $jobPosts]);
         } catch (\Exception $e) {
