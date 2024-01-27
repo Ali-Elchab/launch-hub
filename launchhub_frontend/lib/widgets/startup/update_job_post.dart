@@ -35,7 +35,6 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
   String? _selectExperienceLevel;
   String? _selectEducationceLevel;
   String? _selectJobType;
-  String? _selectGender;
   String? _selectJobStatus;
   List selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
@@ -64,13 +63,12 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       _jobSalaryController.text = widget.jobPost!.jobSalary.toString();
       _jobQualificationController.text = widget.jobPost!.jobQualification;
       _jobDeadlineController.text = widget.jobPost!.deadline;
-      // selectedSkills = widget.jobPost!.requiredSkills;
+      selectedSkills = widget.jobPost!.requiredSkills;
       _selectedIndustry = industry;
       _selectedNiche = specialization;
       _selectExperienceLevel = widget.jobPost!.experienceLevel;
       _selectEducationceLevel = widget.jobPost!.educationLevel;
       _selectJobType = widget.jobPost!.jobType;
-      _selectGender = widget.jobPost!.preferredGender;
       _selectJobStatus = widget.jobPost!.jobStatus;
     }
   }
@@ -114,7 +112,6 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
         _selectExperienceLevel == null ||
         _selectEducationceLevel == null ||
         _selectJobType == null ||
-        _selectGender == null ||
         selectedSkills.isEmpty ||
         _jobSalaryController.text.trim().isEmpty ||
         _jobQualificationController.text.trim().isEmpty ||
@@ -142,7 +139,6 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
           ref.read(jobBoardProvider).address ?? widget.jobPost!.jobLocation,
       "job_salary": int.parse(_jobSalaryController.text),
       "job_qualification": _jobQualificationController.text,
-      "preferred_gender": _selectGender!,
       "specialization_id": _selectedNiche!.id,
       "required_skills": selectedSkills.map((skill) => skill.id).toList(),
       "job_status": _selectJobStatus,
@@ -298,10 +294,8 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                               context);
                         },
                         isDescription: true,
-                        controller: TextEditingController(
-                            text: selectedSkills
-                                .map((skill) => skill.name)
-                                .join(', ')),
+                        controller:
+                            TextEditingController(text: 'Required Skills'),
                         icon: const Icon(Icons.add_circle_outline),
                       ),
                       GenericDropdown<String>(
@@ -328,17 +322,6 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                         label: 'Salary / Month',
                         controller: _jobSalaryController,
                         keyboardType: TextInputType.number,
-                      ),
-                      GenericDropdown<String>(
-                        label: 'Select Preffered Gender',
-                        options: genders,
-                        selectedOption: _selectGender,
-                        optionLabel: (option) => option.toString(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectGender = newValue;
-                          });
-                        },
                       ),
                       GenericDropdown<Industry>(
                         label: 'Select Industry',

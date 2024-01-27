@@ -10,7 +10,6 @@ class JobPost {
     required this.experienceLevel,
     required this.educationLevel,
     required this.responsibilities,
-    required this.preferredGender,
     required this.deadline,
     required this.requiredSkills,
     required this.jobStatus,
@@ -30,7 +29,6 @@ class JobPost {
   final String responsibilities;
   final String experienceLevel;
   final String educationLevel;
-  final String preferredGender;
   final String deadline;
   final String jobStatus;
   final List requiredSkills;
@@ -51,7 +49,6 @@ class JobPost {
       responsibilities: json['responsibilities'] as String,
       experienceLevel: json['experience_level'] as String,
       educationLevel: json['education_level'] as String,
-      preferredGender: json['preferred_gender'] as String,
       requiredSkills: json['required_skills'] as List,
       deadline: json['deadline'] as String,
       jobStatus: json['job_status'] as String,
@@ -73,7 +70,6 @@ class JobPost {
       'experience_level': experienceLevel,
       'education_level': educationLevel,
       "responsibilities": responsibilities,
-      'preferred_gender': preferredGender,
       'required_skills': requiredSkills,
       'deadline': deadline,
       'industry_id': industryId,

@@ -33,6 +33,10 @@ class _LocationPickerState extends State<LocationPicker> {
       searchBarRadius: 10,
       selectedItemStyle: Theme.of(context).textTheme.bodyMedium!,
       showCities: false,
+      disabledDropdownDecoration: BoxDecoration(
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(10),
+      ),
       dropdownDecoration: BoxDecoration(
         color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),

@@ -53,8 +53,8 @@ class ApplicantsList extends StatelessWidget {
                           color: Colors.white,
                           size: 30,
                         ),
-                        const SizedBox(width: 5),
-                        Text('Reject Applicant',
+                        const SizedBox(width: 15),
+                        Text('Reject',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -82,7 +82,7 @@ class ApplicantsList extends StatelessWidget {
                           color: Colors.white,
                           size: 30,
                         ),
-                        const SizedBox(width: 5),
+                        const SizedBox(width: 15),
                         Text('Contact',
                             style: Theme.of(context)
                                 .textTheme
@@ -214,7 +214,7 @@ class ApplicantsList extends StatelessWidget {
                         .data!, // Pass the fetched niche name to the card
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
               ],
             );
           } else {

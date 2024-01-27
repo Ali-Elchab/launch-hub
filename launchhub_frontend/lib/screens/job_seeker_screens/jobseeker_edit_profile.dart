@@ -237,10 +237,7 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                             );
                           });
                     },
-                    child: Text('Log Out',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Colors.white,
-                            )),
+                    child: const Icon(Icons.logout, color: Colors.white),
                   ),
                 ),
               ],
@@ -685,10 +682,12 @@ class _JobSeekerEditProfileState extends ConsumerState<JobSeekerEditProfile> {
                   edit = !edit;
                 });
               },
-              child: Text(edit ? 'Save' : 'Edit',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                      )),
+              child: !edit
+                  ? Icon(Icons.edit, color: Theme.of(context).primaryColor)
+                  : Text('Save',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                          )),
             ),
           ),
         ),

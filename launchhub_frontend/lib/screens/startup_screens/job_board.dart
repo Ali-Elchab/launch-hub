@@ -82,14 +82,13 @@ class _JobBoardState extends ConsumerState<JobBoard> {
           width: MediaQuery.of(context).size.width * 0.73,
           child: Column(
             children: [
-              const SizedBox(height: 25),
               SearchFilter(
                 onChanged: (String query) => jobBoard.updateSearchQuery(query),
               ),
               Expanded(
                 child: mainContent,
               ),
-              SubmitButton('Post a job', () {
+              SubmitButton('Post A Job', () {
                 showModal(const PostJob(), context, color: Colors.white);
               }),
               const SizedBox(height: 3),

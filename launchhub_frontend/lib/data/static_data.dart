@@ -109,5 +109,3 @@ final List<String> jobTypes = [
   'Internship',
   'Temporary',
 ];
-
-final List<String> genders = ['male', 'female', 'any'];

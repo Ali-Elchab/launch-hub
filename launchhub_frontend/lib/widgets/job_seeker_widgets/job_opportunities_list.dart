@@ -30,7 +30,7 @@ class JobOpportunitiesList extends ConsumerWidget {
             background: Container(
               color: Theme.of(context).colorScheme.primary,
               alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 8),
               margin: const EdgeInsets.symmetric(
                 horizontal: 15,
                 vertical: 4,
@@ -41,14 +41,14 @@ class JobOpportunitiesList extends ConsumerWidget {
                   const Icon(
                     Icons.rocket_launch_outlined,
                     color: Colors.white,
-                    size: 40,
+                    size: 30,
                   ),
-                  const SizedBox(width: 5),
+                  const SizedBox(width: 15),
                   Text('Easy Apply',
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                          )),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12)),
                 ],
               ),
             ),

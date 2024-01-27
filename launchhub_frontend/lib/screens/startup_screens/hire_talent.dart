@@ -139,7 +139,9 @@ class _HireTalent extends ConsumerState<HireTalent>
               ),
               const SizedBox(height: 10),
               TabBar(
-                indicatorSize: TabBarIndicatorSize.label,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorColor: Theme.of(context).colorScheme.primary,
+                indicatorWeight: 4,
                 onTap: (index) {
                   setState(() {
                     _tabController.index = index;

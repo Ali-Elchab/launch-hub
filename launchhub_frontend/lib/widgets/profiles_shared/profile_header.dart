@@ -55,7 +55,6 @@ class ProfileHeader extends StatelessWidget {
             textColor: color,
           ),
           Container(
-            // width: 320,
             padding: const EdgeInsets.only(left: 45),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -83,52 +82,64 @@ class ProfileHeader extends StatelessWidget {
                           physics: const ClampingScrollPhysics(),
                           child: Column(
                             children: [
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.phone_enabled_outlined,
-                                    color: color,
-                                    size: 15,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Text(
-                                      phoneNumber!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                            fontSize: 13,
-                                            color: color,
-                                          ),
-                                      overflow: TextOverflow.ellipsis,
+                              GestureDetector(
+                                onTap: () async {
+                                  String phoneCallUrl = "tel:$phoneNumber";
+                                  openLink(context, phoneCallUrl);
+                                },
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.phone_enabled_outlined,
+                                      color: color,
+                                      size: 15,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        phoneNumber!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              fontSize: 13,
+                                              color: color,
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(height: 7),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.email_outlined,
-                                    color: color,
-                                    size: 15,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Flexible(
-                                    child: Text(
-                                      email!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                            fontSize: 13,
-                                            color: color,
-                                          ),
-                                      overflow: TextOverflow.ellipsis,
+                              GestureDetector(
+                                onTap: () async {
+                                  String mailtoUrl = "mailto:$email";
+                                  openLink(context, mailtoUrl);
+                                },
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.email_outlined,
+                                      color: color,
+                                      size: 15,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(width: 12),
+                                    Flexible(
+                                      child: Text(
+                                        email!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              fontSize: 13,
+                                              color: color,
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(height: 7),
                               Row(
@@ -154,11 +165,9 @@ class ProfileHeader extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              // const SizedBox(height: 10),
                             ],
                           )),
                       Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           for (var social in socials)
                             if (social.platform.toLowerCase().trim() ==

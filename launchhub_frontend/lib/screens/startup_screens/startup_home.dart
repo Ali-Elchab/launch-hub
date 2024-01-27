@@ -53,7 +53,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 45),
+                  const SizedBox(height: 25),
                   Column(
                     children: [
                       const WelcomeCard(
@@ -74,7 +74,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                       FeatureCard(
                         title: 'Hire Talent',
                         description:
-                            'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
+                            'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page.',
                         imagePath: 'assets/images/hire_talent.png',
                         onTap: () async {
                           navigator(context, const HireTalent());
@@ -114,7 +114,7 @@ class _StartupHomeState extends ConsumerState<StartupHome> {
                       FeatureCard(
                         title: 'Content Creators',
                         description:
-                            'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page',
+                            'Discover Talent Diversity: Explore Exceptional Job Seekers Tailored for Startups on Our Hiring Page.',
                         imagePath: 'assets/images/content_creators.png',
                         onTap: () async {
                           navigator(

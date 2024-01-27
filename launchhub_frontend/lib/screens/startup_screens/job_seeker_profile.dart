@@ -72,138 +72,140 @@ class _JobSeekerProfileState extends ConsumerState<JobSeekerProfile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 45),
+              const SizedBox(height: 35),
+              Text(specialization!.name,
+                  style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.73,
+                height: 140,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ClampingScrollPhysics(),
+                  child: Text(
+                    widget.jobSeeker.bio,
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(specialization!.name,
-                        style: Theme.of(context).textTheme.titleLarge),
-                    const SizedBox(height: 20),
-                    Text(
-                      widget.jobSeeker.bio,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const Spacer(),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 75),
+                    GestureDetector(
+                      onTap: () {
+                        _toggleHeaderColor();
+                        showModal(
+                            color: Theme.of(context).primaryColor,
+                            isDismissible: true,
+                            enableDrag: false,
+                            SkillsAndHobbies(
+                              toggleHeaderColor: () {
+                                _toggleHeaderColor();
+                              },
+                              skills: details.skills,
+                            ),
+                            context);
+                      },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              _toggleHeaderColor();
-                              showModal(
-                                  color: Theme.of(context).primaryColor,
-                                  isDismissible: true,
-                                  enableDrag: false,
-                                  SkillsAndHobbies(
-                                    toggleHeaderColor: () {
-                                      _toggleHeaderColor();
-                                    },
-                                    skills: details.skills,
-                                  ),
-                                  context);
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 85,
-                                  height: 85,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/skillshobbies.jpeg'),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  'Skills\n&\nHobbies',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                )
-                              ],
+                          Container(
+                            width: 85,
+                            height: 85,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/skillshobbies.jpeg'),
+                              ),
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              _toggleHeaderColor();
-                              showModal(
-                                  color: Theme.of(context).primaryColor,
-                                  isDismissible: true,
-                                  enableDrag: false,
-                                  EducationalBackground(
-                                    toggleHeaderColor: () {
-                                      _toggleHeaderColor();
-                                    },
-                                    educations: details.educations,
-                                  ),
-                                  context);
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 85,
-                                  height: 85,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/educationalbg.jpeg'),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Educational\nBackground',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                )
-                              ],
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              _toggleHeaderColor();
-                              showModal(
-                                  color: Theme.of(context).primaryColor,
-                                  isDismissible: true,
-                                  enableDrag: false,
-                                  JobSeekerExperience(
-                                    toggleHeaderColor: () {
-                                      _toggleHeaderColor();
-                                    },
-                                    experiences: details.experiences,
-                                  ),
-                                  context);
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 85,
-                                  height: 85,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/experience.jpeg'),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Work\nExperience',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                )
-                              ],
-                            ),
-                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Skills & Hobbies',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
                         ],
                       ),
-                    )
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _toggleHeaderColor();
+                        showModal(
+                            color: Theme.of(context).primaryColor,
+                            isDismissible: true,
+                            enableDrag: false,
+                            EducationalBackground(
+                              toggleHeaderColor: () {
+                                _toggleHeaderColor();
+                              },
+                              educations: details.educations,
+                            ),
+                            context);
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 85,
+                            height: 85,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/educationalbg.jpeg'),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Educational Background',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _toggleHeaderColor();
+                        showModal(
+                            color: Theme.of(context).primaryColor,
+                            isDismissible: true,
+                            enableDrag: false,
+                            JobSeekerExperience(
+                              toggleHeaderColor: () {
+                                _toggleHeaderColor();
+                              },
+                              experiences: details.experiences,
+                            ),
+                            context);
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 85,
+                            height: 85,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/images/experience.jpeg'),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Work Experience',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20)
                   ],
                 ),
               )

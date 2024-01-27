@@ -50,7 +50,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 35),
+                const SizedBox(height: 25),
                 const WelcomeCard(
                     imageUrl: 'assets/images/jobseeker_home_main.png',
                     text:

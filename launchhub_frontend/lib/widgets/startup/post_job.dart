@@ -36,7 +36,6 @@ class _PostJobState extends ConsumerState<PostJob> {
   String? _selectExperienceLevel;
   String? _selectEducationceLevel;
   String? _selectJobType;
-  String? _selectGender;
   List selectedSkills = [];
   final _formKey = GlobalKey<FormState>();
   final _responsibilitiesController = TextEditingController();
@@ -90,7 +89,6 @@ class _PostJobState extends ConsumerState<PostJob> {
         _selectExperienceLevel == null ||
         _selectEducationceLevel == null ||
         _selectJobType == null ||
-        _selectGender == null ||
         selectedSkills.isEmpty ||
         _jobSalaryController.text.trim().isEmpty ||
         _jobQualificationController.text.trim().isEmpty ||
@@ -118,7 +116,6 @@ class _PostJobState extends ConsumerState<PostJob> {
           responsibilities: _responsibilitiesController.text,
           experienceLevel: _selectExperienceLevel!,
           educationLevel: _selectEducationceLevel!,
-          preferredGender: _selectGender!,
           deadline: _jobDeadlineController.text,
           requiredSkills: selectedSkills.map((skill) => skill.id).toList(),
           jobStatus: 'open',
@@ -126,6 +123,7 @@ class _PostJobState extends ConsumerState<PostJob> {
           specializationId: _selectedNiche!.id,
           startupId: ref.read(startupProfileProvider).startup.id,
         ));
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
@@ -318,17 +316,6 @@ class _PostJobState extends ConsumerState<PostJob> {
                       InputField(
                         label: 'Salary / Month',
                         controller: _jobSalaryController,
-                      ),
-                      GenericDropdown<String>(
-                        label: 'Select Preffered Gender',
-                        options: genders,
-                        selectedOption: _selectGender,
-                        optionLabel: (option) => option.toString(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectGender = newValue;
-                          });
-                        },
                       ),
                       InputField(
                         label: 'Deadline',

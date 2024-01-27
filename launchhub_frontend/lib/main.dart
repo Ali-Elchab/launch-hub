@@ -15,6 +15,7 @@ import 'package:launchhub_frontend/screens/startup_screens/startup_root_widget.d
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(ProviderScope(child: App()));
 }
 
@@ -62,6 +63,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Remove the debug banner
       navigatorKey: navigatorKey,
       routes: {
         '/SignUp': (context) => SignUp(),

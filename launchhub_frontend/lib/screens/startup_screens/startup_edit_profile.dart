@@ -208,10 +208,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                             );
                           });
                     },
-                    child: Text('Log Out',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Colors.white,
-                            )),
+                    child: const Icon(Icons.logout, color: Colors.white),
                   ),
                 ),
               ],
@@ -534,7 +531,7 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                       'founders': founders,
                       'ceos': ceos,
                       'key_executives': keyexecutives,
-                      'logo_url': base64Image.isNotEmpty ? base64Image : logo,
+                      'logo_url': base64Image.isNotEmpty ? base64Image : null,
                       "industry_id": industry!.id,
                       "specialization_id": niche!.id,
                     };
@@ -554,10 +551,12 @@ class _StartupEditProfileState extends ConsumerState<StartupEditProfile> {
                   edit = !edit;
                 });
               },
-              child: Text(edit ? 'Save' : 'Edit',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                      )),
+              child: !edit
+                  ? Icon(Icons.edit, color: Theme.of(context).primaryColor)
+                  : Text('Save',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                          )),
             ),
           ),
         ),
