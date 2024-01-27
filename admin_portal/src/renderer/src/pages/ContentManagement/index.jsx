@@ -3,6 +3,7 @@ import { requestData } from "../../core/axios";
 import "./styles.css";
 import Spinner from "../../components/Spinnes";
 import { AdvisorModal } from "../../components/AdvisorModal";
+import AddAdvisor from "../../components/AddAdvisorModal";
 const baseURL = "http://192.168.0.106:8000/";
 
 const ContentManagement = () => {
@@ -13,6 +14,7 @@ const ContentManagement = () => {
   const [legal, setLegal] = useState([]);
   const [finance, setFinance] = useState([]);
   const [marketing, setMarketing] = useState([]);
+  const [addAdvisor, setAddAdvisor] = useState(false);
 
   const getAdvisors = async () => {
     const token = localStorage.getItem("token");
@@ -50,6 +52,7 @@ const ContentManagement = () => {
 
   const closeModal = () => {
     setSelectedAdvisor(null);
+    setAddAdvisor(null);
   };
 
   const deleteAdvisor = async (advisorId) => {
@@ -87,7 +90,14 @@ const ContentManagement = () => {
       <div className="content-container">
         <div className="flex space-between">
           <h1 style={{ marginBottom: "1rem" }}>Content Management</h1>
-          <button className="add-button">Add Advisor</button>
+          <button
+            className="add-button"
+            onClick={() => {
+              setAddAdvisor(true);
+            }}
+          >
+            Add Advisor
+          </button>
         </div>
         <div className="flex row content-management-container">
           <div className="flex column table">
@@ -152,6 +162,7 @@ const ContentManagement = () => {
               onDelete={() => deleteAdvisor(selectedAdvisor["id"])}
             />
           )}
+          {addAdvisor && <AddAdvisor onClose={closeModal} />}
         </div>
       </div>
     );

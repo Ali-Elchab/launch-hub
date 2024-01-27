@@ -1,0 +1,75 @@
+/* styles.css */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-content {
+  background-color: white;
+  border-radius: 15px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 500px;
+  padding: 25px;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+}
+
+.top-row h2 {
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  text-align: center;
+}
+
+.exit-button {
+  margin-left: auto;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+}
+
+.about {
+  margin-top: 20px;
+  gap: 25px;
+}
+
+select {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 0px;
+  color: grey;
+  background-color: rgba(143, 143, 143, 0.139);
+  padding-inline: 15px;
+  font-size: 16px;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+}
+.submit-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  padding: 10px 40px;
+  cursor: pointer;
+  right: 55px;
+}

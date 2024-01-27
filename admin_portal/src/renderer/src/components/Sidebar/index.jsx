@@ -67,6 +67,14 @@ export const Sidebar = () => {
             >
               Profile
             </li>
+            <li
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/");
+              }}
+            >
+              Log Out
+            </li>
           </ul>
         </li>
       </ul>
