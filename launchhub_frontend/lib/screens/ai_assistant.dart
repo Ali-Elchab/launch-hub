@@ -78,7 +78,7 @@ class _AiAssistantState extends ConsumerState<AiAssistant> {
                     autocorrect: true,
                     enableSuggestions: true,
                     decoration: InputDecoration(
-                      suffixIcon: InkWell(
+                      suffixIcon: GestureDetector(
                         onTap: () async {
                           if (_messageController.text.isNotEmpty) {
                             final message = Message(

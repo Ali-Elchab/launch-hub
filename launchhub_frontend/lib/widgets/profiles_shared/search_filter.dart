@@ -11,7 +11,7 @@ class SearchFilter extends StatelessWidget {
       margin: EdgeInsets.only(bottom: margin, top: margin),
       child: TextFormField(
         decoration: InputDecoration(
-            prefixIcon: InkWell(
+            prefixIcon: GestureDetector(
               onTap: () {},
               child: const Icon(
                 Icons.search,

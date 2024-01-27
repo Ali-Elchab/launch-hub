@@ -28,7 +28,7 @@ class _JobSeekerCard extends ConsumerState<JobSeekerCard> {
   Widget build(BuildContext context) {
     final jobSeeker = widget.jobSeeker;
 
-    return InkWell(
+    return GestureDetector(
       onTap: () async {
         await ref.watch(dataProvider).getIndustries();
         final industry = ref

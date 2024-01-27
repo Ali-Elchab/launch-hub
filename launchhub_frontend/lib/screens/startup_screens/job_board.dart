@@ -93,7 +93,7 @@ class _JobBoardState extends ConsumerState<JobBoard> {
                 showModal(const PostJob(), context, color: Colors.white);
               }),
               const SizedBox(height: 3),
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   showModal(const HowToWriteJobPost(), context,
                       color: Colors.white);

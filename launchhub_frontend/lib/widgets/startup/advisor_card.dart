@@ -65,7 +65,7 @@ class AdvisorCard extends StatelessWidget {
                         size: 11,
                       ),
                       const SizedBox(width: 3),
-                      InkWell(
+                      GestureDetector(
                         onTap: () async {
                           String phone = advisor.phone;
                           String phoneCallUrl = "tel:$phone";
@@ -111,7 +111,7 @@ class AdvisorCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Expanded(
-                        child: InkWell(
+                        child: GestureDetector(
                           onTap: () async {
                             String email = advisor.email;
                             String mailtoUrl = "mailto:$email";

@@ -121,7 +121,7 @@ class _HireTalent extends ConsumerState<HireTalent>
           child: Column(
             children: [
               const SizedBox(height: 25),
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   showModal(const StartupCandidateArticle(), context);
                 },

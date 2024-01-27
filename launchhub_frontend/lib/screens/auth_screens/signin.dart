@@ -93,7 +93,7 @@ class SignIn extends ConsumerWidget {
                         }),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap: () {
                           Navigator.push(
                               context,
