@@ -182,6 +182,10 @@ class JobPostController extends Controller
         if (!$jobPost) {
             return response()->json(['status' => 'error', 'message' => 'Job post not found'], 404);
         }
+        $applications = $jobPost->applications;
+        $applications->each(function ($application) {
+            $application->delete();
+        });
         $jobPost->delete();
         return response()->json(['status' => 'success', 'message' => 'Job post deleted successfully']);
     }

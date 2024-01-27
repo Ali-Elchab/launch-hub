@@ -91,6 +91,7 @@ class AdminController extends Controller
         if (!$application) {
             return response()->json(['status' => 'error', 'message' => 'Application not found'], 404);
         }
+
         $application->delete();
         return response()->json(['status' => 'success', 'message' => 'Application deleted successfully']);
     }
@@ -129,7 +130,6 @@ class AdminController extends Controller
                 'location' => 'required|string|max:255',
                 'phone' => 'required|string|max:255',
                 'bio' => 'required|string',
-                'photo_url' => 'required|string|max:255',
                 'category' => 'required|string|max:255',
                 'expertise' => 'required|string|max:255',
             ]);
@@ -145,5 +145,16 @@ class AdminController extends Controller
         $advisors = Advisor::get();
 
         return response()->json($advisors);
+    }
+
+    public function deleteAdvisor($id)
+    {
+        $advisor = Advisor::find($id);
+        if (!$advisor) {
+            return response()->json(['status' => 'error', 'message' => 'Advisor not found'], 404);
+        }
+
+        $advisor->delete();
+        return response()->json(['status' => 'success', 'message' => 'Advisor deleted successfully']);
     }
 }

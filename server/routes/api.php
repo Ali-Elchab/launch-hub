@@ -96,11 +96,12 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
         Route::get('applications', 'getAllApplications');
         Route::get('jobposts', 'getAllJobPosts');
         Route::get('jobSeekers', 'getAllJobSeekers');
+        Route::get('advisors', 'getAllAdvisors');
         Route::delete('application/{id}', 'deleteApplication');
         Route::post('add_advisor', 'addAdvisor');
+        Route::delete('advisor/{id}', 'deleteAdvisor');
         Route::post('edit_profile', 'editAdminProfile');
         Route::delete('delete_profile', 'deleteAdminProfile');
-        Route::get('advisors,getAllAdvisors');
     });
     Route::get('jobseeker/{id}', [JobSeekerController::class, 'getJobSeeker']);
     Route::get('startup/{id}', [StartupController::class, 'getStartup']);

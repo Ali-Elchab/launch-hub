@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("location");
             $table->string('phone')->nullable();
             $table->text('bio')->nullable();
-            $table->string('photo_url')->nullable();
+            $table->string('photo_url')->nullable()->default('default-profile.png');
             $table->enum('category', ['marketing', 'legal', 'finance']);
             $table->string('expertise')->nullable();
             $table->timestamps();
