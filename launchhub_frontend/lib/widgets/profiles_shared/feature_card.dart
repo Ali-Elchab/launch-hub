@@ -27,15 +27,18 @@ class FeatureCard extends StatelessWidget {
         color: Colors.transparent,
         elevation: 0,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment:
+              !external ? CrossAxisAlignment.center : CrossAxisAlignment.start,
           children: [
             Container(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               width: 70,
               height: 70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: !external
+                    ? BorderRadius.circular(10)
+                    : BorderRadius.circular(50),
                 image: DecorationImage(
                   image: !external
                       ? AssetImage(imagePath!)

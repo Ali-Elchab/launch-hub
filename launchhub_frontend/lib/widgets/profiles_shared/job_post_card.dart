@@ -41,14 +41,19 @@ class JobPostCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                      alignment: Alignment.topLeft,
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            "${baseUrl}assets/images/profile_pics/${jobPost.startupLogo}",
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        child: Image.network(
-                          "${baseUrl}assets/images/profile_pics/${jobPost.startupLogo}",
-                          width: 65,
-                        )),
+                      ),
+                    ),
                     const SizedBox(height: 5),
                     Row(
                       children: <Widget>[

@@ -31,13 +31,22 @@ class AdvisorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      alignment: Alignment.topLeft,
-                      child: advisor.profilePic == null
-                          ? Image.asset('assets/logos/default-profile.png',
-                              width: 65)
-                          : Image.network(
-                              '${baseUrl}assets/images/${advisor.profilePic}',
-                              width: 65)),
+                    alignment: Alignment.topLeft,
+                    height: 65,
+                    width: 65,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: advisor.profilePic == null
+                            ? const AssetImage(
+                                    'assets/logos/default-profile.png')
+                                as ImageProvider<Object>
+                            : NetworkImage(
+                                '${baseUrl}assets/images/${advisor.profilePic}'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 5),
                   Row(
                     children: <Widget>[
