@@ -1,159 +1,155 @@
 import React, { useEffect, useState } from "react";
 import { requestData } from "../../core/axios";
 import "./styles.css";
-import { StartupModal } from "../../components/StartupModal/StartupModal";
-import { JobSeekerModal } from "../../components/JobSeekerModal/JobSeekerModal";
 import Spinner from "../../components/Spinnes";
+import { AdvisorModal } from "../../components/AdvisorModal";
 const baseURL = "http://192.168.0.106:8000/";
 
 const ContentManagement = () => {
-  const [startups, setStartups] = useState([]);
-  const [jobSeekers, setJobSeekers] = useState([]);
+  const [advisors, setAdvisors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [selectedStartup, setSelectedStartup] = useState(null);
-  const [selectedJobSeeker, setSelectedJobSeeker] = useState(null);
+  const [selectedAdvisor, setSelectedAdvisor] = useState(null);
+  const [legal, setLegal] = useState([]);
+  const [finance, setFinance] = useState([]);
+  const [marketing, setMarketing] = useState([]);
 
-  const getStartups = async () => {
+  const getAdvisors = async () => {
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: token,
     };
     try {
-      await requestData("admin/startups", "get", null, headers).then((res) => {
+      await requestData("admin/advisors", "get", null, headers).then((res) => {
         setIsLoading(false);
-        setStartups(res.startups);
+        setAdvisors(res);
+        const legal = res.filter((advisor) => advisor["category"] === "legal");
+        const finance = res.filter(
+          (advisor) => advisor["category"] === "finance",
+        );
+        const marketing = res.filter(
+          (advisor) => advisor["category"] === "marketing",
+        );
+        setLegal(legal);
+        setFinance(finance);
+        setMarketing(marketing);
       });
     } catch (err) {
       alert(err.response.data.message);
-
-      setIsError(true);
-    }
-  };
-
-  const getJobSeekers = async () => {
-    const token = localStorage.getItem("token");
-    const headers = {
-      Authorization: token,
-    };
-    try {
-      await requestData("admin/jobSeekers", "get", null, headers).then(
-        (res) => {
-          setIsLoading(false);
-          setJobSeekers(res.jobseekers);
-        },
-      );
-    } catch (err) {
-      alert(err.response.data.message);
-
       setIsError(true);
     }
   };
 
   useEffect(() => {
-    getStartups();
-    getJobSeekers();
+    getAdvisors();
   }, []);
 
-  const showStartup = (startup) => {
-    setSelectedStartup(startup);
-  };
-  const showJobSeeker = (jobSeeker) => {
-    setSelectedJobSeeker(jobSeeker);
+  const showAdvisor = (advisor) => {
+    setSelectedAdvisor(advisor);
   };
 
   const closeModal = () => {
-    setSelectedStartup(null);
-    setSelectedJobSeeker(null);
+    setSelectedAdvisor(null);
   };
 
-  const deleteStartup = async (startup) => {
+  const deleteAdvisor = async (advisorId) => {
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: token,
     };
     try {
       await requestData(
-        `admin/startup/${startup["user_id"]}`,
+        `admin/advisor/${advisorId}`,
         "delete",
         null,
         headers,
       ).then((res) => {
         setIsLoading(false);
-        const updatedStartups = startups.filter(
-          (s) => s["id"] !== startup["id"],
+        const updatedLegalAdvisors = legal.filter((s) => s["id"] !== advisorId);
+        const updatedFinanceAdvisors = finance.filter(
+          (s) => s["id"] !== advisorId,
         );
-        setStartups(updatedStartups);
-        setSelectedStartup(null);
+        const updatedMarketingAdvisors = marketing.filter(
+          (s) => s["id"] !== advisorId,
+        );
+        setLegal(updatedLegalAdvisors);
+        setFinance(updatedFinanceAdvisors);
+        setMarketing(updatedMarketingAdvisors);
+        setSelectedAdvisor(null);
       });
     } catch (err) {
       alert(err.response.data.message);
       setIsError(true);
     }
   };
-  const deleteJobSeeker = async (jobSeeker) => {
-    const token = localStorage.getItem("token");
-    const headers = {
-      Authorization: token,
-    };
-    try {
-      await requestData(
-        `admin/jobseeker/${jobSeeker["user_id"]}`,
-        "delete",
-        null,
-        headers,
-      ).then((res) => {
-        setIsLoading(false);
-        const updatedjobSeekers = jobSeekers.filter(
-          (s) => s["id"] !== jobSeeker["id"],
-        );
-        setJobSeekers(updatedjobSeekers);
-        setSelectedJobSeeker(null);
-      });
-    } catch (err) {
-      alert(err.response.data.message);
-      setIsError(true);
-    }
-  };
-
   if (!isLoading) {
     return (
       <div className="content-container">
-        <h1 style={{ marginBottom: "1rem" }}>Content Management</h1>
-        <div className="flex row user-management-container">
+        <div className="flex space-between">
+          <h1 style={{ marginBottom: "1rem" }}>Content Management</h1>
+          <button className="add-button">Add Advisor</button>
+        </div>
+        <div className="flex row content-management-container">
           <div className="flex column table">
-            <div className="flex space-between">
-              <h2 style={{ color: "#326789" }}>Advisors</h2>
-              <button className="add-button">Add Advisor</button>
-            </div>
+            <h2 style={{ color: "#326789" }}>Marketing Advisors</h2>
 
-            {jobSeekers.map((jobSeeker, index) => (
+            {marketing.map((advisor, index) => (
               <div
                 key={index}
                 className="users-table-row flex row"
-                onClick={() => showJobSeeker(jobSeeker)}
+                onClick={() => showAdvisor(advisor)}
               >
                 <img
-                  src={`${baseURL}assets/images/profile_pics/${jobSeeker["profile_pic"]}`}
+                  src={`${baseURL}assets/images/${advisor["photo_url"]}`}
                   alt="Network Image"
                   className="profile-pic"
                 />
-                {jobSeeker["first_name"] + " " + jobSeeker["last_name"]}
+                <div className="flex row">{advisor["name"]}</div>
               </div>
             ))}
           </div>
-          {selectedStartup && (
-            <StartupModal
-              startup={selectedStartup}
+          <div className="flex column table">
+            <h2 style={{ color: "#326789" }}>Accounting Advisors</h2>
+
+            {finance.map((advisor, index) => (
+              <div
+                key={index}
+                className="users-table-row flex row"
+                onClick={() => showAdvisor(advisor)}
+              >
+                <img
+                  src={`${baseURL}assets/images/${advisor["photo_url"]}`}
+                  alt="Network Image"
+                  className="profile-pic"
+                />
+                <div className="flex row">{advisor["name"]}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex column table">
+            <h2 style={{ color: "#326789" }}>Legal Advisors</h2>
+
+            {legal.map((advisor, index) => (
+              <div
+                key={index}
+                className="users-table-row flex row"
+                onClick={() => showAdvisor(advisor)}
+              >
+                <img
+                  src={`${baseURL}assets/images/${advisor["photo_url"]}`}
+                  alt="Network Image"
+                  className="profile-pic"
+                />
+                <div className="flex row">{advisor["name"]}</div>
+              </div>
+            ))}
+          </div>
+
+          {selectedAdvisor && (
+            <AdvisorModal
+              advisor={selectedAdvisor}
               onClose={closeModal}
-              onDelete={() => deleteStartup(selectedStartup)}
-            />
-          )}
-          {selectedJobSeeker && (
-            <JobSeekerModal
-              jobSeeker={selectedJobSeeker}
-              onClose={closeModal}
-              onDelete={() => deleteJobSeeker(selectedJobSeeker)}
+              onDelete={() => deleteAdvisor(selectedAdvisor["id"])}
             />
           )}
         </div>

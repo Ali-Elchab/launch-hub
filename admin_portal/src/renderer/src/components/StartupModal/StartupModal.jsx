@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { BaseURL } from "../../core/helpers/BaseImageURL";
+import { requestData } from "../../core/axios";
 
 export const StartupModal = ({ startup, onClose, onDelete }) => {
+  const [industry, setIndustry] = useState("");
+
+  useEffect(() => {
+    const getIndustry = async () => {
+      try {
+        const res = await requestData(
+          `industries/${startup["industry_id"]}`,
+          "get",
+        );
+        if (res.status == "success") {
+          setIndustry(res.industry.name);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getIndustry();
+  }, []);
+
   return (
     <div className="modal-backdrop">
       <div className="modal-content">
@@ -23,7 +44,7 @@ export const StartupModal = ({ startup, onClose, onDelete }) => {
           <h3>About</h3>
           <p>{startup["company_description"]}</p>
           <p>
-            <strong>Industry:</strong> {startup["industry_id"]}
+            <strong>Industry:</strong> {industry}
           </p>
           <p>
             <strong>Startup:</strong> {startup["company_name"]}

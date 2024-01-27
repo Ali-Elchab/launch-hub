@@ -68,6 +68,15 @@ const UserManagement = () => {
   };
 
   const deleteStartup = async (startup) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this job seeker?",
+    );
+    if (!isConfirmed) {
+      setSelectedStartup(null);
+      setSelectedJobSeeker(null);
+      return;
+    }
+
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: token,
@@ -92,6 +101,15 @@ const UserManagement = () => {
     }
   };
   const deleteJobSeeker = async (jobSeeker) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this job seeker?",
+    );
+    if (!isConfirmed) {
+      setSelectedStartup(null);
+      setSelectedJobSeeker(null);
+      return;
+    }
+
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: token,

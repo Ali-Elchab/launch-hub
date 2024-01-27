@@ -1,5 +1,5 @@
-.table {
-  width: 40%;
+.content-management-container .table {
+  width: 30%;
   height: 80vh;
   border-collapse: collapse;
   background-color: white;
@@ -16,7 +16,7 @@
   display: none;
 }
 
-.user-management-container {
+.content-management-container {
   justify-content: space-around;
   margin-top: 20px;
 }
@@ -50,6 +50,8 @@
   background-color: #326889;
   color: white;
   border: none;
+  height: 3rem;
+  width: 6rem;
   border-radius: 5px;
   padding: 8px;
   cursor: pointer;

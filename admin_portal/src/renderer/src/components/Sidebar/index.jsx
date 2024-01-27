@@ -59,13 +59,15 @@ export const Sidebar = () => {
             >
               Content Management
             </li>
+            <li
+              className={
+                activeItem === "profile" ? "active profile" : "profile"
+              }
+              onClick={() => handleItemClick("profile")}
+            >
+              Profile
+            </li>
           </ul>
-          <div
-            className={activeItem === "profile" ? "active profile" : "profile"}
-            onClick={() => handleItemClick("profile")}
-          >
-            <span>Profile</span>{" "}
-          </div>
         </li>
       </ul>
     </div>

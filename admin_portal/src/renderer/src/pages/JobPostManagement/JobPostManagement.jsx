@@ -165,8 +165,10 @@ const JobPostManagement = () => {
                     {app.job_seeker.first_name} {app.job_seeker.last_name}
                   </h4>
                 )}
-                <h4>applied to: </h4>
-                <h4> {app["job_post"]["job_title"]}</h4>
+                <div className="flex column " style={{ width: 180 }}>
+                  <p style={{ fontSize: 10 }}>Applied To</p>
+                  <h4> {app.job_post.job_title ?? "ss"}</h4>
+                </div>
               </div>
             ))}
           </div>

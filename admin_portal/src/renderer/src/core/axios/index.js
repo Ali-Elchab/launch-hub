@@ -1,7 +1,8 @@
 // axiosConfig.js
 import axios from "axios";
+import { BaseURL } from "../helpers/BaseImageURL";
 
-axios.defaults.baseURL = "http://13.37.250.77:80/api/";
+axios.defaults.baseURL = `${BaseURL}api/`;
 
 export const requestData = async (route, method, data, headers = {}) =>
   await axios
