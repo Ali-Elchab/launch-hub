@@ -8,6 +8,8 @@ return [
     'providers' => [
 
         Laravel\Socialite\SocialiteServiceProvider::class,
+        App\Providers\NotificationServiceProvider::class,
+
     ],
     'aliases' => [
 

@@ -306,4 +306,15 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+    public function updateFcmToken(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'fcm token updated successfully',
+        ], 200);
+    }
 }

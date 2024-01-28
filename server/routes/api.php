@@ -20,6 +20,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register_startup', 'register_startup');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('update-fcm-token', 'updateFcmToken');
 });
 Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.reset');;
 Route::post('password/reset', [PasswordResetController::class, 'reset']);

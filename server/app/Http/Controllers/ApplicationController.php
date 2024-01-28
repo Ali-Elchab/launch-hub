@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\JobPost;
 use App\Models\JobSeeker;
+use App\Models\Startup;
+use App\Notifications\JobAppliedNotification;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -44,6 +46,7 @@ class ApplicationController extends Controller
     {
         $jobSeeker = $request->user()->jobSeeker;
         $jobPost = JobPost::find($jobPostID);
+
         if (!$jobSeeker) {
             return response()->json(['status' => 'error', 'message' => 'Job seeker not found'], 404);
         }
@@ -59,11 +62,19 @@ class ApplicationController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Already applied'], 422);
         }
 
-        if ($jobPost) {
-            $jobPost->jobSeekers()->attach($jobSeeker);
-            return response()->json(['status' => 'success', 'message' => 'Applied successfully']);
+        // Assuming the jobPost-jobSeekers relationship is set up correctly
+        $jobPost->jobSeekers()->attach($jobSeeker);
+
+        // Find the startup user to notify
+        $startup = $jobPost->startup; // Make sure this relationship is defined in your JobPost model
+        if ($startup && $startup->user) {
+            $user = $startup->user;
+            $user->notify(new JobAppliedNotification(['message' => 'A job seeker has applied for your job post.']));
         }
+
+        return response()->json(['status' => 'success', 'message' => 'Applied successfully']);
     }
+
 
     public function applicationResponse(Request $request)
     {
