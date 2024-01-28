@@ -53,10 +53,15 @@
 
 ### Mockups
 
-| Home screen                           | Menu Screen                    | Order Screen                                 |
+####Mobile App
+| Home screen | Ai Assistance | Hire Talent Screen |
 | ------------------------------------- | ------------------------------ | -------------------------------------------- |
 | ![Landing](./readme/mockups/home.png) | ![Ai](./readme/mockups/ai.png) | ![Landing](./readme/mockups/hire-talent.png) |
 
+####Admin Panel
+| Dashboard | User Management |
+| ------------------------------------- | ------------------------------ |
+| ![Landing](./readme/mockups/dashboard.png) | ![Ai](./readme/mockups/user-management.png) |
 <br><br>
 
 <!-- Database -->
