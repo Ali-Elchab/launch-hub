@@ -1,6 +1,6 @@
-import 'dart:io';
+// ignore_for_file: use_build_context_synchronously
 
-import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -31,7 +31,6 @@ downloadFile({required BuildContext context, String? url, String? name}) async {
       onDownloadCompleted: (String path) {
         // Decode the file path
         String decodedPath = Uri.decodeFull(path);
-        print('Downloaded $decodedPath');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Download completed! Tap to open the file.'),
@@ -41,8 +40,6 @@ downloadFile({required BuildContext context, String? url, String? name}) async {
                 if (await File(decodedPath).exists()) {
                   String fileType = getFileTypeFromExtension(decodedPath);
                   try {
-                    print(fileType);
-                    print(decodedPath);
                     await OpenFile.open(decodedPath, type: fileType);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
