@@ -12,11 +12,13 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
 
+    protected $notificationController;
     //
 
-    public function __construct()
+    public function __construct(NotificationController $notificationController)
     {
         $this->middleware('auth:api');
+        $this->notificationController = $notificationController;
     }
 
     public function getJobSeekerApplications(Request $request)
@@ -61,16 +63,15 @@ class ApplicationController extends Controller
         if ($application) {
             return response()->json(['status' => 'error', 'message' => 'Already applied'], 422);
         }
-
-        // Assuming the jobPost-jobSeekers relationship is set up correctly
         $jobPost->jobSeekers()->attach($jobSeeker);
-
-        // Find the startup user to notify
-        $startup = $jobPost->startup; // Make sure this relationship is defined in your JobPost model
+        $startup = $jobPost->startup;
         if ($startup && $startup->user) {
             $user = $startup->user;
-            $user->notify(new JobAppliedNotification(['message' => 'A job seeker has applied for your job post.']));
+            $registrationIds = [$user->fcm_token];
+            $request = new Request(['registration_ids' => $registrationIds, 'applicant' => $jobSeeker->first_name . $jobSeeker->last_name, 'jobPost' => $jobPost->job_title]);
+            $this->notificationController->sendNotifications($request);
         }
+
 
         return response()->json(['status' => 'success', 'message' => 'Applied successfully']);
     }

@@ -11,6 +11,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
@@ -111,3 +112,6 @@ Route::prefix('admin/')->middleware(['admin'])->group((function () {
     Route::delete('startup/{id}', [StartupController::class, 'deleteStartupProfile']);
     Route::delete('jobpost/{id}', [JobPostController::class, 'deleteJobPost']);
 }));;
+
+
+Route::post('send_notfications',  [NotificationController::class, 'sendNotfications']);
