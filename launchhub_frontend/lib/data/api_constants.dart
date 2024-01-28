@@ -2,6 +2,7 @@ abstract class ApiRoute {
   static const login = 'login';
   static const signup = 'signup';
   static const refresh = 'refresh';
+  static const fcmToken = 'update-fcm-token';
   static const registerStartup = 'register_startup';
   static const registerJobseeker = 'register_jobseeker';
   static const emailResetLink = 'password/email';

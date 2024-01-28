@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:launchhub_frontend/config/base_dio.dart';
@@ -42,6 +43,11 @@ class AuthProvider with ChangeNotifier {
 
   Future signIn(String email, String password) async {
     try {
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken == null) {
+        throw Exception('Failed to get FCM token');
+      }
+      print(fcmToken);
       final response = await myDio.post(
         ApiRoute.login,
         data: {
@@ -50,6 +56,21 @@ class AuthProvider with ChangeNotifier {
         },
       );
       if (response.statusCode == 200) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        final authorizationData = response.data['authorisation'];
+        final token = authorizationData['token'];
+
+        await myDio.post(
+          ApiRoute.fcmToken,
+          data: {
+            "fcm_token": fcmToken,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+            },
+          ),
+        );
         _isSignInSuccessful = true;
         _errorMessage = null;
         _selectedType = response.data['user']['user_type_id'] == 1
@@ -58,9 +79,7 @@ class AuthProvider with ChangeNotifier {
                 ? UserType.jobseeker
                 : UserType.startup;
         if (response.data.containsKey('authorisation')) {
-          final authorizationData = response.data['authorisation'];
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('token', authorizationData['token']);
+          prefs.setString('token', token);
           return response.data;
         } else {
           _isSignInSuccessful = false;
@@ -69,7 +88,8 @@ class AuthProvider with ChangeNotifier {
       }
     } on DioException catch (e) {
       _isSignInSuccessful = false;
-      _errorMessage = '${e.response?.data['message']}';
+      _errorMessage = '${e.response?.data}';
+      print(_errorMessage);
       return _errorMessage;
     } catch (e) {
       _isSignUpSuccessful = false;

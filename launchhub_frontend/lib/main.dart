@@ -10,11 +10,19 @@ import 'package:launchhub_frontend/screens/auth_screens/signup.dart';
 import 'package:launchhub_frontend/screens/auth_screens/start_screen.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/job_seeker_home.dart';
 import 'package:launchhub_frontend/screens/job_seeker_screens/jobseeker_root_widget.dart';
+import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_root_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:launchhub_frontend/helpers/notification.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseApi().initNotifications();
 
   runApp(ProviderScope(child: App()));
 }
@@ -74,6 +82,7 @@ class App extends StatelessWidget {
         '/StartupRoot': (context) => const StartupRootWidget(),
         '/JobSeekerHome': (context) => const JobSeekerHome(),
         '/JobSeekerRoot': (context) => const JobSeekerRootWidget(),
+        '/HireTalent': (context) => const HireTalent(),
         '/reset-password': (context) => ResetPassword(),
       },
       theme: theme,
