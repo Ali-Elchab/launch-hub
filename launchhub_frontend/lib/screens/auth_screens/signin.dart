@@ -1,5 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
-
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +13,8 @@ import 'package:launchhub_frontend/widgets/auth_widgets/google_button.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
+
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignIn extends ConsumerWidget {
   SignIn({super.key});
@@ -34,6 +35,26 @@ class SignIn extends ConsumerWidget {
     Future.delayed(const Duration(seconds: 4));
     Navigator.of(context, rootNavigator: true).pop();
     Navigator.pushNamed(context, '/CompanyInfo1');
+  }
+
+  Future<firebase_auth.User?> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    if (googleAuth != null) {
+      final credential = firebase_auth.GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      firebase_auth.UserCredential userCredential = await firebase_auth
+          .FirebaseAuth.instance
+          .signInWithCredential(credential);
+
+      return userCredential.user;
+    }
+    return null;
   }
 
   @override
@@ -173,7 +194,9 @@ class SignIn extends ConsumerWidget {
                     SocialSignInButton(
                       text: 'Sign in with Google',
                       imagePath: 'assets/images/google_logo.png',
-                      onPressed: () {},
+                      onPressed: () {
+                        signInWithGoogle();
+                      },
                     ),
                     const SizedBox(height: 10),
                     RichText(

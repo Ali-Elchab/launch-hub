@@ -8,6 +8,7 @@ abstract class ApiRoute {
   static const emailResetLink = 'password/email';
   static const resetPassword = 'password/reset';
   static const logout = 'logout';
+  static const googleLogin = 'google/signin';
   static const deleteStartupProfile = 'startup/delete';
   static const deleteJobSeekerProfile = 'jobseeker/delete';
   static const getIndustries = 'industries';

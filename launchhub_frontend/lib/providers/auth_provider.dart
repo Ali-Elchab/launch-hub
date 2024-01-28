@@ -47,7 +47,6 @@ class AuthProvider with ChangeNotifier {
       if (fcmToken == null) {
         throw Exception('Failed to get FCM token');
       }
-      print(fcmToken);
       final response = await myDio.post(
         ApiRoute.login,
         data: {
