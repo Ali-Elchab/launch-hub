@@ -35,10 +35,12 @@
 
 ### LaunchHub is built using the following technologies:
 
-- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
+- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web. We have used Flutter to implement the android mobile application Launchhub.
+- For the server-side code, the app utilizes the Laravel framework. Laravel is a powerful and versatile PHP framework known for its elegant syntax and robust features. It's particularly favored for its expressive and clean code structure, comprehensive ecosystem, and extensive library of pre-built functions and tools. In our project, Laravel serves as the backbone for handling server-side logic, database interactions, API development, and providing a secure and scalable environment for the application backend. This integration ensures seamless communication between the Flutter front-end and server-side components, resulting in a cohesive and efficient user experience.
 - For persistent storage (database), the app uses the MySQL, a database for storing and manipulating data.
-- To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-- The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
+- To send push notifications, the app uses the [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging).
+- For the admin dashboard, we utilized Electron with React, a powerful combination for building cross-platform desktop applications. Electron enables us to wrap the React application in a native desktop application environment, providing a seamless and integrated user experience. This approach allows for the creation of a sophisticated and responsive admin interface that is both visually appealing and functionally robust, enhancing the overall management and operational efficiency of our project.
+- The app uses the font inter as its main font, and the design of the app adheres to the material design guidelines.
 
 <br><br>
 
@@ -47,11 +49,7 @@
 
 > We designed LaunchHub using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
-### Wireframes
-
-| Login screen                            | Register screen                       | Landing screen                        |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+- Project Figma Design [Figma](https://www.figma.com/file/s3jSDlC2Y6bQ66UD89vdHp/LaunchHub?type=design&node-id=40%3A951&mode=design&t=loxRXuZyBbfaBCiV-1)
 
 ### Mockups
 
@@ -89,7 +87,7 @@
 | Home screen                             | Menu Screen                           | Order Screen                          |
 | ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
 
-<br><br>
+<br>
 
 <!--Prompt Engineering -->
 <img src="./readme/pormpt.svg">
@@ -115,6 +113,14 @@ Prompt for chat assisting job seekers
 > AWS Deployment: Enhancing Project Capabilities
 
 My project takes advantage of AWS's powerful cloud infrastructure for deploying my models. This integration allows us to handle increased traffic and data loads with ease, ensuring high availability and minimal downtime. AWS's tools and services provide the necessary flexibility and efficiency, making our AI solutions more accessible and reliable for users. <a href="./readme/aws-commands.md">Here</a> you would find the commands used to deploy on Amazon Linux server.
+<br>
+
+<!-- How to run -->
+<img src="./readme/unit-testing.svg"/>
+
+> Precision in Development: Harnessing the Power of Unit Testing:
+
+This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities
 
 <br><br>
 
@@ -125,29 +131,52 @@ My project takes advantage of AWS's powerful cloud infrastructure for deploying 
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+In order to run the mobile app, you should have an android physical phone with [developer mode enabled](https://www.samsung.com/uk/support/mobile-devices/how-do-i-turn-on-the-developer-options-menu-on-my-samsung-galaxy-device/). Or an emulator such as android studio, in order to run your android phone emulator and start the app.
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Below is an example of how you can instruct your audience on installing and setting up Launchhub._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+####Mobile App:
+
+1. Install Flutter SDK. Visit [Flutter website](https://docs.flutter.dev/get-started/install)
+2. Run Flutter doctor in your terminal
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   Flutter doctor
    ```
-3. Install NPM packages
+3. Clone the repository
+   ```sh
+   git clone https://github.com/Ali-Elchab/launchHub.git
+   ```
+4. Open the project
+   ```sh
+   cd launchhub/launchhub_frontend
+   ```
+5. Get Dependencies
+   ```sh
+   flutter pub get
+   ```
+6. Run the App
+   ```sh
+   flutter run
+   ```
+   Now, you should be able to run LaunchHub locally and explore its features.
+
+####Admin Dashboard:
+
+1. Make sure you have Node.js and npm installed on your machine. you can download them from the [Node.js Website](https://nodejs.org/en)
+2. Navigate to the electron project
+   ```sh
+   cd launchhub/admin_portal
+   ```
+3. Install Dependencied
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+4. Start the desktop app
+
+   ```sh
+   npm run dev
    ```
 
-Now, you should be able to run LaunchHub locally and explore its features.
+   Now, you should be able to run LaunchHub Admin Portal locally and explore its features.

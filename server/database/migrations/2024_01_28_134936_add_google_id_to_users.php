@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->after('remember_token')->nullable()->unique();
+            $table->string('google_id')->after('token')->nullable()->unique();
         });
     }
     public function down()
