@@ -61,12 +61,19 @@
 
 <br><br>
 
+<!-- Database -->
+<img src="./readme/database.svg"/>
+
+> Architecting Data Excellence: Innovative Database Design Strategies:
+
+<img src="./readme/er-diagram.svg"/>
+
 <!-- Implementation -->
 <img src="./readme/title4.svg"/>
 
 > Using the wireframes and mockups as a guide, we implemented the LaunchHub app with the following features:
 
-### User Screens (Mobile)
+### Startup Screens (Mobile)
 
 | Login screen                              | Register screen                         | Landing screen                          | Loading screen                          |
 | ----------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
@@ -74,13 +81,31 @@
 | Home screen                               | Menu Screen                             | Order Screen                            | Checkout Screen                         |
 | ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
 
-### Admin Screens (Web)
+### Admin Screens (Electron)
 
 | Login screen                            | Register screen                       | Landing screen                        |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
 | ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
 | Home screen                             | Menu Screen                           | Order Screen                          |
 | ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+
+<br><br>
+
+<!--Prompt Engineering -->
+<img src="./readme/pormpt.svg">
+
+> Mastering AI Interaction: Unveiling the Power of Prompt Engineering:
+
+In this project, prompt engineering was key to effectively communicate with OpenAI's GPT-4. By carefully crafting questions and instructions, I ensured that the AI provided precise and contextually relevant responses, crucial for the specific objectives and tasks of our work. Below is some prompts used:
+Prompt for suggesting potential candidates for startups
+<img src="./readme/prompt2.jpg" />
+Prompt for suggesting relative startups to job seekers
+<img src="./readme/prompt1.jpg" />
+Prompt for chat assisting startups
+<img src="./readme/prompt3.jpg" />
+
+Prompt for chat assisting job seekers
+<img src="./readme/prompt4.jpg" />
 
 <br><br>
 
