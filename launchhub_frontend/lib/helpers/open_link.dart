@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,19 +29,31 @@ downloadFile({required BuildContext context, String? url, String? name}) async {
       name: name,
       onProgress: (String? fileName, double? progress) {},
       onDownloadCompleted: (String path) {
+        // Decode the file path
+        String decodedPath = Uri.decodeFull(path);
+        print('Downloaded $decodedPath');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Download completed! Tap to open the file.'),
             action: SnackBarAction(
               label: 'Open',
               onPressed: () async {
-                // Determine the file type based on the file's extension
-                // await Future.delayed(const Duration(seconds: 5));
-                String fileType = getFileTypeFromExtension(path);
-                String? destination =
-                    await FilePicker.platform.getDirectoryPath();
-                String dir = "$destination/$name";
-                await OpenFile.open(dir, type: fileType);
+                if (await File(decodedPath).exists()) {
+                  String fileType = getFileTypeFromExtension(decodedPath);
+                  try {
+                    print(fileType);
+                    print(decodedPath);
+                    await OpenFile.open(decodedPath, type: fileType);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error opening file: $e')),
+                    );
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('File not found: $decodedPath')),
+                  );
+                }
               },
             ),
           ),
