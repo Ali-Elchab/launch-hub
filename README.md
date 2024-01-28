@@ -97,15 +97,24 @@
 > Mastering AI Interaction: Unveiling the Power of Prompt Engineering:
 
 In this project, prompt engineering was key to effectively communicate with OpenAI's GPT-4. By carefully crafting questions and instructions, I ensured that the AI provided precise and contextually relevant responses, crucial for the specific objectives and tasks of our work. Below is some prompts used:
+
 Prompt for suggesting potential candidates for startups
 <img src="./readme/prompt2.jpg" />
+
 Prompt for suggesting relative startups to job seekers
 <img src="./readme/prompt1.jpg" />
+
 Prompt for chat assisting startups
 <img src="./readme/prompt3.jpg" />
 
 Prompt for chat assisting job seekers
 <img src="./readme/prompt4.jpg" />
+
+<img src="./readme/aws.svg">
+
+> AWS Deployment: Enhancing Project Capabilities
+
+My project takes advantage of AWS's powerful cloud infrastructure for deploying my models. This integration allows us to handle increased traffic and data loads with ease, ensuring high availability and minimal downtime. AWS's tools and services provide the necessary flexibility and efficiency, making our AI solutions more accessible and reliable for users. <a href="./readme/aws-commands.md">Here</a> you would find the commands used to deploy on Amazon Linux server.
 
 <br><br>
 
