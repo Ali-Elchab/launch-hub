@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\Auth\GoogleAuthController as AuthGoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\JobPostController;
@@ -26,7 +25,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.reset');;
 Route::post('password/reset', [PasswordResetController::class, 'reset']);
 
-
+Route::post('google/signin', [GoogleAuthController::class, 'signInWithGoogle']);
 
 Route::controller(DataController::class)->group(function () {
     Route::get('skills/{specialization_id}', 'getSkillsBySpecialization');
