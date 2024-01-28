@@ -78,8 +78,10 @@ class JobSeekerController extends Controller
             $prompt .= "I am assisting a startup with the following profile: ";
             $prompt .= "Industry: $industry, Specialization: $specialization, Company Name: $company, ";
             $prompt .= "Description: $description, Founded On: $foundingDate, Location: $address. ";
-            $prompt .= "This startup's core focus is on $industry and $specialization. In line with this, they need talented individuals for roles essential to a technology startup's ecosystem. These roles include but are not limited to accounting, finance, marketing, HR, legal, IT, and customer support. ";
-            $prompt .= "It's critical to match the startup with candidates whose expertise aligns specifically with these domains. Please avoid suggesting candidates from unrelated fields such as healthcare, as they do not meet the startup's current operational needs. ";
+            $prompt .= "This startup's core focus is on $industry and $specialization. In line with this, they need talented individuals for roles essential to a technology startup's ecosystem. ";
+            $prompt .= "These roles include but are not limited to accounting, finance, marketing, HR, legal, IT, and customer support. ";
+            $prompt .= "It's critical to match the startup with candidates whose expertise aligns specifically with these domains.";
+            $prompt .= " Please avoid suggesting candidates from unrelated fields such as healthcare, as they do not meet the startup's current operational needs. ";
             $prompt .= "Based on this startup's profile and operational requirements, analyze the following list of job seekers and identify those who are the most suitable: $jobseekers ";
             $prompt .= "Your response should list the IDs of the suggested job seekers in the following format: [id1, id2, ...]. ";
             $prompt .= "Ensure the response contains only the list of IDs, formatted as an array, without any additional text or commentary.";
