@@ -165,7 +165,8 @@ My project takes advantage of AWS's powerful cloud infrastructure for deploying 
 
 > Precision in Development: Harnessing the Power of Unit Testing:
 
-This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities
+This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities:
+<img src="./readme/unit-tests.png">
 
 <br><br>
 
