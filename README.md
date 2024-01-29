@@ -78,17 +78,39 @@
 
 ### Startup Screens (Mobile)
 
-| Sign Up Process                      | Register screen                      | Landing screen                       | Loading screen                       |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/signup.gif) |
-| Home screen                          | Menu Screen                          | Order Screen                         | Checkout Screen                      |
-| ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/signup.gif) |
+| Sign Up Process                             | Home Screen                                    | Contact Advisors                       | Guides & Templates                       |
+| ------------------------------------------- | ---------------------------------------------- | -------------------------------------- | ---------------------------------------- |
+| ![Landing](./readme/GIFs/signup.gif)        | ![Landing](./readme/GIFs/home.gif)             | ![Landing](./readme/GIFs/advisors.gif) | ![Landing](./readme/GIFs/guides.gif)     |
+| Notifications                               | AI Assistant                                   | Job Board                              | Remove Job                               |
+| ![Landing](./readme/GIFs/notifications.gif) | ![Landing](./readme/GIFs/ai.gif)               | ![Landing](./readme/GIFs/post-job.gif) | ![Landing](./readme/GIFs/remove-job.gif) |
+| Suggested Candidates                        | Contact / Reject Applicants                    | View Job Seeker Profile                | AI Assistant                             |
+| ![Landing](./readme/GIFs/suggested.gif)     | ![Landing](./readme/GIFs/reject-applicant.gif) | ![Landing](./readme/GIFs/signup.gif)   | ![Landing](./readme/GIFs/ai.gif)         |
+
+## Screenshots from the app
+
+### Startup Profile
+
+| Splash Screen                                           | Signup                                                      | Contact Advisors                                   |
+| ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/splash.png)      | ![fsdaf](./readme/mobile-screenshots/signup.png)            | ![fsdaf](./readme/mobile-screenshots/advisors.png) |
+| Suggested Candidates                                    | Candidates Profile                                          | AI Assistant                                       |
+| ![Landing](./readme/mobile-screenshots/hire-talent.png) | ![fsdaf](./readme/mobile-screenshots/candidate-profile.png) | ![fsdaf](./readme/mobile-screenshots/ai.png)       |
+| Job Board                                               | Post A Job                                                  | Guides & Templates                                 |
+| ![Landing](./readme/mobile-screenshots/job-board.png)   | ![fsdaf](./readme/mobile-screenshots/post-job.png)          | ![fsdaf](./readme/mobile-screenshots/guides.png)   |
+
+### Startup Profile
+
+| Post A Job                              | Register screen                       | View Suggested Candidate Profile      |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/GIFs/suggested.gif) |
+| Home screen                             | Menu Screen                           | Order Screen                          |
+| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
 
 ### Admin Screens (Electron)
 
-| Login screen                            | Register screen                       | Landing screen                        |
+| Post A Job                              | Register screen                       | View Suggested Candidate Profile      |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/GIFs/suggested.gif) |
 | Home screen                             | Menu Screen                           | Order Screen                          |
 | ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
 
