@@ -55,8 +55,11 @@
     <div class="container">
         <h2>Password Reset Request</h2>
         <p>If you requested a password reset for your account, click the button below. If you did not make this request, please ignore this email.</p>
-        <a href="{{ $url }}" class="button">Reset Password</a>
+        <a href='http://reset-password?token={{$token}}'>Reset Password</a>
         <p>This password reset link will expire in 60 minutes.</p>
+        <p>If you're unable to click the button, please copy and paste the following link into your browser: myapp://reset-password?token={{$token}}
+        </p>
+
     </div>
 </body>
 
