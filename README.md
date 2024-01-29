@@ -76,7 +76,7 @@
 
 > Using the wireframes and mockups as a guide, we implemented the LaunchHub app with the following features:
 
-### Startup Screens (Mobile)
+### Startup Screens
 
 | Sign Up Process                             | Home Screen                                    | Contact Advisors                       | Guides & Templates                       |
 | ------------------------------------------- | ---------------------------------------------- | -------------------------------------- | ---------------------------------------- |
@@ -85,6 +85,12 @@
 | ![Landing](./readme/GIFs/notifications.gif) | ![Landing](./readme/GIFs/ai.gif)               | ![Landing](./readme/GIFs/post-job.gif) | ![Landing](./readme/GIFs/remove-job.gif) |
 | Suggested Candidates                        | Contact / Reject Applicants                    | View Job Seeker Profile                | AI Assistant                             |
 | ![Landing](./readme/GIFs/suggested.gif)     | ![Landing](./readme/GIFs/reject-applicant.gif) | ![Landing](./readme/GIFs/signup.gif)   | ![Landing](./readme/GIFs/ai.gif)         |
+
+### Job Seeker Screens
+
+| Apply For Job                       | AI Assistant                     | Related Articles & Courses                     | Edit Profile                               |
+| ----------------------------------- | -------------------------------- | ---------------------------------------------- | ------------------------------------------ |
+| ![Landing](./readme/GIFs/apply.gif) | ![Landing](./readme/GIFs/ai.gif) | ![Landing](./readme/GIFs/related-articles.gif) | ![Landing](./readme/GIFs/edit-profile.gif) |
 
 ## Screenshots from the app
 
@@ -98,21 +104,21 @@
 | Job Board                                               | Post A Job                                                  | Guides & Templates                                 |
 | ![Landing](./readme/mobile-screenshots/job-board.png)   | ![fsdaf](./readme/mobile-screenshots/post-job.png)          | ![fsdaf](./readme/mobile-screenshots/guides.png)   |
 
-### Startup Profile
+### Job Seeker Profile
 
-| Post A Job                              | Register screen                       | View Suggested Candidate Profile      |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/GIFs/suggested.gif) |
-| Home screen                             | Menu Screen                           | Order Screen                          |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| Home                                                          | Job Opportunities                                           | AI Assistant                                        |
+| ------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/jobseeker-home.png)    | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png) | ![fsdaf](./readme/mobile-screenshots/initialAI.png) |
+| Edit Profile                                                  |
+| ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
 
 ### Admin Screens (Electron)
 
-| Post A Job                              | Register screen                       | View Suggested Candidate Profile      |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/GIFs/suggested.gif) |
-| Home screen                             | Menu Screen                           | Order Screen                          |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| Signin                                      | Dashboard                                             |
+| ------------------------------------------- | ----------------------------------------------------- |
+| ![Landing](./readme/electron-ss/signin.png) | ![fsdaf](./readme/electron-ss/dashboard.png)          |
+| User Management                             | Content Management                                    |
+| ![Landing](./readme/electron-ss/users.png)  | ![fsdaf](./readme/electron-ss/content-management.png) |
 
 <br>
 
