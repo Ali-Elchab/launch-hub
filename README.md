@@ -35,12 +35,21 @@
 
 ### LaunchHub is built using the following technologies:
 
-- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web. We have used Flutter to implement the android mobile application Launchhub.
-- For the server-side code, the app utilizes the Laravel framework. Laravel is a powerful and versatile PHP framework known for its elegant syntax and robust features. It's particularly favored for its expressive and clean code structure, comprehensive ecosystem, and extensive library of pre-built functions and tools. In our project, Laravel serves as the backbone for handling server-side logic, database interactions, API development, and providing a secure and scalable environment for the application backend. This integration ensures seamless communication between the Flutter front-end and server-side components, resulting in a cohesive and efficient user experience.
-- For persistent storage (database), the app uses the MySQL, a database for storing and manipulating data.
+- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web. I have used Flutter to implement the android mobile application Launchhub. depending on provider which is a state manager used in flutter.
+
+- For the server-side code, the app utilizes the [Laravel](https://laravel.com) framework. Laravel is a powerful and versatile PHP framework known for its elegant syntax and robust features. It's particularly favored for its expressive and clean code structure, comprehensive ecosystem, and extensive library of pre-built functions and tools. In my project, Laravel serves as the backbone for handling server-side logic, database interactions, API development, and providing a secure and scalable environment for the application backend. This integration ensures seamless communication between the Flutter front-end and server-side components, resulting in a cohesive and efficient user experience.
+
+- For persistent storage (database), the app uses the [MySQL](https://www.mysql.com), a database for storing and manipulating data.
+
 - To send push notifications, the app uses the [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging).
-- For the admin dashboard, we utilized Electron with React, a powerful combination for building cross-platform desktop applications. Electron enables us to wrap the React application in a native desktop application environment, providing a seamless and integrated user experience. This approach allows for the creation of a sophisticated and responsive admin interface that is both visually appealing and functionally robust, enhancing the overall management and operational efficiency of our project.
-- The app uses the font inter as its main font, and the design of the app adheres to the material design guidelines.
+
+- For the suggestions, where the app suggests candidates to startups, and vice verca. I integrated [openAI](https://platform.openai.com/docs/introduction). Where i used my prompt engineering knoweledge to utilize a well structured prompt in order to get best results.
+
+- In the courses suggestions section, where the app suggests courses for users based on their interesets. I used [Udemy API](https://www.udemy.com/developers/instructor/).
+
+- For the admin dashboard, I utilized Electron with React, a powerful combination for building cross-platform desktop applications. Electron enables us to wrap the React application in a native desktop application environment, providing a seamless and integrated user experience. This approach allows for the creation of a sophisticated and responsive admin interface that is both visually appealing and functionally robust, enhancing the overall management and operational efficiency of our project.
+
+- The app uses the font [inter](https://fonts.google.com/specimen/Inter?query=inter) as its main font, and the design of the app adheres to the material design guidelines.
 
 <br><br>
 
@@ -72,7 +81,7 @@
 
 > Architecting Data Excellence: Innovative Database Design Strategies:
 
-<img src="./readme/er-diagram.svg"/>
+<img src="./readme/er-diagram.jpg"/>
 
 <!-- Implementation -->
 <img src="./readme/title4.svg"/>
