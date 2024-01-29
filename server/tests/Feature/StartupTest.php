@@ -72,4 +72,55 @@ class StartupTest extends TestCase
             ]
         );
     }
+
+    public function test_non_startup_can_post_job()
+    {
+        $response = $this->actingAs($this->adminUser)->post('/api/jobposts/post', [
+            'job_title' => 'test title',
+            'job_description' => 'test description',
+            'industry_id' => 1,
+            'specialization_id' => 1,
+            'job_salary' => 1000,
+            'job_status' => 'open',
+            'job_location' => 'test location',
+            'job_type' => 'Full-time',
+            'experience_level' => '1 year',
+            'education_level' => 'bachelor',
+            'job_qualification' => 'test qualification',
+            'deadline' => '2024',
+            'responsibilities' => 'test responsibilities',
+            'requirements' => 'test requirements',
+        ]);
+
+        $response->assertJson(
+            [
+                'status' => 'error',
+            ]
+        );
+    }
+
+    public function test_startup_can_update_profile()
+    {
+        $startup = Startup::factory()->create([
+            'user_id' => $this->startupUser->id
+        ]);
+
+        $response = $this->actingAs($this->startupUser)->post('/api/startup/update_profile', [
+            'company_name' => 'test name',
+        ]);
+
+        $response->assertJson(
+            [
+                'status' => 'success',
+            ]
+        );
+    }
+    public function test_non_startup_can_update_startup_profile()
+    {
+        $response = $this->actingAs($this->adminUser)->post('/api/startup/update_profile', [
+            'company_name' => 'test name',
+        ]);
+
+        $response->assertStatus(403);
+    }
 }
