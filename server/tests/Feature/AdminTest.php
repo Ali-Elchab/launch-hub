@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Advisor;
 use App\Models\Application;
 use App\Models\Industry;
+use App\Models\JobPost;
 use App\Models\JobSeeker;
 use App\Models\Specialization;
 use App\Models\Startup;
@@ -21,6 +23,8 @@ class AdminTest extends TestCase
     protected $adminUser;
     protected $jobSeekerUser;
     protected $startupUser;
+    protected $industry;
+    protected $specialization;
 
     protected function setUp(): void
     {
@@ -45,68 +49,52 @@ class AdminTest extends TestCase
             'user_type_id' => 1
         ]);
     }
-    /**
-     * A basic feature test example.
-     */
-    /** @test */
-    // public function admin_can_access_statistics()
-    // {
 
-    //     Startup::factory()->count(5)->create();
-    //     JobSeeker::factory()->count(5)->create();
-    //     Application::factory()->state(['status' => 'pending'])->create();
-    //     Application::factory()->state(['status' => 'rejected'])->create();
-    //     Industry::factory()->create();
-
-    //     $response = $this->actingAs($this->adminUser)->get('/admin/statistics');
-
-    //     $response->assertStatus(200);
-    // }
-
-    // public function test_login()
-    // {
-    //     $response = $this->postJson('/api/login', [
-    //         'email' => $this->adminUser->email,
-    //         'password' => 'password'
-    //     ]);
-    // }
-
-
-
-    public function test_jobseeker_can_access_basic_profile()
+    public function test_admin_can_access_statistics()
     {
-        $user = User::factory()->create([
-            'user_type_id' => 2
-        ]);
+        Startup::factory()->count(5)->create();
+        JobSeeker::factory()->count(5)->create();
+        JobPost::factory()->count(5)->create();
+        Application::factory()->state(['status' => 'pending'])->create();
+        Application::factory()->state(['status' => 'pending'])->create();
 
-        $jobSeeker = JobSeeker::factory()->create([
-            'user_id' => $user->id
-        ]);
+        Industry::factory()->create();
 
-        $response =  $this->actingAs($user)->get('/api/jobseeker/basic_profile');
+        $response = $this->actingAs($this->adminUser)->get('/api/admin/statistics');
 
-        $response->assertJson([
-            'status' => 'success'
-        ]);
+        $response->assertStatus(200);
     }
-    public function test_non_jobseeker_can_access_basic_profile()
+
+    public function test_nonAdmin_can_access_startup_statistics()
     {
-        $industry = Industry::factory()->create();
-        $specialization = Specialization::factory()->create(
-            [
-                'industry_id' => $industry->id
-            ]
-        );
-        $startup = Startup::factory()->create([
-            'user_id' => $this->startupUser->id,
-            'industry_id' => $industry->id,
-            'specialization_id' => $specialization->id
+        Startup::factory()->count(5)->create();
+        JobSeeker::factory()->count(5)->create();
+        JobPost::factory()->count(5)->create();
+        Application::factory()->state(['status' => 'pending'])->create();
+        Application::factory()->state(['status' => 'pending'])->create();
+
+        Industry::factory()->create();
+
+        $response = $this->actingAs($this->startupUser)->get('/api/admin/statistics');
+
+        $response->assertStatus(403);
+    }
+
+    public function test_admin_can_add_advisor()
+    {
+        Advisor::factory()->count(5)->create();
+
+        $response = $this->actingAs($this->adminUser)->post('/api/admin/add_advisor', [
+            'name' => 'test',
+            'email' => 'testemail@test.com',
+            'location' => 'beirut',
+            'phone' => '70550225',
+            'bio' => 'advisor',
+            'photo_url' => 'default.png',
+            'category' => 'finance',
+            'expertise' => 'finance',
         ]);
 
-        $response =  $this->actingAs($this->startupUser)->get('/api/jobseeker/basic_profile');
-
-        $response->assertJson([
-            'status' => 'error'
-        ]);
+        $response->assertStatus(200);
     }
 }
