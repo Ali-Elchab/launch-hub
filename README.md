@@ -53,15 +53,18 @@
 
 ### Mockups
 
-####Mobile App
-| Home screen | Ai Assistance | Hire Talent Screen |
+#### Mobile App
+
+| Home screen                           | Ai Assistance                  | Hire Talent Screen                           |
 | ------------------------------------- | ------------------------------ | -------------------------------------------- |
 | ![Landing](./readme/mockups/home.png) | ![Ai](./readme/mockups/ai.png) | ![Landing](./readme/mockups/hire-talent.png) |
 
-####Admin Panel
-| Dashboard | User Management |
-| ------------------------------------- | ------------------------------ |
+#### Admin Panel
+
+| Dashboard                                  | User Management                             |
+| ------------------------------------------ | ------------------------------------------- |
 | ![Landing](./readme/mockups/dashboard.png) | ![Ai](./readme/mockups/user-management.png) |
+
 <br><br>
 
 <!-- Database -->
@@ -106,11 +109,11 @@
 
 ### Job Seeker Profile
 
-| Home                                                          | Job Opportunities                                           | AI Assistant                                        |
-| ------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/jobseeker-home.png)    | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png) | ![fsdaf](./readme/mobile-screenshots/initialAI.png) |
-| Edit Profile                                                  |
-| ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
+| Home                                                       | Job Opportunities                                             |
+| ---------------------------------------------------------- | ------------------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/jobseeker-home.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png)   |
+| AI Assistant                                               | Edit Profile                                                  |
+| ![fsdaf](./readme/mobile-screenshots/initialAI.png)        | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
 
 ### Admin Screens (Electron)
 
@@ -170,7 +173,7 @@ In order to run the mobile app, you should have an android physical phone with [
 
 _Below is an example of how you can instruct your audience on installing and setting up Launchhub._
 
-####Mobile App:
+#### Mobile App:
 
 1. Install Flutter SDK. Visit [Flutter website](https://docs.flutter.dev/get-started/install)
 2. Run Flutter doctor in your terminal
@@ -195,7 +198,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
    Now, you should be able to run LaunchHub locally and explore its features.
 
-####Admin Dashboard:
+#### Admin Dashboard:
 
 1. Make sure you have Node.js and npm installed on your machine. you can download them from the [Node.js Website](https://nodejs.org/en)
 2. Navigate to the electron project
