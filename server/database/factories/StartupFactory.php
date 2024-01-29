@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Industry;
+use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -30,9 +32,9 @@ class StartupFactory extends Factory
             'founders' => json_encode([$this->faker->name]),
             'ceos' => json_encode([$this->faker->optional()->name]),
             'key_executives' => json_encode([$this->faker->optional()->name]),
-            'specialization_id' => 1,
-            'industry_id' => 1,
-            'user_id' => 1,
+            'industry_id' => Industry::factory(),
+            'specialization_id' => Specialization::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

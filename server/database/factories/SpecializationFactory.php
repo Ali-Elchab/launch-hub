@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Industry;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class SpecializationFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word,
-            'industry_id' => 2,
+            'industry_id' => Industry::factory(),
         ];
     }
 }

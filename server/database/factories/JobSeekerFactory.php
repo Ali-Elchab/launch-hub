@@ -26,9 +26,7 @@ class JobSeekerFactory extends Factory
             'is_available' => $this->faker->boolean,
             'industry_id' => Industry::factory(),
             'user_id' => User::factory(),
-            'specialization_id' => $this->faker->optional()->randomElement(
-                Specialization::pluck('id')->toArray()
-            ),
+            'specialization_id' => Specialization::factory(),
         ];
     }
 }
