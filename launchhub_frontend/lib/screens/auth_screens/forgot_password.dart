@@ -7,7 +7,6 @@ import 'package:launchhub_frontend/data/api_constants.dart';
 import 'package:launchhub_frontend/widgets/custom_appbar.dart';
 import 'package:launchhub_frontend/widgets/input_field.dart';
 import 'package:launchhub_frontend/widgets/submit_button.dart';
-import 'package:uni_links/uni_links.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -23,24 +22,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   void initState() {
     super.initState();
-    handleDeepLink();
-  }
-
-  Future handleDeepLink() async {
-    try {
-      final initialLink = await getInitialLink();
-      if (initialLink != null) {
-        final uri = Uri.parse(initialLink);
-        if (uri.scheme == 'myapp') {
-          final token = uri.queryParameters['token'];
-          if (token != null && token.isNotEmpty) {
-            Navigator.pushNamed(context, '/reset-password', arguments: token);
-          }
-        }
-      }
-    } on Exception catch (e) {
-      return e;
-    }
   }
 
   @override

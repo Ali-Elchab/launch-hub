@@ -14,6 +14,7 @@ import 'package:launchhub_frontend/screens/startup_screens/hire_talent.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_home.dart';
 import 'package:launchhub_frontend/screens/startup_screens/startup_root_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:uni_links/uni_links.dart';
 import 'firebase_options.dart';
 import 'package:launchhub_frontend/helpers/notification.dart';
 
@@ -24,12 +25,19 @@ void main() async {
   );
   await FirebaseApi().initNotifications();
 
-  runApp(ProviderScope(child: App()));
+  String? initialLink;
+  try {
+    initialLink = await getInitialLink();
+  } catch (e) {
+    print(e);
+  }
+
+  runApp(ProviderScope(child: App(initialLink: initialLink)));
 }
 
 class App extends StatelessWidget {
-  App({super.key});
-
+  final String? initialLink;
+  App({super.key, this.initialLink});
   final theme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xFF326789),
@@ -70,26 +78,45 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove the debug banner
-      navigatorKey: navigatorKey,
-      routes: {
-        '/SignUp': (context) => SignUp(),
-        '/SignIn': (context) => SignIn(),
-        '/CompanyInfo1': (context) => const CompanyInfo1(),
-        '/PersonalInfo': (context) => const PersonalInfo(),
-        '/StartupHome': (context) => const StartupHome(),
-        '/StartupRoot': (context) => const StartupRootWidget(),
-        '/JobSeekerHome': (context) => const JobSeekerHome(),
-        '/JobSeekerRoot': (context) => const JobSeekerRootWidget(),
-        '/HireTalent': (context) => const HireTalent(),
-        '/reset-password': (context) => ResetPassword(),
+    return StreamBuilder(
+      stream: uriLinkStream,
+      initialData: initialLink,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final uri = Uri.parse(snapshot.data.toString());
+          if (uri.scheme == 'http' && uri.host == 'reset-password') {
+            final token = uri.queryParameters['token'];
+            if (token != null && token.isNotEmpty) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                navigatorKey.currentState
+                    ?.pushNamed('/reset-password', arguments: token);
+              });
+            }
+          }
+        }
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          routes: {
+            '/SignUp': (context) => SignUp(),
+            '/SignIn': (context) => SignIn(),
+            '/CompanyInfo1': (context) => const CompanyInfo1(),
+            '/PersonalInfo': (context) => const PersonalInfo(),
+            '/StartupHome': (context) => const StartupHome(),
+            '/StartupRoot': (context) => const StartupRootWidget(),
+            '/JobSeekerHome': (context) => const JobSeekerHome(),
+            '/JobSeekerRoot': (context) => const JobSeekerRootWidget(),
+            '/HireTalent': (context) => const HireTalent(),
+            '/reset-password': (context) => ResetPassword(),
+          },
+          theme: theme,
+          home: const Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: StartScreen(),
+          ),
+        );
       },
-      theme: theme,
-      home: const Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: StartScreen(),
-      ),
     );
   }
 }
