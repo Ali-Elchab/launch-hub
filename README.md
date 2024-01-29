@@ -51,8 +51,6 @@
 
 - The admin dashboard is built using [Electron](https://electron-vite.org) and [React](https://react.dev), offering a native desktop app experience. This setup creates a responsive and visually appealing interface, improving project management and efficiency.
 
-- The app uses the font [inter](https://fonts.google.com/specimen/Inter?query=inter) as its main font, and the design of the app adheres to the material design guidelines.
-
 <br>
 
 <!-- Prototyping -->
@@ -60,9 +58,7 @@
 
 > I designed LaunchHub using wireframes and mockups, iterating on the design until I reached the ideal layout for easy navigation and a seamless user experience.
 
-- Project Figma Design [Figma](https://www.figma.com/file/s3jSDlC2Y6bQ66UD89vdHp/LaunchHub?type=design&node-id=40%3A951&mode=design&t=loxRXuZyBbfaBCiV-1)
-
-### Mockups
+### Mockup Examples
 
 #### Mobile App
 
@@ -75,6 +71,8 @@
 | Dashboard                                  | User Management                             |
 | ------------------------------------------ | ------------------------------------------- |
 | ![Landing](./readme/mockups/dashboard.png) | ![Ai](./readme/mockups/user-management.png) |
+
+- Check more Mockups on [Figma](https://www.figma.com/file/s3jSDlC2Y6bQ66UD89vdHp/LaunchHub?type=design&node-id=40%3A951&mode=design&t=loxRXuZyBbfaBCiV-1)
 
 <br><br>
 
