@@ -122,7 +122,7 @@ class AdminController extends Controller
 
     public function addAdvisor(Request $request)
     {
-        $user = auth()->user;
+        $user = auth()->user();
         if ($user) {
             $request->validate([
                 'name' => 'required|string|max:255',
