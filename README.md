@@ -90,13 +90,17 @@
 
 ### Startup Screens
 
-| Sign Up Process                             | Home Screen                                    | Contact Advisors                       | Guides & Templates                       |
-| ------------------------------------------- | ---------------------------------------------- | -------------------------------------- | ---------------------------------------- |
-| ![Landing](./readme/GIFs/signup.gif)        | ![Landing](./readme/GIFs/home.gif)             | ![Landing](./readme/GIFs/advisors.gif) | ![Landing](./readme/GIFs/guides.gif)     |
-| Notifications                               | AI Assistant                                   | Job Board                              | Remove Job                               |
-| ![Landing](./readme/GIFs/notifications.gif) | ![Landing](./readme/GIFs/ai.gif)               | ![Landing](./readme/GIFs/post-job.gif) | ![Landing](./readme/GIFs/remove-job.gif) |
-| Suggested Candidates                        | Contact / Reject Applicants                    | View Job Seeker Profile                | AI Assistant                             |
-| ![Landing](./readme/GIFs/suggested.gif)     | ![Landing](./readme/GIFs/reject-applicant.gif) | ![Landing](./readme/GIFs/signup.gif)   | ![Landing](./readme/GIFs/ai.gif)         |
+| Sign Up Process                      | Home Screen                        | Contact Advisors                       | Guides & Templates                   |
+| ------------------------------------ | ---------------------------------- | -------------------------------------- | ------------------------------------ |
+| ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/home.gif) | ![Landing](./readme/GIFs/advisors.gif) | ![Landing](./readme/GIFs/guides.gif) |
+
+| Notifications                               | AI Assistant                     | Job Board                              | Remove Job                               |
+| ------------------------------------------- | -------------------------------- | -------------------------------------- | ---------------------------------------- |
+| ![Landing](./readme/GIFs/notifications.gif) | ![Landing](./readme/GIFs/ai.gif) | ![Landing](./readme/GIFs/post-job.gif) | ![Landing](./readme/GIFs/remove-job.gif) |
+
+| Suggested Candidates                    | Contact / Reject Applicants                    | View Job Seeker Profile              | AI Assistant                     |
+| --------------------------------------- | ---------------------------------------------- | ------------------------------------ | -------------------------------- |
+| ![Landing](./readme/GIFs/suggested.gif) | ![Landing](./readme/GIFs/reject-applicant.gif) | ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/ai.gif) |
 
 ### Job Seeker Screens
 
@@ -108,29 +112,37 @@
 
 ### Startup Profile
 
-| Splash Screen                                           | Signup                                                      | Contact Advisors                                   |
-| ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/splash.png)      | ![fsdaf](./readme/mobile-screenshots/signup.png)            | ![fsdaf](./readme/mobile-screenshots/advisors.png) |
-| Suggested Candidates                                    | Candidates Profile                                          | AI Assistant                                       |
-| ![Landing](./readme/mobile-screenshots/hire-talent.png) | ![fsdaf](./readme/mobile-screenshots/candidate-profile.png) | ![fsdaf](./readme/mobile-screenshots/ai.png)       |
-| Job Board                                               | Post A Job                                                  | Guides & Templates                                 |
-| ![Landing](./readme/mobile-screenshots/job-board.png)   | ![fsdaf](./readme/mobile-screenshots/post-job.png)          | ![fsdaf](./readme/mobile-screenshots/guides.png)   |
+| Splash Screen                                      | Signup                                           | Home screen                                            | Guides & Templates                                 |
+| -------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------ | -------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/splash.png) | ![fsdaf](./readme/mobile-screenshots/signup.png) | ![fsdaf](./readme/mobile-screenshots/startup-home.png) | ![Landing](./readme/mobile-screenshots/guides.png) |
+
+| Suggested Candidates                                    | Candidates Profile                                          | Notification                                           | AI Assistant                                 |
+| ------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/hire-talent.png) | ![fsdaf](./readme/mobile-screenshots/candidate-profile.png) | ![fsdaf](./readme/mobile-screenshots/notification.png) | ![fsdaf](./readme/mobile-screenshots/ai.png) |
+
+| Job Board                                             | Post A Job                                         | Guides & Templates                               | Contact Advisors                                   |
+| ----------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/job-board.png) | ![fsdaf](./readme/mobile-screenshots/post-job.png) | ![fsdaf](./readme/mobile-screenshots/guides.png) | ![fsdaf](./readme/mobile-screenshots/advisors.png) |
 
 ### Job Seeker Profile
 
-| Home                                                       | Job Opportunities                                             | Job Post View                                       |
-| ---------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/jobseeker-home.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png)   | ![fsdaf](./readme/mobile-screenshots/job-post.jpeg) |
-| AI Assistant                                               | Edit Profile                                                  |
-| ![fsdaf](./readme/mobile-screenshots/initialAI.png)        | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
+| Home                                                       | Job Posts                                                   | Job Post View                                      | Requirememts                                                  |
+| ---------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/jobseeker-home.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png) | ![fsdaf](./readme/mobile-screenshots/job-post.png) | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
+
+| AI Assitant                                           | Suggested Courses                                           | Trending Articles                                  | Edit Profile                                                  |
+| ----------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/initialAI.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png) | ![fsdaf](./readme/mobile-screenshots/job-post.png) | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
 
 ### Admin Screens (Electron)
 
-| Signin                                      | Dashboard                                             |
-| ------------------------------------------- | ----------------------------------------------------- |
-| ![Landing](./readme/electron-ss/signin.png) | ![fsdaf](./readme/electron-ss/dashboard.png)          |
-| User Management                             | Content Management                                    |
-| ![Landing](./readme/electron-ss/users.png)  | ![fsdaf](./readme/electron-ss/content-management.png) |
+| Signin                                      | Dashboard                                    |
+| ------------------------------------------- | -------------------------------------------- |
+| ![Landing](./readme/electron-ss/signin.png) | ![fsdaf](./readme/electron-ss/dashboard.png) |
+
+| User Management                            | Content Management                                    |
+| ------------------------------------------ | ----------------------------------------------------- |
+| ![Landing](./readme/electron-ss/users.png) | ![fsdaf](./readme/electron-ss/content-management.png) |
 
 <br>
 
@@ -154,8 +166,47 @@ Prompt for chat assisting job seekers
 <img src="./readme/svgs/aws.svg">
 
 > My project takes advantage of AWS's powerful cloud infrastructure for deploying my models. This integration allows us to handle increased traffic and data loads with ease, ensuring high availability and minimal downtime. AWS's tools and services provide the necessary flexibility and efficiency, making our AI solutions more accessible and reliable for users. <a href="./readme/aws-commands.md">Here</a>, you would find the commands used to deploy on Amazon Linux server.
-> <br>
+> <a href="./readme/aws-commands.md">[List Of Commands]</a> > <br>
 
+<div style="height:200px; overflow-y: scroll; background-color:black">
+<pre style="height:200px; overflow-y: scroll; color:white">
+   sudo systemctl enable --now httpd
+   sudo systemctl enable --now mariadb
+   sudo mysql
+   CREATE DATABASE launchhub;
+   CREATE USER username'@'localhost' IDENTIFIED BY 'password'
+   GRANT ALL ON yourdb.* to 'user'@'localhost';
+   FLUSH PRIVILEGES;
+   curl -sS https://getcomposer.org/installer | php
+   sudo mv composer.phar /usr/local/bin/composer
+   sudo chmod +x /usr/local/bin/composer
+   cd /var/www
+   sudo dnf install git -y
+   sudo git clone https://github.com/launchhub/server/alielchab.git
+   cd /var/www/launchhub/server
+   sudo chown -R $USER /var/www/launchhub/server
+   composer install
+   sudo chown -R apache.apache /var/www/launchhub/server
+   sudo chmod -R 755 /var/www/launchhub/server
+   sudo chmod -R 777 /var/www/launchhub/server/storage
+   sudo cp .env.example .env
+   sudo php artisan key:generate
+   sudo nano .env
+   "Edit env file"
+   sudo nano /etc/httpd/conf.d/laravel.conf
+   inside the file:
+
+         <VirtualHost \*:80
+            ServerName launchhub.example.com
+            DocumentRoot /var/www/launchhub/server/public
+               Directory /var/www/launchhub/server>
+                     AllowOverride All
+               </Directory>
+         </VirtualHost>
+
+</pre>
+</div>
+<br>
 <!-- How to run -->
 <img src="./readme/svgs/unit-testing.svg"/>
 
@@ -212,7 +263,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 
    Here's a reference to get your keys
-   [OpenAI Key](https://platform.openai.com/docs/api-reference), [Udemy API](https://www.udemy.com/developers/), [News API](https://newsapi.org), [Firebase](https://firebase.google.com)
+   [OpenAI Key](https://platform.openai.com/docs/api-reference), [Udemy API](https://www.udemy.com/developers/instructor/), [News API](https://newsapi.org), [Firebase](https://firebase.google.com)
 
 6. Get Migrations
 
