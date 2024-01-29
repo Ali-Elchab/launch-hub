@@ -1,9 +1,9 @@
-<img src="./readme/title1.svg"/>
+<img src="./readme/svgs/title1.svg"/>
 
 <br><br>
 
 <!-- project philosophy -->
-<img src="./readme/title2.svg"/>
+<img src="./readme/svgs/title2.svg"/>
 
 > A mobile app that fuels startup success by offering essential tools and guidance at every stage.
 >
@@ -31,7 +31,7 @@
   <br><br>
 
 <!-- Tech stack -->
-<img src="./readme/title5.svg"/>
+<img src="./readme/svgs/title5.svg"/>
 
 ### LaunchHub is built using the following technologies:
 
@@ -54,7 +54,7 @@
 <br><br>
 
 <!-- Prototyping -->
-<img src="./readme/title3.svg"/>
+<img src="./readme/svgs/title3.svg"/>
 
 > We designed LaunchHub using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
@@ -77,14 +77,14 @@
 <br><br>
 
 <!-- Database -->
-<img src="./readme/database.svg"/>
+<img src="./readme/svgs/database.svg"/>
 
 > Architecting Data Excellence: Innovative Database Design Strategies:
 
 <img src="./readme/er-diagram.jpg"/>
 
 <!-- Implementation -->
-<img src="./readme/title4.svg"/>
+<img src="./readme/svgs/title4.svg"/>
 
 > Using the wireframes and mockups as a guide, we implemented the LaunchHub app with the following features:
 
@@ -135,25 +135,25 @@
 <br>
 
 <!--Prompt Engineering -->
-<img src="./readme/pormpt.svg">
+<img src="./readme/svgs/pormpt.svg">
 
 > Mastering AI Interaction: Unveiling the Power of Prompt Engineering:
 
 In this project, prompt engineering was key to effectively communicate with OpenAI's GPT-4. By carefully crafting questions and instructions, I ensured that the AI provided precise and contextually relevant responses, crucial for the specific objectives and tasks of our work. Below is some prompts used:
 
 Prompt for suggesting potential candidates for startups
-<img src="./readme/prompt2.jpg" />
+<img src="./readme/prompts/prompt2.jpg" />
 
 Prompt for suggesting relative startups to job seekers
-<img src="./readme/prompt1.jpg" />
+<img src="./readme/prompts/prompt1.jpg" />
 
 Prompt for chat assisting startups
-<img src="./readme/prompt3.jpg" />
+<img src="./readme/prompts/prompt3.jpg" />
 
 Prompt for chat assisting job seekers
-<img src="./readme/prompt4.jpg" />
+<img src="./readme/prompts/prompt4.jpg" />
 
-<img src="./readme/aws.svg">
+<img src="./readme/svgs/aws.svg">
 
 > AWS Deployment: Enhancing Project Capabilities
 
@@ -161,17 +161,22 @@ My project takes advantage of AWS's powerful cloud infrastructure for deploying 
 <br>
 
 <!-- How to run -->
-<img src="./readme/unit-testing.svg"/>
+<img src="./readme/svgs/unit-testing.svg"/>
 
 > Precision in Development: Harnessing the Power of Unit Testing:
 
 This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities:
-<img src="./readme/unit-tests.png">
+
+<div class='flex row'>
+   <img src="./readme/unit-tests/unit-tests1.png">
+   <img src="./readme/unit-tests/unit-tests2.png">
+   <img src="./readme/unit-tests/unit-tests3.png">
+</div>
 
 <br><br>
 
 <!-- How to run -->
-<img src="./readme/title6.svg"/>
+<img src="./readme/svgs/title6.svg"/>
 
 > To set up LaunchHub locally, follow these steps:
 
