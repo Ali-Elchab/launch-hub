@@ -35,28 +35,30 @@
 
 ### LaunchHub is built using the following technologies:
 
-- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web. I have used Flutter to implement the android mobile application Launchhub. depending on provider which is a state manager used in flutter.
+- This project employs [Flutter](https://flutter.dev/), a hybrid app development platform, for building Launchhub, an Android mobile app. Flutter's single codebase approach is ideal for cross-platform development. It uses provider for state management.
 
-- For the server-side code, the app utilizes the [Laravel](https://laravel.com) framework. Laravel is a powerful and versatile PHP framework known for its elegant syntax and robust features. It's particularly favored for its expressive and clean code structure, comprehensive ecosystem, and extensive library of pre-built functions and tools. In my project, Laravel serves as the backbone for handling server-side logic, database interactions, API development, and providing a secure and scalable environment for the application backend. This integration ensures seamless communication between the Flutter front-end and server-side components, resulting in a cohesive and efficient user experience.
+- For server-side operations, this project leverages [Laravel](https://laravel.com), a PHP framework acclaimed for its implementation of the MVC (Model-View-Controller) architecture. I chose Laravel for its efficient MVC pattern, ensuring organized, maintainable code and streamlined database management.
 
 - For persistent storage (database), the app uses the [MySQL](https://www.mysql.com), a database for storing and manipulating data.
 
 - To send push notifications, the app uses the [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging).
 
-- For the suggestions, where the app suggests candidates to startups, and vice verca. I integrated [openAI](https://platform.openai.com/docs/introduction). Where i used my prompt engineering knoweledge to utilize a well structured prompt in order to get best results.
+- The app features candidate suggestions to startups and vice versa, using [OpenAI](https://platform.openai.com/docs/introduction) with structured prompts for optimal results.
+
+- For course recommendations, it utilizes the Udemy API, matching courses with user interests.
 
 - In the courses suggestions section, where the app suggests courses for users based on their interesets. I used [Udemy API](https://www.udemy.com/developers/instructor/).
 
-- For the admin dashboard, I utilized Electron with React, a powerful combination for building cross-platform desktop applications. Electron enables us to wrap the React application in a native desktop application environment, providing a seamless and integrated user experience. This approach allows for the creation of a sophisticated and responsive admin interface that is both visually appealing and functionally robust, enhancing the overall management and operational efficiency of our project.
+- The admin dashboard is built using [Electron](https://electron-vite.org) and [React](https://react.dev), offering a native desktop app experience. This setup creates a responsive and visually appealing interface, improving project management and efficiency.
 
 - The app uses the font [inter](https://fonts.google.com/specimen/Inter?query=inter) as its main font, and the design of the app adheres to the material design guidelines.
 
-<br><br>
+<br>
 
 <!-- Prototyping -->
 <img src="./readme/svgs/title3.svg"/>
 
-> We designed LaunchHub using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
+> I designed LaunchHub using wireframes and mockups, iterating on the design until I reached the ideal layout for easy navigation and a seamless user experience.
 
 - Project Figma Design [Figma](https://www.figma.com/file/s3jSDlC2Y6bQ66UD89vdHp/LaunchHub?type=design&node-id=40%3A951&mode=design&t=loxRXuZyBbfaBCiV-1)
 
@@ -79,14 +81,14 @@
 <!-- Database -->
 <img src="./readme/svgs/database.svg"/>
 
-> Architecting Data Excellence: Innovative Database Design Strategies:
+> For designing the project's database, I used MySQL Workbench to create and manage the database schema efficiently. Below is my ER Diagram.
 
 <img src="./readme/er-diagram.jpg"/>
 
 <!-- Implementation -->
 <img src="./readme/svgs/title4.svg"/>
 
-> Using the wireframes and mockups as a guide, we implemented the LaunchHub app with the following features:
+> Using the wireframes and mockups as a guide, I implemented the LaunchHub app with the following features:
 
 ### Startup Screens
 
@@ -118,9 +120,9 @@
 
 ### Job Seeker Profile
 
-| Home                                                       | Job Opportunities                                             |
-| ---------------------------------------------------------- | ------------------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/jobseeker-home.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png)   |
+| Home                                                       | Job Opportunities                                             | Job Post View                                       |
+| ---------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/jobseeker-home.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png)   | ![fsdaf](./readme/mobile-screenshots/job-post.jpeg) |
 | AI Assistant                                               | Edit Profile                                                  |
 | ![fsdaf](./readme/mobile-screenshots/initialAI.png)        | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
 
@@ -137,9 +139,7 @@
 <!--Prompt Engineering -->
 <img src="./readme/svgs/pormpt.svg">
 
-> Mastering AI Interaction: Unveiling the Power of Prompt Engineering:
-
-In this project, prompt engineering was key to effectively communicate with OpenAI's GPT-4. By carefully crafting questions and instructions, I ensured that the AI provided precise and contextually relevant responses, crucial for the specific objectives and tasks of our work. Below is some prompts used:
+> In this project, prompt engineering was key to effectively communicate with OpenAI's GPT-4. By carefully crafting questions and instructions, I ensured that the AI provided precise and contextually relevant responses, crucial for the specific objectives and tasks of our work. Below is some prompts used:
 
 Prompt for suggesting potential candidates for startups
 <img src="./readme/prompts/prompt2.jpg" />
@@ -152,20 +152,16 @@ Prompt for chat assisting startups
 
 Prompt for chat assisting job seekers
 <img src="./readme/prompts/prompt4.jpg" />
-
+<br>
 <img src="./readme/svgs/aws.svg">
 
-> AWS Deployment: Enhancing Project Capabilities
-
-My project takes advantage of AWS's powerful cloud infrastructure for deploying my models. This integration allows us to handle increased traffic and data loads with ease, ensuring high availability and minimal downtime. AWS's tools and services provide the necessary flexibility and efficiency, making our AI solutions more accessible and reliable for users. <a href="./readme/aws-commands.md">Here</a> you would find the commands used to deploy on Amazon Linux server.
-<br>
+> My project takes advantage of AWS's powerful cloud infrastructure for deploying my models. This integration allows us to handle increased traffic and data loads with ease, ensuring high availability and minimal downtime. AWS's tools and services provide the necessary flexibility and efficiency, making our AI solutions more accessible and reliable for users. <a href="./readme/aws-commands.md">Here</a>, you would find the commands used to deploy on Amazon Linux server.
+> <br>
 
 <!-- How to run -->
 <img src="./readme/svgs/unit-testing.svg"/>
 
-> Precision in Development: Harnessing the Power of Unit Testing:
-
-This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities:
+> This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities:
 
 <div class='flex row'>
    <img src="./readme/unit-tests/unit-tests1.png">
@@ -187,6 +183,50 @@ In order to run the mobile app, you should have an android physical phone with [
 ### Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up Launchhub._
+
+### To Start the Laravel Server on LocalHost
+
+1. Install [Composer](https://getcomposer.org/)
+
+   ```sh
+   composer install
+   ```
+
+2. Rename your '.env.example' file to '.env'
+   <br><br>
+3. Open your new .env file and make the necessary changes (App name, app key, database name...)
+   <br><br>
+4. Generate an application key:
+
+   ```sh
+   php artisan key:generate
+   ```
+
+5. Inside your .env file add the following:
+
+   ```sh
+   OPENAI_API_KEY : YOUR-KEY
+   UDEMY_CLIENT_ID : YOUR-CLIENT_ID
+   UDEMY_CLIENT_SECRET : YOUR-SECRET
+   NEWS_API_KEY : YOUR-KEY
+   FIREBASE_CREDENTIALS : YOUR-CREDENTIALS
+   FIREBASE_SERVER_KEY : YOUR-KEY
+   ```
+
+   Here's a reference to get your keys
+   [OpenAI Key](https://platform.openai.com/docs/api-reference), [Udemy API](https://www.udemy.com/developers/), [News API](https://newsapi.org), [Firebase](https://firebase.google.com)
+
+6. Get Migrations
+
+   ```sh
+   php artisan migrate
+   ```
+
+7. Seed Database: You can go to database/seeders/DatabaseSeeder and uncomment the lines you want to seed in the order they are written.
+
+   ```sh
+   php artisan db:seed
+   ```
 
 #### Mobile App:
 
