@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Industry;
+use App\Models\JobPost;
 use App\Models\JobSeeker;
 use App\Models\Specialization;
 use App\Models\Startup;
@@ -80,6 +81,21 @@ class JobSeekerTest extends TestCase
 
         $response->assertJson([
             'status' => 'error'
+        ]);
+    }
+
+    public function test_jobseeker_can_apply_for_jobpost()
+    {
+
+        $jobPost = JobPost::factory()->create();
+        $jobSeeker = JobSeeker::factory()->create([
+            'user_id' => $this->jobSeekerUser->id
+        ]);
+
+        $response =  $this->actingAs($this->jobSeekerUser)->post('/api/apply/' . $jobPost->id);
+
+        $response->assertJson([
+            'status' => 'success'
         ]);
     }
 }

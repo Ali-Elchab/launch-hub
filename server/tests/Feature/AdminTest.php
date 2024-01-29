@@ -97,4 +97,21 @@ class AdminTest extends TestCase
 
         $response->assertStatus(200);
     }
+    public function test_non_admin_can_add_advisor()
+    {
+        Advisor::factory()->count(5)->create();
+
+        $response = $this->actingAs($this->startupUser)->post('/api/admin/add_advisor', [
+            'name' => 'test',
+            'email' => 'testemail@test.com',
+            'location' => 'beirut',
+            'phone' => '70550225',
+            'bio' => 'advisor',
+            'photo_url' => 'default.png',
+            'category' => 'finance',
+            'expertise' => 'finance',
+        ]);
+
+        $response->assertStatus(403);
+    }
 }
