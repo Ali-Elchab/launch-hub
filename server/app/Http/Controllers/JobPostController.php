@@ -82,7 +82,7 @@ class JobPostController extends Controller
                 'experience_level' => 'required|string',
                 'education_level' => 'required|string',
                 'responsibilities' => 'required|string',
-                'required_skills' => 'required|array',
+                'required_skills' => 'array',
                 'job_status' => 'required|string',
                 'deadline' => 'required|string',
                 'specialization_id' => 'required|integer',
