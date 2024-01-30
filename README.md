@@ -134,6 +134,11 @@
 | ----------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
 | ![Landing](./readme/mobile-screenshots/initialAI.jpg) | ![fsdaf](./readme/mobile-screenshots/courses.jpg) | ![fsdaf](./readme/mobile-screenshots/trending.jpg) | ![Landing](./readme/mobile-screenshots/jobseeker-profile.jpg) |
 
+| Video Demo |
+| ---------- |
+|https://github.com/Ali-Elchab/launchHub/assets/106644215/9972ff46-5339-4bb8-a3d7-5daedf7eceb5|
+
+
 ### Admin Screens (Electron)
 
 | Signin                                      | Dashboard                                    |
