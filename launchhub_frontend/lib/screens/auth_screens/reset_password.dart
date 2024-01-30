@@ -11,14 +11,13 @@ import 'package:launchhub_frontend/widgets/submit_button.dart';
 class ResetPassword extends StatelessWidget {
   ResetPassword({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final String? token = ModalRoute.of(context)!.settings.arguments as String?;
 
-    final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-    final emailController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: 'Forgot Password'),
