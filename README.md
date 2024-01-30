@@ -64,13 +64,13 @@
 
 | Home screen                           | Ai Assistance                  | Hire Talent Screen                           |
 | ------------------------------------- | ------------------------------ | -------------------------------------------- |
-| ![Landing](./readme/mockups/home.png) | ![Ai](./readme/mockups/ai.png) | ![Landing](./readme/mockups/hire-talent.png) |
+| ![Landing](./readme/mockups/home.jpg) | ![Ai](./readme/mockups/ai.jpg) | ![Landing](./readme/mockups/hire-talent.jpg) |
 
 #### Admin Panel
 
 | Dashboard                                  | User Management                             |
 | ------------------------------------------ | ------------------------------------------- |
-| ![Landing](./readme/mockups/dashboard.png) | ![Ai](./readme/mockups/user-management.png) |
+| ![Landing](./readme/mockups/dashboard.jpg) | ![Ai](./readme/mockups/user-management.jpg) |
 
 - Check more Mockups on [Figma](https://www.figma.com/file/s3jSDlC2Y6bQ66UD89vdHp/LaunchHub?type=design&node-id=40%3A951&mode=design&t=loxRXuZyBbfaBCiV-1)
 
@@ -90,17 +90,17 @@
 
 ### Startup Screens
 
-| Sign Up Process                      | Home Screen                        | Contact Advisors                       | Guides & Templates                   |
-| ------------------------------------ | ---------------------------------- | -------------------------------------- | ------------------------------------ |
-| ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/home.gif) | ![Landing](./readme/GIFs/advisors.gif) | ![Landing](./readme/GIFs/guides.gif) |
+| Sign Up Process                      | Reset Password                               | Home Screen                        | Guides & Templates                   |
+| ------------------------------------ | -------------------------------------------- | ---------------------------------- | ------------------------------------ |
+| ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/reset-password.gif) | ![Landing](./readme/GIFs/home.gif) | ![Landing](./readme/GIFs/guides.gif) |
 
-| Notifications                               | AI Assistant                     | Job Board                              | Remove Job                               |
-| ------------------------------------------- | -------------------------------- | -------------------------------------- | ---------------------------------------- |
-| ![Landing](./readme/GIFs/notifications.gif) | ![Landing](./readme/GIFs/ai.gif) | ![Landing](./readme/GIFs/post-job.gif) | ![Landing](./readme/GIFs/remove-job.gif) |
+| Job Board                              | Remove Job                               | Notifications                               | AI Assistant                     |
+| -------------------------------------- | ---------------------------------------- | ------------------------------------------- | -------------------------------- |
+| ![Landing](./readme/GIFs/post-job.gif) | ![Landing](./readme/GIFs/remove-job.gif) | ![Landing](./readme/GIFs/notifications.gif) | ![Landing](./readme/GIFs/ai.gif) |
 
-| Suggested Candidates                    | Contact / Reject Applicants                    | View Job Seeker Profile              | AI Assistant                     |
-| --------------------------------------- | ---------------------------------------------- | ------------------------------------ | -------------------------------- |
-| ![Landing](./readme/GIFs/suggested.gif) | ![Landing](./readme/GIFs/reject-applicant.gif) | ![Landing](./readme/GIFs/signup.gif) | ![Landing](./readme/GIFs/ai.gif) |
+| Suggested Candidates                    | Contact / Reject Applicants                    | Edit Profile                               | Contact Advisors                       |
+| --------------------------------------- | ---------------------------------------------- | ------------------------------------------ | -------------------------------------- |
+| ![Landing](./readme/GIFs/suggested.gif) | ![Landing](./readme/GIFs/reject-applicant.gif) | ![Landing](./readme/GIFs/edit-startup.gif) | ![Landing](./readme/GIFs/advisors.gif) |
 
 ### Job Seeker Screens
 
@@ -112,37 +112,37 @@
 
 ### Startup Profile
 
-| Splash Screen                                      | Signup                                           | Home screen                                            | Guides & Templates                                 |
+| Splash Screen                                      | Signup                                           | Home screen                                            | Hiring Guides                                      |
 | -------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------ | -------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/splash.png) | ![fsdaf](./readme/mobile-screenshots/signup.png) | ![fsdaf](./readme/mobile-screenshots/startup-home.png) | ![Landing](./readme/mobile-screenshots/guides.png) |
+| ![Landing](./readme/mobile-screenshots/splash.jpg) | ![fsdaf](./readme/mobile-screenshots/signup.jpg) | ![fsdaf](./readme/mobile-screenshots/startup-home.jpg) | ![Landing](./readme/mobile-screenshots/guides.jpg) |
 
 | Suggested Candidates                                    | Candidates Profile                                          | Notification                                           | AI Assistant                                 |
 | ------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/hire-talent.png) | ![fsdaf](./readme/mobile-screenshots/candidate-profile.png) | ![fsdaf](./readme/mobile-screenshots/notification.png) | ![fsdaf](./readme/mobile-screenshots/ai.png) |
+| ![Landing](./readme/mobile-screenshots/hire-talent.jpg) | ![fsdaf](./readme/mobile-screenshots/candidate-profile.jpg) | ![fsdaf](./readme/mobile-screenshots/notification.jpg) | ![fsdaf](./readme/mobile-screenshots/ai.jpg) |
 
-| Job Board                                             | Post A Job                                         | Guides & Templates                               | Contact Advisors                                   |
-| ----------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/job-board.png) | ![fsdaf](./readme/mobile-screenshots/post-job.png) | ![fsdaf](./readme/mobile-screenshots/guides.png) | ![fsdaf](./readme/mobile-screenshots/advisors.png) |
+| Job Board                                             | Post A Job                                         | Related Templates                                   | Contact Advisors                                   |
+| ----------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/job-board.jpg) | ![fsdaf](./readme/mobile-screenshots/post-job.jpg) | ![fsdaf](./readme/mobile-screenshots/templates.jpg) | ![fsdaf](./readme/mobile-screenshots/advisors.jpg) |
 
 ### Job Seeker Profile
 
-| Home                                                       | Job Posts                                                   | Job Post View                                      | Requirememts                                                  |
-| ---------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/jobseeker-home.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png) | ![fsdaf](./readme/mobile-screenshots/job-post.png) | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
+| Home                                                       | Job Posts                                                   | Job Post View                                           | Qualifications                                             |
+| ---------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/jobseeker-home.jpg) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.jpg) | ![fsdaf](./readme/mobile-screenshots/job-post-view.jpg) | ![Landing](./readme/mobile-screenshots/qualifications.jpg) |
 
-| AI Assitant                                           | Suggested Courses                                           | Trending Articles                                  | Edit Profile                                                  |
-| ----------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
-| ![Landing](./readme/mobile-screenshots/initialAI.png) | ![fsdaf](./readme/mobile-screenshots/job-opportunities.png) | ![fsdaf](./readme/mobile-screenshots/job-post.png) | ![Landing](./readme/mobile-screenshots/jobseeker-profile.png) |
+| AI Assitant                                           | Suggested Courses                                 | Trending Articles                                  | Edit Profile                                                  |
+| ----------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
+| ![Landing](./readme/mobile-screenshots/initialAI.jpg) | ![fsdaf](./readme/mobile-screenshots/courses.jpg) | ![fsdaf](./readme/mobile-screenshots/trending.jpg) | ![Landing](./readme/mobile-screenshots/jobseeker-profile.jpg) |
 
 ### Admin Screens (Electron)
 
 | Signin                                      | Dashboard                                    |
 | ------------------------------------------- | -------------------------------------------- |
-| ![Landing](./readme/electron-ss/signin.png) | ![fsdaf](./readme/electron-ss/dashboard.png) |
+| ![Landing](./readme/electron-ss/signin.jpg) | ![fsdaf](./readme/electron-ss/dashboard.jpg) |
 
 | User Management                            | Content Management                                    |
 | ------------------------------------------ | ----------------------------------------------------- |
-| ![Landing](./readme/electron-ss/users.png) | ![fsdaf](./readme/electron-ss/content-management.png) |
+| ![Landing](./readme/electron-ss/users.jpg) | ![fsdaf](./readme/electron-ss/content-management.jpg) |
 
 <br>
 
@@ -166,7 +166,8 @@ Prompt for chat assisting job seekers
 <img src="./readme/svgs/aws.svg">
 
 > My project takes advantage of AWS's powerful cloud infrastructure for deploying my models. This integration allows us to handle increased traffic and data loads with ease, ensuring high availability and minimal downtime. AWS's tools and services provide the necessary flexibility and efficiency, making our AI solutions more accessible and reliable for users. <a href="./readme/aws-commands.md">Here</a>, you would find the commands used to deploy on Amazon Linux server.
-> <a href="./readme/aws-commands.md">[List Of Commands]</a> > <br>
+
+#####List Of Commands ><br>
 
 <div style="height:200px; overflow-y: scroll; background-color:black">
 <pre style="height:200px; overflow-y: scroll; color:white">
@@ -213,9 +214,9 @@ Prompt for chat assisting job seekers
 > This project number of unit tests implemented to ensure reliability and accuracy of code belwo are some if the unit tests runned on some of the projects funcitonalities:
 
 <div class='flex row'>
-   <img src="./readme/unit-tests/unit-tests1.png">
-   <img src="./readme/unit-tests/unit-tests2.png">
-   <img src="./readme/unit-tests/unit-tests3.png">
+   <img src="./readme/unit-tests/unit-tests1.jpg">
+   <img src="./readme/unit-tests/unit-tests2.jpg">
+   <img src="./readme/unit-tests/unit-tests3.jpg">
 </div>
 
 <br><br>
