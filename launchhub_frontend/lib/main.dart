@@ -29,7 +29,7 @@ void main() async {
   try {
     initialLink = await getInitialLink();
   } catch (e) {
-    print(e);
+    rethrow;
   }
 
   runApp(ProviderScope(child: App(initialLink: initialLink)));

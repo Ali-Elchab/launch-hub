@@ -140,7 +140,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
       "job_salary": int.parse(_jobSalaryController.text),
       "job_qualification": _jobQualificationController.text,
       "specialization_id": _selectedNiche!.id,
-      "required_skills": selectedSkills.map((skill) => skill.id).toList(),
+      "required_skills": selectedSkills.map((skill) => skill['id']).toList(),
       "job_status": _selectJobStatus,
       "startup_id": widget.jobPost!.startupId,
     });
@@ -192,6 +192,7 @@ class _UpdateJobPostState extends ConsumerState<UpdateJobPost> {
                                     .headlineMedium!
                                     .copyWith(
                                       color: Colors.white,
+                                      fontSize: 26,
                                     )),
                             IconButton(
                               onPressed: () {
